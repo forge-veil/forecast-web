@@ -97,7 +97,7 @@ def main():
       {
         "name": n,
         "input": [None if (x is None or (isinstance(x, float) and math.isnan(x))) else x for x in s[n]],
-        "output": out.astype(float).round(6).tolist(),
+        "output": out.astype(float).tolist(),
       }
     )
   os.makedirs(os.path.dirname(OUT), exist_ok=True)
