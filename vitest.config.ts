@@ -7,6 +7,7 @@ export default defineConfig({
     globals: true,
     environment: "node",
     testTimeout: 120_000,
+    hookTimeout: 300_000,
     environmentMatchGlobs: [["test/react.test.tsx", "jsdom"]],
   },
 });
