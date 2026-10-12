@@ -1,4 +1,4 @@
-import { CONTEXT, type Series, type SeriesStats } from "./types";
+import { CONTEXT, type Series, type SeriesStats } from "src/types";
 
 const TOLERANCE = 1e-6;
 
