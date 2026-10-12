@@ -5,6 +5,7 @@
 | `ci.yml` | every push to `main` and every pull request | nothing; typecheck, tests, build, pack check |
 | `release-weights.yml` | manual (Actions tab, "Run workflow") | ONNX weights to the Hugging Face Hub |
 | `release-npm.yml` | pushing a `v*` tag | the package to npm |
+| `release-model-card.yml` | a push to `main` that changes `tools/hub/README.md`, or manual | only the Hugging Face model card, leaving the weights untouched |
 
 Release the weights before the first npm release, since the package downloads them from the Hub by default.
 

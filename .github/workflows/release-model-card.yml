@@ -1,0 +1,31 @@
+name: Release model card
+
+# Uploads only the model card when it changes, leaving the weight files (and
+# every browser cache keyed by their hashes) untouched.
+on:
+  push:
+    branches: [main]
+    paths: ["tools/hub/README.md"]
+  workflow_dispatch:
+    inputs:
+      repo_id:
+        description: Hugging Face model repo
+        default: bakshinghampalace/timesfm-2.5-200m-onnx
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    environment: huggingface
+    steps:
+      - uses: actions/checkout@v5
+      - uses: astral-sh/setup-uv@v10.3.0 # no floating major tags after v6
+      - name: Upload README.md
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          REPO_ID: ${{ inputs.repo_id || 'bakshinghampalace/timesfm-2.5-200m-onnx' }}
+          CARD_COMMIT_MESSAGE: "Update model card from ${{ github.repository }}@${{ github.sha }}"
+        run: uv run --no-project --with huggingface_hub python tools/upload_card.py "$REPO_ID"
