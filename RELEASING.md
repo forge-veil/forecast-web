@@ -19,9 +19,9 @@ Release the weights before the first npm release, since the package downloads th
 
 ## Releasing weights
 
-Run "Release weights" from the Actions tab. It:
+Run "Release weights" from the Actions tab and pick the `model` to rebuild (each model has a folder in `tools/models/`). `repo_id` is optional; it defaults to the `repo` in that model's `model.json`. It:
 
-1. Downloads Google's TimesFM 2.5 checkpoint at the revision pinned in `tools/models/timesfm/model.json`.
+1. Downloads the upstream checkpoint at the revision pinned in `tools/models/<model>/model.json` (for TimesFM, Google's TimesFM 2.5).
 2. Exports the fp32 graph and builds the q8 and fp16 variants.
 3. Generates reference forecasts with the official Python library.
 4. Runs the full test suite, including parity for every format. Nothing uploads if it fails.
@@ -32,6 +32,6 @@ Tick "dry run" to build and verify without uploading. The run takes roughly 15 t
 ## Releasing the package
 
 1. Bump `version` in `package.json` and commit.
-2. Tag and push: `git tag v0.1.0 && git push origin main v0.1.0`.
+2. Tag and push: `git tag v0.2.0 && git push origin main v0.2.0`.
 
 The workflow refuses to publish if the tag and `package.json` version differ, and it reruns typecheck, tests and build first.

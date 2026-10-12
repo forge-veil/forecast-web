@@ -4,7 +4,7 @@
 import { mkdir, writeFile } from "node:fs/promises";
 
 const OUT = new URL("../public/data/", import.meta.url);
-const UA = { "user-agent": "Mozilla/5.0 (timesfm-web demo build; +https://github.com/forge-veil/timesfm-web)" };
+const UA = { "user-agent": "Mozilla/5.0 (forecast-web demo build; +https://github.com/forge-veil/forecast-web)" };
 
 async function get(url) {
   const res = await fetch(url, { headers: UA, signal: AbortSignal.timeout(30_000) });

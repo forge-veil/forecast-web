@@ -530,7 +530,7 @@ torch = [
 ]
 
 [[package]]
-name = "timesfm-web-tools"
+name = "forecast-web-tools"
 version = "0.0.0"
 source = { virtual = "." }
 dependencies = [

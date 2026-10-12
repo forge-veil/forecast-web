@@ -7,6 +7,16 @@ describe("model registry", () => {
     expect(MODELS["timesfm-2.5"].defaults).toEqual({ webgpu: "fp16", wasm: "q8" });
   });
 
+  it("keeps model info read-only so callers cannot change loader behavior", () => {
+    const info = MODELS["timesfm-2.5"];
+    expect(() => (info.dtypes as string[]).push("q4")).toThrow(TypeError);
+    expect(() => ((info.defaults as { wasm: string }).wasm = "fp32")).toThrow(TypeError);
+    expect(() => ((info as { maxHorizon: number }).maxHorizon = 999)).toThrow(TypeError);
+    expect(() => ((info.sizes as { q8?: number }).q8 = 1)).toThrow(TypeError);
+    expect(getAdapter("timesfm-2.5").info).toBe(info);
+    expect(Object.isFrozen(MODELS)).toBe(true);
+  });
+
   it("returns the adapter for a known id", () => {
     expect(getAdapter("timesfm-2.5").weights).toBe("bakshinghampalace/timesfm-2.5-200m-onnx");
   });

@@ -8,10 +8,22 @@ const ADAPTERS: Record<ModelId, ModelAdapter> = {
   "timesfm-2.5": timesfm,
 };
 
-/** Every available model's info, for pickers and download-size labels. Loads nothing. */
-export const MODELS = Object.fromEntries(
-  Object.entries(ADAPTERS).map(([id, a]) => [id, a.info]),
-) as Record<ModelId, ModelInfo>;
+/** Freezes an object and every object or array inside it. */
+function deepFreeze<T>(value: T): T {
+  if (value && typeof value === "object" && !Object.isFrozen(value)) {
+    Object.freeze(value);
+    for (const v of Object.values(value)) deepFreeze(v);
+  }
+  return value;
+}
+
+// The loader reads info at runtime, so callers must not be able to change it through MODELS.
+for (const a of Object.values(ADAPTERS)) deepFreeze(a.info);
+
+/** Every available model's info, for pickers and download-size labels. Loads nothing. Read-only. */
+export const MODELS = Object.freeze(
+  Object.fromEntries(Object.entries(ADAPTERS).map(([id, a]) => [id, a.info])),
+) as Readonly<Record<ModelId, ModelInfo>>;
 
 export function getAdapter(id: string): ModelAdapter {
   if (typeof id === "string" && Object.hasOwn(ADAPTERS, id)) return ADAPTERS[id as ModelId];

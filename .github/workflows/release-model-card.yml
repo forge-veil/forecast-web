@@ -36,8 +36,11 @@ jobs:
             models="${{ inputs.model }}"
           elif [ -z "$BEFORE" ] || [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
             models=$(ls tools/models)
-          else
+          elif git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then
             models=$(git diff --name-only "$BEFORE" "$GITHUB_SHA" -- 'tools/models/*/hub/README.md' | cut -d/ -f3 | sort -u)
+          else
+            # The previous head is gone (force-push): upload every card rather than fail.
+            models=$(ls tools/models)
           fi
           for m in $models; do
             uv run --no-project --with huggingface_hub python tools/upload_card.py "$m"
