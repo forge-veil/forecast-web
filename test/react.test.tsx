@@ -1,16 +1,19 @@
 // @vitest-environment jsdom
 import { act, render, renderHook, waitFor } from "@testing-library/react";
 import { StrictMode, useEffect, type ReactNode } from "react";
-import type { LoadOptions, TimesFM } from "src/types";
+import { MODELS } from "src/models/index";
+import type { Forecaster, LoadOptions } from "src/types";
 
-const loadMock = vi.fn<(o: LoadOptions) => Promise<TimesFM>>();
-vi.mock("src/index", () => ({ loadTimesFM: (o: LoadOptions) => loadMock(o) }));
+const loadMock = vi.fn<(o: LoadOptions) => Promise<Forecaster>>();
+vi.mock("src/index", () => ({ loadForecaster: (o: LoadOptions) => loadMock(o) }));
 
-const { TimesFMProvider, useTimesFM } = await import("src/react");
-const { TimesFMError } = await import("src/types");
+const { ForecastProvider, useForecaster } = await import("src/react");
+const { ForecastError } = await import("src/types");
 
-function fakeModel(): TimesFM & { dispose: ReturnType<typeof vi.fn> } {
+function fakeModel(): Forecaster & { dispose: ReturnType<typeof vi.fn> } {
   return {
+    model: "timesfm-2.5" as const,
+    info: MODELS["timesfm-2.5"],
     backend: "wasm",
     dtype: "q8",
     config: { model_type: "timesfm", context: 512, horizon: 128, patch: 32, quantiles: [] },
@@ -21,16 +24,16 @@ function fakeModel(): TimesFM & { dispose: ReturnType<typeof vi.fn> } {
 
 const wrap =
   (props: Record<string, unknown> = {}) =>
-  ({ children }: { children: ReactNode }) => <TimesFMProvider {...props}>{children}</TimesFMProvider>;
+  ({ children }: { children: ReactNode }) => <ForecastProvider {...props}>{children}</ForecastProvider>;
 
 beforeEach(() => {
   loadMock.mockClear();
   loadMock.mockImplementation(() => Promise.reject(new Error("loadMock not configured")));
 });
 
-describe("TimesFMProvider + useTimesFM", () => {
+describe("ForecastProvider + useForecaster", () => {
   it("is lazy by default", () => {
-    const { result } = renderHook(() => useTimesFM(), { wrapper: wrap() });
+    const { result } = renderHook(() => useForecaster(), { wrapper: wrap() });
     expect(result.current.status).toBe("idle");
     expect(loadMock).not.toHaveBeenCalled();
   });
@@ -41,7 +44,7 @@ describe("TimesFMProvider + useTimesFM", () => {
       o.onProgress?.({ loaded: 1, total: 2, cached: false });
       return m;
     });
-    const { result } = renderHook(() => useTimesFM(), { wrapper: wrap({ dtype: "fp16" }) });
+    const { result } = renderHook(() => useForecaster(), { wrapper: wrap({ dtype: "fp16" }) });
     await act(async () => {
       await Promise.all([result.current.forecast([[1, 2]]), result.current.forecast([[3]])]);
     });
@@ -55,14 +58,14 @@ describe("TimesFMProvider + useTimesFM", () => {
 
   it("loads on mount when eager", async () => {
     loadMock.mockResolvedValue(fakeModel());
-    const { result } = renderHook(() => useTimesFM(), { wrapper: wrap({ eager: true }) });
+    const { result } = renderHook(() => useForecaster(), { wrapper: wrap({ eager: true }) });
     await waitFor(() => expect(result.current.status).toBe("ready"));
     expect(loadMock).toHaveBeenCalledTimes(1);
   });
 
   it("exposes load errors and allows a retry", async () => {
-    loadMock.mockRejectedValueOnce(new TimesFMError("LOAD_FAILED", "HTTP 404"));
-    const { result } = renderHook(() => useTimesFM(), { wrapper: wrap() });
+    loadMock.mockRejectedValueOnce(new ForecastError("LOAD_FAILED", "HTTP 404"));
+    const { result } = renderHook(() => useForecaster(), { wrapper: wrap() });
     await act(async () => {
       await result.current.load().catch(() => {});
     });
@@ -80,7 +83,7 @@ describe("TimesFMProvider + useTimesFM", () => {
   it("disposes the model on unmount", async () => {
     const m = fakeModel();
     loadMock.mockResolvedValue(m);
-    const { result, unmount } = renderHook(() => useTimesFM(), { wrapper: wrap() });
+    const { result, unmount } = renderHook(() => useForecaster(), { wrapper: wrap() });
     await act(async () => {
       await result.current.load();
     });
@@ -94,7 +97,7 @@ describe("TimesFMProvider + useTimesFM", () => {
       signal = o.signal;
       return new Promise(() => {});
     });
-    const { result, unmount } = renderHook(() => useTimesFM(), { wrapper: wrap() });
+    const { result, unmount } = renderHook(() => useForecaster(), { wrapper: wrap() });
     act(() => void result.current.load());
     unmount();
     await waitFor(() => expect(signal?.aborted).toBe(true));
@@ -107,16 +110,16 @@ describe("TimesFMProvider + useTimesFM", () => {
       models.push(m);
       return m;
     });
-    let state: ReturnType<typeof useTimesFM> | undefined;
+    let state: ReturnType<typeof useForecaster> | undefined;
     function Probe() {
-      state = useTimesFM();
+      state = useForecaster();
       return null;
     }
     render(
       <StrictMode>
-        <TimesFMProvider eager>
+        <ForecastProvider eager>
           <Probe />
-        </TimesFMProvider>
+        </ForecastProvider>
       </StrictMode>,
     );
     await waitFor(() => expect(state?.status).toBe("ready"));
@@ -131,7 +134,7 @@ describe("TimesFMProvider + useTimesFM", () => {
     loadMock.mockImplementation(() => new Promise((r) => setTimeout(() => r(m), 5)));
     const outcomes: string[] = [];
     function Child() {
-      const { forecast } = useTimesFM();
+      const { forecast } = useForecaster();
       useEffect(() => {
         forecast([[1, 2, 3]]).then(
           () => outcomes.push("ok"),
@@ -142,9 +145,9 @@ describe("TimesFMProvider + useTimesFM", () => {
     }
     render(
       <StrictMode>
-        <TimesFMProvider>
+        <ForecastProvider>
           <Child />
-        </TimesFMProvider>
+        </ForecastProvider>
       </StrictMode>,
     );
     await waitFor(() => expect(outcomes.length).toBe(2));
@@ -153,8 +156,33 @@ describe("TimesFMProvider + useTimesFM", () => {
     expect(m.dispose).not.toHaveBeenCalled();
   });
 
+  it("remounting with a new key disposes the old model and loads again", async () => {
+    const a = fakeModel();
+    const b = fakeModel();
+    loadMock.mockResolvedValueOnce(a).mockResolvedValueOnce(b);
+    function Child() {
+      const { load } = useForecaster();
+      useEffect(() => void load(), [load]);
+      return null;
+    }
+    const { rerender } = render(
+      <ForecastProvider key="first">
+        <Child />
+      </ForecastProvider>,
+    );
+    await waitFor(() => expect(loadMock).toHaveBeenCalledTimes(1));
+    rerender(
+      <ForecastProvider key="second">
+        <Child />
+      </ForecastProvider>,
+    );
+    await waitFor(() => expect(a.dispose).toHaveBeenCalledTimes(1));
+    expect(loadMock).toHaveBeenCalledTimes(2);
+    expect(b.dispose).not.toHaveBeenCalled();
+  });
+
   it("throws a clear error outside the provider", () => {
     vi.spyOn(console, "error").mockImplementation(() => {});
-    expect(() => renderHook(() => useTimesFM())).toThrow(/inside <TimesFMProvider>/);
+    expect(() => renderHook(() => useForecaster())).toThrow(/inside <ForecastProvider>/);
   });
 });

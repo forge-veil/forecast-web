@@ -1,21 +1,26 @@
-# timesfm-web
+# forecast-web
 
-Run Google's [TimesFM 2.5](https://github.com/google-research/timesfm) time series forecasting model in the browser. Give it a history, get back a forecast up to 128 steps ahead with nine quantile bands. Everything runs on the visitor's machine, on WebGPU when available and WASM otherwise.
+Time series forecasting models that run in the browser. Give it a history, get back a forecast with nine quantile bands. Everything runs on the visitor's machine, on WebGPU when available and WASM otherwise.
 
-**[Live demo](https://vatsalbakshi.com/timesfm-web/)**: stocks, weather, Wikipedia traffic and seasonal data, forecast and backtested in your browser.
+**[Live demo](https://vatsalbakshi.com/forecast-web/)**: stocks, weather, Wikipedia traffic and seasonal data, forecast and backtested in your browser.
 
-Forecasts match the official Python library. On the test series, the fp32 model agrees with `TimesFM_2p5_200M_torch.forecast()` to within 0.002% of each series' standard deviation. An automated parity test enforces agreement within 0.1%.
+| Model | id | Context | Horizon | Weights |
+|---|---|---|---|---|
+| [TimesFM 2.5](https://github.com/google-research/timesfm) by Google Research | `"timesfm-2.5"` (default) | 512 | 128 | [bakshinghampalace/timesfm-2.5-200m-onnx](https://huggingface.co/bakshinghampalace/timesfm-2.5-200m-onnx) |
+
+Every model's forecasts are checked against its official Python library. For TimesFM, the fp32 model agrees with `TimesFM_2p5_200M_torch.forecast()` to within 0.002% of each series' standard deviation, and an automated parity test enforces agreement within 0.1%.
 
 ```sh
-npm install timesfm-web
+npm install forecast-web
 ```
 
 ## Quick start
 
 ```ts
-import { loadTimesFM } from "timesfm-web";
+import { loadForecaster } from "forecast-web";
 
-const model = await loadTimesFM({
+const model = await loadForecaster({
+  model: "timesfm-2.5",
   onProgress: ({ loaded, total }) => console.log(`${Math.round((100 * loaded) / total)}%`),
 });
 
@@ -26,7 +31,16 @@ forecast.q10;    // lower band
 forecast.q90;    // upper band
 ```
 
-The first load downloads the weights (249 to 441 MB, see below) and stores them with the browser Cache API, so later visits skip the download.
+The first load downloads the weights (for TimesFM, 249 to 441 MB, see below) and stores them with the browser Cache API, so later visits skip the download.
+
+`MODELS` describes every model without loading it, which is enough to build a picker:
+
+```ts
+import { MODELS } from "forecast-web";
+
+MODELS["timesfm-2.5"].maxHorizon; // 128
+MODELS["timesfm-2.5"].sizes.q8;   // 261301673 bytes
+```
 
 Series are plain arrays, oldest first. `null`, `undefined` and `NaN` mark missing values. They are handled like the Python library: leading gaps are dropped, interior gaps are filled by linear interpolation, and trailing gaps hold the last value. Two edge cases differ on purpose. An empty or all-missing series gives a forecast of zeros, where Python raises an error. `Infinity` counts as missing, where Python keeps it and returns non-finite output. Pass several series to forecast them in one batch.
 
@@ -34,18 +48,18 @@ Series are plain arrays, oldest first. `null`, `undefined` and `NaN` mark missin
 
 ```tsx
 import { useEffect, useState } from "react";
-import { TimesFMProvider, useTimesFM } from "timesfm-web/react";
+import { ForecastProvider, useForecaster } from "forecast-web/react";
 
 function App() {
   return (
-    <TimesFMProvider>
+    <ForecastProvider model="timesfm-2.5">
       <Forecast series={data} />
-    </TimesFMProvider>
+    </ForecastProvider>
   );
 }
 
 function Forecast({ series }: { series: number[] }) {
-  const { status, progress, forecast } = useTimesFM();
+  const { status, progress, forecast } = useForecaster();
   const [result, setResult] = useState<number[] | null>(null);
 
   useEffect(() => {
@@ -58,13 +72,14 @@ function Forecast({ series }: { series: number[] }) {
 }
 ```
 
-The provider loads lazily, on the first `forecast()` or `load()` call. Pass `eager` to start the download on mount. It accepts the same options as `loadTimesFM`, reads them when the load starts, and disposes the model on unmount. `useTimesFM()` returns `status` (`"idle" | "loading" | "ready" | "error"`), `progress`, `backend`, `error`, `load()` and `forecast()`.
+The provider loads lazily, on the first `forecast()` or `load()` call. Pass `eager` to start the download on mount. It accepts the same options as `loadForecaster`, reads them when the load starts, and disposes the model on unmount. To switch models, remount it: `<ForecastProvider key={model} model={model}>`. `useForecaster()` returns `status` (`"idle" | "loading" | "ready" | "error"`), `progress`, `backend`, `error`, `load()` and `forecast()`.
 
 ## Options
 
 | Option | Default | Meaning |
 |---|---|---|
-| `model` | `bakshinghampalace/timesfm-2.5-200m-onnx` | Hugging Face repo id, or a URL to a folder with the same layout for self-hosting. |
+| `model` | `"timesfm-2.5"` | Which model to run. See `MODELS`. |
+| `weights` | the model's published repo | Hugging Face repo id, or a URL to a folder with the same layout for self-hosting. |
 | `revision` | `"main"` | Hugging Face revision. |
 | `dtype` | `"auto"` | Weight format: `"auto"`, `"q8"`, `"fp16"` or `"fp32"`. |
 | `device` | `"auto"` | `"auto"`, `"webgpu"` or `"wasm"`. |
@@ -74,11 +89,15 @@ The provider loads lazily, on the first `forecast()` or `load()` call. Pass `eag
 | `onProgress` | none | Called with `{ loaded, total, cached }` during the download. |
 | `signal` | none | An `AbortSignal` that cancels the load. |
 
-`forecast(series, { horizon })` accepts a horizon from 1 to 128 and returns, per series, `median`, `mean`, and `q10` through `q90`. The median is the official TimesFM point forecast. `mean` is the separate mean head.
+`forecast(series, { horizon })` accepts a horizon from 1 to the model's `maxHorizon` and returns, per series, `median` and `q10` through `q90`. The median is the point forecast. TimesFM also returns `mean`, its separate mean head.
 
-Errors are `TimesFMError` instances with a `code`: `HORIZON_TOO_LONG`, `INVALID_HORIZON`, `EMPTY_INPUT`, `LOAD_FAILED`, `ABORTED` or `DISPOSED`.
+Errors are `ForecastError` instances with a `code`: `HORIZON_TOO_LONG`, `INVALID_HORIZON`, `EMPTY_INPUT`, `UNKNOWN_MODEL`, `LOAD_FAILED`, `ABORTED` or `DISPOSED`.
 
-## Choosing weights and backend
+## Coming from timesfm-web
+
+`timesfm-web` 0.1 is this package under its old name. To upgrade, install `forecast-web` and rename: `loadTimesFM` to `loadForecaster`, `TimesFMProvider` to `ForecastProvider`, `useTimesFM` to `useForecaster`, `TimesFMError` to `ForecastError`. The old `model` option (a repo id or URL) is now `weights`. The TimesFM constants (`CONTEXT`, `MAX_HORIZON`, `CHANNELS`, `QUANTILES`, `DEFAULT_MODEL`) are no longer exported; read limits from `MODELS["timesfm-2.5"]` instead. `Forecast.mean` is now optional in the types, since not every model has a mean head; TimesFM still fills it. Forecasts are identical.
+
+## TimesFM weights and backend
 
 `"auto"` picks fp16 on WebGPU and q8 on WASM. q8 cannot run on WebGPU: onnxruntime-web's WebGPU backend only supports 2-bit and 4-bit packed weights, and 4-bit is too lossy for this model.
 
@@ -108,7 +127,7 @@ onnxruntime-web only uses multiple WASM threads when the page is cross-origin is
 
 ## Self-hosting the weights
 
-Put these files in a folder on any static host and pass its URL as `model`:
+Put these files in a folder on any static host and pass its URL as `weights`:
 
 ```
 config.json
@@ -120,15 +139,15 @@ onnx/model.onnx               fp32
 
 You only need the formats you plan to load. The fp32 and q8 files use Transformers.js file names. The fp16 pair is a compact format specific to this package: an fp32 graph whose weights ship as fp16 and are expanded in the browser. A standard fp16 conversion gives wrong results on WebGPU, which accumulates in half precision.
 
-The `tools/` folder rebuilds every file from Google's checkpoint:
+The `tools/` folder rebuilds every TimesFM file from Google's checkpoint:
 
 ```sh
 cd tools
 uv sync --python 3.12
-uv run python export_onnx.py      # fp32 graph
-uv run python quantize.py         # q8 and fp16 variants
-uv run python make_reference.py   # parity fixtures from the official library
-uv run python package_hub.py      # config.json with file sizes and hashes, model card
+uv run python models/timesfm/export_onnx.py      # fp32 graph
+uv run python models/timesfm/quantize.py         # q8 and fp16 variants
+uv run python models/timesfm/make_reference.py   # parity fixtures from the official library
+uv run python package_hub.py timesfm             # config.json with file sizes and hashes, model card
 ```
 
 The loader always fetches `config.json` fresh and keys cached weights by the SHA-256 listed there, so uploading new weights with a regenerated config invalidates old cached copies.

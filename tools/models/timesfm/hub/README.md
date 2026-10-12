@@ -19,27 +19,27 @@ tags:
 
 # TimesFM 2.5 200M for the browser
 
-[![npm](https://img.shields.io/npm/v/timesfm-web?label=npm%20timesfm-web)](https://www.npmjs.com/package/timesfm-web)
-[![Live demo](https://img.shields.io/badge/demo-live-0a84ff)](https://vatsalbakshi.com/timesfm-web/)
-[![GitHub](https://img.shields.io/badge/GitHub-forge--veil%2Ftimesfm--web-181717?logo=github)](https://github.com/forge-veil/timesfm-web)
+[![npm](https://img.shields.io/npm/v/forecast-web?label=npm%20forecast-web)](https://www.npmjs.com/package/forecast-web)
+[![Live demo](https://img.shields.io/badge/demo-live-0a84ff)](https://vatsalbakshi.com/forecast-web/)
+[![GitHub](https://img.shields.io/badge/GitHub-forge--veil%2Fforecast--web-181717?logo=github)](https://github.com/forge-veil/forecast-web)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue)](#license)
 
-ONNX exports of Google Research's [TimesFM 2.5 (200M)](https://huggingface.co/google/timesfm-2.5-200m-pytorch), built to run time series forecasting entirely in the browser on WebGPU or WebAssembly. They are the default weights of the [`timesfm-web`](https://www.npmjs.com/package/timesfm-web) npm package.
+ONNX exports of Google Research's [TimesFM 2.5 (200M)](https://huggingface.co/google/timesfm-2.5-200m-pytorch), built to run time series forecasting entirely in the browser on WebGPU or WebAssembly. They are the default TimesFM weights of the [`forecast-web`](https://www.npmjs.com/package/forecast-web) npm package, a browser forecasting library with a choice of models.
 
 Give it a history of up to 512 points and get back a forecast up to 128 steps ahead, with a median and nine quantile bands. No server, no training, no API key.
 
-**[Try the live demo](https://vatsalbakshi.com/timesfm-web/)**: stocks, live weather, Wikipedia traffic and classic seasonal data, forecast and backtested in your browser.
+**[Try the live demo](https://vatsalbakshi.com/forecast-web/)**: stocks, live weather, Wikipedia traffic and classic seasonal data, forecast and backtested in your browser.
 
 ## Quick start
 
 ```sh
-npm install timesfm-web
+npm install forecast-web
 ```
 
 ```ts
-import { loadTimesFM } from "timesfm-web";
+import { loadForecaster } from "forecast-web";
 
-const model = await loadTimesFM(); // downloads these weights once, then caches them
+const model = await loadForecaster({ model: "timesfm-2.5" }); // downloads these weights once, then caches them
 const [forecast] = await model.forecast([dailySignups], { horizon: 30 });
 
 forecast.median; // point forecast, 30 values
@@ -50,16 +50,16 @@ forecast.q90;    // upper band
 React:
 
 ```tsx
-import { TimesFMProvider, useTimesFM } from "timesfm-web/react";
+import { ForecastProvider, useForecaster } from "forecast-web/react";
 
-<TimesFMProvider>
+<ForecastProvider model="timesfm-2.5">
   <App />
-</TimesFMProvider>;
+</ForecastProvider>;
 
-const { status, progress, forecast } = useTimesFM();
+const { status, progress, forecast } = useForecaster();
 ```
 
-The library picks the format and backend automatically, runs inference in a Web Worker, handles missing values, and reproduces the official forecast post-processing. See the [package README](https://github.com/forge-veil/timesfm-web#readme) for all options.
+The library picks the format and backend automatically, runs inference in a Web Worker, handles missing values, and reproduces the official forecast post-processing. See the [package README](https://github.com/forge-veil/forecast-web#readme) for all options.
 
 ## Files
 
@@ -75,7 +75,7 @@ The library picks the format and backend automatically, runs inference in a Web 
 
 A standard fp16 ONNX conversion gives wrong results on WebGPU, where reductions and attention scores accumulate in half precision. Casting fp16 weights to fp32 inside the graph fixes accuracy, but onnxruntime-web does not fold those casts on WebGPU, so every forecast pays for them.
 
-`model_fp16w` avoids both problems. The graph is fp32 and reads its large weights as external data named `model_fp16w.onnx_data`. The `.f16` file holds those weights as fp16 at exactly half the graph's offsets. Expand it to fp32 in one pass and pass the result to onnxruntime as external data. `timesfm-web` does this automatically. The result runs at fp32 speed from a half-size download.
+`model_fp16w` avoids both problems. The graph is fp32 and reads its large weights as external data named `model_fp16w.onnx_data`. The `.f16` file holds those weights as fp16 at exactly half the graph's offsets. Expand it to fp32 in one pass and pass the result to onnxruntime as external data. `forecast-web` does this automatically. The result runs at fp32 speed from a half-size download.
 
 ### Why 8-bit is WASM only
 
@@ -116,14 +116,14 @@ Each file is one prefill pass of the model for a fixed 512-point context, which 
 | `point` | float32 | `[batch, 128, 10]` | channel 0 is the mean head, 1 to 9 are q10 to q90 |
 | `qspread` | float32 | `[batch, 128, 10]` | the continuous quantile head |
 
-Forecast-level processing is not in the graph. To match the official library outside `timesfm-web`, reproduce `ForecastConfig(max_context=512, max_horizon=128, normalize_inputs=True, use_continuous_quantile_head=True, force_flip_invariance=True, infer_is_positive=True, fix_quantile_crossing=True)`:
+Forecast-level processing is not in the graph. To match the official library outside `forecast-web`, reproduce `ForecastConfig(max_context=512, max_horizon=128, normalize_inputs=True, use_continuous_quantile_head=True, force_flip_invariance=True, infer_is_positive=True, fix_quantile_crossing=True)`:
 
 1. Strip leading NaNs, linearly interpolate interior gaps, keep the last 512 points, left-pad with zeros and mark the padding.
 2. Normalize by the mean and unbiased standard deviation of the padded window.
 3. Run the graph on the series and on its negation, then average them with the quantile flip (channel q pairs with 10 minus q).
 4. Rebuild quantiles 1 to 9 from the continuous head anchored on the median, fix quantile crossing, de-normalize, and clamp at zero for non-negative inputs.
 
-The reference implementation is [`src/preprocess.ts` and `src/postprocess.ts`](https://github.com/forge-veil/timesfm-web/tree/main/src) in the library.
+The reference implementation is [`src/models/timesfm/preprocess.ts` and `src/models/timesfm/postprocess.ts`](https://github.com/forge-veil/forecast-web/tree/main/src/models/timesfm) in the library.
 
 ### Running the raw graph
 
@@ -142,7 +142,7 @@ point, qspread = session.run(None, {"inputs": inputs, "masks": masks})
 
 ## How these files were made
 
-Built and verified by the [`release-weights`](https://github.com/forge-veil/timesfm-web/blob/main/.github/workflows/release-weights.yml) GitHub Actions workflow:
+Built and verified by the [`release-weights`](https://github.com/forge-veil/forecast-web/blob/main/.github/workflows/release-weights.yml) GitHub Actions workflow:
 
 1. Download Google's checkpoint at a pinned revision.
 2. Export the prefill graph to ONNX (opset 17). Per-patch statistics are joined pairwise, because a single 16-input Concat exceeds WebGPU's per-shader buffer limit and produces wrong results there.
@@ -172,4 +172,4 @@ The export approach builds on [hwkim3330/timesfm-web](https://github.com/hwkim33
 
 ## License
 
-Apache-2.0, the same license as the original TimesFM 2.5 weights. TimesFM is developed by Google Research. These conversions and the `timesfm-web` library are independent and not affiliated with Google.
+Apache-2.0, the same license as the original TimesFM 2.5 weights. TimesFM is developed by Google Research. These conversions and the `forecast-web` library are independent and not affiliated with Google.

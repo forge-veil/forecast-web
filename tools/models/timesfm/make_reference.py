@@ -1,6 +1,6 @@
 """Generate parity fixtures from the official TimesFM 2.5 forecast.
 
-Writes test/fixtures/reference.json with each input series and the official
+Writes test/fixtures/timesfm/reference.json with each input series and the official
 output for all 10 channels at horizon 128, plus a graph check that compares
 the exported fp32 ONNX graph against the torch prefill on the same inputs.
 """
@@ -17,9 +17,9 @@ import torch
 from export_onnx import REPO, REVISION
 
 HERE = os.path.dirname(__file__)
-ROOT = os.path.join(HERE, "..")
-ONNX = os.path.join(ROOT, "build", "hub", "onnx", "model.onnx")
-OUT = os.path.join(ROOT, "test", "fixtures", "reference.json")
+ROOT = os.path.join(HERE, "..", "..", "..")
+ONNX = os.path.join(ROOT, "build", "timesfm", "onnx", "model.onnx")
+OUT = os.path.join(ROOT, "test", "fixtures", "timesfm", "reference.json")
 H = 128
 
 

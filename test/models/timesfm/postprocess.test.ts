@@ -1,6 +1,7 @@
-import { postprocess } from "src/postprocess";
-import { createForecaster } from "src/forecaster";
-import { CHANNELS, MAX_HORIZON, TimesFMError, type SeriesStats } from "src/types";
+import { createForecaster } from "src/models/timesfm/forecaster";
+import { CHANNELS, MAX_HORIZON, type SeriesStats } from "src/models/timesfm/constants";
+import { postprocess } from "src/models/timesfm/postprocess";
+import { ForecastError } from "src/types";
 
 const ROW = MAX_HORIZON * CHANNELS;
 
@@ -26,7 +27,7 @@ describe("postprocess", () => {
     const neg = [-0, -9, -8, -7, -6, -5, -4, -3, -2, -1];
     const p = graphOut(ramp, neg);
     const [f] = postprocess(p, p, [unit], 1);
-    expect(f.mean[0]).toBeCloseTo(0);
+    expect(f.mean![0]).toBeCloseTo(0);
     expect(f.q10[0]).toBeCloseTo(1);
     expect(f.median[0]).toBeCloseTo(5);
     expect(f.q90[0]).toBeCloseTo(9);
@@ -35,7 +36,7 @@ describe("postprocess", () => {
   it("keeps channel 0 unflipped", () => {
     const p = graphOut([4, ...zeros.slice(1)], [-2, ...zeros.slice(1)]);
     const [f] = postprocess(p, p, [unit], 1);
-    expect(f.mean[0]).toBeCloseTo(3);
+    expect(f.mean![0]).toBeCloseTo(3);
   });
 
   it("rebuilds quantiles from the continuous head anchored on the point median", () => {
@@ -62,15 +63,15 @@ describe("postprocess", () => {
   it("renormalizes with the raw sigma and mean", () => {
     const p = graphOut([2, ...zeros.slice(1)], zeros);
     const [f] = postprocess(p, p, [{ mu: 100, sigma: 10, isPositive: false }], 1);
-    expect(f.mean[0]).toBeCloseTo(100 + 1 * 10);
+    expect(f.mean![0]).toBeCloseTo(100 + 1 * 10);
   });
 
   it("clamps at zero only for positive series", () => {
     const p = graphOut([-4, ...zeros.slice(1)], zeros);
     const [pos] = postprocess(p, p, [{ mu: 0, sigma: 1, isPositive: true }], 1);
     const [neg] = postprocess(p, p, [unit], 1);
-    expect(pos.mean[0]).toBe(0);
-    expect(neg.mean[0]).toBeCloseTo(-2);
+    expect(pos.mean![0]).toBe(0);
+    expect(neg.mean![0]).toBeCloseTo(-2);
   });
 
   it("returns exactly horizon steps per field", () => {
@@ -122,7 +123,7 @@ describe("createForecaster", () => {
   it("rejects horizons over 128", async () => {
     const { forecast } = fake();
     const err = await forecast([[1, 2]], { horizon: 129 }).catch((e) => e);
-    expect(err).toBeInstanceOf(TimesFMError);
+    expect(err).toBeInstanceOf(ForecastError);
     expect(err.code).toBe("HORIZON_TOO_LONG");
   });
 

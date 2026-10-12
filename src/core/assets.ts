@@ -1,22 +1,7 @@
-import { TimesFMError, type ResolvedDtype } from "src/types";
+import type { FileSpec } from "src/models/adapter";
+import { ForecastError } from "src/types";
 
-/**
- * Default weights repo. Replace once the converted weights are published;
- * until then pass `model` explicitly (a repo id or a self-hosted base URL).
- */
-export const DEFAULT_MODEL = "bakshinghampalace/timesfm-2.5-200m-onnx";
-export const CACHE_NAME = "timesfm-web-v1";
-
-/**
- * fp32 and q8 use Transformers.js file names. fp16 is a custom compact pair:
- * an fp32 graph whose weights are external data, shipped as fp16 and expanded
- * by the loader into the buffer the graph names `location`.
- */
-const FILES: Record<ResolvedDtype, { graph: string; data?: { file: string; location: string } }> = {
-  fp32: { graph: "onnx/model.onnx" },
-  fp16: { graph: "onnx/model_fp16w.onnx", data: { file: "onnx/model_fp16w.f16", location: "model_fp16w.onnx_data" } },
-  q8: { graph: "onnx/model_quantized.onnx" },
-};
+export const CACHE_NAME = "forecast-web-v1";
 
 export interface ModelFiles {
   config: string;
@@ -28,33 +13,31 @@ export interface ModelFiles {
 const isUrl = (s: string) => /^(https?:|blob:|data:)/.test(s) || /^\.{0,2}\//.test(s);
 
 /**
- * Resolves the base URL for a model. Repo ids map to the Hugging Face resolve
- * endpoint; anything URL-shaped is used as-is, resolved against `relativeTo`
- * so it still works after being handed to a worker.
+ * Resolves the base URL for a weights location. Repo ids map to the Hugging
+ * Face resolve endpoint; anything URL-shaped is used as-is, resolved against
+ * `relativeTo` so it still works after being handed to a worker.
  */
-export function resolveBase(model = DEFAULT_MODEL, revision = "main", relativeTo?: string): string {
+export function resolveBase(weights: string, revision = "main", relativeTo?: string): string {
   let base: string;
-  if (isUrl(model)) {
-    base = relativeTo ? new URL(model, relativeTo).href : model;
+  if (isUrl(weights)) {
+    base = relativeTo ? new URL(weights, relativeTo).href : weights;
   } else {
-    if (!/^[\w.-]+\/[\w.-]+$/.test(model))
-      throw new TimesFMError("LOAD_FAILED", `"${model}" is neither a Hugging Face repo id nor a URL`);
-    base = `https://huggingface.co/${model}/resolve/${encodeURIComponent(revision)}/`;
+    if (!/^[\w.-]+\/[\w.-]+$/.test(weights))
+      throw new ForecastError("LOAD_FAILED", `"${weights}" is neither a Hugging Face repo id nor a URL`);
+    base = `https://huggingface.co/${weights}/resolve/${encodeURIComponent(revision)}/`;
   }
   return base.endsWith("/") ? base : base + "/";
 }
 
-export function resolveFiles(base: string, dtype: ResolvedDtype = "q8"): ModelFiles {
-  const f = FILES[dtype];
-  if (!f) throw new TimesFMError("LOAD_FAILED", `unknown dtype "${dtype}"`);
+export function resolveFiles(base: string, spec: FileSpec): ModelFiles {
   return {
     config: base + "config.json",
-    model: base + f.graph,
-    halfData: f.data && { url: base + f.data.file, location: f.data.location },
+    model: base + spec.graph,
+    halfData: spec.half && { url: base + spec.half.file, location: spec.half.location },
   };
 }
 
-const aborted = () => new TimesFMError("ABORTED", "load was aborted");
+const aborted = () => new ForecastError("ABORTED", "load was aborted");
 
 async function openCache(enabled: boolean): Promise<Cache | null> {
   if (!enabled || typeof caches === "undefined") return null;
@@ -111,12 +94,12 @@ export async function fetchBytes(
     if (signal?.aborted) throw aborted();
     const hit = opts.networkFirst ? await fromCache() : null;
     if (hit) return hit;
-    throw new TimesFMError("LOAD_FAILED", `could not fetch ${url}`, { cause: e });
+    throw new ForecastError("LOAD_FAILED", `could not fetch ${url}`, { cause: e });
   }
   if (!res.ok) {
     const hit = opts.networkFirst ? await fromCache() : null;
     if (hit) return hit;
-    throw new TimesFMError("LOAD_FAILED", `${url} returned HTTP ${res.status}`);
+    throw new ForecastError("LOAD_FAILED", `${url} returned HTTP ${res.status}`);
   }
 
   let total = Number(res.headers.get("content-length")) || 0;
@@ -142,7 +125,7 @@ export async function fetchBytes(
     }
   } catch (e) {
     if (signal?.aborted) throw aborted();
-    throw new TimesFMError("LOAD_FAILED", `download of ${url} was interrupted`, { cause: e });
+    throw new ForecastError("LOAD_FAILED", `download of ${url} was interrupted`, { cause: e });
   }
 
   const bytes = new Uint8Array(loaded);

@@ -1,9 +1,9 @@
-import { connectWorker, toFloat64, type WorkerLike } from "src/client";
-import type { Core, CoreOptions } from "src/loader";
-import { createHandler, type Request, type Response } from "src/protocol";
-import { TimesFMError, type Forecast, type Progress, type Series } from "src/types";
+import { connectWorker, toFloat64, type WorkerLike } from "src/core/client";
+import { loadCore, type Core, type CoreOptions } from "src/core/loader";
+import { createHandler, type Request, type Response } from "src/core/protocol";
+import { ForecastError, type Forecast, type Progress, type Series } from "src/types";
 
-const opts: CoreOptions = { base: "https://x/", dtype: "q8", device: "wasm", cache: false };
+const opts: CoreOptions = { model: "timesfm-2.5", base: "https://x/", dtype: "q8", device: "wasm", cache: false };
 
 function fakeForecast(series: Series[]): Forecast[] {
   return series.map((s) => {
@@ -101,9 +101,35 @@ describe("connectWorker", () => {
     await expect(m.forecast([[1]])).rejects.toMatchObject({ code: "DISPOSED" });
   });
 
+  it("exposes the model id and info", async () => {
+    const { worker } = setup();
+    const m = await connectWorker(worker, opts);
+    expect(m.model).toBe("timesfm-2.5");
+    expect(m.info.maxHorizon).toBe(128);
+  });
+
+  it("rejects a horizon over the model limit on the main thread", async () => {
+    const { worker, posted } = setup();
+    const m = await connectWorker(worker, opts);
+    const before = posted.length;
+    await expect(m.forecast([[1, 2]], { horizon: 129 })).rejects.toMatchObject({ code: "HORIZON_TOO_LONG" });
+    expect(posted.length).toBe(before);
+  });
+
+  it("carries UNKNOWN_MODEL from the worker", async () => {
+    const { worker } = setup((o, p) =>
+      loadCore(o, async () => {
+        throw new Error("unused");
+      }, p),
+    );
+    await expect(connectWorker(worker, { ...opts, model: "nope" as never })).rejects.toMatchObject({
+      code: "UNKNOWN_MODEL",
+    });
+  });
+
   it("surfaces load errors with their code", async () => {
     const { worker } = setup(async () => {
-      throw new TimesFMError("LOAD_FAILED", "HTTP 404");
+      throw new ForecastError("LOAD_FAILED", "HTTP 404");
     });
     await expect(connectWorker(worker, opts)).rejects.toMatchObject({ code: "LOAD_FAILED", message: "HTTP 404" });
   });

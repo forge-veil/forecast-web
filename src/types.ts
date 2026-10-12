@@ -1,33 +1,40 @@
-/** Fixed shape of the exported graph. */
-export const CONTEXT = 512;
-export const MAX_HORIZON = 128;
-/** Output channels: 0 = mean head, 1..9 = q10..q90. */
-export const CHANNELS = 10;
-export const QUANTILES = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9] as const;
-
 /** A time series, oldest first. NaN, null and undefined mark missing values. */
 export type Series = ArrayLike<number | null | undefined>;
 
+/** Registry key of a forecasting model. See MODELS. */
+export type ModelId = "timesfm-2.5";
+
 /**
- * Weight format. "auto" picks fp16 on WebGPU and q8 on WASM.
- * q8 (249 MB) runs on WASM only. fp16 (441 MB) and fp32 (883 MB) run on both.
+ * Weight format. "auto" picks the model's default for the backend
+ * (TimesFM: fp16 on WebGPU, q8 on WASM). q8 runs on WASM only.
  */
 export type Dtype = "auto" | "q8" | "fp16" | "fp32";
 export type ResolvedDtype = Exclude<Dtype, "auto">;
 export type Device = "auto" | "webgpu" | "wasm";
 export type Backend = "webgpu" | "wasm";
 
-export interface SeriesStats {
-  mu: number;
-  sigma: number;
-  isPositive: boolean;
+/** What a model supports, available without loading it. */
+export interface ModelInfo {
+  id: ModelId;
+  name: string;
+  /** Upstream model page. */
+  source: string;
+  license: string;
+  /** Most recent points the model reads; older history is ignored. */
+  maxContext: number;
+  maxHorizon: number;
+  dtypes: ResolvedDtype[];
+  /** The dtype "auto" picks on each backend. */
+  defaults: Record<Backend, ResolvedDtype>;
+  /** Download size in bytes per dtype. */
+  sizes: Partial<Record<ResolvedDtype, number>>;
 }
 
 export interface Forecast {
   horizon: number;
-  /** Output of the mean head (channel 0). */
-  mean: number[];
-  /** The median (q50). This is the official TimesFM point forecast. */
+  /** Mean head output, for models that have one (TimesFM does). */
+  mean?: number[];
+  /** The median (q50), the point forecast. */
   median: number[];
   q10: number[];
   q20: number[];
@@ -41,18 +48,16 @@ export interface Forecast {
 }
 
 export interface ForecastOptions {
-  /** Steps to forecast, 1 to 128. Defaults to 128. */
+  /** Steps to forecast, 1 to the model's maxHorizon. Defaults to maxHorizon. */
   horizon?: number;
 }
 
+/** The weights repo's config.json. Fields beyond these are model-specific. */
 export interface ModelConfig {
   model_type: string;
-  context: number;
-  horizon: number;
-  patch: number;
-  quantiles: number[];
-  /** Size and SHA-256 per weight file, relative to the model base URL. */
+  /** Size and SHA-256 per weight file, relative to the weights base URL. */
   files?: Record<string, { bytes: number; sha256: string }>;
+  [key: string]: unknown;
 }
 
 export interface Progress {
@@ -63,8 +68,10 @@ export interface Progress {
 }
 
 export interface LoadOptions {
-  /** Hugging Face repo id, or a base URL that contains config.json and onnx/. */
-  model?: string;
+  /** Which model to run. Defaults to "timesfm-2.5". */
+  model?: ModelId;
+  /** Hugging Face repo id, or a base URL that contains config.json and onnx/. Defaults to the model's published weights. */
+  weights?: string;
   /** Hugging Face revision. Ignored for base URLs. Defaults to "main". */
   revision?: string;
   dtype?: Dtype;
@@ -79,7 +86,9 @@ export interface LoadOptions {
   signal?: AbortSignal;
 }
 
-export interface TimesFM {
+export interface Forecaster {
+  readonly model: ModelId;
+  readonly info: ModelInfo;
   readonly backend: Backend;
   readonly dtype: ResolvedDtype;
   readonly config: ModelConfig;
@@ -91,15 +100,16 @@ export type ErrorCode =
   | "HORIZON_TOO_LONG"
   | "INVALID_HORIZON"
   | "EMPTY_INPUT"
+  | "UNKNOWN_MODEL"
   | "LOAD_FAILED"
   | "ABORTED"
   | "DISPOSED";
 
-export class TimesFMError extends Error {
+export class ForecastError extends Error {
   readonly code: ErrorCode;
   constructor(code: ErrorCode, message: string, options?: { cause?: unknown }) {
     super(message, options);
-    this.name = "TimesFMError";
+    this.name = "ForecastError";
     this.code = code;
   }
 }

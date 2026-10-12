@@ -1,16 +1,18 @@
-import { fetchBytes, resolveFiles } from "src/assets";
-import { createForecaster } from "src/forecaster";
-import { hasWebGPU } from "src/gpu";
-import { expandHalfToFloat } from "src/half";
-import type { GraphSession, SessionOptions } from "src/session";
+import { fetchBytes, resolveFiles } from "src/core/assets";
+import { hasWebGPU } from "src/core/gpu";
+import { expandHalfToFloat } from "src/core/half";
+import type { GraphSession, SessionOptions } from "src/core/session";
+import { getAdapter } from "src/models/index";
 import {
-  TimesFMError,
+  ForecastError,
   type Backend,
   type Device,
   type Dtype,
   type Forecast,
   type ForecastOptions,
   type ModelConfig,
+  type ModelId,
+  type ModelInfo,
   type Progress,
   type ResolvedDtype,
   type Series,
@@ -18,6 +20,7 @@ import {
 
 /** Options after the main thread has resolved defaults and the base URL. Structured-clone safe. */
 export interface CoreOptions {
+  model: ModelId;
   base: string;
   dtype: Dtype;
   device: Device;
@@ -40,15 +43,21 @@ export type SessionFactory = (bytes: Uint8Array, opts: SessionOptions) => Promis
  * onnxruntime-web's WebGPU backend, so it always lands on WASM.
  */
 export function planLoad(
+  info: ModelInfo,
   dtype: Dtype,
   device: Device,
   gpuAvailable: boolean,
 ): { dtype: ResolvedDtype; device: Backend; fallback: boolean } {
   const gpu = device === "webgpu" || (device === "auto" && gpuAvailable);
-  const resolved: ResolvedDtype = dtype === "auto" ? (gpu ? "fp16" : "q8") : dtype;
+  const resolved: ResolvedDtype = dtype === "auto" ? info.defaults[gpu ? "webgpu" : "wasm"] : dtype;
+  if (!info.dtypes.includes(resolved))
+    throw new ForecastError(
+      "LOAD_FAILED",
+      `${info.name} has no "${resolved}" weights; choose one of ${info.dtypes.join(", ")}`,
+    );
   if (resolved === "q8" && gpu) {
     if (device === "webgpu")
-      throw new TimesFMError("LOAD_FAILED", 'dtype "q8" runs on WASM only; use "fp16" or "fp32" with WebGPU');
+      throw new ForecastError("LOAD_FAILED", 'dtype "q8" runs on WASM only; use "fp16" or "fp32" with WebGPU');
     return { dtype: resolved, device: "wasm", fallback: false };
   }
   return { dtype: resolved, device: gpu ? "webgpu" : "wasm", fallback: gpu && device === "auto" };
@@ -62,9 +71,10 @@ export async function loadCore(
   signal?: AbortSignal,
   gpuCheck: () => Promise<boolean> = hasWebGPU,
 ): Promise<Core> {
+  const adapter = getAdapter(opts.model);
   const needsGpuCheck = opts.device === "auto";
-  const plan = planLoad(opts.dtype, opts.device, needsGpuCheck ? await gpuCheck() : false);
-  const files = resolveFiles(opts.base, plan.dtype);
+  const plan = planLoad(adapter.info, opts.dtype, opts.device, needsGpuCheck ? await gpuCheck() : false);
+  const files = resolveFiles(opts.base, adapter.files(plan.dtype));
 
   // Always fetch config fresh (it is small and carries the weight hashes); the cache is the offline fallback.
   const cfgBytes = await fetchBytes(files.config, { cache: opts.cache, networkFirst: true, signal });
@@ -72,13 +82,9 @@ export async function loadCore(
   try {
     config = JSON.parse(new TextDecoder().decode(cfgBytes));
   } catch (e) {
-    throw new TimesFMError("LOAD_FAILED", `${files.config} is not valid JSON`, { cause: e });
+    throw new ForecastError("LOAD_FAILED", `${files.config} is not valid JSON`, { cause: e });
   }
-  if (config.context !== 512 || config.horizon !== 128)
-    throw new TimesFMError(
-      "LOAD_FAILED",
-      `unsupported model shape: context ${config.context}, horizon ${config.horizon} (expected 512 and 128)`,
-    );
+  adapter.checkConfig(config);
 
   const urls = [files.model, ...(files.halfData ? [files.halfData.url] : [])];
   const meta = urls.map((u) => config.files?.[u.slice(opts.base.length)]);
@@ -121,12 +127,12 @@ export async function loadCore(
       ),
     );
   } catch (e) {
-    if (signal?.aborted) throw new TimesFMError("ABORTED", "load was aborted");
+    if (signal?.aborted) throw new ForecastError("ABORTED", "load was aborted");
     throw e;
   } finally {
     signal?.removeEventListener("abort", forward);
   }
-  if (signal?.aborted) throw new TimesFMError("ABORTED", "load was aborted");
+  if (signal?.aborted) throw new ForecastError("ABORTED", "load was aborted");
 
   const externalData =
     half && files.halfData ? [{ path: files.halfData.location, data: expandHalfToFloat(half) }] : undefined;
@@ -138,13 +144,13 @@ export async function loadCore(
   });
   if (signal?.aborted) {
     await session.release();
-    throw new TimesFMError("ABORTED", "load was aborted");
+    throw new ForecastError("ABORTED", "load was aborted");
   }
   return {
     backend: session.backend,
     dtype: plan.dtype,
     config,
-    forecast: createForecaster(session.run, config.context),
+    forecast: adapter.forecaster(session.run, config),
     release: () => session.release(),
   };
 }

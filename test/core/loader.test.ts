@@ -1,6 +1,9 @@
-import { loadCore, planLoad, type CoreOptions, type SessionFactory } from "src/loader";
-import type { SessionOptions } from "src/session";
-import type { Progress } from "src/types";
+import { loadCore, planLoad, type CoreOptions, type SessionFactory } from "src/core/loader";
+import type { SessionOptions } from "src/core/session";
+import { MODELS } from "src/models/index";
+import type { ModelInfo, Progress } from "src/types";
+
+const info = MODELS["timesfm-2.5"];
 
 describe("planLoad", () => {
   it.each([
@@ -13,11 +16,22 @@ describe("planLoad", () => {
     ["fp32", "auto", true, "fp32", "webgpu", true],
     ["fp16", "wasm", true, "fp16", "wasm", false],
   ] as const)("%s on %s (gpu=%s) -> %s on %s", (dtype, device, gpu, d, dev, fb) => {
-    expect(planLoad(dtype, device, gpu)).toEqual({ dtype: d, device: dev, fallback: fb });
+    expect(planLoad(info, dtype, device, gpu)).toEqual({ dtype: d, device: dev, fallback: fb });
   });
 
   it("refuses q8 on explicit WebGPU with a clear message", () => {
-    expect(() => planLoad("q8", "webgpu", true)).toThrow(/WASM only/);
+    expect(() => planLoad(info, "q8", "webgpu", true)).toThrow(/WASM only/);
+  });
+
+  it("rejects a dtype the model does not ship, naming the options", () => {
+    const only: ModelInfo = { ...info, dtypes: ["q8"] };
+    expect(() => planLoad(only, "fp32", "wasm", false)).toThrow(/TimesFM 2.5 has no "fp32" weights; choose one of q8/);
+  });
+
+  it("auto follows the model's per-backend defaults", () => {
+    const custom: ModelInfo = { ...info, defaults: { webgpu: "fp32", wasm: "fp16" } };
+    expect(planLoad(custom, "auto", "auto", true).dtype).toBe("fp32");
+    expect(planLoad(custom, "auto", "auto", false).dtype).toBe("fp16");
   });
 });
 
@@ -43,6 +57,7 @@ describe("loadCore", () => {
   afterEach(() => vi.unstubAllGlobals());
 
   const opts = (o: Partial<CoreOptions>): CoreOptions => ({
+    model: "timesfm-2.5",
     base: "https://m/",
     dtype: "auto",
     device: "auto",
@@ -181,6 +196,12 @@ describe("loadCore", () => {
     const { factory } = fakeSession();
     await expect(loadCore(opts({ device: "wasm" }), factory)).rejects.toThrow(/unsupported model shape/);
     files["https://m/config.json"] = new TextEncoder().encode(JSON.stringify(config));
+  });
+
+  it("rejects an unknown model before fetching anything", async () => {
+    const { factory } = fakeSession();
+    await expect(loadCore(opts({ model: "nope" as never }), factory)).rejects.toMatchObject({ code: "UNKNOWN_MODEL" });
+    expect(fetch).not.toHaveBeenCalled();
   });
 
   it("reports a missing weights file as LOAD_FAILED", async () => {

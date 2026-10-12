@@ -1,6 +1,6 @@
-import type { Core, CoreOptions } from "src/loader";
+import type { Core, CoreOptions } from "src/core/loader";
 import {
-  TimesFMError,
+  ForecastError,
   type Backend,
   type ErrorCode,
   type Forecast,
@@ -22,7 +22,7 @@ export type Response =
   | { type: "error"; id: number; code: ErrorCode; message: string };
 
 export function toErrorResponse(id: number, e: unknown): Response {
-  if (e instanceof TimesFMError) return { type: "error", id, code: e.code, message: e.message };
+  if (e instanceof ForecastError) return { type: "error", id, code: e.code, message: e.message };
   return { type: "error", id, code: "LOAD_FAILED", message: e instanceof Error ? e.message : String(e) };
 }
 
@@ -43,7 +43,7 @@ export function createHandler(load: (opts: CoreOptions, onProgress: (p: Progress
           return;
         }
         case "forecast": {
-          if (!core) throw new TimesFMError("LOAD_FAILED", "model is not loaded");
+          if (!core) throw new ForecastError("LOAD_FAILED", "model is not loaded");
           const c = await core;
           const forecasts = await c.forecast(msg.series, { horizon: msg.horizon });
           post({ type: "result", id: msg.id, forecasts });

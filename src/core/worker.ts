@@ -1,6 +1,6 @@
-import { loadCore } from "src/loader";
-import { createHandler, type Request, type Response } from "src/protocol";
-import { createSession } from "src/session";
+import { loadCore } from "src/core/loader";
+import { createHandler, type Request, type Response } from "src/core/protocol";
+import { createSession } from "src/core/session";
 
 const scope = self as unknown as {
   onmessage: ((e: MessageEvent<Request>) => void) | null;

@@ -1,7 +1,7 @@
 {
-  "name": "timesfm-web",
-  "version": "0.1.0",
-  "description": "Run Google's TimesFM 2.5 time series forecasting model in the browser, with an optional React hook.",
+  "name": "forecast-web",
+  "version": "0.2.0",
+  "description": "Time series forecasting models in the browser on WebGPU or WebAssembly, starting with Google's TimesFM 2.5. Optional React hook.",
   "license": "Apache-2.0",
   "type": "module",
   "sideEffects": false,
@@ -24,11 +24,12 @@
     "./package.json": "./package.json"
   },
   "keywords": [
-    "timesfm",
-    "time-series",
     "forecasting",
+    "time-series",
+    "timesfm",
     "onnx",
     "webgpu",
+    "browser",
     "react"
   ],
   "scripts": {
@@ -62,10 +63,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/forge-veil/timesfm-web.git"
+    "url": "git+https://github.com/forge-veil/forecast-web.git"
   },
-  "homepage": "https://github.com/forge-veil/timesfm-web#readme",
+  "homepage": "https://github.com/forge-veil/forecast-web#readme",
   "bugs": {
-    "url": "https://github.com/forge-veil/timesfm-web/issues"
+    "url": "https://github.com/forge-veil/forecast-web/issues"
   }
 }

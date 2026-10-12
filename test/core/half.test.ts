@@ -1,4 +1,4 @@
-import { expandHalfToFloat, halfToFloat } from "src/half";
+import { expandHalfToFloat, halfToFloat } from "src/core/half";
 
 describe("halfToFloat", () => {
   it.each([

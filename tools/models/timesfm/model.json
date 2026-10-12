@@ -1,0 +1,7 @@
+{
+  "repo": "bakshinghampalace/timesfm-2.5-200m-onnx",
+  "source": "google/timesfm-2.5-200m-pytorch",
+  "revision": "1d952420fba87f3c6dee4f240de0f1a0fbc790e3",
+  "files": ["onnx/model.onnx", "onnx/model_fp16w.onnx", "onnx/model_fp16w.f16", "onnx/model_quantized.onnx"],
+  "required": ["config.json", "README.md", "onnx/model_quantized.onnx", "onnx/model_fp16w.onnx", "onnx/model_fp16w.f16"]
+}

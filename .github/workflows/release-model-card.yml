@@ -1,17 +1,18 @@
 name: Release model card
 
-# Uploads only the model card when it changes, leaving the weight files (and
+# Uploads only model cards when they change, leaving the weight files (and
 # every browser cache keyed by their hashes) untouched.
 on:
   push:
     branches: [main]
-    paths: ["tools/hub/README.md"]
+    paths: ["tools/models/*/hub/README.md"]
   workflow_dispatch:
     inputs:
-      repo_id:
-        description: Hugging Face model repo
-        default: bakshinghampalace/timesfm-2.5-200m-onnx
-        required: true
+      model:
+        description: Model whose card to upload
+        type: choice
+        options: [timesfm]
+        default: timesfm
 
 permissions:
   contents: read
@@ -22,10 +23,22 @@ jobs:
     environment: huggingface
     steps:
       - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
       - uses: astral-sh/setup-uv@v10.3.0 # no floating major tags after v6
-      - name: Upload README.md
+      - name: Upload changed cards
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
-          REPO_ID: ${{ inputs.repo_id || 'bakshinghampalace/timesfm-2.5-200m-onnx' }}
           CARD_COMMIT_MESSAGE: "Update model card from ${{ github.repository }}@${{ github.sha }}"
-        run: uv run --no-project --with huggingface_hub python tools/upload_card.py "$REPO_ID"
+          BEFORE: ${{ github.event.before }}
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            models="${{ inputs.model }}"
+          elif [ -z "$BEFORE" ] || [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
+            models=$(ls tools/models)
+          else
+            models=$(git diff --name-only "$BEFORE" "$GITHUB_SHA" -- 'tools/models/*/hub/README.md' | cut -d/ -f3 | sort -u)
+          fi
+          for m in $models; do
+            uv run --no-project --with huggingface_hub python tools/upload_card.py "$m"
+          done
