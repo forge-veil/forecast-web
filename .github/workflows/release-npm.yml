@@ -20,8 +20,8 @@ jobs:
           node-version: 24
           registry-url: https://registry.npmjs.org
           cache: npm
-      # Trusted publishing needs npm 11.5.1 or newer, and npm 11.5.x skips rolldown's
-      # native binding on a clean install. 11.21 and later handle both.
+      # Trusted publishing needs npm 11.5.1+, staged publishing 11.15+, and npm 11.5.x
+      # skips rolldown's native binding on a clean install. 11.21 and later handle all three.
       - run: npm install -g npm@11
       - name: Check the tag matches package.json
         run: |
@@ -43,10 +43,16 @@ jobs:
         if: steps.auth.outputs.bootstrap != 'true'
         run: npm publish --access public
       # Bootstrap path for the very first version only: npm cannot configure a trusted
-      # publisher until the package exists. Add a short-lived granular token as the
-      # NPM_TOKEN secret of the "npm" environment, publish once, then delete it.
-      - name: Publish (bootstrap token)
+      # publisher until the package exists. Add a stage-only granular token as the
+      # NPM_TOKEN secret of the "npm" environment. The workflow stages the version and
+      # a maintainer approves it on npmjs.com with 2FA. Delete the secret afterwards.
+      - name: Stage for approval (bootstrap token)
         if: steps.auth.outputs.bootstrap == 'true'
-        run: npm publish --access public --provenance
+        run: |
+          npm stage publish --access public --provenance
+          {
+            echo "### Staged ${GITHUB_REF_NAME} for approval"
+            echo "Approve it on npmjs.com under Staged Packages (2FA required), or run \`npm stage approve <id>\`."
+          } >> "$GITHUB_STEP_SUMMARY"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

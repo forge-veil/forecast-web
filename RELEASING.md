@@ -13,8 +13,8 @@ Release the weights before the first npm release, since the package downloads th
 1. Push the repo to GitHub.
 2. Create two environments under Settings, Environments: `huggingface` and `npm`. Add required reviewers to either if you want a manual approval before publishing.
 3. In the `huggingface` environment, add the secret `HF_TOKEN`: a Hugging Face access token with write access to the target repo.
-4. For the first npm release only, npm cannot set up trusted publishing yet, because the package does not exist. In the `npm` environment, add the secret `NPM_TOKEN`: a granular npm access token with publish rights and a short expiry.
-5. After the first npm release succeeds, open the package settings on npmjs.com and add a trusted publisher: GitHub Actions, this repository, workflow `release-npm.yml`, environment `npm`. Then delete the `NPM_TOKEN` secret. Every later release publishes through trusted publishing with provenance and no stored token.
+4. For the first npm release only, npm cannot set up trusted publishing yet, because the package does not exist. In the `npm` environment, add the secret `NPM_TOKEN`: a granular npm access token with "Read and write (stage only)" permission and a short expiry. The workflow stages the version instead of publishing it, and you approve it on npmjs.com under Staged Packages with 2FA.
+5. After approving the first release, open the package settings on npmjs.com and add a trusted publisher: GitHub Actions, this repository, workflow `release-npm.yml`, environment `npm`. Then delete the `NPM_TOKEN` secret and revoke the token. Every later release publishes through trusted publishing with provenance and no stored token.
 
 ## Releasing weights
 
