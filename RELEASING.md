@@ -5,7 +5,7 @@
 | `ci.yml` | every push to `main` and every pull request | nothing; typecheck, tests, build, pack check |
 | `release-weights.yml` | manual (Actions tab, "Run workflow") | ONNX weights to the Hugging Face Hub |
 | `release-npm.yml` | pushing a `v*` tag | the package to npm |
-| `release-model-card.yml` | a push to `main` that changes `tools/hub/README.md`, or manual | only the Hugging Face model card, leaving the weights untouched |
+| `release-model-card.yml` | a push to `main` that changes `tools/models/<model>/hub/README.md`, or manual | only the Hugging Face model card, leaving the weights untouched |
 
 Release the weights before the first npm release, since the package downloads them from the Hub by default.
 
@@ -21,11 +21,11 @@ Release the weights before the first npm release, since the package downloads th
 
 Run "Release weights" from the Actions tab. It:
 
-1. Downloads Google's TimesFM 2.5 checkpoint at the revision pinned in `tools/export_onnx.py`.
+1. Downloads Google's TimesFM 2.5 checkpoint at the revision pinned in `tools/models/timesfm/model.json`.
 2. Exports the fp32 graph and builds the q8 and fp16 variants.
 3. Generates reference forecasts with the official Python library.
 4. Runs the full test suite, including parity for every format. Nothing uploads if it fails.
-5. Uploads `build/hub` to the Hub in one commit, removing weight files that are no longer built, and prints the new revision in the run summary.
+5. Uploads `build/<model>` to the Hub in one commit, removing weight files that are no longer built, and prints the new revision in the run summary.
 
 Tick "dry run" to build and verify without uploading. The run takes roughly 15 to 30 minutes, mostly the checkpoint download and the parity suite.
 

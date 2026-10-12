@@ -1,7 +1,7 @@
 import type { FileSpec } from "src/models/adapter";
 import { ForecastError } from "src/types";
 
-export const CACHE_NAME = "timesfm-web-v1";
+export const CACHE_NAME = "forecast-web-v1";
 
 export interface ModelFiles {
   config: string;

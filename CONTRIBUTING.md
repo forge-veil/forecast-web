@@ -1,6 +1,6 @@
 # Contributing
 
-Thanks for helping improve timesfm-web. This guide covers setup, how the code is organized, and what a change needs before it can merge.
+Thanks for helping improve forecast-web. This guide covers setup, how the code is organized, and what a change needs before it can merge.
 
 ## Setup
 
@@ -8,7 +8,7 @@ You need Node 24 with npm 11.21 or newer. Older npm 11 releases skip rolldown's 
 
 ```sh
 git clone <your fork>
-cd timesfm-web
+cd forecast-web
 npm ci
 npm test          # unit tests; the parity suite skips itself without weights
 npm run typecheck
@@ -32,27 +32,24 @@ npm test                          # now includes parity for every format
 
 | Path | What lives there |
 |---|---|
-| `src/preprocess.ts`, `src/postprocess.ts` | The forecasting math around the graph. Pure functions, no onnxruntime. |
-| `src/forecaster.ts` | Joins preprocessing, a graph runner, and postprocessing. |
-| `src/assets.ts`, `src/half.ts` | File resolution, downloads, caching, fp16 weight expansion. |
-| `src/loader.ts` | Picks weights and backend, downloads, creates the session. |
-| `src/session.ts`, `src/gpu.ts` | onnxruntime-web session and WebGPU detection. |
-| `src/protocol.ts`, `src/client.ts`, `src/worker.ts` | The Web Worker and its message protocol. |
+| `src/core/` | Model-agnostic download, cache, fp16 expansion, onnxruntime session, worker, protocol and loader. |
+| `src/models/` | One folder per model: its info, files, config check, pre- and post-processing. `src/models/index.ts` is the registry and `adapter.ts` the interface. |
+| `src/models/timesfm/` | TimesFM 2.5: `preprocess.ts` and `postprocess.ts` hold the forecasting math around the graph (pure functions, no onnxruntime). |
 | `src/index.ts`, `src/react.tsx` | The two public entry points. |
-| `tools/` | Python scripts that export, compress, verify, and upload the weights. |
-| `site/` | The public demo at vatsalbakshi.com/timesfm-web, a Vite and React app. |
+| `tools/` | Python scripts. Shared packaging and upload scripts at the top; per-model export, compression and reference scripts in `tools/models/<model>/`. |
+| `site/` | The public demo at vatsalbakshi.com/forecast-web, a Vite and React app. |
 
 ## Conventions
 
-- **Imports are root-relative.** Write `import { prepareBatch } from "src/preprocess"`, not `"./preprocess"`. tsconfig paths and the Vitest alias resolve them, and the build inlines them. The one exception is the worker URL in `src/index.ts`, which the browser resolves at runtime and must stay `./worker.js`.
-- **Keep the pure modules pure.** Anything under `preprocess`, `postprocess` or `forecaster` must not import onnxruntime, so it stays testable in Node.
+- **Imports are root-relative.** Write `import { prepareBatch } from "src/models/timesfm/preprocess"`, not `"./preprocess"`. tsconfig paths and the Vitest alias resolve them, and the build inlines them. The one exception is the worker URL in `src/index.ts`, which the browser resolves at runtime and must stay `./worker.js`.
+- **Keep the pure modules pure.** Model code under `src/models/` must not import onnxruntime, so it stays testable in Node.
 - **Write the test first.** Add a failing test, make it pass, then refactor.
 - **No em dashes** in docs, comments, or UI text.
 - **Commits** are one line with a type prefix, for example `fix: release the session after queued runs`.
 
 ## Changes to the forecasting math
 
-The package promises parity with the official Python library, so changes to preprocessing, postprocessing, the export, or quantization need extra care:
+The package promises parity with the official Python library, so changes to a model's preprocessing, postprocessing, the export, or quantization need extra care:
 
 1. Check the behavior against the official source. The reference is `TimesFM_2p5_200M_torch.forecast()` in [google-research/timesfm](https://github.com/google-research/timesfm), at the commit pinned in `tools/pyproject.toml`.
 2. Rebuild the weights and run the full suite, including parity. Include the parity tables from the test output in your pull request.
@@ -62,7 +59,7 @@ Do not loosen a parity tolerance to get a test passing without explaining the me
 
 ## Checking in a browser
 
-The demo site in `site/` installs `timesfm-web` from npm. To try your local changes, build the package and install it into the site:
+The demo site in `site/` installs `forecast-web` from npm. To try your local changes, build the package and install it into the site:
 
 ```sh
 npm run build
@@ -73,11 +70,11 @@ npm run data               # fetch the bundled datasets into public/data
 npm run dev
 ```
 
-Open http://localhost:5299/timesfm-web/. To test locally built weights, serve `build/hub` over HTTP with CORS and pass its URL:
+Open http://localhost:5299/forecast-web/. To test locally built weights, serve `build/timesfm` over HTTP with CORS and pass its URL:
 
 ```sh
-npx http-server build/hub --cors -p 5199
-# then open http://localhost:5299/timesfm-web/?model=http://localhost:5199/
+npx http-server build/timesfm --cors -p 5199
+# then open http://localhost:5299/forecast-web/?weights=http://localhost:5199/
 ```
 
 Check both backends: Chrome with WebGPU, and the WASM path (for example with WebGPU disabled in `chrome://flags`). WebGPU bugs have shown up only in the browser, never in Node, so do not skip this for graph changes.
@@ -92,3 +89,12 @@ Check both backends: Chrome with WebGPU, and the WASM path (for example with Web
 ## License
 
 By contributing, you agree that your contributions are licensed under the Apache License 2.0, the same license as the project.
+
+## Adding a model
+
+1. Pick a model whose weights allow commercial use (Apache-2.0, MIT, BSD).
+2. `tools/models/<name>/`: `model.json` (repo, source, revision, files, required), export, quantize and reference scripts, and `hub/README.md` plus `hub/config.json`.
+3. `src/models/<name>/`: an adapter implementing `ModelAdapter` from `src/models/adapter.ts`. Port the official forecast-level processing exactly.
+4. Add the id to `ModelId` in `src/types.ts` and the adapter to `src/models/index.ts`.
+5. `test/models/<name>/`: unit tests and a parity suite against the official Python library, with fixtures in `test/fixtures/<name>/`.
+6. Add the model to the `model` choices in `.github/workflows/release-weights.yml` and `.github/workflows/release-model-card.yml`.
