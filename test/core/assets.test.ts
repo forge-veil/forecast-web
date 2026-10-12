@@ -1,4 +1,5 @@
-import { CACHE_NAME, DEFAULT_MODEL, fetchBytes, resolveBase, resolveFiles } from "src/assets";
+import { CACHE_NAME, fetchBytes, resolveBase, resolveFiles } from "src/core/assets";
+import { timesfm } from "src/models/timesfm/index";
 
 describe("resolveBase", () => {
   it("maps a repo id to the Hugging Face resolve endpoint", () => {
@@ -6,9 +7,6 @@ describe("resolveBase", () => {
     expect(resolveBase("org/name", "v1.0")).toBe("https://huggingface.co/org/name/resolve/v1.0/");
   });
 
-  it("uses the default repo when no model is given", () => {
-    expect(resolveBase()).toBe(`https://huggingface.co/${DEFAULT_MODEL}/resolve/main/`);
-  });
 
   it("passes absolute URLs through and adds a trailing slash", () => {
     expect(resolveBase("https://cdn.example.com/tfm")).toBe("https://cdn.example.com/tfm/");
@@ -25,17 +23,16 @@ describe("resolveBase", () => {
 });
 
 describe("resolveFiles", () => {
-  it("uses Transformers.js file names per dtype", () => {
+  it("builds URLs from the adapter's file spec", () => {
     const b = "https://x/";
-    expect(resolveFiles(b).model).toBe("https://x/onnx/model_quantized.onnx");
-    expect(resolveFiles(b, "fp16")).toEqual({
+    expect(resolveFiles(b, timesfm.files("q8")).model).toBe("https://x/onnx/model_quantized.onnx");
+    expect(resolveFiles(b, timesfm.files("fp16"))).toEqual({
       config: "https://x/config.json",
       model: "https://x/onnx/model_fp16w.onnx",
       halfData: { url: "https://x/onnx/model_fp16w.f16", location: "model_fp16w.onnx_data" },
     });
-    expect(resolveFiles(b).halfData).toBeUndefined();
-    expect(resolveFiles(b, "fp32").model).toBe("https://x/onnx/model.onnx");
-    expect(resolveFiles(b).config).toBe("https://x/config.json");
+    expect(resolveFiles(b, timesfm.files("q8")).halfData).toBeUndefined();
+    expect(resolveFiles(b, timesfm.files("fp32")).model).toBe("https://x/onnx/model.onnx");
   });
 });
 

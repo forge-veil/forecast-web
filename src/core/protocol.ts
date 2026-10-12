@@ -1,4 +1,4 @@
-import type { Core, CoreOptions } from "src/loader";
+import type { Core, CoreOptions } from "src/core/loader";
 import {
   ForecastError,
   type Backend,

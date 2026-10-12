@@ -1,17 +1,17 @@
 import { validateHorizon } from "src/core/validate";
-import { MAX_HORIZON } from "src/models/timesfm/constants";
-import type { CoreOptions } from "src/loader";
-import type { Request, Response } from "src/protocol";
+import { getAdapter } from "src/models/index";
+import type { CoreOptions } from "src/core/loader";
+import type { Request, Response } from "src/core/protocol";
 import {
   ForecastError,
   type Backend,
   type Forecast,
   type ForecastOptions,
+  type Forecaster,
   type ModelConfig,
   type Progress,
   type ResolvedDtype,
   type Series,
-  type TimesFM,
 } from "src/types";
 
 /** The subset of Worker the client needs, so tests can supply an in-process fake. */
@@ -32,13 +32,13 @@ export function toFloat64(s: Series): Float64Array {
   return out;
 }
 
-/** Loads the model inside `worker` and returns a TimesFM that proxies to it. */
+/** Loads the model inside `worker` and returns a Forecaster that proxies to it. */
 export function connectWorker(
   worker: WorkerLike,
   opts: CoreOptions,
   onProgress?: (p: Progress) => void,
   signal?: AbortSignal,
-): Promise<TimesFM> {
+): Promise<Forecaster> {
   let nextId = 0;
   let disposed = false;
   const pending = new Map<number, { resolve: (r: Response) => void; reject: (e: unknown) => void }>();
@@ -84,13 +84,16 @@ export function connectWorker(
   return call<"loaded">({ type: "load", id: nextId++, opts })
     .finally(() => signal?.removeEventListener("abort", onAbort))
     .then(({ backend, dtype, config }) => {
-      const api: TimesFM = {
+      const info = getAdapter(opts.model).info;
+      const api: Forecaster = {
+        model: info.id,
+        info,
         backend: backend as Backend,
         dtype: dtype as ResolvedDtype,
         config: config as ModelConfig,
         async forecast(series: Series[], fopts: ForecastOptions = {}): Promise<Forecast[]> {
           if (disposed) throw new ForecastError("DISPOSED", "this model has been disposed");
-          if (fopts.horizon !== undefined) validateHorizon(fopts.horizon, MAX_HORIZON);
+          if (fopts.horizon !== undefined) validateHorizon(fopts.horizon, info.maxHorizon);
           if (!series || series.length === 0) throw new ForecastError("EMPTY_INPUT", "pass at least one series");
           const arrays = series.map(toFloat64);
           const r = await call<"result">(

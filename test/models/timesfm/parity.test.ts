@@ -7,8 +7,9 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import * as ort from "onnxruntime-node";
-import { createForecaster } from "src/models/timesfm/forecaster";
-import { expandHalfToFloat } from "src/half";
+import type { RunGraph } from "src/models/adapter";
+import { timesfm } from "src/models/timesfm/index";
+import { expandHalfToFloat } from "src/core/half";
 import type { Forecast } from "src/types";
 
 const DIR = fileURLToPath(new URL("../../../build/hub/onnx/", import.meta.url));
@@ -33,7 +34,7 @@ function errors(f: Forecast, expected: number[][]): { worst: number; mean: numbe
   let sum = 0;
   for (let t = 0; t < expected.length; t++)
     KEYS.forEach((k, q) => {
-      const d = Math.abs(f[k][t] - expected[t][q]);
+      const d = Math.abs(f[k]![t] - expected[t][q]);
       worst = Math.max(worst, d);
       sum += d;
     });
@@ -65,6 +66,7 @@ for (const { file, half, worst, mean } of variants) {
   const path = DIR + file;
   describe.skipIf(!existsSync(path))(`parity: ${file}`, () => {
     let session: ort.InferenceSession;
+    let forecast: ReturnType<typeof timesfm.forecaster>;
     let results: Forecast[];
     let cleanup = () => {};
 
@@ -72,13 +74,13 @@ for (const { file, half, worst, mean } of variants) {
       let modelPath = path;
       if (half) ({ path: modelPath, cleanup } = stage(file, half));
       session = await ort.InferenceSession.create(modelPath, { executionProviders: ["cpu"], logSeverityLevel: 3 });
-      const forecast = createForecaster(async (inputs, masks, batch) => {
-        const out = await session.run({
-          inputs: new ort.Tensor("float32", inputs, [batch, 512]),
-          masks: new ort.Tensor("float32", masks, [batch, 512]),
-        });
-        return { point: out.point.data as Float32Array, qspread: out.qspread.data as Float32Array };
-      });
+      const run: RunGraph = async (feeds) => {
+        const tensors: Record<string, ort.Tensor> = {};
+        for (const [k, f] of Object.entries(feeds)) tensors[k] = new ort.Tensor("float32", f.data, f.dims);
+        const out = await session.run(tensors);
+        return Object.fromEntries(Object.entries(out).map(([k, t]) => [k, t.data as Float32Array]));
+      };
+      forecast = timesfm.forecaster(run, { model_type: "timesfm" });
       results = await forecast(
         ref.cases.map((c) => c.input),
         { horizon: ref.horizon },
@@ -99,13 +101,6 @@ for (const { file, half, worst, mean } of variants) {
     });
 
     it("a short horizon returns the same leading steps as horizon 128", async () => {
-      const forecast = createForecaster(async (inputs, masks, batch) => {
-        const out = await session.run({
-          inputs: new ort.Tensor("float32", inputs, [batch, 512]),
-          masks: new ort.Tensor("float32", masks, [batch, 512]),
-        });
-        return { point: out.point.data as Float32Array, qspread: out.qspread.data as Float32Array };
-      });
       const short = await forecast(ref.cases.map((c) => c.input), { horizon: 24 });
       short.forEach((f, i) => {
         expect(f.median).toHaveLength(24);

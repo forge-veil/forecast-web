@@ -1,16 +1,19 @@
 // @vitest-environment jsdom
 import { act, render, renderHook, waitFor } from "@testing-library/react";
 import { StrictMode, useEffect, type ReactNode } from "react";
-import type { LoadOptions, TimesFM } from "src/types";
+import { MODELS } from "src/models/index";
+import type { Forecaster as TimesFM, LoadOptions } from "src/types";
 
 const loadMock = vi.fn<(o: LoadOptions) => Promise<TimesFM>>();
-vi.mock("src/index", () => ({ loadTimesFM: (o: LoadOptions) => loadMock(o) }));
+vi.mock("src/index", () => ({ loadForecaster: (o: LoadOptions) => loadMock(o) }));
 
 const { TimesFMProvider, useTimesFM } = await import("src/react");
 const { ForecastError } = await import("src/types");
 
 function fakeModel(): TimesFM & { dispose: ReturnType<typeof vi.fn> } {
   return {
+    model: "timesfm-2.5" as const,
+    info: MODELS["timesfm-2.5"],
     backend: "wasm",
     dtype: "q8",
     config: { model_type: "timesfm", context: 512, horizon: 128, patch: 32, quantiles: [] },

@@ -1,20 +1,23 @@
-import { resolveBase } from "src/assets";
-import { connectWorker } from "src/client";
-import { loadCore, type CoreOptions } from "src/loader";
-import { ForecastError, type LoadOptions, type TimesFM } from "src/types";
+import { resolveBase } from "src/core/assets";
+import { connectWorker } from "src/core/client";
+import { loadCore, type CoreOptions } from "src/core/loader";
+import { DEFAULT_MODEL_ID, getAdapter } from "src/models/index";
+import { ForecastError, type Forecaster, type LoadOptions } from "src/types";
 
-export { DEFAULT_MODEL } from "src/assets";
+export { DEFAULT_MODEL_ID, MODELS } from "src/models/index";
 export { cleanSeries } from "src/models/timesfm/preprocess";
 export * from "src/types";
 
 /**
- * Downloads TimesFM 2.5 and prepares it for forecasting. By default the model
- * runs in a Web Worker on WebGPU, falling back to WASM.
+ * Downloads a forecasting model and prepares it. By default the model runs in
+ * a Web Worker on WebGPU, falling back to WASM.
  */
-export async function loadTimesFM(options: LoadOptions = {}): Promise<TimesFM> {
+export async function loadForecaster(options: LoadOptions = {}): Promise<Forecaster> {
+  const adapter = getAdapter(options.model ?? DEFAULT_MODEL_ID);
   const page = typeof location !== "undefined" ? location.href : undefined;
   const opts: CoreOptions = {
-    base: resolveBase(options.model, options.revision, page),
+    model: adapter.info.id,
+    base: resolveBase(options.weights ?? adapter.weights, options.revision, page),
     dtype: options.dtype ?? "auto",
     device: options.device ?? "auto",
     cache: options.cache ?? true,
@@ -28,10 +31,12 @@ export async function loadTimesFM(options: LoadOptions = {}): Promise<TimesFM> {
     return connectWorker(worker, opts, options.onProgress, options.signal);
   }
 
-  const { createSession } = await import("src/session");
+  const { createSession } = await import("src/core/session");
   const core = await loadCore(opts, createSession, options.onProgress, options.signal);
   let disposed = false;
   return {
+    model: adapter.info.id,
+    info: adapter.info,
     backend: core.backend,
     dtype: core.dtype,
     config: core.config,

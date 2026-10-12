@@ -1,5 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
-import { loadTimesFM } from "src/index";
+import { loadForecaster as loadTimesFM } from "src/index";
 import {
   ForecastError,
   type Backend,
@@ -8,7 +8,7 @@ import {
   type LoadOptions,
   type Progress,
   type Series,
-  type TimesFM,
+  type Forecaster as TimesFM,
 } from "src/types";
 
 export type Status = "idle" | "loading" | "ready" | "error";

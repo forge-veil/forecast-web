@@ -1,6 +1,5 @@
 import * as ort from "onnxruntime-web";
-import { CONTEXT } from "src/models/timesfm/constants";
-import type { TimesFMRun as RunGraph } from "src/models/timesfm/forecaster";
+import type { RunGraph } from "src/models/adapter";
 import { ForecastError, type Backend } from "src/types";
 
 export interface GraphSession {
@@ -38,7 +37,7 @@ export async function createSession(bytes: Uint8Array, opts: SessionOptions): Pr
         session = await make("webgpu");
       } catch (e) {
         if (!opts.fallback) throw e;
-        console.warn("timesfm-web: WebGPU session failed, falling back to WASM", e);
+        console.warn("forecast-web: WebGPU session failed, falling back to WASM", e);
         backend = "wasm";
       }
     }
@@ -50,16 +49,14 @@ export async function createSession(bytes: Uint8Array, opts: SessionOptions): Pr
   // onnxruntime-web sessions do not support overlapping run() calls; queue them.
   let queue: Promise<unknown> = Promise.resolve();
   const s = session;
-  const run: RunGraph = (inputs, masks, batch) => {
+  const run: RunGraph = (feeds) => {
     const job = queue.then(async () => {
-      const out = await s.run({
-        inputs: new ort.Tensor("float32", inputs, [batch, CONTEXT]),
-        masks: new ort.Tensor("float32", masks, [batch, CONTEXT]),
-      });
-      return {
-        point: (await out.point.getData()) as Float32Array,
-        qspread: (await out.qspread.getData()) as Float32Array,
-      };
+      const tensors: Record<string, ort.Tensor> = {};
+      for (const [name, f] of Object.entries(feeds)) tensors[name] = new ort.Tensor("float32", f.data, f.dims);
+      const out = await s.run(tensors);
+      const result: Record<string, Float32Array> = {};
+      for (const [name, t] of Object.entries(out)) result[name] = (await t.getData()) as Float32Array;
+      return result;
     });
     queue = job.catch(() => undefined);
     return job;
