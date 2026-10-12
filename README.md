@@ -2,6 +2,8 @@
 
 Run Google's [TimesFM 2.5](https://github.com/google-research/timesfm) time series forecasting model in the browser. Give it a history, get back a forecast up to 128 steps ahead with nine quantile bands. Everything runs on the visitor's machine, on WebGPU when available and WASM otherwise.
 
+**[Live demo](https://vatsalbakshi.com/timesfm-web/)**: stocks, weather, Wikipedia traffic and seasonal data, forecast and backtested in your browser.
+
 Forecasts match the official Python library. On the test series, the fp32 model agrees with `TimesFM_2p5_200M_torch.forecast()` to within 0.002% of each series' standard deviation. An automated parity test enforces agreement within 0.1%.
 
 ```sh

@@ -1,0 +1,54 @@
+name: Pages
+
+# Builds the demo site in site/ and deploys it to GitHub Pages. Runs daily so the
+# bundled datasets (stocks, CO2, FRED, sunspots) stay fresh. Stock prices are
+# fetched here at build time and never committed.
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "30 22 * * *" # after the US market close
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: site
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+      - run: npm install -g npm@11
+      - run: npm ci
+      - run: npm test
+      - name: Fetch datasets
+        run: npm run data
+      - run: npm run build
+      - uses: actions/configure-pages@v6
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: site/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5

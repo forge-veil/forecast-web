@@ -40,7 +40,7 @@ npm test                          # now includes parity for every format
 | `src/protocol.ts`, `src/client.ts`, `src/worker.ts` | The Web Worker and its message protocol. |
 | `src/index.ts`, `src/react.tsx` | The two public entry points. |
 | `tools/` | Python scripts that export, compress, verify, and upload the weights. |
-| `demo/` | A page for checking the package in a real browser. |
+| `site/` | The public demo at vatsalbakshi.com/timesfm-web, a Vite and React app. |
 
 ## Conventions
 
@@ -62,16 +62,25 @@ Do not loosen a parity tolerance to get a test passing without explaining the me
 
 ## Checking in a browser
 
-The demo serves your local `build/hub` folder in place of the Hugging Face repo:
+The demo site in `site/` installs `timesfm-web` from npm. To try your local changes, build the package and install it into the site:
 
 ```sh
 npm run build
-npx vite --config demo/vite.config.js
+cd site
+npm ci
+npm install --no-save ..   # use the local package instead of the npm release
+npm run data               # fetch the bundled datasets into public/data
+npm run dev
 ```
 
-Open http://localhost:5199. Query parameters select the mode, for example `?device=wasm`, `?device=webgpu&dtype=fp16` or `?worker=0`. Add `parity=1` to compare against the reference fixtures in the browser. The results appear on `window.__result`.
+Open http://localhost:5299/timesfm-web/. To test locally built weights, serve `build/hub` over HTTP with CORS and pass its URL:
 
-WebGPU bugs have shown up only in the browser, never in Node, so do not skip this for graph changes.
+```sh
+npx http-server build/hub --cors -p 5199
+# then open http://localhost:5299/timesfm-web/?model=http://localhost:5199/
+```
+
+Check both backends: Chrome with WebGPU, and the WASM path (for example with WebGPU disabled in `chrome://flags`). WebGPU bugs have shown up only in the browser, never in Node, so do not skip this for graph changes.
 
 ## Pull requests
 
