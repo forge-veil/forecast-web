@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import type { Forecast } from "timesfm-web";
-import { useTimesFM } from "timesfm-web/react";
+import type { Forecast } from "forecast-web";
+import { useForecaster } from "forecast-web/react";
 import { Sparkline } from "src/components/Sparkline";
 import { formatNumber } from "src/lib/format";
 import { changeText, GROUPS, type GroupId, type Item } from "src/lib/items";
@@ -100,7 +100,7 @@ function GroupIcon({ id }: { id: GroupId }) {
 }
 
 function ModelStatus() {
-  const { status, progress, backend, error, load } = useTimesFM();
+  const { status, progress, backend, error, load } = useForecaster();
   const pct = progress?.total ? (100 * progress.loaded) / progress.total : 0;
   if (status === "idle")
     return (

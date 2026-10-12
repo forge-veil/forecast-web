@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
-import type { Forecast } from "timesfm-web";
-import { useTimesFM } from "timesfm-web/react";
+import type { Forecast } from "forecast-web";
+import { useForecaster } from "forecast-web/react";
 import { Chart } from "src/components/Chart";
 import { formatNumber, formatPercent, shortLabel } from "src/lib/format";
 import { changeText, type Item } from "src/lib/items";
@@ -22,7 +22,7 @@ function baselineLabel(season: number | undefined, stepName: string, seasonal: b
 const slice = (f: Forecast, h: number): Forecast => ({
   ...f,
   horizon: h,
-  mean: f.mean.slice(0, h), median: f.median.slice(0, h), q10: f.q10.slice(0, h), q20: f.q20.slice(0, h),
+  mean: f.mean?.slice(0, h), median: f.median.slice(0, h), q10: f.q10.slice(0, h), q20: f.q20.slice(0, h),
   q30: f.q30.slice(0, h), q40: f.q40.slice(0, h), q50: f.q50.slice(0, h), q60: f.q60.slice(0, h),
   q70: f.q70.slice(0, h), q80: f.q80.slice(0, h), q90: f.q90.slice(0, h),
 });
@@ -37,7 +37,7 @@ export function Detail(props: {
   children?: ReactNode;
 }) {
   const { item, entry } = props;
-  const { status, forecast, load, backend, progress } = useTimesFM();
+  const { status, forecast, load, backend, progress } = useForecaster();
   const [mode, setMode] = useState<"forecast" | "backtest">("forecast");
   const [rangeIdx, setRangeIdx] = useState(item.defaultRange);
   const [bt, setBt] = useState<{ key: string; f: Forecast } | null>(null);

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { useTimesFM } from "timesfm-web/react";
+import { useForecaster } from "forecast-web/react";
 import { Detail } from "src/components/Detail";
 import { Sidebar } from "src/components/Sidebar";
 import { TopLinks } from "src/components/TopLinks";
@@ -13,7 +13,7 @@ const initialSelection = () => decodeURIComponent(location.hash.slice(1)) || "st
 
 export function App() {
   const manifest = useAsync(loadManifest, []);
-  const { status, forecast } = useTimesFM();
+  const { status, forecast } = useForecaster();
   const [extra, setExtra] = useState<Item[]>([]);
   const [selected, setSelected] = useState(initialSelection);
   const [view, setView] = useState<"list" | "detail">(location.hash ? "detail" : "list");

@@ -10,9 +10,9 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "forecast-web": "^0.2.0",
     "react": "^19.3.0",
-    "react-dom": "^19.3.0",
-    "timesfm-web": "^0.1.0"
+    "react-dom": "^19.3.0"
   },
   "devDependencies": {
     "@types/node": "^26.6.5",

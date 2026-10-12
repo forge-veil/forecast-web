@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import type { Forecast } from "timesfm-web";
+import type { Forecast } from "forecast-web";
 import type { Item } from "src/lib/items";
 import type { SeriesData } from "src/lib/sources";
 
