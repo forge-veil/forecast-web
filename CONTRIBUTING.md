@@ -20,12 +20,12 @@ Rebuilding the weights or running the parity suite also needs [uv](https://docs.
 ```sh
 cd tools
 uv sync --python 3.12
-uv run python export_onnx.py      # fp32 graph, downloads Google's checkpoint
-uv run python quantize.py         # q8 and fp16 variants
-uv run python make_reference.py   # reference forecasts from the official library
-uv run python package_hub.py      # config.json with sizes and hashes
+uv run python models/timesfm/export_onnx.py      # fp32 graph, downloads Google's checkpoint
+uv run python models/timesfm/quantize.py         # q8 and fp16 variants
+uv run python models/timesfm/make_reference.py   # reference forecasts from the official library
+uv run python package_hub.py timesfm             # config.json with sizes and hashes
 cd ..
-npm test                          # now includes parity for every format
+npm test                                         # now includes parity for every format
 ```
 
 ## Layout

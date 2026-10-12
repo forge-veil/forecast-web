@@ -14,10 +14,12 @@ export const MODELS = Object.fromEntries(
 ) as Record<ModelId, ModelInfo>;
 
 export function getAdapter(id: string): ModelAdapter {
-  if (Object.hasOwn(ADAPTERS, id)) return ADAPTERS[id as ModelId];
-  const hint = id.includes("/") ? '; pass Hugging Face repo ids and URLs as "weights"' : "";
+  if (typeof id === "string" && Object.hasOwn(ADAPTERS, id)) return ADAPTERS[id as ModelId];
+  // Plain JS callers can pass anything; report it as a ForecastError, never a TypeError.
+  const name = String(id);
+  const hint = name.includes("/") ? '; pass Hugging Face repo ids and URLs as "weights"' : "";
   throw new ForecastError(
     "UNKNOWN_MODEL",
-    `unknown model "${id}", expected one of: ${Object.keys(ADAPTERS).join(", ")}${hint}`,
+    `unknown model "${name}", expected one of: ${Object.keys(ADAPTERS).join(", ")}${hint}`,
   );
 }

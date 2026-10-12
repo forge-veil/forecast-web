@@ -1,6 +1,6 @@
 """Generate parity fixtures from the official TimesFM 2.5 forecast.
 
-Writes test/fixtures/reference.json with each input series and the official
+Writes test/fixtures/timesfm/reference.json with each input series and the official
 output for all 10 channels at horizon 128, plus a graph check that compares
 the exported fp32 ONNX graph against the torch prefill on the same inputs.
 """

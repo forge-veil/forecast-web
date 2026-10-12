@@ -15,6 +15,10 @@ describe("model registry", () => {
     expect(() => getAdapter(id)).toThrow(expect.objectContaining({ code: "UNKNOWN_MODEL" }));
   });
 
+  it.each([5, null, undefined, {}])("rejects non-string id %j as UNKNOWN_MODEL", (id) => {
+    expect(() => getAdapter(id as never)).toThrow(expect.objectContaining({ code: "UNKNOWN_MODEL" }));
+  });
+
   it("points 0.1 users who pass a repo id at the weights option", () => {
     expect(() => getAdapter("bakshinghampalace/timesfm-2.5-200m-onnx")).toThrow(/weights/);
   });

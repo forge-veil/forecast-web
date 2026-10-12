@@ -95,7 +95,7 @@ Errors are `ForecastError` instances with a `code`: `HORIZON_TOO_LONG`, `INVALID
 
 ## Coming from timesfm-web
 
-`timesfm-web` 0.1 is this package under its old name. To upgrade, install `forecast-web` and rename: `loadTimesFM` to `loadForecaster`, `TimesFMProvider` to `ForecastProvider`, `useTimesFM` to `useForecaster`, `TimesFMError` to `ForecastError`. The old `model` option (a repo id or URL) is now `weights`. Forecasts are identical.
+`timesfm-web` 0.1 is this package under its old name. To upgrade, install `forecast-web` and rename: `loadTimesFM` to `loadForecaster`, `TimesFMProvider` to `ForecastProvider`, `useTimesFM` to `useForecaster`, `TimesFMError` to `ForecastError`. The old `model` option (a repo id or URL) is now `weights`. The TimesFM constants (`CONTEXT`, `MAX_HORIZON`, `CHANNELS`, `QUANTILES`, `DEFAULT_MODEL`) are no longer exported; read limits from `MODELS["timesfm-2.5"]` instead. `Forecast.mean` is now optional in the types, since not every model has a mean head; TimesFM still fills it. Forecasts are identical.
 
 ## TimesFM weights and backend
 
