@@ -1,42 +1,44 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
-import { loadForecaster as loadTimesFM } from "src/index";
+import { loadForecaster } from "src/index";
 import {
   ForecastError,
   type Backend,
   type Forecast,
   type ForecastOptions,
   type LoadOptions,
+  type ModelId,
   type Progress,
   type Series,
-  type Forecaster as TimesFM,
+  type Forecaster,
 } from "src/types";
 
 export type Status = "idle" | "loading" | "ready" | "error";
 
-export interface TimesFMState {
+export interface ForecasterState {
   status: Status;
   progress: Progress | null;
   backend: Backend | null;
   error: Error | null;
   /** Starts the download if needed and resolves when the model is ready. */
-  load(): Promise<TimesFM>;
+  load(): Promise<Forecaster>;
   /** Forecasts, loading the model first if it is not loaded yet. */
   forecast(series: Series[], opts?: ForecastOptions): Promise<Forecast[]>;
 }
 
-const Ctx = createContext<TimesFMState | null>(null);
+const Ctx = createContext<ForecasterState | null>(null);
 
-export interface TimesFMProviderProps extends Omit<LoadOptions, "onProgress" | "signal"> {
+export interface ForecastProviderProps extends Omit<LoadOptions, "onProgress" | "signal"> {
   children?: ReactNode;
   /** Load on mount instead of on first use. Defaults to false. */
   eager?: boolean;
 }
 
 /**
- * Owns one TimesFM instance for its subtree. Load options are read when the
- * load starts; changing them later does not reload the model.
+ * Owns one model instance for its subtree. Load options are read when the load
+ * starts; changing them later does not reload. To switch models, remount with
+ * key={model}.
  */
-export function TimesFMProvider({ children, eager = false, ...options }: TimesFMProviderProps) {
+export function ForecastProvider({ children, eager = false, ...options }: ForecastProviderProps) {
   const [status, setStatus] = useState<Status>("idle");
   const [progress, setProgress] = useState<Progress | null>(null);
   const [backend, setBackend] = useState<Backend | null>(null);
@@ -44,18 +46,18 @@ export function TimesFMProvider({ children, eager = false, ...options }: TimesFM
 
   const optionsRef = useRef(options);
   optionsRef.current = options;
-  const promiseRef = useRef<Promise<TimesFM> | null>(null);
+  const promiseRef = useRef<Promise<Forecaster> | null>(null);
   const abortRef = useRef<AbortController | null>(null);
   const genRef = useRef(0);
 
-  const load = useCallback((): Promise<TimesFM> => {
+  const load = useCallback((): Promise<Forecaster> => {
     if (promiseRef.current) return promiseRef.current;
     const gen = ++genRef.current;
     const ac = new AbortController();
     abortRef.current = ac;
     setStatus("loading");
     setError(null);
-    const p = loadTimesFM({
+    const p = loadForecaster({
       ...optionsRef.current,
       signal: ac.signal,
       onProgress: (pr) => gen === genRef.current && setProgress(pr),
@@ -106,18 +108,19 @@ export function TimesFMProvider({ children, eager = false, ...options }: TimesFM
     };
   }, []);
 
-  const value = useMemo<TimesFMState>(
+  const value = useMemo<ForecasterState>(
     () => ({ status, progress, backend, error, load, forecast }),
     [status, progress, backend, error, load, forecast],
   );
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }
 
-export function useTimesFM(): TimesFMState {
+export function useForecaster(): ForecasterState {
   const v = useContext(Ctx);
-  if (!v) throw new Error("useTimesFM must be used inside <TimesFMProvider>");
+  if (!v) throw new Error("useForecaster must be used inside <ForecastProvider>");
   return v;
 }
 
+export { MODELS } from "src/models/index";
 export { ForecastError };
-export type { Forecast, ForecastOptions, LoadOptions, Progress, Series, TimesFM };
+export type { Forecast, ForecastOptions, Forecaster, LoadOptions, ModelId, Progress, Series };
