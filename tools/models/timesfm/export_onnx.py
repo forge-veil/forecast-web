@@ -11,10 +11,11 @@ Outputs: point   [B, 128, 10] channel 0 = mean head, 1..9 = q10..q90
 Forecast-level processing (input normalization, flip invariance, continuous
 quantile head, quantile crossing fix, positivity) runs in the JS caller.
 
-Usage: uv run python export_onnx.py [context=512] [out=../build/hub/onnx/model.onnx]
+Usage: uv run python models/timesfm/export_onnx.py [context=512] [out=../build/timesfm/onnx/model.onnx]
 Export approach adapted from hwkim3330/timesfm-web (Apache-2.0).
 """
 
+import json
 import os
 import sys
 
@@ -23,13 +24,14 @@ from huggingface_hub import hf_hub_download
 from timesfm.timesfm_2p5.timesfm_2p5_torch import TimesFM_2p5_200M_torch_module
 from timesfm.torch import transformer, util
 
-REPO = "google/timesfm-2.5-200m-pytorch"
-# Pinned so a rebuild in CI always starts from the same checkpoint.
-REVISION = "1d952420fba87f3c6dee4f240de0f1a0fbc790e3"
+HERE = os.path.dirname(os.path.abspath(__file__))
+with open(os.path.join(HERE, "model.json")) as f:
+  _MODEL = json.load(f)
+REPO = _MODEL["source"]
+# Pinned in model.json so a rebuild in CI always starts from the same checkpoint.
+REVISION = _MODEL["revision"]
 C = int(sys.argv[1]) if len(sys.argv) > 1 else 512
-OUT = sys.argv[2] if len(sys.argv) > 2 else os.path.join(
-  os.path.dirname(__file__), "..", "build", "hub", "onnx", "model.onnx"
-)
+OUT = sys.argv[2] if len(sys.argv) > 2 else os.path.join(HERE, "..", "..", "..", "build", "timesfm", "onnx", "model.onnx")
 HORIZON = 128
 
 

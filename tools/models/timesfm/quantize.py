@@ -1,4 +1,4 @@
-"""Write the compressed variants next to build/hub/onnx/model.onnx.
+"""Write the compressed variants next to build/timesfm/onnx/model.onnx.
 
 model_quantized.onnx: weight-only MatMulNBits, 8 bits, block 32, symmetric.
                       Runs on WASM only: onnxruntime-web's WebGPU MatMulNBits
@@ -22,7 +22,7 @@ from onnxruntime.quantization.matmul_nbits_quantizer import (
   MatMulNBitsQuantizer,
 )
 
-D = os.path.join(os.path.dirname(__file__), "..", "build", "hub", "onnx")
+D = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "build", "timesfm", "onnx")
 SRC = os.path.join(D, "model.onnx")
 MIN_ELEMENTS = 1024  # small tensors (norm scales, biases) stay fp32
 

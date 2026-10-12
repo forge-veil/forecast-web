@@ -1,6 +1,6 @@
 /**
  * Parity with the official Python forecast. Needs the exported graphs in
- * build/hub/onnx (run tools/export_onnx.py and tools/quantize.py); skipped otherwise.
+ * build/timesfm/onnx (run tools/models/timesfm/export_onnx.py and quantize.py); skipped otherwise.
  */
 import { copyFileSync, existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
@@ -12,7 +12,7 @@ import { timesfm } from "src/models/timesfm/index";
 import { expandHalfToFloat } from "src/core/half";
 import type { Forecast } from "src/types";
 
-const DIR = fileURLToPath(new URL("../../../build/hub/onnx/", import.meta.url));
+const DIR = fileURLToPath(new URL("../../../build/timesfm/onnx/", import.meta.url));
 const ref = JSON.parse(readFileSync(new URL("../../fixtures/timesfm/reference.json", import.meta.url), "utf8")) as {
   horizon: number;
   cases: { name: string; input: (number | null)[]; output: number[][] }[];
