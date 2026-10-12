@@ -19,6 +19,7 @@ function setup(load?: (o: CoreOptions, p: (p: Progress) => void) => Promise<Core
   const delays: number[] = [];
   const core: Core = {
     backend: "wasm",
+    dtype: "q8",
     config: { model_type: "timesfm", context: 512, horizon: 128, patch: 32, quantiles: [] },
     async forecast(series) {
       const d = delays.shift() ?? 0;

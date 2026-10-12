@@ -1,4 +1,4 @@
-import { TimesFMError, type Dtype } from "src/types";
+import { TimesFMError, type ResolvedDtype } from "src/types";
 
 /**
  * Default weights repo. Replace once the converted weights are published;
@@ -7,11 +7,23 @@ import { TimesFMError, type Dtype } from "src/types";
 export const DEFAULT_MODEL = "bakshinghampalace/timesfm-2.5-200m-onnx";
 export const CACHE_NAME = "timesfm-web-v1";
 
-const FILES: Record<Dtype, string> = {
-  fp32: "onnx/model.onnx",
-  fp16: "onnx/model_fp16.onnx",
-  q8: "onnx/model_quantized.onnx",
+/**
+ * fp32 and q8 use Transformers.js file names. fp16 is a custom compact pair:
+ * an fp32 graph whose weights are external data, shipped as fp16 and expanded
+ * by the loader into the buffer the graph names `location`.
+ */
+const FILES: Record<ResolvedDtype, { graph: string; data?: { file: string; location: string } }> = {
+  fp32: { graph: "onnx/model.onnx" },
+  fp16: { graph: "onnx/model_fp16w.onnx", data: { file: "onnx/model_fp16w.f16", location: "model_fp16w.onnx_data" } },
+  q8: { graph: "onnx/model_quantized.onnx" },
 };
+
+export interface ModelFiles {
+  config: string;
+  model: string;
+  /** fp16 weights to expand and pass to onnxruntime as external data named `location`. */
+  halfData?: { url: string; location: string };
+}
 
 const isUrl = (s: string) => /^(https?:|blob:|data:)/.test(s) || /^\.{0,2}\//.test(s);
 
@@ -32,10 +44,14 @@ export function resolveBase(model = DEFAULT_MODEL, revision = "main", relativeTo
   return base.endsWith("/") ? base : base + "/";
 }
 
-export function resolveFiles(base: string, dtype: Dtype = "q8"): { config: string; model: string } {
-  const file = FILES[dtype];
-  if (!file) throw new TimesFMError("LOAD_FAILED", `unknown dtype "${dtype}"`);
-  return { config: base + "config.json", model: base + file };
+export function resolveFiles(base: string, dtype: ResolvedDtype = "q8"): ModelFiles {
+  const f = FILES[dtype];
+  if (!f) throw new TimesFMError("LOAD_FAILED", `unknown dtype "${dtype}"`);
+  return {
+    config: base + "config.json",
+    model: base + f.graph,
+    halfData: f.data && { url: base + f.data.file, location: f.data.location },
+  };
 }
 
 const aborted = () => new TimesFMError("ABORTED", "load was aborted");

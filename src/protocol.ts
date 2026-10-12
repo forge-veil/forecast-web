@@ -1,5 +1,13 @@
 import type { Core, CoreOptions } from "src/loader";
-import { TimesFMError, type Backend, type ErrorCode, type Forecast, type ModelConfig, type Progress } from "src/types";
+import {
+  TimesFMError,
+  type Backend,
+  type ErrorCode,
+  type Forecast,
+  type ModelConfig,
+  type Progress,
+  type ResolvedDtype,
+} from "src/types";
 
 export type Request =
   | { type: "load"; id: number; opts: CoreOptions }
@@ -8,7 +16,7 @@ export type Request =
 
 export type Response =
   | { type: "progress"; id: number; progress: Progress }
-  | { type: "loaded"; id: number; backend: Backend; config: ModelConfig }
+  | { type: "loaded"; id: number; backend: Backend; dtype: ResolvedDtype; config: ModelConfig }
   | { type: "result"; id: number; forecasts: Forecast[] }
   | { type: "disposed"; id: number }
   | { type: "error"; id: number; code: ErrorCode; message: string };
@@ -31,7 +39,7 @@ export function createHandler(load: (opts: CoreOptions, onProgress: (p: Progress
         case "load": {
           core = load(msg.opts, (progress) => post({ type: "progress", id: msg.id, progress }));
           const c = await core;
-          post({ type: "loaded", id: msg.id, backend: c.backend, config: c.config });
+          post({ type: "loaded", id: msg.id, backend: c.backend, dtype: c.dtype, config: c.config });
           return;
         }
         case "forecast": {

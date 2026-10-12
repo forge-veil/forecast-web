@@ -1,6 +1,6 @@
 import * as ort from "onnxruntime-web";
 import type { RunGraph } from "src/forecaster";
-import { CONTEXT, TimesFMError, type Backend, type Device } from "src/types";
+import { CONTEXT, TimesFMError, type Backend } from "src/types";
 
 export interface GraphSession {
   backend: Backend;
@@ -8,46 +8,42 @@ export interface GraphSession {
   release(): Promise<void>;
 }
 
-async function hasWebGPU(): Promise<boolean> {
-  const gpu = (globalThis.navigator as Navigator & { gpu?: { requestAdapter(): Promise<unknown> } })?.gpu;
-  if (!gpu) return false;
-  try {
-    return !!(await gpu.requestAdapter());
-  } catch {
-    return false;
-  }
+export interface SessionOptions {
+  /** Backend to try first. */
+  device: Backend;
+  /** Fall back to WASM if WebGPU session creation fails. */
+  fallback: boolean;
+  wasmPaths?: string;
+  externalData?: { path: string; data: Uint8Array }[];
 }
 
-/**
- * Creates an onnxruntime-web session for the graph bytes. "auto" tries WebGPU
- * and falls back to WASM; an explicit device fails loudly instead.
- */
-export async function createSession(
-  bytes: Uint8Array,
-  opts: { device?: Device; wasmPaths?: string } = {},
-): Promise<GraphSession> {
-  const device = opts.device ?? "auto";
+/** Creates an onnxruntime-web session for the graph bytes. */
+export async function createSession(bytes: Uint8Array, opts: SessionOptions): Promise<GraphSession> {
   ort.env.wasm.wasmPaths =
     opts.wasmPaths ?? `https://cdn.jsdelivr.net/npm/onnxruntime-web@${ort.env.versions.web}/dist/`;
 
   const make = (ep: Backend) =>
-    ort.InferenceSession.create(bytes, { executionProviders: [ep], graphOptimizationLevel: "all" });
+    ort.InferenceSession.create(bytes, {
+      executionProviders: [ep],
+      graphOptimizationLevel: "all",
+      externalData: opts.externalData,
+    });
 
   let session: ort.InferenceSession | undefined;
-  let backend: Backend = "wasm";
+  let backend: Backend = opts.device;
   try {
-    if (device === "webgpu" || (device === "auto" && (await hasWebGPU()))) {
+    if (opts.device === "webgpu") {
       try {
         session = await make("webgpu");
-        backend = "webgpu";
       } catch (e) {
-        if (device === "webgpu") throw e;
-        console.warn("timesfm-web: WebGPU unavailable, falling back to WASM", e);
+        if (!opts.fallback) throw e;
+        console.warn("timesfm-web: WebGPU session failed, falling back to WASM", e);
+        backend = "wasm";
       }
     }
     session ??= await make("wasm");
   } catch (e) {
-    throw new TimesFMError("LOAD_FAILED", `could not create a ${device} session`, { cause: e });
+    throw new TimesFMError("LOAD_FAILED", `could not create a ${backend} session`, { cause: e });
   }
 
   // onnxruntime-web sessions do not support overlapping run() calls; queue them.

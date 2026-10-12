@@ -1,0 +1,12 @@
+{
+  "model_type": "timesfm",
+  "version": "2.5",
+  "context": 512,
+  "horizon": 128,
+  "patch": 32,
+  "quantiles": [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9],
+  "inputs": { "inputs": "float32 [batch, 512]", "masks": "float32 [batch, 512], 1 = padded" },
+  "outputs": { "point": "float32 [batch, 128, 10]", "qspread": "float32 [batch, 128, 10]" },
+  "source": "google/timesfm-2.5-200m-pytorch",
+  "license": "apache-2.0"
+}

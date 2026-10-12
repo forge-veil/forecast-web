@@ -28,7 +28,12 @@ describe("resolveFiles", () => {
   it("uses Transformers.js file names per dtype", () => {
     const b = "https://x/";
     expect(resolveFiles(b).model).toBe("https://x/onnx/model_quantized.onnx");
-    expect(resolveFiles(b, "fp16").model).toBe("https://x/onnx/model_fp16.onnx");
+    expect(resolveFiles(b, "fp16")).toEqual({
+      config: "https://x/config.json",
+      model: "https://x/onnx/model_fp16w.onnx",
+      halfData: { url: "https://x/onnx/model_fp16w.f16", location: "model_fp16w.onnx_data" },
+    });
+    expect(resolveFiles(b).halfData).toBeUndefined();
     expect(resolveFiles(b, "fp32").model).toBe("https://x/onnx/model.onnx");
     expect(resolveFiles(b).config).toBe("https://x/config.json");
   });

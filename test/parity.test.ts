@@ -2,10 +2,13 @@
  * Parity with the official Python forecast. Needs the exported graphs in
  * build/hub/onnx (run tools/export_onnx.py and tools/quantize.py); skipped otherwise.
  */
-import { existsSync, readFileSync } from "node:fs";
+import { copyFileSync, existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import * as ort from "onnxruntime-node";
 import { createForecaster } from "src/forecaster";
+import { expandHalfToFloat } from "src/half";
 import type { Forecast } from "src/types";
 
 const DIR = fileURLToPath(new URL("../build/hub/onnx/", import.meta.url));
@@ -39,20 +42,36 @@ function errors(f: Forecast, expected: number[][]): { worst: number; mean: numbe
 
 // Tolerances are fractions of each series' std. fp32 must match tightly; the
 // compressed variants were measured at mean < 0.8% and worst < 3.5% of std.
-const variants = [
+const variants: { file: string; half?: { file: string; location: string }; worst: number; mean: number }[] = [
   { file: "model.onnx", worst: 1e-3, mean: 1e-4 },
-  { file: "model_fp16.onnx", worst: 0.05, mean: 0.01 },
+  {
+    file: "model_fp16w.onnx",
+    half: { file: "model_fp16w.f16", location: "model_fp16w.onnx_data" },
+    worst: 0.01,
+    mean: 0.001,
+  },
   { file: "model_quantized.onnx", worst: 0.05, mean: 0.01 },
 ];
 
-for (const { file, worst, mean } of variants) {
+/** For the fp16 pair: expand the weights with the browser code path into a temp dir next to the graph. */
+function stage(file: string, half: { file: string; location: string }): { path: string; cleanup: () => void } {
+  const dir = mkdtempSync(join(tmpdir(), "timesfm-parity-"));
+  copyFileSync(DIR + file, join(dir, file));
+  writeFileSync(join(dir, half.location), expandHalfToFloat(readFileSync(DIR + half.file)));
+  return { path: join(dir, file), cleanup: () => rmSync(dir, { recursive: true, force: true }) };
+}
+
+for (const { file, half, worst, mean } of variants) {
   const path = DIR + file;
   describe.skipIf(!existsSync(path))(`parity: ${file}`, () => {
     let session: ort.InferenceSession;
     let results: Forecast[];
+    let cleanup = () => {};
 
     beforeAll(async () => {
-      session = await ort.InferenceSession.create(path, { executionProviders: ["cpu"], logSeverityLevel: 3 });
+      let modelPath = path;
+      if (half) ({ path: modelPath, cleanup } = stage(file, half));
+      session = await ort.InferenceSession.create(modelPath, { executionProviders: ["cpu"], logSeverityLevel: 3 });
       const forecast = createForecaster(async (inputs, masks, batch) => {
         const out = await session.run({
           inputs: new ort.Tensor("float32", inputs, [batch, 512]),
@@ -68,6 +87,7 @@ for (const { file, worst, mean } of variants) {
 
     afterAll(async () => {
       await session?.release();
+      cleanup();
       if (!results) return;
       const rows = ref.cases.map((c, i) => {
         const e = errors(results[i], c.output);

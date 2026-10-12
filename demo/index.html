@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>timesfm-web demo</title>
+    <style>
+      :root { --fg: #1d1d1f; --muted: #6e6e73; --bg: #fbfbfd; --line: #0071e3; --band: rgba(0, 113, 227, 0.15); }
+      @media (prefers-color-scheme: dark) { :root { --fg: #f5f5f7; --muted: #a1a1a6; --bg: #111113; --line: #2997ff; --band: rgba(41, 151, 255, 0.2); } }
+      body { margin: 0; padding: 24px 16px; font: 15px/1.5 -apple-system, system-ui, sans-serif; color: var(--fg); background: var(--bg); }
+      main { max-width: 760px; margin: 0 auto; }
+      h1 { font-size: 22px; font-weight: 600; margin: 0 0 4px; }
+      p { color: var(--muted); margin: 0 0 16px; }
+      svg { width: 100%; height: auto; display: block; }
+      #status { font-variant-numeric: tabular-nums; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>TimesFM 2.5 in the browser</h1>
+      <p id="status">Loading…</p>
+      <svg id="chart" viewBox="0 0 760 300" role="img" aria-label="History and forecast"></svg>
+    </main>
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>

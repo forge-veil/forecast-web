@@ -4,11 +4,11 @@ import type { Request, Response } from "src/protocol";
 import {
   TimesFMError,
   type Backend,
-  type Dtype,
   type Forecast,
   type ForecastOptions,
   type ModelConfig,
   type Progress,
+  type ResolvedDtype,
   type Series,
   type TimesFM,
 } from "src/types";
@@ -82,10 +82,10 @@ export function connectWorker(
 
   return call<"loaded">({ type: "load", id: nextId++, opts })
     .finally(() => signal?.removeEventListener("abort", onAbort))
-    .then(({ backend, config }) => {
+    .then(({ backend, dtype, config }) => {
       const api: TimesFM = {
         backend: backend as Backend,
-        dtype: opts.dtype as Dtype,
+        dtype: dtype as ResolvedDtype,
         config: config as ModelConfig,
         async forecast(series: Series[], fopts: ForecastOptions = {}): Promise<Forecast[]> {
           if (disposed) throw new TimesFMError("DISPOSED", "this model has been disposed");

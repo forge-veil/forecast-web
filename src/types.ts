@@ -8,7 +8,12 @@ export const QUANTILES = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9] as const;
 /** A time series, oldest first. NaN, null and undefined mark missing values. */
 export type Series = ArrayLike<number | null | undefined>;
 
-export type Dtype = "q8" | "fp16" | "fp32";
+/**
+ * Weight format. "auto" picks fp16 on WebGPU and q8 on WASM.
+ * q8 (249 MB) runs on WASM only. fp16 (441 MB) and fp32 (883 MB) run on both.
+ */
+export type Dtype = "auto" | "q8" | "fp16" | "fp32";
+export type ResolvedDtype = Exclude<Dtype, "auto">;
 export type Device = "auto" | "webgpu" | "wasm";
 export type Backend = "webgpu" | "wasm";
 
@@ -74,7 +79,7 @@ export interface LoadOptions {
 
 export interface TimesFM {
   readonly backend: Backend;
-  readonly dtype: Dtype;
+  readonly dtype: ResolvedDtype;
   readonly config: ModelConfig;
   forecast(series: Series[], opts?: ForecastOptions): Promise<Forecast[]>;
   dispose(): Promise<void>;

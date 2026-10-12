@@ -15,7 +15,7 @@ export async function loadTimesFM(options: LoadOptions = {}): Promise<TimesFM> {
   const page = typeof location !== "undefined" ? location.href : undefined;
   const opts: CoreOptions = {
     base: resolveBase(options.model, options.revision, page),
-    dtype: options.dtype ?? "q8",
+    dtype: options.dtype ?? "auto",
     device: options.device ?? "auto",
     cache: options.cache ?? true,
     wasmPaths: options.wasmPaths,
@@ -33,7 +33,7 @@ export async function loadTimesFM(options: LoadOptions = {}): Promise<TimesFM> {
   let disposed = false;
   return {
     backend: core.backend,
-    dtype: opts.dtype,
+    dtype: core.dtype,
     config: core.config,
     forecast(series, fopts) {
       if (disposed) return Promise.reject(new TimesFMError("DISPOSED", "this model has been disposed"));

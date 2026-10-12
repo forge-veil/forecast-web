@@ -31,6 +31,18 @@ OUT = sys.argv[2] if len(sys.argv) > 2 else os.path.join(
 HORIZON = 128
 
 
+def stack_narrow(ts):
+  """torch.stack(ts, 1) built from 2-input concats.
+
+  A single 16-input Concat exceeds WebGPU's per-shader storage buffer limit
+  (8 by default) and produces wrong results on onnxruntime-web's WebGPU EP.
+  """
+  ts = [t.unsqueeze(1) for t in ts]
+  while len(ts) > 1:
+    ts = [torch.cat(ts[i : i + 2], 1) if i + 1 < len(ts) else ts[i] for i in range(0, len(ts), 2)]
+  return ts[0]
+
+
 class Prefill(torch.nn.Module):
   def __init__(self, m: TimesFM_2p5_200M_torch_module):
     super().__init__()
@@ -50,8 +62,8 @@ class Prefill(torch.nn.Module):
       (n, mu, sg), _ = util.update_running_stats(n, mu, sg, x[:, i], mk[:, i])
       mus.append(mu)
       sgs.append(sg)
-    cmu = torch.stack(mus, 1)
-    csg = torch.stack(sgs, 1)
+    cmu = stack_narrow(mus)
+    csg = stack_narrow(sgs)
     xn = torch.where(mk, 0.0, util.revin(x, cmu, csg, reverse=False))
     h = m.tokenizer(torch.cat([xn, mk.to(xn.dtype)], -1))
     pad = mk[..., -1]
