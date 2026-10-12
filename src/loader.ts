@@ -1,10 +1,10 @@
 import { fetchBytes, resolveFiles } from "src/assets";
-import { createForecaster } from "src/forecaster";
+import { createForecaster } from "src/models/timesfm/forecaster";
 import { hasWebGPU } from "src/gpu";
 import { expandHalfToFloat } from "src/half";
 import type { GraphSession, SessionOptions } from "src/session";
 import {
-  TimesFMError,
+  ForecastError,
   type Backend,
   type Device,
   type Dtype,
@@ -48,7 +48,7 @@ export function planLoad(
   const resolved: ResolvedDtype = dtype === "auto" ? (gpu ? "fp16" : "q8") : dtype;
   if (resolved === "q8" && gpu) {
     if (device === "webgpu")
-      throw new TimesFMError("LOAD_FAILED", 'dtype "q8" runs on WASM only; use "fp16" or "fp32" with WebGPU');
+      throw new ForecastError("LOAD_FAILED", 'dtype "q8" runs on WASM only; use "fp16" or "fp32" with WebGPU');
     return { dtype: resolved, device: "wasm", fallback: false };
   }
   return { dtype: resolved, device: gpu ? "webgpu" : "wasm", fallback: gpu && device === "auto" };
@@ -72,10 +72,10 @@ export async function loadCore(
   try {
     config = JSON.parse(new TextDecoder().decode(cfgBytes));
   } catch (e) {
-    throw new TimesFMError("LOAD_FAILED", `${files.config} is not valid JSON`, { cause: e });
+    throw new ForecastError("LOAD_FAILED", `${files.config} is not valid JSON`, { cause: e });
   }
   if (config.context !== 512 || config.horizon !== 128)
-    throw new TimesFMError(
+    throw new ForecastError(
       "LOAD_FAILED",
       `unsupported model shape: context ${config.context}, horizon ${config.horizon} (expected 512 and 128)`,
     );
@@ -121,12 +121,12 @@ export async function loadCore(
       ),
     );
   } catch (e) {
-    if (signal?.aborted) throw new TimesFMError("ABORTED", "load was aborted");
+    if (signal?.aborted) throw new ForecastError("ABORTED", "load was aborted");
     throw e;
   } finally {
     signal?.removeEventListener("abort", forward);
   }
-  if (signal?.aborted) throw new TimesFMError("ABORTED", "load was aborted");
+  if (signal?.aborted) throw new ForecastError("ABORTED", "load was aborted");
 
   const externalData =
     half && files.halfData ? [{ path: files.halfData.location, data: expandHalfToFloat(half) }] : undefined;
@@ -138,7 +138,7 @@ export async function loadCore(
   });
   if (signal?.aborted) {
     await session.release();
-    throw new TimesFMError("ABORTED", "load was aborted");
+    throw new ForecastError("ABORTED", "load was aborted");
   }
   return {
     backend: session.backend,

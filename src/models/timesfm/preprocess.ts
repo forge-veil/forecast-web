@@ -1,4 +1,5 @@
-import { CONTEXT, type Series, type SeriesStats } from "src/types";
+import { CONTEXT, type SeriesStats } from "src/models/timesfm/constants";
+import type { Series } from "src/types";
 
 const TOLERANCE = 1e-6;
 

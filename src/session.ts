@@ -1,6 +1,7 @@
 import * as ort from "onnxruntime-web";
-import type { RunGraph } from "src/forecaster";
-import { CONTEXT, TimesFMError, type Backend } from "src/types";
+import { CONTEXT } from "src/models/timesfm/constants";
+import type { TimesFMRun as RunGraph } from "src/models/timesfm/forecaster";
+import { ForecastError, type Backend } from "src/types";
 
 export interface GraphSession {
   backend: Backend;
@@ -43,7 +44,7 @@ export async function createSession(bytes: Uint8Array, opts: SessionOptions): Pr
     }
     session ??= await make("wasm");
   } catch (e) {
-    throw new TimesFMError("LOAD_FAILED", `could not create a ${backend} session`, { cause: e });
+    throw new ForecastError("LOAD_FAILED", `could not create a ${backend} session`, { cause: e });
   }
 
   // onnxruntime-web sessions do not support overlapping run() calls; queue them.

@@ -1,5 +1,5 @@
-import { cleanSeries, prepareBatch } from "src/preprocess";
-import { CONTEXT } from "src/types";
+import { cleanSeries, prepareBatch } from "src/models/timesfm/preprocess";
+import { CONTEXT } from "src/models/timesfm/constants";
 
 const arr = (a: Float64Array | Float32Array) => Array.from(a);
 

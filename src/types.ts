@@ -1,10 +1,3 @@
-/** Fixed shape of the exported graph. */
-export const CONTEXT = 512;
-export const MAX_HORIZON = 128;
-/** Output channels: 0 = mean head, 1..9 = q10..q90. */
-export const CHANNELS = 10;
-export const QUANTILES = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9] as const;
-
 /** A time series, oldest first. NaN, null and undefined mark missing values. */
 export type Series = ArrayLike<number | null | undefined>;
 
@@ -16,12 +9,6 @@ export type Dtype = "auto" | "q8" | "fp16" | "fp32";
 export type ResolvedDtype = Exclude<Dtype, "auto">;
 export type Device = "auto" | "webgpu" | "wasm";
 export type Backend = "webgpu" | "wasm";
-
-export interface SeriesStats {
-  mu: number;
-  sigma: number;
-  isPositive: boolean;
-}
 
 export interface Forecast {
   horizon: number;
@@ -91,15 +78,16 @@ export type ErrorCode =
   | "HORIZON_TOO_LONG"
   | "INVALID_HORIZON"
   | "EMPTY_INPUT"
+  | "UNKNOWN_MODEL"
   | "LOAD_FAILED"
   | "ABORTED"
   | "DISPOSED";
 
-export class TimesFMError extends Error {
+export class ForecastError extends Error {
   readonly code: ErrorCode;
   constructor(code: ErrorCode, message: string, options?: { cause?: unknown }) {
     super(message, options);
-    this.name = "TimesFMError";
+    this.name = "ForecastError";
     this.code = code;
   }
 }

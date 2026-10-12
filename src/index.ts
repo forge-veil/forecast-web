@@ -1,10 +1,10 @@
 import { resolveBase } from "src/assets";
 import { connectWorker } from "src/client";
 import { loadCore, type CoreOptions } from "src/loader";
-import { TimesFMError, type LoadOptions, type TimesFM } from "src/types";
+import { ForecastError, type LoadOptions, type TimesFM } from "src/types";
 
 export { DEFAULT_MODEL } from "src/assets";
-export { cleanSeries } from "src/preprocess";
+export { cleanSeries } from "src/models/timesfm/preprocess";
 export * from "src/types";
 
 /**
@@ -36,7 +36,7 @@ export async function loadTimesFM(options: LoadOptions = {}): Promise<TimesFM> {
     dtype: core.dtype,
     config: core.config,
     forecast(series, fopts) {
-      if (disposed) return Promise.reject(new TimesFMError("DISPOSED", "this model has been disposed"));
+      if (disposed) return Promise.reject(new ForecastError("DISPOSED", "this model has been disposed"));
       return core.forecast(series, fopts);
     },
     async dispose() {

@@ -1,7 +1,7 @@
 import { connectWorker, toFloat64, type WorkerLike } from "src/client";
 import type { Core, CoreOptions } from "src/loader";
 import { createHandler, type Request, type Response } from "src/protocol";
-import { TimesFMError, type Forecast, type Progress, type Series } from "src/types";
+import { ForecastError, type Forecast, type Progress, type Series } from "src/types";
 
 const opts: CoreOptions = { base: "https://x/", dtype: "q8", device: "wasm", cache: false };
 
@@ -103,7 +103,7 @@ describe("connectWorker", () => {
 
   it("surfaces load errors with their code", async () => {
     const { worker } = setup(async () => {
-      throw new TimesFMError("LOAD_FAILED", "HTTP 404");
+      throw new ForecastError("LOAD_FAILED", "HTTP 404");
     });
     await expect(connectWorker(worker, opts)).rejects.toMatchObject({ code: "LOAD_FAILED", message: "HTTP 404" });
   });

@@ -1,7 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { loadTimesFM } from "src/index";
 import {
-  TimesFMError,
+  ForecastError,
   type Backend,
   type Forecast,
   type ForecastOptions,
@@ -119,5 +119,5 @@ export function useTimesFM(): TimesFMState {
   return v;
 }
 
-export { TimesFMError };
+export { ForecastError };
 export type { Forecast, ForecastOptions, LoadOptions, Progress, Series, TimesFM };

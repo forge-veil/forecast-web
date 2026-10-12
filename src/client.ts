@@ -1,8 +1,9 @@
-import { validateHorizon } from "src/forecaster";
+import { validateHorizon } from "src/core/validate";
+import { MAX_HORIZON } from "src/models/timesfm/constants";
 import type { CoreOptions } from "src/loader";
 import type { Request, Response } from "src/protocol";
 import {
-  TimesFMError,
+  ForecastError,
   type Backend,
   type Forecast,
   type ForecastOptions,
@@ -53,11 +54,11 @@ export function connectWorker(
     const p = pending.get(msg.id);
     if (!p) return;
     pending.delete(msg.id);
-    if (msg.type === "error") p.reject(new TimesFMError(msg.code, msg.message));
+    if (msg.type === "error") p.reject(new ForecastError(msg.code, msg.message));
     else p.resolve(msg);
   });
   worker.addEventListener("error", (e) => {
-    failAll(new TimesFMError("LOAD_FAILED", `worker crashed: ${e.message ?? "unknown error"}`));
+    failAll(new ForecastError("LOAD_FAILED", `worker crashed: ${e.message ?? "unknown error"}`));
   });
 
   const call = <T extends Response["type"]>(
@@ -72,11 +73,11 @@ export function connectWorker(
   const onAbort = () => {
     disposed = true;
     worker.terminate();
-    failAll(new TimesFMError("ABORTED", "load was aborted"));
+    failAll(new ForecastError("ABORTED", "load was aborted"));
   };
   if (signal?.aborted) {
     worker.terminate();
-    return Promise.reject(new TimesFMError("ABORTED", "load was aborted"));
+    return Promise.reject(new ForecastError("ABORTED", "load was aborted"));
   }
   signal?.addEventListener("abort", onAbort, { once: true });
 
@@ -88,9 +89,9 @@ export function connectWorker(
         dtype: dtype as ResolvedDtype,
         config: config as ModelConfig,
         async forecast(series: Series[], fopts: ForecastOptions = {}): Promise<Forecast[]> {
-          if (disposed) throw new TimesFMError("DISPOSED", "this model has been disposed");
-          if (fopts.horizon !== undefined) validateHorizon(fopts.horizon);
-          if (!series || series.length === 0) throw new TimesFMError("EMPTY_INPUT", "pass at least one series");
+          if (disposed) throw new ForecastError("DISPOSED", "this model has been disposed");
+          if (fopts.horizon !== undefined) validateHorizon(fopts.horizon, MAX_HORIZON);
+          if (!series || series.length === 0) throw new ForecastError("EMPTY_INPUT", "pass at least one series");
           const arrays = series.map(toFloat64);
           const r = await call<"result">(
             { type: "forecast", id: nextId++, series: arrays, horizon: fopts.horizon },
@@ -105,7 +106,7 @@ export function connectWorker(
             await call<"disposed">({ type: "dispose", id: nextId++ });
           } finally {
             worker.terminate();
-            failAll(new TimesFMError("DISPOSED", "this model has been disposed"));
+            failAll(new ForecastError("DISPOSED", "this model has been disposed"));
           }
         },
       };

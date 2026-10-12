@@ -1,4 +1,4 @@
-import { TimesFMError, type ResolvedDtype } from "src/types";
+import { ForecastError, type ResolvedDtype } from "src/types";
 
 /**
  * Default weights repo. Replace once the converted weights are published;
@@ -38,7 +38,7 @@ export function resolveBase(model = DEFAULT_MODEL, revision = "main", relativeTo
     base = relativeTo ? new URL(model, relativeTo).href : model;
   } else {
     if (!/^[\w.-]+\/[\w.-]+$/.test(model))
-      throw new TimesFMError("LOAD_FAILED", `"${model}" is neither a Hugging Face repo id nor a URL`);
+      throw new ForecastError("LOAD_FAILED", `"${model}" is neither a Hugging Face repo id nor a URL`);
     base = `https://huggingface.co/${model}/resolve/${encodeURIComponent(revision)}/`;
   }
   return base.endsWith("/") ? base : base + "/";
@@ -46,7 +46,7 @@ export function resolveBase(model = DEFAULT_MODEL, revision = "main", relativeTo
 
 export function resolveFiles(base: string, dtype: ResolvedDtype = "q8"): ModelFiles {
   const f = FILES[dtype];
-  if (!f) throw new TimesFMError("LOAD_FAILED", `unknown dtype "${dtype}"`);
+  if (!f) throw new ForecastError("LOAD_FAILED", `unknown dtype "${dtype}"`);
   return {
     config: base + "config.json",
     model: base + f.graph,
@@ -54,7 +54,7 @@ export function resolveFiles(base: string, dtype: ResolvedDtype = "q8"): ModelFi
   };
 }
 
-const aborted = () => new TimesFMError("ABORTED", "load was aborted");
+const aborted = () => new ForecastError("ABORTED", "load was aborted");
 
 async function openCache(enabled: boolean): Promise<Cache | null> {
   if (!enabled || typeof caches === "undefined") return null;
@@ -111,12 +111,12 @@ export async function fetchBytes(
     if (signal?.aborted) throw aborted();
     const hit = opts.networkFirst ? await fromCache() : null;
     if (hit) return hit;
-    throw new TimesFMError("LOAD_FAILED", `could not fetch ${url}`, { cause: e });
+    throw new ForecastError("LOAD_FAILED", `could not fetch ${url}`, { cause: e });
   }
   if (!res.ok) {
     const hit = opts.networkFirst ? await fromCache() : null;
     if (hit) return hit;
-    throw new TimesFMError("LOAD_FAILED", `${url} returned HTTP ${res.status}`);
+    throw new ForecastError("LOAD_FAILED", `${url} returned HTTP ${res.status}`);
   }
 
   let total = Number(res.headers.get("content-length")) || 0;
@@ -142,7 +142,7 @@ export async function fetchBytes(
     }
   } catch (e) {
     if (signal?.aborted) throw aborted();
-    throw new TimesFMError("LOAD_FAILED", `download of ${url} was interrupted`, { cause: e });
+    throw new ForecastError("LOAD_FAILED", `download of ${url} was interrupted`, { cause: e });
   }
 
   const bytes = new Uint8Array(loaded);

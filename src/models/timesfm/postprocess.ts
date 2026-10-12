@@ -1,4 +1,5 @@
-import { CHANNELS, MAX_HORIZON, type Forecast, type SeriesStats } from "src/types";
+import { CHANNELS, MAX_HORIZON, type SeriesStats } from "src/models/timesfm/constants";
+import type { Forecast } from "src/types";
 
 const MEDIAN = 5;
 const LOWER = [4, 3, 2, 1];

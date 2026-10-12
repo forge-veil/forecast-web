@@ -1,6 +1,7 @@
-import { postprocess } from "src/postprocess";
-import { createForecaster } from "src/forecaster";
-import { CHANNELS, MAX_HORIZON, TimesFMError, type SeriesStats } from "src/types";
+import { createForecaster } from "src/models/timesfm/forecaster";
+import { CHANNELS, MAX_HORIZON, type SeriesStats } from "src/models/timesfm/constants";
+import { postprocess } from "src/models/timesfm/postprocess";
+import { ForecastError } from "src/types";
 
 const ROW = MAX_HORIZON * CHANNELS;
 
@@ -122,7 +123,7 @@ describe("createForecaster", () => {
   it("rejects horizons over 128", async () => {
     const { forecast } = fake();
     const err = await forecast([[1, 2]], { horizon: 129 }).catch((e) => e);
-    expect(err).toBeInstanceOf(TimesFMError);
+    expect(err).toBeInstanceOf(ForecastError);
     expect(err.code).toBe("HORIZON_TOO_LONG");
   });
 

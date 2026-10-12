@@ -7,12 +7,12 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import * as ort from "onnxruntime-node";
-import { createForecaster } from "src/forecaster";
+import { createForecaster } from "src/models/timesfm/forecaster";
 import { expandHalfToFloat } from "src/half";
 import type { Forecast } from "src/types";
 
-const DIR = fileURLToPath(new URL("../build/hub/onnx/", import.meta.url));
-const ref = JSON.parse(readFileSync(new URL("./fixtures/reference.json", import.meta.url), "utf8")) as {
+const DIR = fileURLToPath(new URL("../../../build/hub/onnx/", import.meta.url));
+const ref = JSON.parse(readFileSync(new URL("../../fixtures/timesfm/reference.json", import.meta.url), "utf8")) as {
   horizon: number;
   cases: { name: string; input: (number | null)[]; output: number[][] }[];
 };

@@ -7,7 +7,7 @@ const loadMock = vi.fn<(o: LoadOptions) => Promise<TimesFM>>();
 vi.mock("src/index", () => ({ loadTimesFM: (o: LoadOptions) => loadMock(o) }));
 
 const { TimesFMProvider, useTimesFM } = await import("src/react");
-const { TimesFMError } = await import("src/types");
+const { ForecastError } = await import("src/types");
 
 function fakeModel(): TimesFM & { dispose: ReturnType<typeof vi.fn> } {
   return {
@@ -61,7 +61,7 @@ describe("TimesFMProvider + useTimesFM", () => {
   });
 
   it("exposes load errors and allows a retry", async () => {
-    loadMock.mockRejectedValueOnce(new TimesFMError("LOAD_FAILED", "HTTP 404"));
+    loadMock.mockRejectedValueOnce(new ForecastError("LOAD_FAILED", "HTTP 404"));
     const { result } = renderHook(() => useTimesFM(), { wrapper: wrap() });
     await act(async () => {
       await result.current.load().catch(() => {});
