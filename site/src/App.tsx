@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTimesFM } from "timesfm-web/react";
 import { Detail } from "src/components/Detail";
 import { Sidebar } from "src/components/Sidebar";
+import { TopLinks } from "src/components/TopLinks";
 import { useAsync } from "src/components/useAsync";
 import { YourDataEditor } from "src/components/YourDataEditor";
 import { articleItem, cityItem, datasetItem, PRESET_ARTICLES, PRESET_CITIES, YOURS, type Item } from "src/lib/items";
@@ -65,6 +66,7 @@ export function App() {
 
   return (
     <div className="app" data-view={view}>
+      <TopLinks />
       <Sidebar
         items={items}
         data={data}

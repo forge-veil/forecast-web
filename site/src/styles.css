@@ -78,6 +78,12 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
 .detail { overflow-y: auto; min-height: 0; }
 .detail-inner { max-width: 980px; margin: 0 auto; padding: 28px 32px 56px; }
 
+/* Project links, top right */
+.toplinks { position: fixed; top: 14px; right: 16px; display: flex; gap: 4px; z-index: 10; }
+.toplinks a { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 8px; color: var(--ink-2); }
+.toplinks a:hover { background: var(--fill); color: var(--ink); text-decoration: none; }
+.toplinks svg { width: 17px; height: 17px; fill: currentColor; }
+
 /* Sidebar header */
 .sb-head { padding: 22px 16px 10px; }
 .sb-title { font: 700 30px/1.1 var(--font-display); letter-spacing: -0.02em; margin: 0; }
