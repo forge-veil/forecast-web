@@ -17,7 +17,8 @@
     "isolatedModules": true,
     "verbatimModuleSyntax": true,
     "types": [
-      "vitest/globals"
+      "vitest/globals",
+      "node"
     ],
     "paths": {
       "src/*": [
