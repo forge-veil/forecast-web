@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { act, render, renderHook, waitFor } from "@testing-library/react";
-import { StrictMode, type ReactNode } from "react";
+import { StrictMode, useEffect, type ReactNode } from "react";
 import type { LoadOptions, TimesFM } from "src/types";
 
 const loadMock = vi.fn<(o: LoadOptions) => Promise<TimesFM>>();
@@ -97,7 +97,7 @@ describe("TimesFMProvider + useTimesFM", () => {
     const { result, unmount } = renderHook(() => useTimesFM(), { wrapper: wrap() });
     act(() => void result.current.load());
     unmount();
-    expect(signal?.aborted).toBe(true);
+    await waitFor(() => expect(signal?.aborted).toBe(true));
   });
 
   it("survives StrictMode's double mount with eager loading", async () => {
@@ -120,9 +120,37 @@ describe("TimesFMProvider + useTimesFM", () => {
       </StrictMode>,
     );
     await waitFor(() => expect(state?.status).toBe("ready"));
-    // The first (simulated-unmount) instance is disposed, the live one is not.
-    await waitFor(() => expect(models[0].dispose).toHaveBeenCalled());
-    expect(models.at(-1)!.dispose).not.toHaveBeenCalled();
+    // The simulated unmount is cancelled by the remount: one load, still alive.
+    await new Promise((r) => setTimeout(r, 10));
+    expect(models).toHaveLength(1);
+    expect(models[0].dispose).not.toHaveBeenCalled();
+  });
+
+  it("lets a child forecast on mount under StrictMode without an abort", async () => {
+    const m = fakeModel();
+    loadMock.mockImplementation(() => new Promise((r) => setTimeout(() => r(m), 5)));
+    const outcomes: string[] = [];
+    function Child() {
+      const { forecast } = useTimesFM();
+      useEffect(() => {
+        forecast([[1, 2, 3]]).then(
+          () => outcomes.push("ok"),
+          (e) => outcomes.push(`error:${e.code ?? e.message}`),
+        );
+      }, [forecast]);
+      return null;
+    }
+    render(
+      <StrictMode>
+        <TimesFMProvider>
+          <Child />
+        </TimesFMProvider>
+      </StrictMode>,
+    );
+    await waitFor(() => expect(outcomes.length).toBe(2));
+    expect(outcomes).toEqual(["ok", "ok"]);
+    expect(loadMock).toHaveBeenCalledTimes(1);
+    expect(m.dispose).not.toHaveBeenCalled();
   });
 
   it("throws a clear error outside the provider", () => {

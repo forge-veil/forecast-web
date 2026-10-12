@@ -66,7 +66,8 @@ export async function loadCore(
   const plan = planLoad(opts.dtype, opts.device, needsGpuCheck ? await gpuCheck() : false);
   const files = resolveFiles(opts.base, plan.dtype);
 
-  const cfgBytes = await fetchBytes(files.config, { cache: opts.cache, signal });
+  // Always fetch config fresh (it is small and carries the weight hashes); the cache is the offline fallback.
+  const cfgBytes = await fetchBytes(files.config, { cache: opts.cache, networkFirst: true, signal });
   let config: ModelConfig;
   try {
     config = JSON.parse(new TextDecoder().decode(cfgBytes));
@@ -79,27 +80,52 @@ export async function loadCore(
       `unsupported model shape: context ${config.context}, horizon ${config.horizon} (expected 512 and 128)`,
     );
 
-  // Progress is the sum over every weight file being downloaded.
   const urls = [files.model, ...(files.halfData ? [files.halfData.url] : [])];
-  const state = urls.map(() => ({ loaded: 0, total: 0, cached: true }));
-  const report = () =>
-    onProgress?.({
-      loaded: state.reduce((a, s) => a + s.loaded, 0),
-      total: state.reduce((a, s) => a + s.total, 0),
-      cached: state.every((s) => s.cached),
-    });
-  const [graph, half] = await Promise.all(
-    urls.map((url, i) =>
-      fetchBytes(url, {
-        cache: opts.cache,
-        signal,
-        onProgress: (loaded, total, cached) => {
-          state[i] = { loaded, total, cached };
-          report();
-        },
-      }),
-    ),
-  );
+  const meta = urls.map((u) => config.files?.[u.slice(opts.base.length)]);
+
+  // Progress is the sum over every weight file. Totals come from config.json when listed;
+  // otherwise nothing is reported until every file has announced its size, so it never jumps back.
+  const state = urls.map((_, i) => ({ loaded: 0, total: meta[i]?.bytes ?? 0, cached: true, known: !!meta[i] }));
+  const report = () => {
+    if (!state.every((s) => s.known)) return;
+    const loaded = state.reduce((a, s) => a + s.loaded, 0);
+    const total = Math.max(state.reduce((a, s) => a + s.total, 0), loaded);
+    onProgress?.({ loaded, total, cached: state.every((s) => s.cached) });
+  };
+
+  // One failed file cancels the others instead of letting them download in the background.
+  const inner = new AbortController();
+  const forward = () => inner.abort();
+  signal?.addEventListener("abort", forward, { once: true });
+  let graph: Uint8Array;
+  let half: Uint8Array | undefined;
+  try {
+    [graph, half] = await Promise.all(
+      urls.map((url, i) =>
+        fetchBytes(url, {
+          cache: opts.cache,
+          cacheKey: meta[i] ? `${url}?sha256=${meta[i]!.sha256}` : undefined,
+          signal: inner.signal,
+          onProgress: (loaded, total, cached) => {
+            const s = state[i];
+            s.loaded = loaded;
+            s.total = Math.max(s.total, total);
+            s.cached = cached;
+            s.known = true;
+            report();
+          },
+        }).catch((e) => {
+          inner.abort();
+          throw e;
+        }),
+      ),
+    );
+  } catch (e) {
+    if (signal?.aborted) throw new TimesFMError("ABORTED", "load was aborted");
+    throw e;
+  } finally {
+    signal?.removeEventListener("abort", forward);
+  }
   if (signal?.aborted) throw new TimesFMError("ABORTED", "load was aborted");
 
   const externalData =
@@ -110,6 +136,10 @@ export async function loadCore(
     wasmPaths: opts.wasmPaths,
     externalData,
   });
+  if (signal?.aborted) {
+    await session.release();
+    throw new TimesFMError("ABORTED", "load was aborted");
+  }
   return {
     backend: session.backend,
     dtype: plan.dtype,

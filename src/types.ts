@@ -51,6 +51,8 @@ export interface ModelConfig {
   horizon: number;
   patch: number;
   quantiles: number[];
+  /** Size and SHA-256 per weight file, relative to the model base URL. */
+  files?: Record<string, { bytes: number; sha256: string }>;
 }
 
 export interface Progress {

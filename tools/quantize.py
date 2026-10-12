@@ -4,12 +4,12 @@ model_quantized.onnx: weight-only MatMulNBits, 8 bits, block 32, symmetric.
                       Runs on WASM only: onnxruntime-web's WebGPU MatMulNBits
                       supports 2 and 4 bits. 4 bits was measured and rejected
                       (mean error 3-7% of series std, worst over 50%).
-model_fp16.onnx:      fp16 weight storage with fp32 compute. Each large weight
-                      is stored as fp16 and cast to fp32 in the graph; ORT folds
-                      the casts at session creation. A full fp16 conversion
-                      produces wrong results on WebGPU, where reductions and
-                      attention scores accumulate in half precision.
-File names follow the Transformers.js convention (dtype q8 -> model_quantized).
+model_fp16w.onnx +    fp32 graph whose large weights are external data, shipped
+model_fp16w.f16       as fp16 and expanded to fp32 by the loader. A standard fp16
+                      conversion gives wrong results on WebGPU (half-precision
+                      accumulation), and in-graph Casts are not folded on WebGPU,
+                      which made every forecast slow.
+fp32 and q8 follow Transformers.js file names (dtype q8 -> model_quantized).
 """
 
 import os

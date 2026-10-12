@@ -120,6 +120,36 @@ describe("fetchBytes", () => {
     expect(seen.at(-1)).toEqual([4, 4]);
   });
 
+  it("stores and finds entries under a custom cache key while fetching the real URL", async () => {
+    const f = vi.fn(async () => new Response(body([[4, 2]])));
+    vi.stubGlobal("fetch", f);
+    await fetchBytes("https://x/m", { cacheKey: "https://x/m?sha256=abc" });
+    expect(f).toHaveBeenCalledWith("https://x/m", expect.anything());
+    expect(cache.store.has("https://x/m?sha256=abc")).toBe(true);
+    expect(cache.store.has("https://x/m")).toBe(false);
+    f.mockClear();
+    expect(Array.from(await fetchBytes("https://x/m", { cacheKey: "https://x/m?sha256=abc" }))).toEqual([4, 2]);
+    expect(f).not.toHaveBeenCalled();
+  });
+
+  it("networkFirst prefers fresh bytes and refreshes the cache", async () => {
+    cache.store.set("https://x/c", new Response(new Uint8Array([1])));
+    vi.stubGlobal("fetch", vi.fn(async () => new Response(body([[2]]))));
+    expect(Array.from(await fetchBytes("https://x/c", { networkFirst: true }))).toEqual([2]);
+    expect(Array.from(new Uint8Array(await (await cache.match("https://x/c"))!.arrayBuffer()))).toEqual([2]);
+  });
+
+  it("networkFirst falls back to the cache when offline", async () => {
+    cache.store.set("https://x/c", new Response(new Uint8Array([1])));
+    vi.stubGlobal("fetch", vi.fn(async () => { throw new TypeError("offline"); }));
+    expect(Array.from(await fetchBytes("https://x/c", { networkFirst: true }))).toEqual([1]);
+  });
+
+  it("networkFirst fails with LOAD_FAILED when offline with nothing cached", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () => { throw new TypeError("offline"); }));
+    await expect(fetchBytes("https://x/c", { networkFirst: true })).rejects.toMatchObject({ code: "LOAD_FAILED" });
+  });
+
   it("maps HTTP errors to LOAD_FAILED", async () => {
     vi.stubGlobal("fetch", vi.fn(async () => new Response("nope", { status: 404 })));
     await expect(fetchBytes("https://x/m")).rejects.toMatchObject({ code: "LOAD_FAILED" });

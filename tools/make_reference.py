@@ -39,6 +39,7 @@ def series():
   s["long_2000"] = (np.sin(np.arange(2000) / 50) * 100 + rng.normal(0, 2, 2000)).tolist()
   s["negative"] = (-1000 - 3 * np.arange(256) + rng.normal(0, 10, 256)).tolist()
   s["tiny_scale"] = (1e-4 * np.sin(np.arange(200) / 5)).tolist()
+  s["exact_512"] = (np.cos(np.arange(512) / 7) * 20 + np.arange(512) * 0.05 + rng.normal(0, 1, 512)).tolist()
   return s
 
 

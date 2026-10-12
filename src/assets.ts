@@ -68,11 +68,15 @@ async function openCache(enabled: boolean): Promise<Cache | null> {
 /**
  * Downloads a file, reporting bytes as they arrive. Serves from and writes to
  * the Cache API when available; a full or unavailable cache never fails the load.
+ * `cacheKey` stores the entry under a different URL (for content-hash keys).
+ * `networkFirst` always tries the network and uses the cache only as an offline fallback.
  */
 export async function fetchBytes(
   url: string,
   opts: {
     cache?: boolean;
+    cacheKey?: string;
+    networkFirst?: boolean;
     signal?: AbortSignal;
     onProgress?: (loaded: number, total: number, cached: boolean) => void;
   } = {},
@@ -80,18 +84,24 @@ export async function fetchBytes(
   const { signal, onProgress } = opts;
   if (signal?.aborted) throw aborted();
   const cache = await openCache(opts.cache ?? true);
+  const key = opts.cacheKey ?? url;
 
-  if (cache) {
+  const fromCache = async (): Promise<Uint8Array | null> => {
+    if (!cache) return null;
     try {
-      const hit = await cache.match(url);
-      if (hit) {
-        const bytes = new Uint8Array(await hit.arrayBuffer());
-        onProgress?.(bytes.length, bytes.length, true);
-        return bytes;
-      }
+      const hit = await cache.match(key);
+      if (!hit) return null;
+      const bytes = new Uint8Array(await hit.arrayBuffer());
+      onProgress?.(bytes.length, bytes.length, true);
+      return bytes;
     } catch {
-      /* fall through to the network */
+      return null;
     }
+  };
+
+  if (!opts.networkFirst) {
+    const hit = await fromCache();
+    if (hit) return hit;
   }
 
   let res: Response;
@@ -99,9 +109,15 @@ export async function fetchBytes(
     res = await fetch(url, { signal });
   } catch (e) {
     if (signal?.aborted) throw aborted();
+    const hit = opts.networkFirst ? await fromCache() : null;
+    if (hit) return hit;
     throw new TimesFMError("LOAD_FAILED", `could not fetch ${url}`, { cause: e });
   }
-  if (!res.ok) throw new TimesFMError("LOAD_FAILED", `${url} returned HTTP ${res.status}`);
+  if (!res.ok) {
+    const hit = opts.networkFirst ? await fromCache() : null;
+    if (hit) return hit;
+    throw new TimesFMError("LOAD_FAILED", `${url} returned HTTP ${res.status}`);
+  }
 
   let total = Number(res.headers.get("content-length")) || 0;
   const chunks: Uint8Array[] = [];
@@ -137,7 +153,7 @@ export async function fetchBytes(
   }
   if (cache) {
     try {
-      await cache.put(url, new Response(bytes, { headers: { "content-length": String(loaded) } }));
+      await cache.put(key, new Response(bytes, { headers: { "content-length": String(loaded) } }));
     } catch {
       /* quota exceeded or private mode: keep going without caching */
     }

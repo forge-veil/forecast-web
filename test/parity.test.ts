@@ -98,6 +98,22 @@ for (const { file, half, worst, mean } of variants) {
       console.table(rows);
     });
 
+    it("a short horizon returns the same leading steps as horizon 128", async () => {
+      const forecast = createForecaster(async (inputs, masks, batch) => {
+        const out = await session.run({
+          inputs: new ort.Tensor("float32", inputs, [batch, 512]),
+          masks: new ort.Tensor("float32", masks, [batch, 512]),
+        });
+        return { point: out.point.data as Float32Array, qspread: out.qspread.data as Float32Array };
+      });
+      const short = await forecast(ref.cases.map((c) => c.input), { horizon: 24 });
+      short.forEach((f, i) => {
+        expect(f.median).toHaveLength(24);
+        expect(f.median).toEqual(results[i].median.slice(0, 24));
+        expect(f.q90).toEqual(results[i].q90.slice(0, 24));
+      });
+    });
+
     it.each(ref.cases.map((c, i) => [c.name, i] as const))(
       `%s: worst < ${worst}, mean < ${mean} of std`,
       (_name, i) => {

@@ -64,5 +64,6 @@ export async function createSession(bytes: Uint8Array, opts: SessionOptions): Pr
     return job;
   };
 
-  return { backend, run, release: () => s.release() };
+  // Let queued runs finish before freeing the session.
+  return { backend, run, release: () => queue.then(() => s.release()) };
 }

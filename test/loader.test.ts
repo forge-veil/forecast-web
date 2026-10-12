@@ -89,6 +89,93 @@ describe("loadCore", () => {
     expect(core.dtype).toBe("q8");
   });
 
+  it("reports monotonic progress against the sizes listed in config.json", async () => {
+    const sized = {
+      ...config,
+      files: {
+        "onnx/model_fp16w.onnx": { bytes: 4, sha256: "aa" },
+        "onnx/model_fp16w.f16": { bytes: 4, sha256: "bb" },
+      },
+    };
+    files["https://m/config.json"] = new TextEncoder().encode(JSON.stringify(sized));
+    const { factory } = fakeSession();
+    const seen: Progress[] = [];
+    await loadCore(opts({}), factory, (p) => seen.push(p), undefined, async () => true);
+    expect(seen.length).toBeGreaterThan(0);
+    for (const p of seen) expect(p.total).toBe(8);
+    for (let i = 1; i < seen.length; i++) expect(seen[i].loaded).toBeGreaterThanOrEqual(seen[i - 1].loaded);
+    files["https://m/config.json"] = new TextEncoder().encode(JSON.stringify(config));
+  });
+
+  it("does not report progress until every file's size is known", async () => {
+    const { factory } = fakeSession();
+    const seen: Progress[] = [];
+    await loadCore(opts({}), factory, (p) => seen.push(p), undefined, async () => true);
+    for (const p of seen) expect(p.total).toBe(8);
+  });
+
+  it("keys cached weights by the content hash from config.json", async () => {
+    const store = new Map<string, Response>();
+    vi.stubGlobal("caches", {
+      open: async () => ({
+        match: async (k: string) => store.get(k)?.clone(),
+        put: async (k: string, r: Response) => void store.set(k, r),
+      }),
+    });
+    const sized = { ...config, files: { "onnx/model_quantized.onnx": { bytes: 10, sha256: "deadbeef" } } };
+    files["https://m/config.json"] = new TextEncoder().encode(JSON.stringify(sized));
+    const { factory } = fakeSession();
+    await loadCore(opts({ device: "wasm", cache: true }), factory);
+    expect([...store.keys()]).toContain("https://m/onnx/model_quantized.onnx?sha256=deadbeef");
+    files["https://m/config.json"] = new TextEncoder().encode(JSON.stringify(config));
+  });
+
+  it("always fetches config.json from the network so new hashes are seen", async () => {
+    const store = new Map<string, Response>([["https://m/config.json", new Response('{"stale":true}')]]);
+    vi.stubGlobal("caches", {
+      open: async () => ({
+        match: async (k: string) => store.get(k)?.clone(),
+        put: async (k: string, r: Response) => void store.set(k, r),
+      }),
+    });
+    const { factory } = fakeSession();
+    const core = await loadCore(opts({ device: "wasm", cache: true }), factory);
+    expect(core.config.context).toBe(512);
+  });
+
+  it("cancels the other download when one file fails", async () => {
+    let graphSignal: AbortSignal | undefined;
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async (url: string, init?: RequestInit) => {
+        if (url.endsWith("config.json")) return new Response(files["https://m/config.json"].slice().buffer);
+        if (url.endsWith(".f16")) return new Response("", { status: 404 });
+        graphSignal = init?.signal ?? undefined;
+        return new Promise<Response>((_r, reject) =>
+          init?.signal?.addEventListener("abort", () => reject(new DOMException("aborted", "AbortError"))),
+        );
+      }),
+    );
+    const { factory } = fakeSession();
+    await expect(loadCore(opts({}), factory, undefined, undefined, async () => true)).rejects.toMatchObject({
+      code: "LOAD_FAILED",
+    });
+    expect(graphSignal?.aborted).toBe(true);
+  });
+
+  it("releases the session and rejects when aborted during session creation", async () => {
+    const ac = new AbortController();
+    const release = vi.fn(async () => {});
+    const factory: SessionFactory = async (_b, o) => {
+      ac.abort();
+      return { backend: o.device, run: vi.fn(), release };
+    };
+    await expect(loadCore(opts({ device: "wasm" }), factory, undefined, ac.signal)).rejects.toMatchObject({
+      code: "ABORTED",
+    });
+    expect(release).toHaveBeenCalledTimes(1);
+  });
+
   it("rejects a config with an unexpected shape", async () => {
     files["https://m/config.json"] = new TextEncoder().encode(JSON.stringify({ ...config, context: 1024 }));
     const { factory } = fakeSession();

@@ -86,17 +86,25 @@ export function TimesFMProvider({ children, eager = false, ...options }: TimesFM
     if (eager) void load().catch(() => {});
   }, [eager, load]);
 
-  useEffect(
-    () => () => {
-      // Unmount (or StrictMode's simulated one): stop any download and free the model.
-      genRef.current++;
-      abortRef.current?.abort();
-      const p = promiseRef.current;
-      promiseRef.current = null;
-      p?.then((m) => m.dispose()).catch(() => {});
-    },
-    [],
-  );
+  const teardownRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(() => {
+    // StrictMode unmounts and remounts immediately; a pending teardown is cancelled so
+    // in-flight loads and forecasts started by children survive.
+    if (teardownRef.current !== null) {
+      clearTimeout(teardownRef.current);
+      teardownRef.current = null;
+    }
+    return () => {
+      teardownRef.current = setTimeout(() => {
+        teardownRef.current = null;
+        genRef.current++;
+        abortRef.current?.abort();
+        const p = promiseRef.current;
+        promiseRef.current = null;
+        p?.then((m) => m.dispose()).catch(() => {});
+      }, 0);
+    };
+  }, []);
 
   const value = useMemo<TimesFMState>(
     () => ({ status, progress, backend, error, load, forecast }),

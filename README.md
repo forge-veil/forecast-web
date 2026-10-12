@@ -2,7 +2,7 @@
 
 Run Google's [TimesFM 2.5](https://github.com/google-research/timesfm) time series forecasting model in the browser. Give it a history, get back a forecast up to 128 steps ahead with nine quantile bands. Everything runs on the visitor's machine, on WebGPU when available and WASM otherwise.
 
-Forecasts match the official Python library. The fp32 model agrees with `TimesFM_2p5_200M_torch.forecast()` to within 0.002% of each series' standard deviation, checked by an automated parity test.
+Forecasts match the official Python library. On the test series, the fp32 model agrees with `TimesFM_2p5_200M_torch.forecast()` to within 0.002% of each series' standard deviation. An automated parity test enforces agreement within 0.1%.
 
 ```sh
 npm install timesfm-web
@@ -26,7 +26,7 @@ forecast.q90;    // upper band
 
 The first load downloads the weights (249 to 441 MB, see below) and stores them with the browser Cache API, so later visits skip the download.
 
-Series are plain arrays, oldest first. `null`, `undefined` and `NaN` mark missing values. They are handled exactly like the Python library: leading gaps are dropped, interior gaps are filled by linear interpolation, and trailing gaps hold the last value. Pass several series to forecast them in one batch.
+Series are plain arrays, oldest first. `null`, `undefined` and `NaN` mark missing values. They are handled like the Python library: leading gaps are dropped, interior gaps are filled by linear interpolation, and trailing gaps hold the last value. Two edge cases differ on purpose. An empty or all-missing series gives a forecast of zeros, where Python raises an error. `Infinity` counts as missing, where Python keeps it and returns non-finite output. Pass several series to forecast them in one batch.
 
 ## React
 
@@ -126,7 +126,10 @@ uv sync --python 3.12
 uv run python export_onnx.py      # fp32 graph
 uv run python quantize.py         # q8 and fp16 variants
 uv run python make_reference.py   # parity fixtures from the official library
+uv run python package_hub.py      # config.json with file sizes and hashes, model card
 ```
+
+The loader always fetches `config.json` fresh and keys cached weights by the SHA-256 listed there, so uploading new weights with a regenerated config invalidates old cached copies.
 
 Then `npm test` checks all three formats against the official forecasts.
 
@@ -135,7 +138,8 @@ Then `npm test` checks all three formats against the official forecasts.
 - Context is the most recent 512 points. Longer series are truncated, as in the Python library with `max_context=512`.
 - Horizon is at most 128 steps.
 - TimesFM 3.0 is not supported. Its weights are licensed for non-commercial use only.
-- No covariates or multivariate input. Those are TimesFM 3.0 features.
+- No covariates. TimesFM 2.5 supports them in Python through a separate regression step, which this package does not port.
+- No multivariate input. That is a TimesFM 3.0 feature.
 
 ## License
 
