@@ -24,6 +24,8 @@ from timesfm.timesfm_2p5.timesfm_2p5_torch import TimesFM_2p5_200M_torch_module
 from timesfm.torch import transformer, util
 
 REPO = "google/timesfm-2.5-200m-pytorch"
+# Pinned so a rebuild in CI always starts from the same checkpoint.
+REVISION = "1d952420fba87f3c6dee4f240de0f1a0fbc790e3"
 C = int(sys.argv[1]) if len(sys.argv) > 1 else 512
 OUT = sys.argv[2] if len(sys.argv) > 2 else os.path.join(
   os.path.dirname(__file__), "..", "build", "hub", "onnx", "model.onnx"
@@ -79,7 +81,7 @@ class Prefill(torch.nn.Module):
 
 def main():
   m = TimesFM_2p5_200M_torch_module()
-  m.load_checkpoint(hf_hub_download(REPO, "model.safetensors"))
+  m.load_checkpoint(hf_hub_download(REPO, "model.safetensors", revision=REVISION))
   m.to("cpu").eval()
   for layer in m.stacked_xf:
     # Explicit masked softmax: same math as the fused SDPA path, export friendly.

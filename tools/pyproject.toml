@@ -4,6 +4,7 @@ version = "0.0.0"
 requires-python = ">=3.11,<3.13"
 dependencies = [
   "timesfm[torch] @ git+https://github.com/google-research/timesfm.git@e51928e",
+  "torch>=2.4",
   "onnx>=1.17",
   "onnxscript",
   "onnxruntime>=1.20",
@@ -13,3 +14,13 @@ dependencies = [
 
 [tool.uv]
 package = false
+
+# CPU-only PyTorch everywhere: the export never needs a GPU, and the default
+# Linux wheels pull in several GB of CUDA libraries on CI runners.
+[tool.uv.sources]
+torch = [{ index = "pytorch-cpu" }]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true

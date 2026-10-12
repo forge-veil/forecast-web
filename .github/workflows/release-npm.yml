@@ -1,0 +1,52 @@
+name: Release npm
+
+# Publishes when a version tag is pushed, e.g. `git tag v0.1.0 && git push origin v0.1.0`.
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: read
+  id-token: write # npm trusted publishing and provenance
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: npm
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+          cache: npm
+      # Trusted publishing needs npm 11.5.1 or newer, and npm 11.5.x skips rolldown's
+      # native binding on a clean install. 11.21 and later handle both.
+      - run: npm install -g npm@11
+      - name: Check the tag matches package.json
+        run: |
+          version="$(node -p "require('./package.json').version")"
+          if [ "${GITHUB_REF_NAME}" != "v${version}" ]; then
+            echo "Tag ${GITHUB_REF_NAME} does not match package.json version ${version}" >&2
+            exit 1
+          fi
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
+      # Records only whether a bootstrap token exists; the token itself reaches the publish step alone.
+      - name: Choose publish method
+        id: auth
+        run: echo "bootstrap=${{ secrets.NPM_TOKEN != '' }}" >> "$GITHUB_OUTPUT"
+      # Normal path: npm trusted publishing (OIDC). No token is stored anywhere.
+      - name: Publish (trusted publishing)
+        if: steps.auth.outputs.bootstrap != 'true'
+        run: npm publish --access public
+      # Bootstrap path for the very first version only: npm cannot configure a trusted
+      # publisher until the package exists. Add a short-lived granular token as the
+      # NPM_TOKEN secret of the "npm" environment, publish once, then delete it.
+      - name: Publish (bootstrap token)
+        if: steps.auth.outputs.bootstrap == 'true'
+        run: npm publish --access public --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -12,6 +12,8 @@ import json
 import os
 import shutil
 
+from export_onnx import REVISION
+
 HERE = os.path.dirname(__file__)
 HUB = os.path.join(HERE, "..", "build", "hub")
 FILES = [
@@ -33,6 +35,7 @@ def sha256(path):
 def main():
   with open(os.path.join(HERE, "hub", "config.json")) as f:
     config = json.load(f)
+  config["source_revision"] = REVISION
   config["files"] = {}
   for rel in FILES:
     p = os.path.join(HUB, rel)

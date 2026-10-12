@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: npm
+      # npm 11.5.x skips platform-specific optional dependencies (rolldown's native
+      # binding) on a clean install; 11.21 and later install them correctly.
+      - run: npm install -g npm@11
+      - run: npm ci
+      - run: npm run typecheck
+      # The parity suite skips itself here: weights are built only in the release-weights workflow.
+      - run: npm test
+      - run: npm run build
+      - run: npm pack --dry-run

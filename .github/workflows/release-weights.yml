@@ -1,0 +1,67 @@
+name: Release weights
+
+# Rebuilds the ONNX weights from Google's pinned checkpoint, verifies them against
+# the official Python forecasts, and uploads them to the Hugging Face Hub.
+on:
+  workflow_dispatch:
+    inputs:
+      repo_id:
+        description: Hugging Face model repo
+        default: bakshinghampalace/timesfm-2.5-200m-onnx
+        required: true
+      dry_run:
+        description: Build and verify only, skip the upload
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    environment: huggingface
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: npm
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+          cache-dependency-glob: tools/uv.lock
+      - name: Cache the Google checkpoint
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface/hub/models--google--timesfm-2.5-200m-pytorch
+          key: timesfm-2.5-checkpoint-${{ hashFiles('tools/export_onnx.py') }}
+      - name: Install Python tools
+        working-directory: tools
+        run: uv sync --frozen --python 3.12
+      - name: Export fp32 graph
+        working-directory: tools
+        run: uv run python export_onnx.py
+      - name: Build q8 and fp16 variants
+        working-directory: tools
+        run: uv run python quantize.py
+      - name: Generate reference forecasts from the official library
+        working-directory: tools
+        run: uv run python make_reference.py
+      - name: Write config.json and model card
+        working-directory: tools
+        run: uv run python package_hub.py
+      # npm 11.5.x skips platform-specific optional dependencies (rolldown's native
+      # binding) on a clean install; 11.21 and later install them correctly.
+      - run: npm install -g npm@11
+      - run: npm ci
+      # Runs the parity suite against the freshly built weights. Nothing is uploaded unless it passes.
+      - name: Verify parity
+        run: npm test
+      - name: Upload to the Hub
+        if: ${{ !inputs.dry_run }}
+        working-directory: tools
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: uv run python upload_hub.py "${{ inputs.repo_id }}" "Build from ${GITHUB_REPOSITORY}@${GITHUB_SHA::7}"

@@ -14,6 +14,8 @@ import onnxruntime as ort
 import timesfm
 import torch
 
+from export_onnx import REPO, REVISION
+
 HERE = os.path.dirname(__file__)
 ROOT = os.path.join(HERE, "..")
 ONNX = os.path.join(ROOT, "build", "hub", "onnx", "model.onnx")
@@ -48,9 +50,7 @@ def to_np(v):
 
 
 def official(inputs):
-  m = timesfm.TimesFM_2p5_200M_torch.from_pretrained(
-    "google/timesfm-2.5-200m-pytorch", torch_compile=False
-  )
+  m = timesfm.TimesFM_2p5_200M_torch.from_pretrained(REPO, revision=REVISION, torch_compile=False)
   m.compile(
     timesfm.ForecastConfig(
       max_context=512,
