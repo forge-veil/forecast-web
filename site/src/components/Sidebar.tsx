@@ -21,7 +21,7 @@ export function Sidebar(props: {
   return (
     <aside className="sidebar" aria-label="Watchlist">
       <div className="sb-head">
-        <h1 className="sb-title">TimesFM</h1>
+        <h1 className="sb-title">Forecasts</h1>
         <p className="sb-date">{today}</p>
         <ModelStatus />
         <Search onAddCity={props.onAddCity} onAddArticle={props.onAddArticle} />
