@@ -1,0 +1,15 @@
+[project]
+name = "timesfm-web-tools"
+version = "0.0.0"
+requires-python = ">=3.11,<3.13"
+dependencies = [
+  "timesfm[torch] @ git+https://github.com/google-research/timesfm.git@e51928e",
+  "onnx>=1.17",
+  "onnxscript",
+  "onnxruntime>=1.20",
+  "numpy",
+  "huggingface_hub",
+]
+
+[tool.uv]
+package = false
