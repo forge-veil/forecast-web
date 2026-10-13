@@ -1,0 +1,27 @@
+{
+  "model_type": "chronos-bolt",
+  "variant": "tiny",
+  "context": 2048,
+  "prediction_length": 64,
+  "patch": 16,
+  "quantiles": [
+    0.1,
+    0.2,
+    0.3,
+    0.4,
+    0.5,
+    0.6,
+    0.7,
+    0.8,
+    0.9
+  ],
+  "inputs": {
+    "context": "float32 [batch, 2048], normalized, 0 where missing or padded",
+    "mask": "float32 [batch, 2048], 1 = observed"
+  },
+  "outputs": {
+    "quantiles": "float32 [batch, 9, 64], normalized q10..q90"
+  },
+  "source": "amazon/chronos-bolt-tiny",
+  "license": "apache-2.0"
+}

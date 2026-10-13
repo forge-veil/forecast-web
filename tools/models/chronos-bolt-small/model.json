@@ -1,0 +1,20 @@
+{
+  "repo": "bakshinghampalace/chronos-bolt-small-onnx",
+  "source": "amazon/chronos-bolt-small",
+  "revision": "772f3d25d38aec6d914c8949dab4462e2d46f5d8",
+  "scripts": "chronos-bolt",
+  "variant": "small",
+  "files": [
+    "onnx/model.onnx",
+    "onnx/model_fp16w.onnx",
+    "onnx/model_fp16w.f16",
+    "onnx/model_quantized.onnx"
+  ],
+  "required": [
+    "config.json",
+    "README.md",
+    "onnx/model_quantized.onnx",
+    "onnx/model_fp16w.onnx",
+    "onnx/model_fp16w.f16"
+  ]
+}
