@@ -152,7 +152,7 @@ onnx/model.onnx               fp32
 
 You only need the formats you plan to load. The fp32 and q8 files use Transformers.js file names. The fp16 pair is a compact format specific to this package: an fp32 graph whose weights ship as fp16 and are expanded in the browser. A standard fp16 conversion gives wrong results on WebGPU, which accumulates in half precision.
 
-The `tools/` folder rebuilds every TimesFM file from Google's checkpoint:
+The `tools/` folder rebuilds every weights file from its upstream checkpoint. TimesFM:
 
 ```sh
 cd tools
@@ -161,6 +161,15 @@ uv run python models/timesfm/export_onnx.py timesfm      # fp32 graph
 uv run python quantize.py timesfm                        # q8 and fp16 variants
 uv run python models/timesfm/make_reference.py timesfm   # parity fixtures from the official library
 uv run python package_hub.py timesfm                     # config.json with file sizes and hashes, model card
+```
+
+Chronos-Bolt sizes share one set of scripts; pass the size's model name:
+
+```sh
+uv run python models/chronos-bolt/export_onnx.py chronos-bolt-small      # fp32 graph
+uv run python quantize.py chronos-bolt-small                             # q8 and fp16 variants
+uv run python models/chronos-bolt/make_reference.py chronos-bolt-small   # parity fixtures from chronos-forecasting
+uv run python package_hub.py chronos-bolt-small                          # config.json and model card
 ```
 
 The loader always fetches `config.json` fresh and keys cached weights by the SHA-256 listed there, so uploading new weights with a regenerated config invalidates old cached copies.

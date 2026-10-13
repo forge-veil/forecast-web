@@ -64,7 +64,8 @@ export function createForecaster(run: ChronosRun) {
     const contexts = series.map(lastContext);
     const first = await pass(run, contexts);
     const blocks: Block[][] = first.map((b) => [b]);
-    let paths = contexts.map((x, s) => first[s].map((row) => extend(x, row)));
+    // Rollout contexts are only needed past one pass.
+    let paths = horizon > BLOCK ? contexts.map((x, s) => first[s].map((row) => extend(x, row))) : [];
     for (let done = BLOCK; done < horizon; done += BLOCK) {
       const out = await pass(run, paths.flat());
       const reduced = series.map((_, s) => reduce(out.slice(s * NQ, (s + 1) * NQ)));

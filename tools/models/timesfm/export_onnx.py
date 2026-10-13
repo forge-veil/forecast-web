@@ -31,6 +31,8 @@ REPO = _MODEL["source"]
 # Pinned in model.json so a rebuild in CI always starts from the same checkpoint.
 REVISION = _MODEL["revision"]
 # argv: <model> [context=512] [out]
+if __name__ == "__main__" and (len(sys.argv) < 2 or sys.argv[1] != "timesfm"):
+  sys.exit("usage: export_onnx.py timesfm [context=512] [out]")
 C = int(sys.argv[2]) if len(sys.argv) > 2 else 512
 OUT = sys.argv[3] if len(sys.argv) > 3 else os.path.join(HERE, "..", "..", "..", "build", "timesfm", "onnx", "model.onnx")
 HORIZON = 128
