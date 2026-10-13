@@ -20,10 +20,10 @@ Rebuilding the weights or running the parity suite also needs [uv](https://docs.
 ```sh
 cd tools
 uv sync --python 3.12
-uv run python models/timesfm/export_onnx.py      # fp32 graph, downloads Google's checkpoint
-uv run python models/timesfm/quantize.py         # q8 and fp16 variants
-uv run python models/timesfm/make_reference.py   # reference forecasts from the official library
-uv run python package_hub.py timesfm             # config.json with sizes and hashes
+uv run python models/timesfm/export_onnx.py timesfm      # fp32 graph, downloads Google's checkpoint
+uv run python quantize.py timesfm                        # q8 and fp16 variants
+uv run python models/timesfm/make_reference.py timesfm   # reference forecasts from the official library
+uv run python package_hub.py timesfm                     # config.json with sizes and hashes
 cd ..
 npm test                                         # now includes parity for every format
 ```
@@ -93,7 +93,7 @@ By contributing, you agree that your contributions are licensed under the Apache
 ## Adding a model
 
 1. Pick a model whose weights allow commercial use (Apache-2.0, MIT, BSD).
-2. `tools/models/<name>/`: `model.json` (repo, source, revision, files, required), export, quantize and reference scripts, and `hub/README.md` plus `hub/config.json`.
+2. `tools/models/<name>/`: `model.json` (repo, source, revision, files, required, and `scripts` when several sizes share one script folder), export and reference scripts, and `hub/README.md` plus `hub/config.json`. Compression is shared: `tools/quantize.py <name>`.
 3. `src/models/<name>/`: an adapter implementing `ModelAdapter` from `src/models/adapter.ts`. Port the official forecast-level processing exactly.
 4. Add the id to `ModelId` in `src/types.ts` and the adapter to `src/models/index.ts`.
 5. `test/models/<name>/`: unit tests and a parity suite against the official Python library, with fixtures in `test/fixtures/<name>/`.

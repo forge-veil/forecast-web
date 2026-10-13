@@ -1,7 +1,7 @@
 {
   "name": "forecast-web",
-  "version": "0.2.0",
-  "description": "Time series forecasting models in the browser on WebGPU or WebAssembly, starting with Google's TimesFM 2.5. Optional React hook.",
+  "version": "0.3.0",
+  "description": "Time series forecasting models in the browser on WebGPU or WebAssembly: Google's TimesFM 2.5 and Amazon's Chronos-Bolt. Optional React hook.",
   "license": "Apache-2.0",
   "type": "module",
   "sideEffects": false,
@@ -27,6 +27,7 @@
     "forecasting",
     "time-series",
     "timesfm",
+    "chronos",
     "onnx",
     "webgpu",
     "browser",

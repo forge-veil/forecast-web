@@ -27,7 +27,7 @@ Run "Release weights" from the Actions tab and pick the `model` to rebuild (each
 4. Runs the full test suite, including parity for every format. Nothing uploads if it fails.
 5. Uploads `build/<model>` to the Hub in one commit, removing weight files that are no longer built, and prints the new revision in the run summary.
 
-Tick "dry run" to build and verify without uploading. The run takes roughly 15 to 30 minutes, mostly the checkpoint download and the parity suite.
+Run it once per model; Chronos-Bolt sizes are separate models. Tick "dry run" to build and verify without uploading. The run takes roughly 15 to 30 minutes, mostly the checkpoint download and the parity suite.
 
 ## Releasing the package
 

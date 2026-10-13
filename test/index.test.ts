@@ -34,6 +34,12 @@ describe("loadForecaster", () => {
   });
 
   it("exports MODELS", () => {
-    expect(Object.keys(MODELS)).toEqual(["timesfm-2.5"]);
+    expect(Object.keys(MODELS)).toEqual([
+      "timesfm-2.5",
+      "chronos-bolt-tiny",
+      "chronos-bolt-mini",
+      "chronos-bolt-small",
+      "chronos-bolt-base",
+    ]);
   });
 });
