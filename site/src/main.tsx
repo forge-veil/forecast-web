@@ -1,16 +1,16 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { ForecastProvider } from "forecast-web/react";
 import { App } from "src/App";
+import { ModelsProvider } from "src/lib/models";
 import "src/styles.css";
 
-// ?weights=<repo id or URL> loads other weights, e.g. a local build served over HTTP.
+// ?weights=<repo id or URL> loads other TimesFM weights, e.g. a local build served over HTTP.
 const weights = new URLSearchParams(location.search).get("weights") ?? undefined;
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <ForecastProvider model="timesfm-2.5" weights={weights}>
+    <ModelsProvider weights={weights}>
       <App />
-    </ForecastProvider>
+    </ModelsProvider>
   </StrictMode>,
 );

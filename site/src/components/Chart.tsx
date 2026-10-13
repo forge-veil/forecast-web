@@ -14,7 +14,13 @@ export interface ChartProps {
   baseline?: { label: string; values: number[] };
   /** Another source's forecast (forecast mode). */
   comparison?: { label: string; values: number[] };
+  /** Median lines of the other loaded models, drawn dashed in their own colors. */
+  lines?: { label: string; values: number[]; color: string }[];
   mode: "forecast" | "backtest";
+  /** Name of the model drawn with the band. */
+  forecastLabel: string;
+  /** Color of the banded model's line and band when several models are shown. */
+  forecastColor?: string;
   /** Line color for forecast mode, a CSS color or var(). */
   color: string;
   unit: string;
@@ -24,7 +30,7 @@ export interface ChartProps {
 const M = { top: 26, right: 52, bottom: 24, left: 4 };
 
 export function Chart(p: ChartProps) {
-  const { history, median = [], q10 = [], q90 = [], actual, baseline, comparison, mode } = p;
+  const { history, median = [], q10 = [], q90 = [], actual, baseline, comparison, mode, lines = [] } = p;
   const wrapRef = useRef<HTMLDivElement>(null);
   const gid = useId().replace(/:/g, "");
   const [width, setWidth] = useState(0);
@@ -43,17 +49,17 @@ export function Chart(p: ChartProps) {
   const W = Math.max(280, width);
   const Ht = W < 560 ? 260 : 340;
   const H = history.length;
-  const F = Math.max(median.length, actual?.length ?? 0);
+  const F = Math.max(median.length, actual?.length ?? 0, ...lines.map((l) => l.values.length));
   const base = baseline?.values.slice(0, F);
   const compare = comparison?.values.slice(0, F);
   const n = H + F;
   const lastObs = history[H - 1];
   const backtest = mode === "backtest";
   const lineColor = backtest ? "var(--ink-2)" : p.color;
-  const fcColor = backtest ? "var(--forecast)" : p.color;
+  const fcColor = p.forecastColor ?? (backtest ? "var(--forecast)" : p.color);
 
   const { y0, y1 } = useMemo(() => {
-    const all = [...history, ...q10, ...q90, ...median, ...(actual ?? []), ...(base ?? []), ...(compare ?? [])].filter(Number.isFinite);
+    const all = [...history, ...q10, ...q90, ...median, ...(actual ?? []), ...(base ?? []), ...(compare ?? []), ...lines.flatMap((l) => l.values)].filter(Number.isFinite);
     let lo = Math.min(...all);
     let hi = Math.max(...all);
     if (!Number.isFinite(lo)) return { y0: 0, y1: 1 };
@@ -63,7 +69,7 @@ export function Chart(p: ChartProps) {
     }
     const pad = (hi - lo) * 0.08;
     return { y0: lo - pad, y1: hi + pad };
-  }, [history, q10, q90, median, actual, base, compare]);
+  }, [history, q10, q90, median, actual, base, compare, lines]);
 
   const pw = W - M.left - M.right;
   const ph = Ht - M.top - M.bottom;
@@ -115,9 +121,10 @@ export function Chart(p: ChartProps) {
     if (k < 0) rows.push(["", formatNumber(history[hover]), lineColor]);
     else {
       if (actual?.[k] !== undefined) rows.push(["Actual", formatNumber(actual[k]), "var(--ink)"]);
-      if (median[k] !== undefined) rows.push(["TimesFM", `${formatNumber(median[k])} (${formatNumber(q10[k])} to ${formatNumber(q90[k])})`, fcColor]);
+      if (median[k] !== undefined) rows.push([p.forecastLabel, `${formatNumber(median[k])} (${formatNumber(q10[k])} to ${formatNumber(q90[k])})`, fcColor]);
       if (base?.[k] !== undefined) rows.push(["Baseline", formatNumber(base[k]), "var(--ink-2)"]);
       if (compare?.[k] !== undefined && Number.isFinite(compare[k])) rows.push([comparison!.label, formatNumber(compare[k]), "var(--compare)"]);
+      for (const l of lines) if (l.values[k] !== undefined) rows.push([l.label, formatNumber(l.values[k]), l.color]);
     }
     return { k, rows };
   })();
@@ -128,6 +135,7 @@ export function Chart(p: ChartProps) {
     else {
       if (actual?.[k] !== undefined) out.push([actual[k], "var(--ink)"]);
       if (median[k] !== undefined) out.push([median[k], fcColor]);
+      for (const l of lines) if (l.values[k] !== undefined) out.push([l.values[k], l.color]);
     }
     return out;
   };
@@ -177,6 +185,9 @@ export function Chart(p: ChartProps) {
           {compare && <path d={pts(seam(compare), off)} fill="none" stroke="var(--compare)" strokeWidth={1.75} strokeDasharray="5 4" />}
           {base && <path d={pts(seam(base), off)} fill="none" stroke="var(--ink-2)" strokeWidth={1.5} strokeDasharray="1.5 3.5" strokeLinecap="round" />}
           {actual && <path d={pts(seam(actual), off)} fill="none" stroke="var(--ink)" strokeWidth={2} strokeLinejoin="round" />}
+          {lines.map((l) => (
+            <path key={l.label} d={pts(seam(l.values.slice(0, F)), off)} fill="none" stroke={l.color} strokeWidth={2} strokeDasharray="6 4" strokeLinejoin="round" />
+          ))}
           {median.length > 0 && <path d={pts(seam(median), off)} fill="none" stroke={fcColor} strokeWidth={2} strokeDasharray="6 4" strokeLinejoin="round" />}
           {hover !== null && (
             <>
@@ -189,12 +200,22 @@ export function Chart(p: ChartProps) {
         </svg>
       )}
       {readout && hover !== null && (
-        <div className="readout" style={{ left: Math.min(Math.max(x(hover), 90), W - 120) }}>
-          <span className="when">{shortLabel(labelAt(hover) ?? "")}</span>
+        <div
+          className="readout"
+          // Anchor by the near edge so the card keeps its natural width on either side of the cursor.
+          style={x(hover) < W / 2 ? { left: x(hover) + 14 } : { right: W - x(hover) + 14 }}
+        >
+          <div className="ro-when">
+            {shortLabel(labelAt(hover) ?? "")}
+            {p.unit && ` · ${p.unit}`}
+          </div>
           {readout.rows.map(([name, v, c]) => (
-            <span key={name}> · {name && <span style={{ color: c }}>{name} </span>}<b>{v}</b></span>
+            <div className="ro-row" key={name || "value"}>
+              <i className="sw" style={{ borderColor: c }} />
+              <span className="ro-name">{name || "Value"}</span>
+              <span className="ro-value">{v}</span>
+            </div>
           ))}
-          {p.unit && <span className="when"> {p.unit}</span>}
         </div>
       )}
       <div className="legend" aria-hidden="true">
@@ -202,15 +223,18 @@ export function Chart(p: ChartProps) {
           <>
             <span><i className="sw" style={{ borderColor: "var(--ink-2)" }} />History</span>
             <span><i className="sw" style={{ borderColor: "var(--ink)" }} />Actual</span>
-            {median.length > 0 && <span><i className="sw dash" style={{ borderColor: "var(--forecast)" }} />TimesFM</span>}
-            {median.length > 0 && <span><i className="sw band" style={{ background: "var(--forecast)", opacity: 0.3 }} />80% range</span>}
+            {median.length > 0 && <span><i className="sw dash" style={{ borderColor: fcColor }} />{p.forecastLabel}</span>}
+            {median.length > 0 && <span><i className="sw band" style={{ background: fcColor, opacity: 0.3 }} />80% range</span>}
+            {lines.map((l) => <span key={l.label}><i className="sw dash" style={{ borderColor: l.color }} />{l.label}</span>)}
+            {compare && <span><i className="sw dash" style={{ borderColor: "var(--compare)" }} />{comparison!.label}</span>}
             {base && <span><i className="sw dot" style={{ borderColor: "var(--ink-2)" }} />Baseline</span>}
           </>
         ) : (
           <>
             <span><i className="sw" style={{ borderColor: p.color }} />History</span>
-            {median.length > 0 && <span><i className="sw dash" style={{ borderColor: p.color }} />TimesFM</span>}
-            {median.length > 0 && <span><i className="sw band" style={{ background: p.color, opacity: 0.3 }} />80% range</span>}
+            {median.length > 0 && <span><i className="sw dash" style={{ borderColor: fcColor }} />{p.forecastLabel}</span>}
+            {median.length > 0 && <span><i className="sw band" style={{ background: fcColor, opacity: 0.3 }} />80% range</span>}
+            {lines.map((l) => <span key={l.label}><i className="sw dash" style={{ borderColor: l.color }} />{l.label}</span>)}
             {compare && <span><i className="sw dash" style={{ borderColor: "var(--compare)" }} />{comparison!.label}</span>}
             <span><i className="sw dot" style={{ borderColor: "var(--ink-3)" }} />Last</span>
           </>

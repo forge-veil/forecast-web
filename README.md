@@ -97,10 +97,6 @@ The provider loads lazily, on the first `forecast()` or `load()` call. Pass `eag
 
 Errors are `ForecastError` instances with a `code`: `HORIZON_TOO_LONG`, `INVALID_HORIZON`, `EMPTY_INPUT`, `UNKNOWN_MODEL`, `LOAD_FAILED`, `ABORTED` or `DISPOSED`.
 
-## Coming from timesfm-web
-
-`timesfm-web` 0.1 is this package under its old name. To upgrade, install `forecast-web` and rename: `loadTimesFM` to `loadForecaster`, `TimesFMProvider` to `ForecastProvider`, `useTimesFM` to `useForecaster`, `TimesFMError` to `ForecastError`. The old `model` option (a repo id or URL) is now `weights`. The TimesFM constants (`CONTEXT`, `MAX_HORIZON`, `CHANNELS`, `QUANTILES`, `DEFAULT_MODEL`) are no longer exported; read limits from `MODELS["timesfm-2.5"]` instead. `Forecast.mean` is now optional in the types, since not every model has a mean head; TimesFM still fills it. Forecasts are identical.
-
 ## Chronos-Bolt
 
 Chronos-Bolt reads up to 2048 points and predicts 64 steps per pass, which is its default horizon. Longer horizons, up to 512, use the official heuristic: each of the nine quantile paths is fed back and forecast again, and the 81 results per step are reduced to nine quantiles. Every pass after the first runs nine times the batch, so a 512-step forecast costs 8 sequential passes. Missing values are masked, not interpolated, exactly as upstream. Chronos-Bolt has no mean head, so `mean` is absent.

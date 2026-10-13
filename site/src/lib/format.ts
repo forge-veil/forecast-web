@@ -12,6 +12,9 @@ export function formatNumber(v: number | null | undefined): string {
   return v.toPrecision(3);
 }
 
+/** Download size in decimal megabytes, or "" when unknown. */
+export const formatMB = (bytes: number | undefined) => (bytes ? `${Math.round(bytes / 1e6)} MB` : "");
+
 export const formatPercent = (v: number) => (Number.isFinite(v) ? `${Math.round(v * 100)}%` : "–");
 
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];

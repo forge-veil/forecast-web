@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { useForecaster } from "forecast-web/react";
 import { Detail } from "src/components/Detail";
 import { Sidebar } from "src/components/Sidebar";
 import { TopLinks } from "src/components/TopLinks";
 import { useAsync } from "src/components/useAsync";
 import { YourDataEditor } from "src/components/YourDataEditor";
 import { articleItem, cityItem, datasetItem, PRESET_ARTICLES, PRESET_CITIES, YOURS, type Item } from "src/lib/items";
+import { useModels } from "src/lib/models";
 import { loadManifest, type City, type SeriesData } from "src/lib/sources";
 import { useSeriesData, useWatchlistForecasts, type Entry } from "src/lib/useWatchlist";
 
@@ -13,7 +13,7 @@ const initialSelection = () => decodeURIComponent(location.hash.slice(1)) || "st
 
 export function App() {
   const manifest = useAsync(loadManifest, []);
-  const { status, forecast } = useForecaster();
+  const { choice, slot, forecast } = useModels();
   const [extra, setExtra] = useState<Item[]>([]);
   const [selected, setSelected] = useState(initialSelection);
   const [view, setView] = useState<"list" | "detail">(location.hash ? "detail" : "list");
@@ -38,7 +38,11 @@ export function App() {
     () => Object.fromEntries(Object.entries(data).map(([id, e]) => [id, e.data?.values])),
     [data],
   );
-  const forecastFor = useWatchlistForecasts(status === "ready", forecast, seriesById);
+  const forecastChosen = useCallback(
+    (series: number[][], opts: { horizon: number }) => forecast(choice, series, opts),
+    [choice, forecast],
+  );
+  const forecastFor = useWatchlistForecasts(choice, slot(choice).status === "ready", forecastChosen, seriesById);
 
   useEffect(() => {
     const on = () => setSelected(initialSelection());
