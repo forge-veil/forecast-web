@@ -69,5 +69,8 @@
   "homepage": "https://github.com/forge-veil/forecast-web#readme",
   "bugs": {
     "url": "https://github.com/forge-veil/forecast-web/issues"
+  },
+  "overrides": {
+    "esbuild": "^0.28.1"
   }
 }

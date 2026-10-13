@@ -24,8 +24,13 @@ uv run python models/timesfm/export_onnx.py timesfm      # fp32 graph, downloads
 uv run python quantize.py timesfm                        # q8 and fp16 variants
 uv run python models/timesfm/make_reference.py timesfm   # reference forecasts from the official library
 uv run python package_hub.py timesfm                     # config.json with sizes and hashes
+# Chronos-Bolt: the same steps with models/chronos-bolt/<script>.py and a size, e.g. chronos-bolt-small
+uv run python models/chronos-bolt/export_onnx.py chronos-bolt-small
+uv run python quantize.py chronos-bolt-small
+uv run python models/chronos-bolt/make_reference.py chronos-bolt-small
+uv run python package_hub.py chronos-bolt-small
 cd ..
-npm test                                         # now includes parity for every format
+npm test                                                 # parity for every built model and format
 ```
 
 ## Layout

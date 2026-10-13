@@ -44,6 +44,18 @@ describe("model registry", () => {
     expect(() => a.checkConfig({ ...ok, context: 512 })).toThrow(/unsupported Chronos-Bolt config/);
   });
 
+  it.each(Object.keys(MODELS))("%s forecasts info.horizon steps when no horizon is given", async (id) => {
+    const adapter = getAdapter(id);
+    // Shape-agnostic fake graph: zeros for every output either model reads.
+    const run = async (feeds: Record<string, { dims: number[] }>) => {
+      const b = Object.values(feeds)[0].dims[0];
+      return { point: new Float32Array(b * 128 * 10), qspread: new Float32Array(b * 128 * 10), quantiles: new Float32Array(b * 9 * 64) };
+    };
+    const [f] = await adapter.forecaster(run, { model_type: "test" })([[1, 2, 3, 4]]);
+    expect(f.horizon).toBe(adapter.info.horizon);
+    expect(f.median).toHaveLength(adapter.info.horizon);
+  });
+
   it("returns the adapter for a known id", () => {
     expect(getAdapter("timesfm-2.5").weights).toBe("bakshinghampalace/timesfm-2.5-200m-onnx");
   });
