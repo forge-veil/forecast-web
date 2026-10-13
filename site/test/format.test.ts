@@ -1,4 +1,4 @@
-import { formatNumber, niceTicks, shortLabel } from "src/lib/format";
+import { formatMB, formatNumber, niceTicks, shortLabel } from "src/lib/format";
 
 describe("formatNumber", () => {
   it.each([
@@ -30,5 +30,13 @@ describe("niceTicks", () => {
 
   it("handles a flat range", () => {
     expect(niceTicks(5, 5)).toEqual([5]);
+  });
+});
+
+describe("formatMB", () => {
+  it("shows decimal megabytes, or nothing when unknown", () => {
+    expect(formatMB(463_368_499)).toBe("463 MB");
+    expect(formatMB(9_995_263)).toBe("10 MB");
+    expect(formatMB(undefined)).toBe("");
   });
 });

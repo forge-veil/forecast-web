@@ -122,7 +122,7 @@ export function cityItem(c: City): Item {
     ranges: HOURLY,
     defaultRange: 2,
     source: { text: "Open-Meteo", url: "https://open-meteo.com/", license: "CC BY 4.0" },
-    note: "TimesFM sees only past temperatures. Dashed green: Open-Meteo's physics forecast.",
+    note: "The model sees only past temperatures. Dashed green: Open-Meteo's physics forecast.",
     load: () => loadWeather(c),
   };
 }

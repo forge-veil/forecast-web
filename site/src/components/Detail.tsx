@@ -1,10 +1,11 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
-import type { Forecast } from "forecast-web";
-import { useForecaster } from "forecast-web/react";
+import { MODELS, type Forecast, type ModelId } from "forecast-web";
 import { Chart } from "src/components/Chart";
+import { AddModel, ModelBar } from "src/components/ModelBar";
 import { formatNumber, formatPercent, shortLabel } from "src/lib/format";
 import { changeText, type Item } from "src/lib/items";
 import { scoreBacktest } from "src/lib/metrics";
+import { compareVerdict, MODEL_IDS, modelColor, rankByError, resolvePrimary, useModels } from "src/lib/models";
 import { holdout } from "src/lib/series";
 import type { Entry } from "src/lib/useWatchlist";
 
@@ -30,25 +31,31 @@ const slice = (f: Forecast, h: number): Forecast => ({
 export function Detail(props: {
   item: Item;
   entry?: Entry;
-  /** The shared 128-step forecast from the watchlist batch. */
+  /** The selected model's shared 128-step forecast from the watchlist batch. */
   full?: Forecast;
   season?: number;
   onBack: () => void;
   children?: ReactNode;
 }) {
   const { item, entry } = props;
-  const { status, forecast, load, backend, progress } = useForecaster();
+  const models = useModels();
   const [mode, setMode] = useState<"forecast" | "backtest">("forecast");
   const [rangeIdx, setRangeIdx] = useState(item.defaultRange);
-  const [bt, setBt] = useState<{ key: string; f: Forecast } | null>(null);
-  const [btError, setBtError] = useState<string | null>(null);
+  const [runs, setRuns] = useState<Record<string, Forecast>>({});
+  const [runError, setRunError] = useState<string | null>(null);
   const req = useRef(0);
   const season = props.season ?? item.season;
   const data = entry?.data;
   const values = data?.values ?? [];
   const range = item.ranges[rangeIdx];
-  const steps = Math.min(range.steps, mode === "backtest" ? Math.max(1, values.length - 2) : 128);
   const backtest = mode === "backtest";
+  const steps = Math.min(range.steps, backtest ? Math.max(1, values.length - 2) : 128);
+  const statuses = MODEL_IDS.map((m) => models.slot(m).status).join();
+  const loaded = MODEL_IDS.filter((m) => models.slot(m).status === "ready");
+  const primary = resolvePrimary(models.choice, loaded);
+  const { status, backend, progress } = models.slot(primary);
+  // The watchlist batch already holds the selected model's forecast; every other run happens here.
+  const fromWatchlist = !backtest && primary === models.choice && !!props.full;
 
   const split = useMemo(() => {
     if (!data) return null;
@@ -59,19 +66,23 @@ export function Detail(props: {
     return { context: data.values, test: undefined, labels: data.labels, future: data.futureLabels?.slice(0, steps) };
   }, [data, backtest, steps]);
 
-  const btKey = `${item.id}|${values.length}|${values[values.length - 1]}|${steps}`;
+  const runKey = `${mode}|${item.id}|${values.length}|${values[values.length - 1]}|${steps}`;
   useEffect(() => {
-    if (!backtest || status !== "ready" || !split || split.context.length < 2) return;
+    if (!split || split.context.length < 2) return;
+    const ids = loaded.filter((m) => !runs[`${m}|${runKey}`] && !(m === primary && fromWatchlist));
+    if (ids.length === 0) return;
     const id = ++req.current;
-    setBtError(null);
+    setRunError(null);
     const t = setTimeout(() => {
-      forecast([split.context], { horizon: split.test!.length }).then(
-        ([f]) => id === req.current && setBt({ key: btKey, f }),
-        (e: Error) => id === req.current && setBtError(e.message),
-      );
+      for (const m of ids)
+        models.forecast(m, [split.context], { horizon: backtest ? split.test!.length : steps }).then(
+          ([f]) => id === req.current && setRuns((r) => ({ ...r, [`${m}|${runKey}`]: f })),
+          (e: Error) => id === req.current && setRunError(e.message),
+        );
     }, 120);
     return () => clearTimeout(t);
-  }, [backtest, status, split, btKey, forecast]);
+    // Keyed on the statuses string rather than models.slot, whose identity changes with every slot update.
+  }, [statuses, split, runKey, primary, fromWatchlist, models.forecast]);
 
   if (!data) {
     return (
@@ -85,15 +96,30 @@ export function Detail(props: {
     );
   }
 
-  const f = backtest ? (bt?.key === btKey ? bt.f : undefined) : props.full ? slice(props.full, steps) : undefined;
+  const forecastOf = (m: ModelId) => (m === primary && fromWatchlist ? slice(props.full!, steps) : runs[`${m}|${runKey}`]);
+  const f = loaded.includes(primary) ? forecastOf(primary) : undefined;
+  const others = loaded.filter((m) => m !== primary).map((id) => ({ id, f: forecastOf(id) }));
+  const multi = others.length > 0;
+  const lines = others.filter((o) => o.f).map((o) => ({ label: MODELS[o.id].name, values: o.f!.median, color: modelColor(o.id) }));
+  const primaryName = MODELS[primary].name;
   const last = values[values.length - 1];
   const end = f?.median[f.median.length - 1];
   const dir = end === undefined ? "flat" : end > last ? "up" : end < last ? "down" : "flat";
   const color = dir === "up" ? "var(--green)" : dir === "down" ? "var(--red)" : "var(--forecast)";
-  const ctxUsed = Math.min(split!.context.length, 512);
+  const ctxUsed = Math.min(split!.context.length, MODELS[primary].maxContext);
   const seasonal = !!season && season >= 2 && split!.context.length >= season;
   const baseLabel = baselineLabel(season, item.stepName, seasonal);
-  const score = backtest && f ? scoreBacktest({ train: split!.context, test: split!.test!, median: f.median, q10: f.q10, q90: f.q90, season }) : null;
+  const scoreOf = (fc?: Forecast) =>
+    fc ? scoreBacktest({ train: split!.context, test: split!.test!, median: fc.median, q10: fc.q10, q90: fc.q90, season }) : null;
+  const ranked = backtest
+    ? rankByError(
+        [primary, ...others.map((o) => o.id)].filter((m) => loaded.includes(m)).map((id) => {
+          const sc = scoreOf(forecastOf(id));
+          return { id, score: sc, mae: sc?.mae };
+        }),
+      )
+    : [];
+  const score = ranked.find((r) => r.id === primary)?.score ?? null;
   const unit = item.unit.length <= 6 ? item.unit : "";
   const u = (v: number | undefined) => (v === undefined ? "–" : `${formatNumber(v)}${unit ? ` ${unit}` : ""}`);
   const endLabel = split!.future?.[steps - 1];
@@ -101,10 +127,11 @@ export function Detail(props: {
   const visible = Math.min(split!.context.length, Math.max(steps * 3, 90), 360);
   const comparison = !backtest && data.comparison ? { label: data.comparison.label, values: data.comparison.values.slice(0, steps) } : undefined;
   const stepWord = (k: number) => `${k} ${k === 1 ? singular(item.stepName) : item.stepName}`;
+  const who = multi ? "each loaded model" : primaryName;
 
   const explain = backtest
-    ? `The last ${stepWord(steps)}${split!.future?.length ? ` (${period(split!.future)})` : ""} were hidden and forecast from the ${stepWord(ctxUsed)} before. Baseline: ${baseLabel.toLowerCase()}.`
-    : `Next ${stepWord(steps)} of ${item.phrase}, forecast from the last ${stepWord(ctxUsed)}. Shaded: 80% range.`;
+    ? `The last ${stepWord(steps)}${split!.future?.length ? ` (${period(split!.future)})` : ""} were hidden and forecast by ${who} from the history before. Baseline: ${baseLabel.toLowerCase()}.`
+    : `Next ${stepWord(steps)} of ${item.phrase}, forecast by ${who} from the last ${stepWord(ctxUsed)}. Shaded: ${primaryName}'s 80% range.`;
 
   const pct = progress?.total ? Math.round((100 * progress.loaded) / progress.total) : 0;
   let headline: ReactNode =
@@ -117,7 +144,7 @@ export function Detail(props: {
           {status === "loading" ? (
             <span className="num">Downloading{pct ? ` ${pct}%` : "…"}</span>
           ) : (
-            <button className="pill-btn" onClick={() => void load().catch(() => {})}>{status === "error" ? "Try again" : "Load model"}</button>
+            <AddModel />
           )}
         </div>
       </div>
@@ -126,6 +153,12 @@ export function Detail(props: {
     headline = (
       <div className={`d-change ${dir}`}>
         {changeText(last, end!, item)} to {u(end)} {endLabel ? `by ${shortLabel(endLabel)}` : `in ${stepWord(steps)}`}
+      </div>
+    );
+  } else if (backtest && ranked[1]?.score) {
+    headline = (
+      <div className="d-change flat">
+        {compareVerdict({ name: MODELS[ranked[0].id].name, mae: ranked[0].mae! }, { name: MODELS[ranked[1].id].name, mae: ranked[1].mae! })}
       </div>
     );
   } else if (score) {
@@ -147,6 +180,8 @@ export function Detail(props: {
       <div className="d-caption">As of {shortLabel(data.labels[data.labels.length - 1])}</div>
 
       <div key="slot">{props.children}</div>
+
+      <ModelBar />
 
       <div className="controls">
         <div className="ranges" role="group" aria-label={backtest ? "How much to hide" : "Forecast horizon"}>
@@ -173,17 +208,20 @@ export function Detail(props: {
         actual={split!.test}
         baseline={score ? { label: baseLabel, values: score.baselineValues } : undefined}
         comparison={comparison}
+        lines={lines}
+        forecastLabel={primaryName}
+        forecastColor={multi ? modelColor(primary) : undefined}
         mode={mode}
         color={color}
         unit={unit}
         ariaLabel={`${item.phrase}, ${visible} observations${f ? ` and a ${steps}-step forecast` : ""}`}
       />
-      {btError && <p className="status error">{btError}</p>}
+      {runError && <p className="status error">{runError}</p>}
 
       <div className="stats">
         {backtest ? (
           <>
-            <Stat k="TimesFM error" v={score ? u(score.mae) : "–"} />
+            <Stat k={`${primaryName} error`} v={score ? u(score.mae) : "–"} />
             <Stat k="Baseline error" v={score ? u(score.baselineMae) : "–"} />
             <Stat k="vs. baseline" v={score && Number.isFinite(score.skill) ? `${score.skill > 0 ? "−" : "+"}${Math.round(Math.abs(score.skill) * 100)}%` : "–"} tone={score ? (score.skill > 0.02 ? "up" : score.skill < -0.02 ? "down" : undefined) : undefined} />
             <Stat k="In 80% range" v={score ? formatPercent(score.coverage) : "–"} />
@@ -204,6 +242,40 @@ export function Detail(props: {
           </>
         )}
       </div>
+
+      {backtest && multi && (
+        <section className="values ranking">
+          <h3>Models</h3>
+          <div className="scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Model</th>
+                  <th>Error</th>
+                  <th>vs. baseline</th>
+                  <th>In 80% range</th>
+                </tr>
+              </thead>
+              <tbody>
+                {ranked.map((r) => (
+                  <tr key={r.id}>
+                    <td className="model-cell"><i className="sw" style={{ borderColor: modelColor(r.id) }} />{MODELS[r.id].name}</td>
+                    {r.score ? (
+                      <>
+                        <td>{u(r.score.mae)}</td>
+                        <td>{Number.isFinite(r.score.skill) ? `${r.score.skill > 0 ? "−" : "+"}${Math.round(Math.abs(r.score.skill) * 100)}%` : "–"}</td>
+                        <td>{formatPercent(r.score.coverage)}</td>
+                      </>
+                    ) : (
+                      <td colSpan={3}><span className="num">Forecasting…</span></td>
+                    )}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      )}
 
       <section className="about">
         <h3>{backtest ? "Backtest" : "Forecast"}</h3>
@@ -226,11 +298,12 @@ export function Detail(props: {
                 <tr>
                   <th>When</th>
                   <th>Low</th>
-                  <th>TimesFM</th>
+                  <th>{primaryName}</th>
                   <th>High</th>
                   {split!.test && <th>Actual</th>}
                   {score && <th>Baseline</th>}
                   {comparison && <th>{comparison.label}</th>}
+                  {lines.map((l) => <th key={l.label}>{l.label}</th>)}
                 </tr>
               </thead>
               <tbody>
@@ -243,6 +316,7 @@ export function Detail(props: {
                     {split!.test && <td>{formatNumber(split!.test[i])}</td>}
                     {score && <td>{formatNumber(score.baselineValues[i])}</td>}
                     {comparison && <td>{formatNumber(comparison.values[i])}</td>}
+                    {lines.map((l) => <td key={l.label}>{formatNumber(l.values[i])}</td>)}
                   </tr>
                 ))}
               </tbody>

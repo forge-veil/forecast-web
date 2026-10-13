@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import type { Forecast } from "forecast-web";
+import type { Forecast, ModelId } from "forecast-web";
 import type { Item } from "src/lib/items";
+import { forecastKey } from "src/lib/models";
 import type { SeriesData } from "src/lib/sources";
 
 export interface Entry {
@@ -28,14 +29,15 @@ export function useSeriesData(items: Item[]) {
 }
 
 export const FULL_HORIZON = 128;
-const sig = (v: number[]) => `${v.length}:${v[0]}:${v[v.length - 1]}`;
 
 /**
  * Forecasts every loaded series 128 steps ahead in one batched call, so the
  * watchlist and the forecast view share results. Re-runs only for series
- * that are new or changed.
+ * that are new or changed. Results are keyed by model, so switching models
+ * never shows another model's forecast.
  */
 export function useWatchlistForecasts(
+  model: ModelId,
   ready: boolean,
   forecast: (series: number[][], opts: { horizon: number }) => Promise<Forecast[]>,
   series: Record<string, number[] | undefined>,
@@ -46,10 +48,10 @@ export function useWatchlistForecasts(
   useEffect(() => {
     if (!ready) return;
     const todo = Object.entries(series).filter(
-      ([id, v]) => v && v.length >= 3 && map[id]?.sig !== sig(v) && !inflight.current.has(`${id}|${sig(v)}`),
+      ([id, v]) => v && v.length >= 3 && map[id]?.sig !== forecastKey(model, v) && !inflight.current.has(`${id}|${forecastKey(model, v)}`),
     ) as [string, number[]][];
     if (todo.length === 0) return;
-    todo.forEach(([id, v]) => inflight.current.add(`${id}|${sig(v)}`));
+    todo.forEach(([id, v]) => inflight.current.add(`${id}|${forecastKey(model, v)}`));
     forecast(
       todo.map(([, v]) => v),
       { horizon: FULL_HORIZON },
@@ -57,12 +59,12 @@ export function useWatchlistForecasts(
       (out) =>
         setMap((m) => {
           const next = { ...m };
-          todo.forEach(([id, v], i) => (next[id] = { sig: sig(v), f: out[i] }));
+          todo.forEach(([id, v], i) => (next[id] = { sig: forecastKey(model, v), f: out[i] }));
           return next;
         }),
       () => {},
-    ).finally(() => todo.forEach(([id, v]) => inflight.current.delete(`${id}|${sig(v)}`)));
-  }, [ready, forecast, series, map]);
+    ).finally(() => todo.forEach(([id, v]) => inflight.current.delete(`${id}|${forecastKey(model, v)}`)));
+  }, [model, ready, forecast, series, map]);
 
-  return (id: string, values?: number[]) => (values && map[id]?.sig === sig(values) ? map[id].f : undefined);
+  return (id: string, values?: number[]) => (values && map[id]?.sig === forecastKey(model, values) ? map[id].f : undefined);
 }

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import type { Forecast } from "forecast-web";
-import { useForecaster } from "forecast-web/react";
+import { MODELS, type Forecast } from "forecast-web";
 import { Sparkline } from "src/components/Sparkline";
 import { formatNumber } from "src/lib/format";
 import { changeText, GROUPS, type GroupId, type Item } from "src/lib/items";
+import { useModels } from "src/lib/models";
 import { searchCities, type City } from "src/lib/sources";
 import type { Entry } from "src/lib/useWatchlist";
 
@@ -66,6 +66,7 @@ function Row({ item, entry, forecast, selected, onSelect }: { item: Item; entry?
   const steps = item.ranges[item.defaultRange].steps;
   const end = forecast?.median[steps - 1];
   const dir = end === undefined || last === undefined ? "flat" : end > last ? "up" : end < last ? "down" : "flat";
+  const { choice } = useModels();
   return (
     <button className="row" aria-current={selected} onClick={onSelect}>
       <div style={{ minWidth: 0 }}>
@@ -75,7 +76,7 @@ function Row({ item, entry, forecast, selected, onSelect }: { item: Item; entry?
       {values ? <Sparkline history={values.slice(-60)} forecast={forecast?.median.slice(0, steps)} dir={dir} /> : <span />}
       <div className="right">
         <div className="price">{last === undefined ? (entry?.error ? "" : "…") : formatNumber(last)}</div>
-        <span className={`chg ${dir}`} title={`TimesFM forecast change over ${item.ranges[item.defaultRange].label}`}>
+        <span className={`chg ${dir}`} title={`${MODELS[choice].name} forecast change over ${item.ranges[item.defaultRange].label}`}>
           {end !== undefined && last !== undefined ? changeText(last, end, item) : "N/A"}
         </span>
       </div>
@@ -99,33 +100,18 @@ function GroupIcon({ id }: { id: GroupId }) {
   );
 }
 
+/** Which model fills the watchlist; models are loaded from the detail view's model bar. */
 function ModelStatus() {
-  const { status, progress, backend, error, load } = useForecaster();
-  const pct = progress?.total ? (100 * progress.loaded) / progress.total : 0;
-  if (status === "idle")
-    return (
-      <div className="model">
-        <button className="pill-btn" onClick={() => void load().catch(() => {})}>Load model</button>
-      </div>
-    );
-  if (status === "loading")
-    return (
-      <div className="model" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(pct)}>
-        <span className="num">{progress?.total ? `${Math.round(pct)}%` : "Starting…"}</span>
-        <div className="bar"><div style={{ width: `${pct}%` }} /></div>
-      </div>
-    );
-  if (status === "error")
-    return (
-      <div className="model">
-        <span className="error">{error?.message ?? "Failed to load"}</span>
-        <button className="pill-btn" onClick={() => void load().catch(() => {})}>Retry</button>
-      </div>
-    );
+  const { choice, slot } = useModels();
+  const { status, backend, progress } = slot(choice);
+  const pct = progress?.total ? Math.round((100 * progress.loaded) / progress.total) : 0;
   return (
     <div className="model">
-      <i className="dot" />
-      <span>TimesFM 2.5 · {backend === "webgpu" ? "WebGPU" : "WebAssembly"}</span>
+      {status === "ready" ? <i className="dot" /> : null}
+      <span>
+        {MODELS[choice].name}
+        {status === "ready" ? ` · ${backend === "webgpu" ? "WebGPU" : "WebAssembly"}` : status === "loading" ? ` · ${pct ? `${pct}%` : "loading…"}` : " · not loaded"}
+      </span>
     </div>
   );
 }
