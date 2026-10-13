@@ -1,0 +1,20 @@
+{
+  "repo": "bakshinghampalace/chronos-bolt-base-onnx",
+  "source": "amazon/chronos-bolt-base",
+  "revision": "5d9f166d69f47aef3401367a7b842e78fe97b121",
+  "scripts": "chronos-bolt",
+  "variant": "base",
+  "files": [
+    "onnx/model.onnx",
+    "onnx/model_fp16w.onnx",
+    "onnx/model_fp16w.f16",
+    "onnx/model_quantized.onnx"
+  ],
+  "required": [
+    "config.json",
+    "README.md",
+    "onnx/model_quantized.onnx",
+    "onnx/model_fp16w.onnx",
+    "onnx/model_fp16w.f16"
+  ]
+}

@@ -2,7 +2,7 @@
 export type Series = ArrayLike<number | null | undefined>;
 
 /** Registry key of a forecasting model. See MODELS. */
-export type ModelId = "timesfm-2.5";
+export type ModelId = "timesfm-2.5" | "chronos-bolt-tiny" | "chronos-bolt-mini" | "chronos-bolt-small" | "chronos-bolt-base";
 
 /**
  * Weight format. "auto" picks the model's default for the backend
@@ -23,6 +23,8 @@ export interface ModelInfo {
   /** Most recent points the model reads; older history is ignored. */
   maxContext: number;
   maxHorizon: number;
+  /** Steps one forward pass produces; the default horizon. Longer horizons up to maxHorizon take more passes. */
+  horizon: number;
   dtypes: ResolvedDtype[];
   /** The dtype "auto" picks on each backend. */
   defaults: Record<Backend, ResolvedDtype>;
@@ -48,7 +50,7 @@ export interface Forecast {
 }
 
 export interface ForecastOptions {
-  /** Steps to forecast, 1 to the model's maxHorizon. Defaults to maxHorizon. */
+  /** Steps to forecast, 1 to the model's maxHorizon. Defaults to the model's horizon. */
   horizon?: number;
 }
 

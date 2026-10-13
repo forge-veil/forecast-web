@@ -8,7 +8,7 @@ on:
       model:
         description: Model to rebuild
         type: choice
-        options: [timesfm]
+        options: [timesfm, chronos-bolt-tiny, chronos-bolt-mini, chronos-bolt-small, chronos-bolt-base]
         default: timesfm
       repo_id:
         description: Hugging Face repo override (defaults to tools/models/<model>/model.json)
@@ -44,15 +44,20 @@ jobs:
       - name: Install Python tools
         working-directory: tools
         run: uv sync --frozen --python 3.12
+      - name: Resolve model scripts
+        id: model
+        run: |
+          s=$(jq -r '.scripts // empty' "tools/models/${{ inputs.model }}/model.json")
+          echo "scripts=${s:-${{ inputs.model }}}" >> "$GITHUB_OUTPUT"
       - name: Export fp32 graph
         working-directory: tools
-        run: uv run python models/${{ inputs.model }}/export_onnx.py
+        run: uv run python models/${{ steps.model.outputs.scripts }}/export_onnx.py ${{ inputs.model }}
       - name: Build compressed variants
         working-directory: tools
-        run: uv run python models/${{ inputs.model }}/quantize.py
+        run: uv run python quantize.py ${{ inputs.model }}
       - name: Generate reference forecasts from the official library
         working-directory: tools
-        run: uv run python models/${{ inputs.model }}/make_reference.py
+        run: uv run python models/${{ steps.model.outputs.scripts }}/make_reference.py ${{ inputs.model }}
       - name: Write config.json and model card
         working-directory: tools
         run: uv run python package_hub.py ${{ inputs.model }}

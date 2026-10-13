@@ -7,8 +7,12 @@ Time series forecasting models that run in the browser. Give it a history, get b
 | Model | id | Context | Horizon | Weights |
 |---|---|---|---|---|
 | [TimesFM 2.5](https://github.com/google-research/timesfm) by Google Research | `"timesfm-2.5"` (default) | 512 | 128 | [bakshinghampalace/timesfm-2.5-200m-onnx](https://huggingface.co/bakshinghampalace/timesfm-2.5-200m-onnx) |
+| [Chronos-Bolt](https://github.com/amazon-science/chronos-forecasting) Tiny (9M) by Amazon | `"chronos-bolt-tiny"` | 2048 | 64 per pass, up to 512 | [bakshinghampalace/chronos-bolt-tiny-onnx](https://huggingface.co/bakshinghampalace/chronos-bolt-tiny-onnx) |
+| [Chronos-Bolt](https://github.com/amazon-science/chronos-forecasting) Mini (21M) by Amazon | `"chronos-bolt-mini"` | 2048 | 64 per pass, up to 512 | [bakshinghampalace/chronos-bolt-mini-onnx](https://huggingface.co/bakshinghampalace/chronos-bolt-mini-onnx) |
+| [Chronos-Bolt](https://github.com/amazon-science/chronos-forecasting) Small (48M) by Amazon | `"chronos-bolt-small"` | 2048 | 64 per pass, up to 512 | [bakshinghampalace/chronos-bolt-small-onnx](https://huggingface.co/bakshinghampalace/chronos-bolt-small-onnx) |
+| [Chronos-Bolt](https://github.com/amazon-science/chronos-forecasting) Base (205M) by Amazon | `"chronos-bolt-base"` | 2048 | 64 per pass, up to 512 | [bakshinghampalace/chronos-bolt-base-onnx](https://huggingface.co/bakshinghampalace/chronos-bolt-base-onnx) |
 
-Every model's forecasts are checked against its official Python library. For TimesFM, the fp32 model agrees with `TimesFM_2p5_200M_torch.forecast()` to within 0.002% of each series' standard deviation, and an automated parity test enforces agreement within 0.1%.
+Every model's forecasts are checked against its official Python library. For TimesFM, the fp32 model agrees with `TimesFM_2p5_200M_torch.forecast()` to within 0.002% of each series' standard deviation, and an automated parity test enforces agreement within 0.1%. Every Chronos-Bolt size matches `ChronosBoltPipeline.predict_quantiles()`; each model card publishes the measured error per format at 64 and 200 steps.
 
 ```sh
 npm install forecast-web
@@ -42,7 +46,7 @@ MODELS["timesfm-2.5"].maxHorizon; // 128
 MODELS["timesfm-2.5"].sizes.q8;   // 261301673 bytes
 ```
 
-Series are plain arrays, oldest first. `null`, `undefined` and `NaN` mark missing values. They are handled like the Python library: leading gaps are dropped, interior gaps are filled by linear interpolation, and trailing gaps hold the last value. Two edge cases differ on purpose. An empty or all-missing series gives a forecast of zeros, where Python raises an error. `Infinity` counts as missing, where Python keeps it and returns non-finite output. Pass several series to forecast them in one batch.
+Series are plain arrays, oldest first. `null`, `undefined` and `NaN` mark missing values. For TimesFM they are handled like the Python library: leading gaps are dropped, interior gaps are filled by linear interpolation, and trailing gaps hold the last value. Two edge cases differ on purpose. An empty or all-missing series gives a forecast of zeros, where Python raises an error. `Infinity` counts as missing, where Python keeps it and returns non-finite output. Chronos-Bolt masks missing values instead, exactly as upstream; an all-missing series gives the model's bands around 0, and `Infinity` also counts as missing. Pass several series to forecast them in one batch.
 
 ## React
 
@@ -89,13 +93,26 @@ The provider loads lazily, on the first `forecast()` or `load()` call. Pass `eag
 | `onProgress` | none | Called with `{ loaded, total, cached }` during the download. |
 | `signal` | none | An `AbortSignal` that cancels the load. |
 
-`forecast(series, { horizon })` accepts a horizon from 1 to the model's `maxHorizon` and returns, per series, `median` and `q10` through `q90`. The median is the point forecast. TimesFM also returns `mean`, its separate mean head.
+`forecast(series, { horizon })` accepts a horizon from 1 to the model's `maxHorizon`, defaults to the model's `horizon` (128 for TimesFM, 64 for Chronos-Bolt), and returns, per series, `median` and `q10` through `q90`. The median is the point forecast. TimesFM also returns `mean`, its separate mean head.
 
 Errors are `ForecastError` instances with a `code`: `HORIZON_TOO_LONG`, `INVALID_HORIZON`, `EMPTY_INPUT`, `UNKNOWN_MODEL`, `LOAD_FAILED`, `ABORTED` or `DISPOSED`.
 
 ## Coming from timesfm-web
 
 `timesfm-web` 0.1 is this package under its old name. To upgrade, install `forecast-web` and rename: `loadTimesFM` to `loadForecaster`, `TimesFMProvider` to `ForecastProvider`, `useTimesFM` to `useForecaster`, `TimesFMError` to `ForecastError`. The old `model` option (a repo id or URL) is now `weights`. The TimesFM constants (`CONTEXT`, `MAX_HORIZON`, `CHANNELS`, `QUANTILES`, `DEFAULT_MODEL`) are no longer exported; read limits from `MODELS["timesfm-2.5"]` instead. `Forecast.mean` is now optional in the types, since not every model has a mean head; TimesFM still fills it. Forecasts are identical.
+
+## Chronos-Bolt
+
+Chronos-Bolt reads up to 2048 points and predicts 64 steps per pass, which is its default horizon. Longer horizons, up to 512, use the official heuristic: each of the nine quantile paths is fed back and forecast again, and the 81 results per step are reduced to nine quantiles. Every pass after the first runs nine times the batch, so a 512-step forecast costs 8 sequential passes. Missing values are masked, not interpolated, exactly as upstream. Chronos-Bolt has no mean head, so `mean` is absent.
+
+Past 64 steps each pass feeds its own quantiles back, so compression error compounds: at 200 steps fp32 still matches Python within 0.004% of the series' standard deviation and fp16 (the default on both backends) within 2%, while q8 can differ by up to about 15%. q8 is opt-in (`dtype: "q8"`): it saves download size and matches Python closely for horizons up to 64.
+
+| Size | fp16 download (default) | q8 download (opt-in) |
+|---|---|---|
+| Tiny | 18 MB | 10 MB |
+| Mini | 43 MB | 24 MB |
+| Small | 96 MB | 54 MB |
+| Base | 411 MB | 232 MB |
 
 ## TimesFM weights and backend
 
@@ -144,10 +161,10 @@ The `tools/` folder rebuilds every TimesFM file from Google's checkpoint:
 ```sh
 cd tools
 uv sync --python 3.12
-uv run python models/timesfm/export_onnx.py      # fp32 graph
-uv run python models/timesfm/quantize.py         # q8 and fp16 variants
-uv run python models/timesfm/make_reference.py   # parity fixtures from the official library
-uv run python package_hub.py timesfm             # config.json with file sizes and hashes, model card
+uv run python models/timesfm/export_onnx.py timesfm      # fp32 graph
+uv run python quantize.py timesfm                        # q8 and fp16 variants
+uv run python models/timesfm/make_reference.py timesfm   # parity fixtures from the official library
+uv run python package_hub.py timesfm                     # config.json with file sizes and hashes, model card
 ```
 
 The loader always fetches `config.json` fresh and keys cached weights by the SHA-256 listed there, so uploading new weights with a regenerated config invalidates old cached copies.

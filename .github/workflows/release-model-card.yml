@@ -11,7 +11,7 @@ on:
       model:
         description: Model whose card to upload
         type: choice
-        options: [timesfm]
+        options: [timesfm, chronos-bolt-tiny, chronos-bolt-mini, chronos-bolt-small, chronos-bolt-base]
         default: timesfm
 
 permissions:
@@ -35,12 +35,12 @@ jobs:
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             models="${{ inputs.model }}"
           elif [ -z "$BEFORE" ] || [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
-            models=$(ls tools/models)
+            models=$(ls tools/models/*/model.json | cut -d/ -f3)
           elif git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then
             models=$(git diff --name-only "$BEFORE" "$GITHUB_SHA" -- 'tools/models/*/hub/README.md' | cut -d/ -f3 | sort -u)
           else
             # The previous head is gone (force-push): upload every card rather than fail.
-            models=$(ls tools/models)
+            models=$(ls tools/models/*/model.json | cut -d/ -f3)
           fi
           for m in $models; do
             uv run --no-project --with huggingface_hub python tools/upload_card.py "$m"

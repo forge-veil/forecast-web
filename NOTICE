@@ -4,3 +4,7 @@ Copyright 2026 Vatsal Bakshi
 This package runs TimesFM 2.5, a time series foundation model by Google Research.
 TimesFM is Copyright Google LLC and licensed under the Apache License, Version 2.0.
 https://github.com/google-research/timesfm
+
+This package also runs Chronos-Bolt, time series foundation models by Amazon.
+Chronos is Copyright Amazon.com, Inc. or its affiliates and licensed under the Apache License, Version 2.0.
+https://github.com/amazon-science/chronos-forecasting
