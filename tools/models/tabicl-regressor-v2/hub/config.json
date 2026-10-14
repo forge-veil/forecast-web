@@ -1,0 +1,16 @@
+{
+  "model_type": "tabicl",
+  "version": "v2",
+  "task": "regression",
+  "max_classes": 0,
+  "n_quantiles": 999,
+  "inputs": {
+    "X": "float32 [batch, rows, features], preprocessed, train rows first",
+    "y_train": "float32 [batch, train_rows]"
+  },
+  "outputs": {
+    "quantiles": "float32 [batch, test_rows, 999]"
+  },
+  "source": "jingang/TabICL tabicl-regressor-v2-20260212.ckpt",
+  "license": "bsd-3-clause"
+}

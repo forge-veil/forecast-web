@@ -4,8 +4,8 @@ import { createSession } from "src/core/session";
 
 const scope = self as unknown as {
   onmessage: ((e: MessageEvent<Request>) => void) | null;
-  postMessage(msg: Response): void;
+  postMessage(msg: Response, transfer?: Transferable[]): void;
 };
 
 const handle = createHandler((opts, onProgress) => loadCore(opts, createSession, onProgress));
-scope.onmessage = (e) => void handle(e.data, (r) => scope.postMessage(r));
+scope.onmessage = (e) => void handle(e.data, (r, transfer) => scope.postMessage(r, transfer ?? []));

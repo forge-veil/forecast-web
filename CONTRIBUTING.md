@@ -38,6 +38,7 @@ npm test                                                 # parity for every buil
 | Path | What lives there |
 |---|---|
 | `src/core/` | Model-agnostic download, cache, fp16 expansion, onnxruntime session, worker, protocol and loader. |
+| `src/tabular/` | `forecast-web/tabular`: TabICL fit/predict, and pure ports of upstream preprocessing (CPython random, Latin squares, scipy Yeo-Johnson, quantile tails). |
 | `src/models/` | One folder per model: its info, files, config check, pre- and post-processing. `src/models/index.ts` is the registry and `adapter.ts` the interface. |
 | `src/models/timesfm/` | TimesFM 2.5: `preprocess.ts` and `postprocess.ts` hold the forecasting math around the graph (pure functions, no onnxruntime). |
 | `src/index.ts`, `src/react.tsx` | The two public entry points. |

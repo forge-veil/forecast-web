@@ -1,0 +1,19 @@
+{
+  "repo": "bakshinghampalace/tabicl-classifier-v2-onnx",
+  "source": "jingang/TabICL",
+  "revision": "4dcd344ece2c00be9e831fdd35bed57b5ad83e19",
+  "checkpoint": "tabicl-classifier-v2-20260212.ckpt",
+  "scripts": "tabicl",
+  "task": "classification",
+  "files": [
+    "onnx/model.onnx",
+    "onnx/model_fp16w.onnx",
+    "onnx/model_fp16w.f16"
+  ],
+  "required": [
+    "config.json",
+    "README.md",
+    "onnx/model_fp16w.onnx",
+    "onnx/model_fp16w.f16"
+  ]
+}

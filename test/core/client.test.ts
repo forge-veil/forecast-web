@@ -1,4 +1,4 @@
-import { connectWorker, toFloat64, type WorkerLike } from "src/core/client";
+import { connectGraph, connectWorker, toFloat64, type WorkerLike } from "src/core/client";
 import { loadCore, type Core, type CoreOptions } from "src/core/loader";
 import { createHandler, type Request, type Response } from "src/core/protocol";
 import { ForecastError, type Forecast, type Progress, type Series } from "src/types";
@@ -26,6 +26,7 @@ function setup(load?: (o: CoreOptions, p: (p: Progress) => void) => Promise<Core
       await new Promise((r) => setTimeout(r, d));
       return fakeForecast(series);
     },
+    run: vi.fn(async () => ({ out: new Float32Array([1, 2]) })),
     release: released,
   };
   const handle = createHandler(
@@ -150,3 +151,15 @@ describe("connectWorker", () => {
     await expect(p).rejects.toThrow(/out of memory/);
   });
 });
+
+describe("connectGraph", () => {
+  it("runs named feeds in the worker and returns named outputs", async () => {
+    const { worker } = setup();
+    const g = await connectGraph(worker, opts);
+    const out = await g.run({ X: { data: new Float32Array([1, 2, 3]), dims: [1, 3] } });
+    expect(Array.from(out.out)).toEqual([1, 2]);
+    await g.dispose();
+    await expect(g.run({ X: { data: new Float32Array([1]), dims: [1] } })).rejects.toMatchObject({ code: "DISPOSED" });
+  });
+});
+

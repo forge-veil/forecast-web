@@ -1,0 +1,15 @@
+{
+  "model_type": "tabicl",
+  "version": "v2",
+  "task": "classification",
+  "max_classes": 10,
+  "inputs": {
+    "X": "float32 [batch, rows, features], preprocessed, train rows first",
+    "y_train": "float32 [batch, train_rows]"
+  },
+  "outputs": {
+    "logits": "float32 [batch, test_rows, 10]"
+  },
+  "source": "jingang/TabICL tabicl-classifier-v2-20260212.ckpt",
+  "license": "bsd-3-clause"
+}

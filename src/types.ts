@@ -103,6 +103,9 @@ export type ErrorCode =
   | "INVALID_HORIZON"
   | "EMPTY_INPUT"
   | "UNKNOWN_MODEL"
+  | "TOO_MANY_CLASSES"
+  | "TOO_LARGE"
+  | "INVALID_INPUT"
   | "LOAD_FAILED"
   | "ABORTED"
   | "DISPOSED";

@@ -1,4 +1,5 @@
 import type { Core, CoreOptions } from "src/core/loader";
+import type { Feed } from "src/models/adapter";
 import {
   ForecastError,
   type Backend,
@@ -12,12 +13,14 @@ import {
 export type Request =
   | { type: "load"; id: number; opts: CoreOptions }
   | { type: "forecast"; id: number; series: Float64Array[]; horizon?: number }
+  | { type: "run"; id: number; feeds: Record<string, Feed> }
   | { type: "dispose"; id: number };
 
 export type Response =
   | { type: "progress"; id: number; progress: Progress }
   | { type: "loaded"; id: number; backend: Backend; dtype: ResolvedDtype; config: ModelConfig }
   | { type: "result"; id: number; forecasts: Forecast[] }
+  | { type: "outputs"; id: number; outputs: Record<string, Float32Array> }
   | { type: "disposed"; id: number }
   | { type: "error"; id: number; code: ErrorCode; message: string };
 
@@ -33,7 +36,7 @@ export function toErrorResponse(id: number, e: unknown): Response {
 export function createHandler(load: (opts: CoreOptions, onProgress: (p: Progress) => void) => Promise<Core>) {
   let core: Promise<Core> | null = null;
 
-  return async (msg: Request, post: (r: Response) => void): Promise<void> => {
+  return async (msg: Request, post: (r: Response, transfer?: Transferable[]) => void): Promise<void> => {
     try {
       switch (msg.type) {
         case "load": {
@@ -47,6 +50,12 @@ export function createHandler(load: (opts: CoreOptions, onProgress: (p: Progress
           const c = await core;
           const forecasts = await c.forecast(msg.series, { horizon: msg.horizon });
           post({ type: "result", id: msg.id, forecasts });
+          return;
+        }
+        case "run": {
+          if (!core) throw new ForecastError("LOAD_FAILED", "model is not loaded");
+          const outputs = await (await core).run(msg.feeds);
+          post({ type: "outputs", id: msg.id, outputs }, Object.values(outputs).map((o) => o.buffer));
           return;
         }
         case "dispose": {
