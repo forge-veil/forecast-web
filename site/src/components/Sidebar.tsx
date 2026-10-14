@@ -3,13 +3,22 @@ import { MODELS, type Forecast } from "forecast-web";
 import { Sparkline } from "src/components/Sparkline";
 import { formatNumber } from "src/lib/format";
 import { changeText, GROUPS, type GroupId, type Item } from "src/lib/items";
+import { TABLE_SAMPLES } from "src/components/Tables";
 import { useModels } from "src/lib/models";
 import { searchCities, type City } from "src/lib/sources";
 import type { Entry } from "src/lib/useWatchlist";
 
+const TABLE_GROUPS = [
+  { id: "real-estate", label: "Real estate", about: "Home sales, predict the price", icon: "M3 10l7-6 7 6M5 9v7h10V9M8 16v-4h4v4" },
+  { id: "classic", label: "Classic", about: "Well-known teaching datasets", icon: "M3 4h14v12H3zM3 8h14M3 12h14M8 4v12" },
+  { id: "yours", label: "Your data", about: "Paste a CSV", icon: "M4 16l1-4 8-8 3 3-8 8-4 1z" },
+] as const;
+
 const today = new Date().toLocaleDateString("en-US", { month: "long", day: "numeric" });
 
 export function Sidebar(props: {
+  tab: "forecasts" | "tables";
+  onTab: (tab: "forecasts" | "tables") => void;
   items: Item[];
   data: Record<string, Entry>;
   forecastFor: (id: string, values?: number[]) => Forecast | undefined;
@@ -21,13 +30,21 @@ export function Sidebar(props: {
   return (
     <aside className="sidebar" aria-label="Watchlist">
       <div className="sb-head">
-        <h1 className="sb-title">Forecasts</h1>
-        <p className="sb-date">{today}</p>
-        <ModelStatus />
-        <Search onAddCity={props.onAddCity} onAddArticle={props.onAddArticle} />
+        <div className="seg sb-tabs" role="tablist" aria-label="Section">
+          <button role="tab" aria-selected={props.tab === "forecasts"} aria-pressed={props.tab === "forecasts"} onClick={() => props.onTab("forecasts")}>Forecasts</button>
+          <button role="tab" aria-selected={props.tab === "tables"} aria-pressed={props.tab === "tables"} onClick={() => props.onTab("tables")}>Tables</button>
+        </div>
+        <h1 className="sb-title">{props.tab === "tables" ? "Tables" : "Forecasts"}</h1>
+        <p className="sb-date">{props.tab === "tables" ? "Predict a column, no training" : today}</p>
+        {props.tab === "forecasts" && (
+          <>
+            <ModelStatus />
+            <Search onAddCity={props.onAddCity} onAddArticle={props.onAddArticle} />
+          </>
+        )}
       </div>
       <nav className="list">
-        {GROUPS.map((g) => {
+        {props.tab === "forecasts" && GROUPS.map((g) => {
           const rows = props.items.filter((i) => i.group === g.id);
           if (!rows.length) return null;
           return (
@@ -55,6 +72,32 @@ export function Sidebar(props: {
             </section>
           );
         })}
+        {props.tab === "tables" &&
+          TABLE_GROUPS.map((g) => (
+            <section key={g.id} aria-label={g.label} className="group-sec g-tables">
+              <header className="group">
+                <span className={`gicon g-tables-${g.id}`} aria-hidden="true">
+                  <svg viewBox="0 0 20 20"><path d={g.icon} fill="none" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                </span>
+                <div>
+                  <div className="group-name">{g.label}</div>
+                  <div className="group-about">{g.about}</div>
+                </div>
+              </header>
+              <div className="group-card">
+                {TABLE_SAMPLES.filter((s) => s.group === g.id).map((s) => (
+                  <button key={s.id} className="row" aria-current={s.id === props.selected} onClick={() => props.onSelect(s.id)}>
+                    <div style={{ minWidth: 0 }}>
+                      <div className="name">{s.name}</div>
+                      <div className="sub">{s.subtitle}</div>
+                    </div>
+                    <span />
+                    <div className="right" />
+                  </button>
+                ))}
+              </div>
+            </section>
+          ))}
       </nav>
     </aside>
   );

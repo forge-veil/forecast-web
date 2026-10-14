@@ -1,0 +1,1501 @@
+borough,postcode_district,property_type,new_build,tenure,sale_month,price
+Redbridge,IG7,flat,new,leasehold,2025-09,280000
+Lambeth,SE24,flat,existing,leasehold,2025-09,457500
+Camden,NW6,flat,existing,leasehold,2025-09,810000
+Sutton,SM2,semi-detached,existing,freehold,2025-09,1000000
+Newham,E16,flat,new,leasehold,2025-09,615000
+Islington,N7,flat,existing,leasehold,2025-09,570000
+Richmond Upon Thames,TW10,flat,existing,leasehold,2025-09,1394000
+Islington,N1,flat,existing,leasehold,2025-09,850000
+Lewisham,SE14,terraced,existing,freehold,2025-09,750000
+Bromley,BR3,flat,existing,leasehold,2025-09,285000
+Hackney,N4,flat,new,leasehold,2025-09,810000
+Hackney,E8,terraced,existing,freehold,2025-09,875000
+Redbridge,IG7,flat,new,leasehold,2025-09,295000
+Lewisham,SE14,flat,existing,leasehold,2025-09,525000
+Hackney,N4,flat,new,leasehold,2025-09,610000
+Hillingdon,HA6,detached,existing,freehold,2025-09,2000000
+Islington,EC1V,flat,existing,leasehold,2025-09,500000
+Croydon,CR0,flat,new,leasehold,2025-09,240000
+Merton,SW19,flat,existing,leasehold,2025-09,510000
+Bromley,BR1,flat,existing,leasehold,2025-09,330000
+Lewisham,SE13,flat,existing,leasehold,2025-09,381000
+Wandsworth,SW11,flat,new,leasehold,2025-09,670000
+Enfield,N14,semi-detached,existing,freehold,2025-09,780000
+Sutton,SM2,flat,existing,leasehold,2025-09,550000
+Southwark,SE1,flat,existing,leasehold,2025-09,750000
+Hackney,N4,flat,new,leasehold,2025-09,790000
+Hillingdon,UB3,flat,existing,leasehold,2025-09,97500
+Barking And Dagenham,IG11,terraced,new,freehold,2025-09,484995
+Hackney,N4,flat,new,leasehold,2025-09,522000
+Southwark,SE1,flat,existing,leasehold,2025-09,1900000
+Barking And Dagenham,IG11,flat,existing,leasehold,2025-09,245000
+Ealing,W5,flat,existing,leasehold,2025-09,299950
+Wandsworth,SW11,flat,existing,leasehold,2025-09,895000
+Camden,NW6,flat,existing,leasehold,2025-09,420000
+Tower Hamlets,E3,flat,existing,leasehold,2025-09,240000
+Bexley,DA15,terraced,existing,freehold,2025-09,335000
+Ealing,UB5,flat,existing,leasehold,2025-09,345000
+Barking And Dagenham,IG11,flat,existing,leasehold,2025-09,210000
+Lambeth,SW16,flat,existing,leasehold,2025-09,230000
+Croydon,CR0,detached,existing,freehold,2025-09,685000
+Southwark,SE1,flat,existing,leasehold,2025-09,1750000
+Lewisham,SE23,semi-detached,existing,freehold,2025-09,1250000
+Barking And Dagenham,IG11,terraced,new,freehold,2025-10,495995
+Greenwich,SE10,flat,new,leasehold,2025-10,503500
+Wandsworth,SW18,terraced,existing,freehold,2025-10,1510000
+Brent,HA9,flat,new,leasehold,2025-10,451050
+Hillingdon,HA5,flat,existing,leasehold,2025-10,138000
+Enfield,EN1,flat,existing,leasehold,2025-10,270000
+Waltham Forest,E10,flat,new,leasehold,2025-10,459080
+Wandsworth,SW18,terraced,existing,freehold,2025-10,1100000
+Sutton,SM2,detached,existing,freehold,2025-10,1505000
+Tower Hamlets,E14,flat,new,leasehold,2025-10,190500
+City Of Westminster,NW8,flat,existing,leasehold,2025-10,1310000
+Haringey,N10,flat,existing,leasehold,2025-10,251000
+Havering,RM3,terraced,existing,freehold,2025-10,335000
+Hammersmith And Fulham,SW6,flat,existing,leasehold,2025-10,880000
+Bromley,BR5,semi-detached,existing,leasehold,2025-10,285000
+Merton,SM4,flat,existing,leasehold,2025-10,320000
+Harrow,HA5,semi-detached,existing,freehold,2025-10,930000
+Haringey,N8,semi-detached,existing,leasehold,2025-10,837500
+Waltham Forest,IG8,flat,existing,leasehold,2025-10,325000
+Greenwich,SE10,flat,new,leasehold,2025-10,775100
+Haringey,N17,flat,existing,leasehold,2025-10,410000
+Barnet,NW4,flat,existing,leasehold,2025-10,295000
+Kensington And Chelsea,SW3,flat,existing,freehold,2025-10,2350000
+Croydon,SE19,flat,existing,leasehold,2025-10,290000
+Bromley,BR3,terraced,existing,freehold,2025-10,640000
+Hounslow,TW4,flat,existing,leasehold,2025-10,120000
+City Of Westminster,W2,terraced,existing,freehold,2025-10,3900000
+Ealing,W3,flat,existing,leasehold,2025-10,760000
+Hillingdon,UB3,flat,existing,leasehold,2025-10,175000
+Greenwich,SE10,flat,new,leasehold,2025-10,558125
+Tower Hamlets,E1W,flat,new,leasehold,2025-10,802140
+Redbridge,RM6,flat,existing,leasehold,2025-10,150000
+Waltham Forest,E11,flat,new,leasehold,2025-10,320000
+Lewisham,SE23,flat,existing,leasehold,2025-10,550000
+Redbridge,IG8,semi-detached,existing,freehold,2025-10,665000
+Sutton,SM6,semi-detached,existing,freehold,2025-10,550000
+Haringey,N8,flat,existing,leasehold,2025-10,537200
+Havering,RM14,semi-detached,existing,freehold,2025-10,845000
+Wandsworth,SW11,flat,existing,leasehold,2025-10,685000
+Wandsworth,SW18,flat,existing,leasehold,2025-10,869750
+Lambeth,SW12,flat,existing,leasehold,2025-10,755000
+Waltham Forest,E17,terraced,existing,freehold,2025-10,560000
+Lewisham,SE6,flat,existing,leasehold,2025-10,321500
+Harrow,HA3,detached,existing,freehold,2025-10,570000
+Wandsworth,SW11,flat,new,leasehold,2025-10,1025616
+Havering,RM2,semi-detached,existing,freehold,2025-10,575000
+Bromley,BR1,flat,new,leasehold,2025-10,502500
+Lambeth,SW2,flat,existing,leasehold,2025-10,650000
+Hackney,N4,flat,new,leasehold,2025-10,910000
+Enfield,EN2,flat,existing,leasehold,2025-10,337500
+Hackney,N16,flat,existing,leasehold,2025-10,600000
+Haringey,N6,flat,existing,leasehold,2025-10,515000
+Southwark,SE16,flat,existing,leasehold,2025-10,520000
+Islington,N1,flat,existing,leasehold,2025-10,690000
+Kensington And Chelsea,W10,flat,new,leasehold,2025-10,670000
+Barnet,EN4,semi-detached,existing,leasehold,2025-10,366000
+Hounslow,TW8,flat,existing,leasehold,2025-10,340000
+Waltham Forest,E4,terraced,existing,freehold,2025-10,565000
+City Of Westminster,SW1W,terraced,existing,freehold,2025-10,2190000
+Hounslow,UB2,flat,existing,leasehold,2025-10,375000
+Brent,NW10,terraced,existing,freehold,2025-10,1412366
+Ealing,UB1,flat,new,leasehold,2025-10,388000
+Barnet,NW4,terraced,existing,freehold,2025-10,685000
+Greenwich,SE3,semi-detached,existing,freehold,2025-10,575000
+Tower Hamlets,E1W,flat,new,leasehold,2025-10,1243000
+Brent,NW9,terraced,existing,freehold,2025-10,585000
+Bexley,DA5,semi-detached,existing,freehold,2025-10,413000
+Hounslow,W5,semi-detached,existing,freehold,2025-10,1525000
+Greenwich,SE3,flat,new,leasehold,2025-10,126875
+Islington,N5,flat,existing,leasehold,2025-10,780000
+Camden,NW1,flat,new,leasehold,2025-10,1341000
+Wandsworth,SW17,flat,existing,leasehold,2025-10,995000
+Enfield,EN1,terraced,existing,freehold,2025-10,430000
+Enfield,N13,flat,existing,leasehold,2025-10,485000
+Wandsworth,SW18,flat,new,leasehold,2025-10,780000
+Hammersmith And Fulham,W4,flat,existing,freehold,2025-10,2600000
+Harrow,HA5,detached,existing,freehold,2025-10,1295000
+Hounslow,TW8,flat,new,leasehold,2025-10,634500
+Richmond Upon Thames,TW3,terraced,existing,freehold,2025-10,572500
+Ealing,W7,flat,existing,leasehold,2025-10,448000
+Ealing,W5,flat,existing,leasehold,2025-10,190000
+Croydon,CR8,terraced,existing,freehold,2025-10,715000
+Harrow,HA1,flat,existing,leasehold,2025-11,280000
+Sutton,SM1,flat,existing,leasehold,2025-11,268000
+Sutton,SM1,terraced,existing,freehold,2025-11,385000
+Ealing,W5,flat,existing,leasehold,2025-11,497000
+Hackney,E5,terraced,existing,freehold,2025-11,750000
+Wandsworth,SW18,flat,existing,leasehold,2025-11,480188
+Bromley,BR2,detached,existing,freehold,2025-11,565000
+City Of Westminster,W2,flat,existing,leasehold,2025-11,2500000
+Havering,RM14,semi-detached,existing,freehold,2025-11,525000
+Hackney,N1,terraced,existing,freehold,2025-11,2140000
+Wandsworth,SW11,flat,existing,leasehold,2025-11,1100000
+Hillingdon,UB4,semi-detached,existing,freehold,2025-11,625000
+Barnet,N11,flat,existing,leasehold,2025-11,447000
+Croydon,SE25,terraced,existing,freehold,2025-11,697000
+Greenwich,SE10,flat,new,leasehold,2025-11,405600
+Bromley,BR2,terraced,existing,freehold,2025-11,437500
+Brent,NW6,flat,existing,leasehold,2025-11,370000
+Redbridge,RM6,flat,existing,leasehold,2025-11,100000
+Waltham Forest,E10,flat,new,leasehold,2025-11,470000
+Barking And Dagenham,IG11,terraced,new,freehold,2025-11,500995
+Greenwich,SE18,flat,existing,leasehold,2025-11,193000
+Kingston Upon Thames,KT5,flat,existing,leasehold,2025-11,256000
+Waltham Forest,E4,terraced,existing,leasehold,2025-11,295000
+Hackney,N16,flat,existing,leasehold,2025-11,450000
+Newham,E12,terraced,existing,freehold,2025-11,440000
+Kensington And Chelsea,SW3,terraced,existing,freehold,2025-11,5412848
+Haringey,N8,flat,existing,leasehold,2025-11,899950
+Enfield,N21,semi-detached,existing,freehold,2025-11,925000
+Camden,NW6,terraced,existing,freehold,2025-11,1400000
+Greenwich,SE10,flat,new,leasehold,2025-11,508250
+Enfield,EN1,terraced,existing,freehold,2025-11,500000
+Sutton,SM5,detached,existing,freehold,2025-11,1100000
+Greenwich,SE10,flat,new,leasehold,2025-11,829000
+Barnet,NW7,semi-detached,existing,freehold,2025-11,658000
+Enfield,N11,flat,existing,leasehold,2025-11,255000
+Waltham Forest,E10,flat,existing,leasehold,2025-11,533000
+Bromley,BR1,terraced,existing,freehold,2025-11,380000
+Richmond Upon Thames,TW12,terraced,existing,freehold,2025-11,745000
+Bexley,DA16,terraced,existing,freehold,2025-11,400000
+Greenwich,SE10,flat,new,leasehold,2025-11,491625
+Southwark,SE15,terraced,existing,freehold,2025-11,1395000
+Bromley,TN16,terraced,existing,freehold,2025-11,345000
+Islington,N1,flat,existing,leasehold,2025-11,140000
+Richmond Upon Thames,TW2,terraced,existing,freehold,2025-11,615000
+City Of Westminster,W1S,flat,existing,leasehold,2025-11,7450000
+Ealing,UB2,flat,existing,leasehold,2025-11,341000
+Hammersmith And Fulham,SW6,flat,existing,leasehold,2025-11,760000
+Hackney,N16,terraced,existing,freehold,2025-11,280751
+Bromley,BR6,detached,existing,freehold,2025-11,1490000
+Waltham Forest,E17,terraced,existing,freehold,2025-11,950000
+Waltham Forest,E17,terraced,existing,freehold,2025-11,240500
+Ealing,W3,flat,existing,leasehold,2025-11,340000
+Bromley,BR2,flat,existing,leasehold,2025-11,450000
+Lewisham,SE9,terraced,existing,freehold,2025-11,375000
+Bexley,DA15,flat,existing,leasehold,2025-11,255000
+Ealing,W7,terraced,existing,freehold,2025-11,650000
+Barnet,EN5,flat,existing,leasehold,2025-11,360000
+Hounslow,W4,flat,existing,leasehold,2025-11,495000
+Barnet,N20,terraced,existing,freehold,2025-11,1337500
+Croydon,CR0,flat,existing,leasehold,2025-11,171000
+Ealing,W3,flat,existing,leasehold,2025-11,495000
+Wandsworth,SW12,flat,existing,leasehold,2025-11,735000
+Harrow,HA5,flat,existing,leasehold,2025-11,620000
+Bexley,DA17,terraced,existing,freehold,2025-11,378000
+Newham,E13,flat,existing,leasehold,2025-11,110000
+City Of Westminster,W9,flat,existing,leasehold,2025-11,925000
+Lambeth,SW4,flat,existing,leasehold,2025-11,150000
+Hillingdon,UB3,flat,existing,leasehold,2025-11,133500
+Ealing,UB6,flat,existing,leasehold,2025-11,255000
+Wandsworth,SW12,flat,existing,leasehold,2025-11,705555
+Camden,N6,flat,existing,leasehold,2025-11,2950000
+Bexley,DA7,semi-detached,existing,freehold,2025-11,415000
+Harrow,HA5,detached,existing,freehold,2025-11,2550000
+Haringey,N17,terraced,existing,freehold,2025-11,534000
+Tower Hamlets,E1,flat,existing,leasehold,2025-11,530000
+Croydon,CR2,semi-detached,existing,freehold,2025-11,640000
+Ealing,UB5,semi-detached,existing,freehold,2025-11,490000
+Southwark,SE1,flat,existing,leasehold,2025-11,1050000
+Waltham Forest,IG8,semi-detached,existing,freehold,2025-11,625000
+Croydon,CR0,terraced,existing,freehold,2025-11,198000
+Wandsworth,SW11,flat,existing,leasehold,2025-11,580000
+Bexley,DA14,semi-detached,existing,freehold,2025-11,670000
+Greenwich,SE3,terraced,existing,leasehold,2025-11,740000
+Sutton,SM1,flat,existing,leasehold,2025-11,226000
+Bexley,DA6,terraced,existing,freehold,2025-11,406500
+City Of Westminster,W2,flat,existing,leasehold,2025-11,1000000
+Wandsworth,SW15,flat,existing,leasehold,2025-11,500000
+Enfield,N14,semi-detached,existing,freehold,2025-11,1006000
+Bromley,BR6,terraced,existing,freehold,2025-11,485270
+City Of Westminster,W2,terraced,existing,leasehold,2025-11,1372000
+Hammersmith And Fulham,W12,terraced,existing,freehold,2025-11,1325000
+Enfield,EN1,terraced,existing,freehold,2025-11,467000
+Barking And Dagenham,RM8,terraced,existing,freehold,2025-11,425000
+Hillingdon,HA5,semi-detached,existing,freehold,2025-11,500000
+Islington,N1,terraced,existing,freehold,2025-11,2800000
+Enfield,N9,terraced,existing,freehold,2025-11,540000
+Hackney,E9,terraced,existing,freehold,2025-11,445805
+Croydon,CR5,flat,existing,leasehold,2025-11,310000
+Hackney,E20,flat,new,leasehold,2025-11,450000
+Croydon,CR7,terraced,existing,freehold,2025-12,450000
+Waltham Forest,E17,flat,existing,leasehold,2025-12,200000
+Haringey,N6,flat,existing,leasehold,2025-12,410000
+Sutton,SM2,detached,existing,freehold,2025-12,1450000
+Wandsworth,SW11,flat,existing,leasehold,2025-12,707977
+Southwark,SE17,flat,existing,leasehold,2025-12,355000
+Barnet,N11,flat,existing,leasehold,2025-12,350000
+Lambeth,SW9,terraced,existing,freehold,2025-12,1230000
+Bromley,BR2,semi-detached,existing,freehold,2025-12,245000
+Merton,KT3,semi-detached,existing,freehold,2025-12,660000
+Haringey,N10,flat,existing,leasehold,2025-12,935000
+Greenwich,SE10,flat,new,leasehold,2025-12,489250
+Greenwich,SE10,flat,existing,leasehold,2025-12,427200
+Kensington And Chelsea,W11,terraced,existing,freehold,2025-12,3150000
+Hillingdon,UB8,detached,existing,freehold,2025-12,935000
+City Of Westminster,NW8,flat,existing,leasehold,2025-12,5350000
+Ealing,W3,flat,existing,leasehold,2025-12,340000
+Hillingdon,UB10,semi-detached,existing,freehold,2025-12,477000
+Camden,NW1,flat,existing,leasehold,2025-12,529000
+Barking And Dagenham,RM9,terraced,existing,freehold,2026-01,555000
+Sutton,KT4,semi-detached,existing,freehold,2026-01,915000
+Southwark,SE1,flat,existing,leasehold,2026-01,445000
+Hounslow,W4,flat,existing,leasehold,2026-01,680000
+Hammersmith And Fulham,W12,terraced,existing,freehold,2026-01,900000
+Lambeth,SW2,terraced,existing,freehold,2026-01,910000
+Lambeth,SE24,flat,new,leasehold,2026-01,465000
+Sutton,SM6,flat,existing,leasehold,2026-01,142000
+Richmond Upon Thames,SW14,flat,existing,leasehold,2026-01,435000
+Brent,NW9,semi-detached,existing,freehold,2026-01,595000
+Wandsworth,SW11,flat,existing,leasehold,2026-01,345000
+Richmond Upon Thames,TW9,flat,existing,leasehold,2026-01,490000
+Ealing,W5,flat,existing,leasehold,2026-01,962000
+Southwark,SE1,flat,existing,leasehold,2026-01,485000
+Sutton,SM6,flat,existing,leasehold,2026-01,260000
+Camden,NW3,flat,existing,leasehold,2026-01,875000
+Bromley,BR5,semi-detached,existing,freehold,2026-01,500000
+Sutton,SM1,flat,existing,leasehold,2026-01,250000
+Bromley,BR2,semi-detached,existing,freehold,2026-01,782000
+Richmond Upon Thames,SW14,flat,existing,leasehold,2026-01,470000
+Croydon,CR2,terraced,existing,freehold,2026-01,370000
+Waltham Forest,E4,flat,existing,leasehold,2026-01,310060
+Wandsworth,SW11,flat,existing,leasehold,2026-02,625000
+Merton,SW20,flat,existing,leasehold,2026-02,370000
+Tower Hamlets,E14,flat,existing,leasehold,2026-02,540000
+Camden,NW6,flat,existing,leasehold,2026-02,395000
+Bromley,BR1,flat,existing,leasehold,2026-02,360000
+Hounslow,W6,flat,existing,leasehold,2026-02,312500
+Hounslow,W4,terraced,existing,freehold,2026-02,972000
+Redbridge,IG8,terraced,existing,freehold,2026-02,585000
+Redbridge,IG2,terraced,existing,freehold,2026-02,605000
+Waltham Forest,E4,terraced,existing,freehold,2026-02,720000
+Wandsworth,SW11,flat,existing,leasehold,2026-02,1350000
+Havering,RM5,semi-detached,existing,freehold,2026-02,640000
+Southwark,SE15,flat,existing,leasehold,2026-02,550000
+Wandsworth,SW11,flat,existing,leasehold,2026-02,1625000
+Ealing,W5,detached,existing,freehold,2026-02,1565000
+Bexley,DA8,terraced,existing,freehold,2026-02,357000
+Hammersmith And Fulham,SW6,terraced,existing,freehold,2026-02,3050000
+Croydon,CR0,flat,existing,leasehold,2026-02,155000
+Harrow,HA3,semi-detached,existing,freehold,2026-02,595000
+Barnet,EN4,semi-detached,existing,freehold,2026-02,865000
+City Of Westminster,W1H,terraced,existing,freehold,2026-02,1560000
+Wandsworth,SW11,flat,existing,leasehold,2026-02,412500
+Haringey,N8,flat,existing,leasehold,2026-02,795000
+Islington,N5,flat,existing,leasehold,2026-02,950000
+Lewisham,SE14,flat,existing,leasehold,2026-02,382500
+Richmond Upon Thames,TW2,flat,existing,leasehold,2026-02,190000
+Merton,SW19,flat,existing,leasehold,2026-02,376600
+Barnet,NW7,semi-detached,existing,leasehold,2026-02,355000
+Kingston Upon Thames,KT6,semi-detached,existing,freehold,2026-02,671500
+Merton,CR4,terraced,existing,freehold,2026-02,495000
+Wandsworth,SW11,flat,existing,leasehold,2026-02,965000
+Croydon,SE25,terraced,existing,freehold,2026-02,377000
+Kensington And Chelsea,SW3,flat,existing,leasehold,2026-02,737000
+Haringey,N22,terraced,existing,freehold,2026-02,766000
+Tower Hamlets,E3,flat,existing,leasehold,2026-03,315000
+Wandsworth,SW15,flat,existing,leasehold,2026-03,350000
+Wandsworth,SW11,flat,existing,leasehold,2026-03,465000
+Camden,NW1,flat,existing,leasehold,2026-03,1150000
+Enfield,EN1,semi-detached,existing,freehold,2026-03,550000
+Wandsworth,SW18,terraced,existing,freehold,2026-03,775000
+Waltham Forest,E4,terraced,existing,freehold,2026-03,680000
+Redbridge,IG5,detached,existing,freehold,2026-03,638000
+City Of Westminster,NW8,terraced,existing,freehold,2026-03,2630000
+Sutton,SM1,terraced,existing,freehold,2026-03,420000
+Brent,HA9,semi-detached,existing,freehold,2026-03,660000
+Hammersmith And Fulham,SW6,terraced,existing,freehold,2026-03,2400000
+Richmond Upon Thames,TW11,flat,existing,leasehold,2026-03,390000
+Wandsworth,SW11,flat,existing,leasehold,2026-03,120000
+Greenwich,SE9,detached,existing,freehold,2026-03,3150000
+Wandsworth,SW18,flat,existing,leasehold,2026-03,365000
+Bromley,BR1,detached,existing,freehold,2026-03,2050000
+Croydon,CR0,flat,existing,leasehold,2026-03,265000
+Bexley,DA16,terraced,existing,freehold,2026-03,400000
+Wandsworth,SW18,flat,existing,leasehold,2026-03,301000
+Barnet,N3,detached,existing,freehold,2026-03,1580000
+Richmond Upon Thames,TW1,terraced,existing,freehold,2026-03,1045484
+Southwark,SE21,semi-detached,existing,freehold,2026-03,2200000
+Redbridge,IG7,flat,existing,leasehold,2026-03,265000
+Havering,RM12,semi-detached,existing,freehold,2026-03,515000
+Brent,NW2,terraced,existing,freehold,2026-03,375000
+Enfield,EN3,flat,existing,leasehold,2026-03,210000
+Camden,NW3,flat,existing,leasehold,2026-03,760000
+Hammersmith And Fulham,SW6,flat,existing,leasehold,2026-03,386666
+Lambeth,SW9,flat,existing,leasehold,2026-03,410000
+Kensington And Chelsea,W14,flat,existing,leasehold,2026-03,2125000
+Brent,NW9,semi-detached,existing,freehold,2026-03,550000
+Richmond Upon Thames,TW9,semi-detached,existing,freehold,2026-03,2350000
+Bromley,BR2,semi-detached,existing,freehold,2026-03,585000
+Southwark,SE1,flat,existing,leasehold,2026-03,290000
+Kingston Upon Thames,KT1,flat,existing,leasehold,2026-03,295000
+Richmond Upon Thames,TW12,semi-detached,existing,freehold,2026-03,720000
+Bromley,BR4,terraced,existing,freehold,2026-03,780000
+Enfield,EN1,flat,existing,leasehold,2026-03,115000
+Haringey,N22,terraced,existing,freehold,2026-03,560000
+Lewisham,SE6,flat,existing,leasehold,2026-03,140000
+Hillingdon,UB7,flat,existing,leasehold,2026-03,235000
+Richmond Upon Thames,TW2,semi-detached,existing,freehold,2026-03,758000
+Greenwich,SE8,flat,existing,leasehold,2026-03,310000
+Lambeth,SE27,terraced,existing,freehold,2026-03,630000
+City Of Westminster,W1T,flat,existing,leasehold,2026-03,605000
+Southwark,SE16,flat,existing,leasehold,2026-03,350000
+Bromley,BR3,detached,existing,freehold,2026-03,1070000
+Kingston Upon Thames,KT6,flat,existing,leasehold,2026-03,375000
+Tower Hamlets,E1,flat,existing,leasehold,2026-03,170000
+Havering,RM5,flat,existing,leasehold,2026-03,185000
+Hackney,N4,terraced,existing,freehold,2026-03,750000
+Hammersmith And Fulham,W12,flat,existing,leasehold,2026-03,418000
+Richmond Upon Thames,SW14,terraced,existing,freehold,2026-03,1630000
+Barnet,N20,detached,existing,freehold,2026-03,1285000
+Ealing,UB6,terraced,existing,freehold,2026-03,332000
+Wandsworth,SW11,terraced,existing,freehold,2026-03,2592500
+Bromley,TN16,semi-detached,existing,freehold,2026-03,470000
+Barking And Dagenham,RM10,terraced,existing,freehold,2026-03,375000
+Camden,NW1,flat,existing,leasehold,2026-03,950000
+Wandsworth,SW11,flat,existing,leasehold,2026-03,1350000
+Wandsworth,SW17,flat,existing,leasehold,2026-03,300000
+Lambeth,SE21,flat,existing,leasehold,2026-03,395000
+Croydon,CR0,terraced,existing,freehold,2026-03,555000
+Barking And Dagenham,RM6,flat,existing,leasehold,2026-03,245000
+Croydon,CR0,terraced,existing,freehold,2026-03,380000
+Harrow,HA5,semi-detached,existing,freehold,2026-03,534000
+Richmond Upon Thames,TW1,semi-detached,existing,freehold,2026-03,1081000
+City Of London,EC2Y,flat,existing,leasehold,2026-03,1400000
+City Of Westminster,W1T,flat,existing,leasehold,2026-03,1100000
+Waltham Forest,IG8,semi-detached,existing,freehold,2026-03,628000
+Brent,NW2,terraced,existing,freehold,2026-03,405000
+Newham,E7,terraced,existing,leasehold,2026-03,350000
+Kensington And Chelsea,W14,flat,existing,leasehold,2026-03,1155000
+Camden,WC1E,flat,existing,leasehold,2026-03,1365000
+Hounslow,TW13,semi-detached,existing,freehold,2026-03,490000
+Lambeth,SW4,flat,existing,leasehold,2026-03,450000
+Barking And Dagenham,RM10,terraced,existing,freehold,2026-03,530000
+Hounslow,TW14,flat,existing,leasehold,2026-03,200000
+Wandsworth,SW11,flat,existing,leasehold,2026-03,760000
+Hackney,E8,flat,existing,leasehold,2026-03,775000
+City Of Westminster,W2,flat,existing,leasehold,2026-03,810000
+Greenwich,SE2,terraced,existing,freehold,2026-03,445000
+City Of London,EC2Y,flat,existing,leasehold,2026-03,1085000
+Bromley,BR4,detached,existing,freehold,2026-03,1175000
+Lewisham,SE26,semi-detached,existing,freehold,2026-03,830000
+Richmond Upon Thames,TW1,flat,existing,leasehold,2026-03,340000
+Ealing,UB5,flat,existing,leasehold,2026-03,265000
+Newham,E6,flat,existing,leasehold,2026-03,308000
+Barking And Dagenham,RM6,flat,existing,leasehold,2026-03,236750
+Islington,N7,flat,existing,leasehold,2026-03,360000
+City Of Westminster,W1H,flat,existing,leasehold,2026-03,1035000
+Wandsworth,SW11,flat,existing,leasehold,2026-03,468000
+Waltham Forest,E11,flat,existing,leasehold,2026-03,270000
+Brent,NW10,flat,existing,leasehold,2026-03,670000
+Wandsworth,SW17,terraced,existing,leasehold,2026-03,448500
+Havering,RM13,terraced,existing,freehold,2026-03,420000
+Bexley,DA7,semi-detached,existing,freehold,2026-03,460000
+Hammersmith And Fulham,W6,terraced,existing,freehold,2026-03,1500000
+Richmond Upon Thames,TW1,semi-detached,existing,freehold,2026-03,1125000
+Lewisham,SE12,flat,existing,leasehold,2026-03,325000
+Wandsworth,SW11,semi-detached,existing,freehold,2026-03,1550000
+Tower Hamlets,E3,flat,existing,leasehold,2026-03,290000
+Lambeth,SW4,detached,existing,freehold,2026-03,1205000
+Bexley,DA14,flat,existing,leasehold,2026-03,285000
+Wandsworth,SW16,flat,existing,leasehold,2026-03,475000
+Wandsworth,SW12,semi-detached,existing,freehold,2026-03,1350000
+Hillingdon,UB4,flat,existing,leasehold,2026-03,333000
+Camden,NW3,detached,existing,freehold,2026-03,2250000
+Richmond Upon Thames,TW9,flat,existing,leasehold,2026-03,430000
+Islington,EC1M,flat,existing,leasehold,2026-03,500000
+Hounslow,TW3,flat,existing,leasehold,2026-03,325000
+Hillingdon,UB3,terraced,existing,freehold,2026-03,405000
+Ealing,W3,semi-detached,existing,freehold,2026-03,1220000
+Lewisham,SE26,flat,existing,leasehold,2026-03,325000
+Brent,HA9,terraced,existing,freehold,2026-03,500000
+Ealing,UB1,terraced,existing,freehold,2026-03,557500
+Greenwich,SE28,flat,existing,leasehold,2026-03,230000
+City Of Westminster,W2,flat,existing,leasehold,2026-03,620000
+Islington,N7,terraced,existing,freehold,2026-03,777000
+Wandsworth,SW18,terraced,existing,freehold,2026-03,1580000
+Redbridge,E18,terraced,existing,freehold,2026-03,685000
+Richmond Upon Thames,SW14,detached,existing,freehold,2026-03,2040000
+Hillingdon,UB4,flat,existing,leasehold,2026-03,368000
+Wandsworth,SW18,flat,existing,leasehold,2026-03,840250
+Bromley,BR3,flat,existing,leasehold,2026-03,520000
+Hackney,N16,terraced,existing,freehold,2026-03,1454500
+Wandsworth,SW11,semi-detached,existing,freehold,2026-03,1167500
+Camden,NW3,semi-detached,existing,freehold,2026-03,4500000
+Redbridge,IG6,terraced,existing,freehold,2026-03,380000
+Greenwich,SE10,flat,existing,leasehold,2026-03,462000
+Islington,N7,terraced,existing,freehold,2026-03,2900000
+Enfield,N21,detached,existing,freehold,2026-03,665000
+Brent,NW9,terraced,existing,freehold,2026-03,570000
+Richmond Upon Thames,TW9,semi-detached,existing,freehold,2026-03,1800000
+City Of Westminster,W1H,flat,existing,leasehold,2026-03,3500000
+Southwark,SE16,flat,existing,leasehold,2026-03,1200000
+Enfield,N13,terraced,existing,leasehold,2026-03,355000
+Merton,SW20,semi-detached,existing,freehold,2026-03,1150000
+Waltham Forest,E17,terraced,existing,freehold,2026-03,450000
+Harrow,HA1,flat,existing,leasehold,2026-03,360000
+Kensington And Chelsea,W8,flat,existing,leasehold,2026-03,460000
+City Of Westminster,WC2R,flat,existing,leasehold,2026-03,2700000
+Bromley,BR6,detached,existing,freehold,2026-03,2591667
+Brent,NW6,flat,existing,leasehold,2026-03,435000
+Tower Hamlets,E1,terraced,existing,freehold,2026-03,1550000
+Brent,HA9,semi-detached,existing,freehold,2026-03,715000
+Kingston Upon Thames,KT3,detached,existing,freehold,2026-03,1640000
+Bexley,DA8,semi-detached,existing,freehold,2026-03,420000
+Kingston Upon Thames,KT1,semi-detached,existing,freehold,2026-03,861000
+Barking And Dagenham,RM10,flat,existing,leasehold,2026-03,295000
+Barnet,NW11,terraced,existing,freehold,2026-03,905000
+Hounslow,TW5,terraced,existing,freehold,2026-03,608000
+Lambeth,SW9,flat,existing,leasehold,2026-03,570000
+Sutton,KT4,detached,existing,freehold,2026-03,500000
+Kensington And Chelsea,SW1X,flat,existing,leasehold,2026-03,3300000
+Tower Hamlets,E2,flat,existing,leasehold,2026-03,386500
+Newham,E16,flat,existing,leasehold,2026-03,210000
+Barking And Dagenham,RM7,semi-detached,existing,freehold,2026-03,466250
+Camden,WC1V,flat,existing,leasehold,2026-03,1950000
+Redbridge,E11,terraced,existing,freehold,2026-03,1155000
+Lewisham,SE6,terraced,existing,freehold,2026-03,855000
+Havering,RM5,flat,existing,leasehold,2026-03,285000
+Camden,NW8,flat,existing,leasehold,2026-03,1730000
+Kingston Upon Thames,KT5,terraced,existing,freehold,2026-03,565000
+Barking And Dagenham,RM9,terraced,existing,freehold,2026-03,415000
+Waltham Forest,E10,terraced,existing,freehold,2026-03,535000
+Hillingdon,UB3,flat,existing,leasehold,2026-03,195000
+Richmond Upon Thames,TW11,terraced,existing,freehold,2026-03,608000
+Haringey,N22,terraced,existing,freehold,2026-03,475000
+Sutton,SM1,semi-detached,existing,freehold,2026-03,655000
+Sutton,SM1,flat,existing,leasehold,2026-03,248000
+Lambeth,SE24,semi-detached,existing,freehold,2026-03,1590000
+Newham,E15,flat,existing,leasehold,2026-03,335000
+Lewisham,SE23,terraced,existing,freehold,2026-03,758000
+Lambeth,SW2,terraced,existing,freehold,2026-03,757500
+Sutton,SM6,flat,existing,leasehold,2026-03,251000
+Merton,SW19,detached,existing,freehold,2026-03,4900000
+City Of Westminster,W1W,flat,existing,leasehold,2026-03,1985000
+Wandsworth,SW17,flat,existing,leasehold,2026-03,250000
+Wandsworth,SW18,terraced,existing,freehold,2026-03,1268750
+City Of Westminster,W2,flat,existing,leasehold,2026-03,780000
+Barking And Dagenham,IG11,terraced,existing,freehold,2026-03,480000
+Greenwich,SE9,semi-detached,existing,freehold,2026-03,714500
+Haringey,N6,terraced,existing,freehold,2026-03,4000000
+Hillingdon,HA6,semi-detached,existing,freehold,2026-03,2500000
+Tower Hamlets,E1W,flat,existing,leasehold,2026-03,296380
+Camden,NW3,flat,existing,leasehold,2026-03,550000
+Havering,RM12,semi-detached,existing,freehold,2026-03,515000
+Waltham Forest,E17,flat,existing,leasehold,2026-03,568000
+Wandsworth,SW17,flat,existing,leasehold,2026-03,485000
+Enfield,EN1,terraced,existing,freehold,2026-04,458000
+Richmond Upon Thames,TW11,semi-detached,existing,freehold,2026-04,1694940
+Barnet,NW9,flat,existing,leasehold,2026-04,250000
+Harrow,HA5,terraced,existing,freehold,2026-04,850000
+Harrow,HA5,detached,existing,freehold,2026-04,1320000
+Islington,N1,terraced,existing,freehold,2026-04,1970000
+Kingston Upon Thames,KT2,detached,existing,freehold,2026-04,1095000
+Lewisham,SE13,flat,existing,leasehold,2026-04,550000
+Camden,NW5,terraced,existing,freehold,2026-04,1610000
+Richmond Upon Thames,SW14,terraced,existing,freehold,2026-04,740000
+Croydon,CR0,semi-detached,existing,freehold,2026-04,400000
+Barnet,NW11,semi-detached,existing,freehold,2026-04,1250000
+Bexley,DA7,semi-detached,existing,freehold,2026-04,462500
+Waltham Forest,IG8,flat,existing,leasehold,2026-04,307000
+Waltham Forest,E17,terraced,existing,freehold,2026-04,950000
+Kingston Upon Thames,KT5,semi-detached,existing,freehold,2026-04,650000
+Ealing,W5,semi-detached,existing,freehold,2026-04,1267500
+Hounslow,TW14,semi-detached,existing,freehold,2026-04,380000
+Newham,E15,terraced,existing,freehold,2026-04,554000
+Merton,SW19,detached,existing,freehold,2026-04,5730000
+Lewisham,SE23,terraced,existing,freehold,2026-04,1220000
+Greenwich,SE18,terraced,existing,freehold,2026-04,440000
+Camden,NW2,semi-detached,existing,freehold,2026-04,2480000
+Tower Hamlets,E1W,flat,existing,freehold,2026-04,875000
+Croydon,CR0,flat,existing,leasehold,2026-04,305000
+Greenwich,SE8,terraced,existing,freehold,2026-04,598000
+Barnet,N3,flat,existing,leasehold,2026-04,375000
+Brent,NW2,flat,existing,leasehold,2026-04,490000
+Bromley,BR2,terraced,existing,freehold,2026-04,354000
+Bexley,DA5,terraced,existing,freehold,2026-04,630000
+Camden,NW3,flat,existing,leasehold,2026-04,500000
+Tower Hamlets,E2,flat,existing,leasehold,2026-04,875000
+Barnet,NW7,detached,existing,freehold,2026-04,1900000
+Newham,E16,flat,existing,leasehold,2026-04,280000
+Islington,N1,terraced,existing,freehold,2026-04,2650000
+Kingston Upon Thames,KT6,flat,existing,leasehold,2026-04,345000
+Ealing,W13,terraced,existing,freehold,2026-04,807500
+Southwark,SE17,flat,existing,leasehold,2026-04,300000
+Lewisham,SE23,detached,existing,freehold,2026-04,1376700
+Kensington And Chelsea,SW10,flat,existing,leasehold,2026-04,590000
+Kingston Upon Thames,KT2,detached,existing,freehold,2026-04,1210000
+Bromley,BR4,detached,existing,freehold,2026-04,925000
+Islington,N1,terraced,existing,leasehold,2026-04,775000
+Lambeth,SW12,terraced,existing,freehold,2026-04,1362000
+Wandsworth,SW18,flat,existing,leasehold,2026-04,386000
+City Of Westminster,W1U,flat,existing,leasehold,2026-04,1350000
+City Of Westminster,SW1V,flat,existing,leasehold,2026-04,325000
+Wandsworth,SW8,flat,new,leasehold,2026-04,974700
+Islington,N1,flat,existing,leasehold,2026-04,1210500
+Islington,N5,terraced,existing,freehold,2026-04,1685000
+Southwark,SE17,flat,existing,leasehold,2026-04,152500
+Havering,RM1,semi-detached,existing,freehold,2026-04,455000
+Greenwich,SE18,flat,new,leasehold,2026-04,610000
+Brent,HA9,flat,existing,leasehold,2026-04,308000
+Redbridge,E18,detached,existing,freehold,2026-04,1560000
+Croydon,SE25,terraced,existing,freehold,2026-04,460000
+Hillingdon,HA5,detached,existing,freehold,2026-04,545000
+City Of Westminster,NW8,terraced,existing,freehold,2026-04,17750000
+Wandsworth,SW11,flat,existing,leasehold,2026-04,605000
+Wandsworth,SW11,terraced,existing,leasehold,2026-04,900000
+Barnet,NW7,semi-detached,existing,freehold,2026-04,775000
+Barnet,HA8,terraced,existing,freehold,2026-04,1250000
+Harrow,HA8,terraced,existing,freehold,2026-04,530000
+Bromley,BR3,terraced,existing,freehold,2026-04,630000
+Merton,SW19,flat,existing,leasehold,2026-04,550000
+Haringey,N8,flat,existing,leasehold,2026-04,565000
+Southwark,SE5,flat,existing,leasehold,2026-04,455000
+Camden,NW6,flat,existing,leasehold,2026-04,1000000
+Kingston Upon Thames,KT5,terraced,existing,freehold,2026-04,625000
+Hackney,N16,semi-detached,existing,freehold,2026-04,1020000
+Wandsworth,SW11,flat,existing,leasehold,2026-04,485000
+Richmond Upon Thames,TW1,flat,existing,leasehold,2026-04,555000
+Harrow,HA7,flat,existing,leasehold,2026-04,450000
+Merton,SW19,flat,existing,leasehold,2026-04,450000
+Haringey,N8,terraced,existing,freehold,2026-04,1150000
+Southwark,SE1,flat,existing,leasehold,2026-04,1650000
+Hillingdon,UB3,semi-detached,existing,freehold,2026-04,500000
+Sutton,SM6,terraced,existing,freehold,2026-04,525000
+Newham,E7,terraced,existing,freehold,2026-04,600000
+Enfield,N9,terraced,existing,freehold,2026-04,560000
+Croydon,CR0,detached,existing,freehold,2026-04,395000
+Newham,E6,detached,existing,freehold,2026-04,450000
+Lambeth,SW16,flat,existing,leasehold,2026-04,435000
+Islington,N19,flat,existing,leasehold,2026-04,365000
+Havering,RM5,terraced,existing,freehold,2026-04,370000
+Haringey,N17,flat,existing,leasehold,2026-04,385000
+Lambeth,SW4,flat,existing,leasehold,2026-04,555000
+Tower Hamlets,E2,flat,existing,leasehold,2026-04,495000
+Sutton,SM2,flat,existing,leasehold,2026-04,355000
+Waltham Forest,E10,terraced,existing,freehold,2026-04,685400
+Harrow,HA7,flat,existing,leasehold,2026-04,182500
+Lewisham,SE3,flat,existing,leasehold,2026-04,700000
+Wandsworth,SW11,flat,existing,leasehold,2026-04,250000
+Havering,RM11,detached,existing,freehold,2026-04,1200000
+Richmond Upon Thames,TW11,terraced,existing,freehold,2026-04,1325000
+Merton,SW19,terraced,existing,freehold,2026-04,1222500
+Redbridge,IG2,terraced,existing,freehold,2026-04,380000
+Bexley,DA8,semi-detached,existing,freehold,2026-04,375000
+Haringey,N10,semi-detached,existing,freehold,2026-04,1500000
+Merton,SW19,flat,existing,leasehold,2026-04,352000
+Bromley,BR2,semi-detached,existing,freehold,2026-04,952500
+Greenwich,SE10,terraced,existing,freehold,2026-04,1200000
+Kingston Upon Thames,KT3,terraced,existing,freehold,2026-04,730000
+Camden,NW5,flat,existing,leasehold,2026-04,494000
+Wandsworth,SW8,flat,existing,leasehold,2026-04,700000
+Richmond Upon Thames,TW9,semi-detached,existing,freehold,2026-04,3450000
+Hammersmith And Fulham,W14,terraced,existing,freehold,2026-04,1180000
+Greenwich,SE9,detached,existing,freehold,2026-04,1128640
+Enfield,N9,terraced,existing,freehold,2026-04,440000
+Croydon,CR5,terraced,existing,freehold,2026-04,453000
+Hounslow,W4,terraced,existing,leasehold,2026-04,450000
+Havering,RM11,detached,existing,freehold,2026-04,1350000
+Barnet,NW7,detached,existing,freehold,2026-04,1380000
+Barnet,N2,terraced,existing,freehold,2026-04,1080000
+Greenwich,SE9,semi-detached,existing,freehold,2026-04,1075000
+Haringey,N22,flat,existing,leasehold,2026-04,570000
+Bromley,BR2,detached,existing,freehold,2026-04,1125000
+Lambeth,SW4,flat,existing,leasehold,2026-05,825000
+Enfield,EN2,flat,existing,leasehold,2026-05,335000
+Lambeth,SW4,flat,existing,leasehold,2026-05,400000
+Sutton,SM6,flat,existing,leasehold,2026-05,265000
+Southwark,SE5,flat,existing,leasehold,2026-05,575000
+Bexley,DA7,flat,existing,leasehold,2026-05,320000
+City Of Westminster,W2,flat,existing,leasehold,2026-05,630000
+Brent,HA9,flat,existing,leasehold,2026-05,335000
+Southwark,SE5,terraced,existing,freehold,2026-05,575000
+Wandsworth,SW11,flat,existing,leasehold,2026-05,394000
+City Of Westminster,NW8,flat,existing,leasehold,2026-05,870000
+Haringey,N17,flat,existing,leasehold,2026-05,205000
+Sutton,SM1,flat,existing,leasehold,2026-05,310000
+Redbridge,IG8,semi-detached,existing,freehold,2026-05,655000
+Hackney,E9,flat,existing,leasehold,2026-05,920000
+Newham,E16,flat,existing,leasehold,2026-05,410000
+Sutton,SM1,terraced,existing,freehold,2026-05,460000
+Lewisham,SE13,flat,existing,leasehold,2026-05,415630
+Barnet,HA8,terraced,existing,leasehold,2026-05,365000
+Lambeth,SW16,flat,existing,leasehold,2026-05,305500
+Lambeth,SW2,flat,existing,leasehold,2026-05,500000
+Camden,NW3,flat,existing,leasehold,2026-05,2450000
+Lewisham,SE23,flat,existing,leasehold,2026-05,303000
+Bexley,DA7,detached,existing,freehold,2026-05,505000
+Wandsworth,SW18,flat,existing,leasehold,2026-05,680000
+Richmond Upon Thames,TW2,flat,existing,leasehold,2026-05,325000
+Hackney,E9,semi-detached,existing,freehold,2026-05,810000
+Richmond Upon Thames,TW2,flat,existing,leasehold,2026-05,242000
+Harrow,HA7,terraced,existing,freehold,2026-05,975000
+Southwark,SE1,terraced,existing,freehold,2026-05,875000
+Bromley,BR3,detached,existing,freehold,2026-05,765000
+Wandsworth,SW12,semi-detached,existing,freehold,2026-05,1625000
+Merton,SM4,terraced,existing,freehold,2026-05,435000
+Sutton,SM1,semi-detached,existing,freehold,2026-06,600000
+Richmond Upon Thames,TW1,flat,existing,leasehold,2026-06,662500
+Bromley,BR1,flat,new,leasehold,2026-06,330000
+Ealing,W7,flat,existing,leasehold,2026-06,490000
+Islington,N7,flat,existing,freehold,2026-06,2068600
+Southwark,SE5,flat,existing,leasehold,2026-06,400000
+Croydon,CR0,detached,existing,freehold,2026-06,2250000
+Enfield,N13,terraced,existing,freehold,2026-06,325000
+Wandsworth,SW18,flat,existing,leasehold,2026-06,555000
+Lambeth,SW12,terraced,existing,freehold,2026-06,1268000
+Hammersmith And Fulham,NW10,terraced,existing,freehold,2026-06,1100000
+City Of Westminster,SW1P,flat,existing,leasehold,2026-06,1150000
+Bexley,DA8,flat,existing,leasehold,2026-06,270000
+City Of Westminster,W2,flat,existing,leasehold,2026-06,185000
+Lambeth,SE1,flat,existing,leasehold,2026-06,1390000
+Brent,HA1,detached,existing,freehold,2026-06,1350000
+Hillingdon,HA4,flat,existing,leasehold,2026-06,440000
+Brent,HA9,flat,existing,leasehold,2026-06,185000
+Tower Hamlets,E14,flat,new,leasehold,2026-06,777500
+Enfield,EN3,terraced,existing,freehold,2026-06,335000
+Southwark,SE1,flat,existing,leasehold,2026-06,2005000
+Redbridge,IG6,flat,existing,leasehold,2026-06,180000
+Haringey,N15,terraced,existing,freehold,2026-06,800000
+Waltham Forest,E17,flat,existing,leasehold,2026-06,332500
+Enfield,EN1,terraced,existing,freehold,2026-06,495000
+Lambeth,SE21,flat,existing,freehold,2026-06,800000
+Enfield,N13,terraced,existing,freehold,2026-06,687600
+Barking And Dagenham,RM10,flat,existing,leasehold,2026-06,192500
+Enfield,N13,flat,existing,leasehold,2026-06,325000
+City Of Westminster,W2,flat,existing,leasehold,2026-06,2100000
+Wandsworth,SW17,flat,existing,leasehold,2026-06,475000
+Tower Hamlets,E14,flat,existing,leasehold,2026-06,735000
+Merton,SM3,flat,existing,leasehold,2026-06,300000
+Lambeth,SW2,flat,existing,leasehold,2026-06,300000
+Kingston Upon Thames,KT9,terraced,existing,freehold,2026-06,422500
+Sutton,KT4,flat,existing,leasehold,2026-06,310000
+Bexley,DA8,flat,existing,leasehold,2026-06,120000
+Lambeth,SE24,terraced,existing,freehold,2026-06,1373000
+Islington,N7,flat,existing,leasehold,2026-06,542500
+Wandsworth,SW11,flat,existing,leasehold,2026-06,1825000
+Croydon,CR8,flat,existing,leasehold,2026-06,107000
+Hammersmith And Fulham,W6,flat,existing,leasehold,2026-06,522500
+Southwark,SE15,flat,existing,leasehold,2026-06,500000
+Kensington And Chelsea,SW7,terraced,existing,freehold,2026-06,3950000
+Bromley,BR2,detached,existing,freehold,2026-06,1185000
+Brent,HA9,flat,existing,leasehold,2026-06,240000
+Hillingdon,HA4,semi-detached,existing,freehold,2026-06,500000
+Hillingdon,UB10,semi-detached,existing,freehold,2026-06,410000
+Barking And Dagenham,RM10,terraced,existing,freehold,2026-06,430000
+Enfield,EN2,terraced,existing,freehold,2026-06,565000
+Tower Hamlets,E3,flat,existing,leasehold,2026-06,275000
+Wandsworth,SW17,flat,existing,leasehold,2026-06,435000
+Barking And Dagenham,RM6,semi-detached,existing,freehold,2026-06,445000
+Southwark,SE15,terraced,existing,freehold,2026-06,615000
+Wandsworth,SW8,flat,existing,leasehold,2026-06,720000
+Islington,N7,flat,existing,leasehold,2026-06,405000
+Hackney,N16,flat,existing,leasehold,2026-06,885000
+Barking And Dagenham,IG11,terraced,existing,freehold,2026-06,395000
+Waltham Forest,E4,semi-detached,existing,freehold,2026-06,1065000
+Waltham Forest,E17,terraced,existing,freehold,2026-06,601000
+Hillingdon,UB9,semi-detached,existing,freehold,2026-06,499500
+Croydon,SE19,terraced,existing,freehold,2026-06,416500
+Tower Hamlets,E3,flat,existing,leasehold,2026-06,450000
+Barking And Dagenham,RM9,flat,existing,leasehold,2026-06,172000
+Havering,RM13,terraced,existing,freehold,2026-06,412000
+Waltham Forest,E15,terraced,existing,freehold,2026-06,527000
+Sutton,KT4,terraced,existing,freehold,2026-06,493500
+Lambeth,SE5,flat,existing,leasehold,2026-07,475000
+Wandsworth,SW18,terraced,existing,freehold,2026-07,1245000
+Brent,NW10,semi-detached,existing,freehold,2026-07,475000
+Havering,RM3,terraced,existing,freehold,2026-07,437000
+Newham,E16,flat,existing,leasehold,2026-07,485000
+Barking And Dagenham,RM10,terraced,existing,freehold,2026-07,465000
+Greenwich,SE9,semi-detached,existing,freehold,2026-07,635000
+Havering,RM11,semi-detached,existing,freehold,2026-07,568000
+Bexley,DA14,flat,existing,leasehold,2026-07,393000
+Greenwich,SE10,flat,existing,leasehold,2026-07,525000
+Hillingdon,HA4,terraced,existing,freehold,2026-07,710000
+Islington,N1,flat,existing,leasehold,2026-07,510499
+Wandsworth,SW12,flat,existing,leasehold,2026-07,700000
+Tower Hamlets,E2,flat,existing,leasehold,2026-07,555000
+Havering,RM12,terraced,existing,freehold,2026-07,410000
+Croydon,CR8,semi-detached,existing,freehold,2026-07,340000
+Southwark,SE17,flat,existing,leasehold,2026-07,425000
+Merton,SM4,terraced,existing,freehold,2026-07,512500
+Tower Hamlets,E14,flat,existing,leasehold,2026-07,458000
+Enfield,EN1,flat,existing,leasehold,2026-07,410000
+Haringey,N8,flat,existing,leasehold,2026-07,445000
+Newham,E7,semi-detached,existing,freehold,2026-07,705000
+Bexley,DA16,terraced,existing,freehold,2026-07,490000
+Wandsworth,SW17,flat,existing,leasehold,2026-07,425000
+Ealing,W7,flat,existing,leasehold,2026-07,355300
+Hackney,N1,flat,existing,leasehold,2026-07,610000
+Bromley,BR2,semi-detached,existing,freehold,2026-07,975000
+Croydon,SE25,terraced,existing,freehold,2026-07,550000
+Havering,RM3,terraced,existing,freehold,2026-07,350000
+Hammersmith And Fulham,W12,flat,existing,leasehold,2026-07,385000
+Camden,NW6,flat,existing,leasehold,2026-07,341250
+Hammersmith And Fulham,W6,flat,existing,leasehold,2026-07,520000
+Redbridge,RM6,semi-detached,existing,freehold,2026-07,515000
+Hillingdon,UB8,terraced,existing,freehold,2026-07,365000
+Southwark,SE15,flat,existing,leasehold,2026-07,622500
+Barnet,NW11,semi-detached,existing,freehold,2026-07,1500000
+Richmond Upon Thames,TW11,flat,existing,leasehold,2026-07,500000
+Sutton,SM6,semi-detached,existing,freehold,2026-07,675000
+Lewisham,SE4,terraced,existing,freehold,2026-07,1450000
+Islington,EC1V,flat,existing,leasehold,2026-07,685000
+Richmond Upon Thames,TW2,flat,existing,leasehold,2026-07,342000
+Croydon,CR5,detached,existing,freehold,2026-07,500000
+Croydon,SE25,terraced,existing,freehold,2026-07,470000
+Waltham Forest,E4,terraced,existing,freehold,2026-07,735000
+Lambeth,SW2,flat,existing,leasehold,2026-07,380000
+Enfield,EN8,flat,existing,leasehold,2026-07,200000
+Wandsworth,SW17,terraced,existing,freehold,2026-07,1560000
+Bromley,BR6,semi-detached,existing,freehold,2026-07,525000
+Wandsworth,SW11,terraced,existing,freehold,2026-07,868500
+City Of Westminster,SW1V,flat,existing,leasehold,2026-07,416000
+Lewisham,SE4,terraced,existing,freehold,2026-07,795000
+Bromley,BR3,flat,existing,leasehold,2026-07,230000
+Bromley,BR6,terraced,existing,freehold,2026-07,520000
+Harrow,HA7,semi-detached,existing,freehold,2026-07,605000
+Harrow,HA3,flat,existing,leasehold,2026-07,314000
+Islington,N1,flat,existing,leasehold,2026-07,1100000
+Wandsworth,SW15,flat,existing,leasehold,2026-07,500000
+Enfield,N9,flat,existing,leasehold,2026-07,260000
+Bromley,BR6,detached,existing,freehold,2026-07,790000
+Lewisham,SE12,flat,existing,leasehold,2026-07,285000
+Bexley,DA7,semi-detached,existing,freehold,2026-07,520000
+Wandsworth,SW12,flat,existing,leasehold,2026-07,435000
+Croydon,CR0,flat,existing,leasehold,2026-07,322000
+Bromley,BR6,semi-detached,existing,freehold,2026-07,695000
+Newham,E16,flat,existing,leasehold,2026-07,514000
+Waltham Forest,E11,terraced,existing,freehold,2026-07,950000
+Ealing,W3,flat,existing,leasehold,2026-07,440000
+Croydon,CR2,semi-detached,existing,freehold,2026-07,545000
+Kensington And Chelsea,W2,flat,existing,leasehold,2026-07,375000
+Hounslow,TW14,semi-detached,existing,freehold,2026-07,453000
+Harrow,HA3,flat,existing,leasehold,2026-07,335000
+Merton,SW19,terraced,existing,freehold,2026-07,942000
+Kingston Upon Thames,KT3,semi-detached,existing,freehold,2026-07,750000
+Camden,NW1,flat,existing,leasehold,2026-07,650000
+Wandsworth,SW18,semi-detached,existing,freehold,2026-07,1290000
+Lambeth,SE5,flat,existing,leasehold,2026-07,587885
+Waltham Forest,E17,terraced,existing,freehold,2026-07,635000
+Ealing,W3,flat,existing,leasehold,2026-07,375000
+Waltham Forest,E11,terraced,existing,freehold,2026-07,920000
+Croydon,CR0,terraced,existing,freehold,2026-07,375000
+Newham,E20,flat,existing,leasehold,2026-07,550000
+Tower Hamlets,E1,flat,existing,leasehold,2026-07,375000
+Barking And Dagenham,RM10,terraced,existing,freehold,2026-07,407000
+Hackney,N1,flat,existing,leasehold,2026-07,415000
+Wandsworth,SW19,flat,existing,leasehold,2026-07,395000
+Islington,EC1R,flat,existing,leasehold,2026-07,600000
+Sutton,SM6,flat,existing,leasehold,2026-07,288000
+Sutton,KT4,terraced,existing,freehold,2026-07,427000
+Wandsworth,SW17,terraced,existing,leasehold,2026-07,488000
+Ealing,UB5,terraced,existing,freehold,2026-07,489000
+Bexley,DA6,flat,existing,leasehold,2026-07,267500
+Lambeth,SW16,flat,existing,leasehold,2026-07,370000
+Hillingdon,HA4,semi-detached,existing,freehold,2026-07,815000
+Lewisham,SE6,terraced,existing,freehold,2026-07,507500
+Bromley,SE20,terraced,existing,freehold,2026-07,695000
+Southwark,SE17,flat,existing,leasehold,2026-07,325000
+Kingston Upon Thames,KT6,flat,existing,leasehold,2026-07,239950
+Croydon,CR0,flat,existing,leasehold,2026-07,385000
+Sutton,SM5,semi-detached,existing,freehold,2026-07,575000
+Enfield,N13,terraced,existing,freehold,2026-07,750000
+Greenwich,SE18,terraced,existing,freehold,2026-07,320000
+Croydon,CR0,semi-detached,existing,freehold,2026-07,660000
+Camden,NW6,flat,existing,leasehold,2026-07,690000
+Kensington And Chelsea,SW10,flat,existing,leasehold,2026-07,610000
+Havering,RM11,detached,existing,freehold,2026-07,1049000
+Bexley,DA16,semi-detached,existing,freehold,2026-07,308000
+Waltham Forest,E17,flat,existing,leasehold,2026-07,526000
+Richmond Upon Thames,TW12,terraced,existing,freehold,2026-07,675000
+Lambeth,SW2,flat,existing,leasehold,2026-07,352500
+Havering,RM13,semi-detached,existing,freehold,2026-07,550000
+Redbridge,IG6,flat,existing,leasehold,2026-07,203099
+Lewisham,SE23,terraced,existing,freehold,2026-07,775000
+Hackney,N16,flat,existing,leasehold,2026-07,914050
+Haringey,N22,terraced,existing,freehold,2026-07,735000
+Lewisham,SE10,flat,existing,freehold,2026-07,780000
+Richmond Upon Thames,TW11,flat,existing,leasehold,2026-07,280000
+Bromley,TN16,detached,existing,freehold,2026-07,525000
+Croydon,CR2,flat,existing,leasehold,2026-07,275500
+Barnet,NW2,flat,existing,leasehold,2026-07,400000
+City Of Westminster,W2,flat,existing,leasehold,2026-07,795000
+Havering,RM7,semi-detached,existing,freehold,2026-07,437000
+Harrow,HA3,semi-detached,existing,freehold,2026-07,520000
+Bexley,DA5,detached,existing,freehold,2026-07,1250000
+Hackney,N16,flat,existing,leasehold,2026-07,632500
+Camden,WC1H,flat,existing,leasehold,2026-07,220000
+Wandsworth,SW11,terraced,existing,freehold,2026-07,1250000
+Redbridge,IG4,terraced,existing,freehold,2026-07,850000
+Redbridge,E18,flat,existing,leasehold,2026-07,270000
+Lambeth,SE21,terraced,existing,freehold,2026-07,710000
+Hackney,N16,flat,existing,leasehold,2026-07,750000
+Barnet,NW7,flat,existing,leasehold,2026-07,585000
+Haringey,N8,flat,existing,leasehold,2026-07,756500
+Lambeth,SW9,flat,existing,leasehold,2026-07,575000
+Islington,N1,flat,existing,leasehold,2026-07,972500
+Tower Hamlets,E14,flat,existing,leasehold,2026-07,335000
+Bromley,BR2,detached,existing,freehold,2026-07,1000000
+Havering,RM12,semi-detached,existing,freehold,2026-07,560000
+Hammersmith And Fulham,SW6,flat,existing,leasehold,2026-07,235000
+Kensington And Chelsea,SW5,flat,existing,leasehold,2026-07,700000
+Wandsworth,SW12,flat,existing,leasehold,2026-07,750000
+Lambeth,SW2,flat,existing,leasehold,2026-07,297500
+Newham,E16,flat,existing,leasehold,2026-07,335000
+Islington,N1,flat,existing,leasehold,2026-07,755000
+Sutton,SM1,flat,existing,leasehold,2026-07,215000
+Barking And Dagenham,RM8,terraced,existing,freehold,2026-07,377000
+Newham,E15,terraced,existing,freehold,2026-07,799000
+Kingston Upon Thames,SW20,semi-detached,existing,freehold,2026-07,675000
+Greenwich,SE18,terraced,existing,freehold,2026-07,475000
+Hillingdon,HA4,semi-detached,existing,freehold,2026-07,560000
+Islington,N5,flat,existing,leasehold,2026-07,867500
+Wandsworth,SW17,flat,existing,leasehold,2026-07,178021
+Barking And Dagenham,RM10,terraced,existing,freehold,2026-07,392000
+Harrow,HA2,semi-detached,existing,freehold,2026-07,567500
+Barnet,N11,flat,existing,leasehold,2026-07,472500
+Redbridge,IG8,semi-detached,existing,freehold,2026-07,1150000
+Haringey,N22,terraced,existing,freehold,2026-07,640000
+Sutton,SM3,semi-detached,existing,freehold,2026-07,790000
+Bexley,DA16,semi-detached,existing,freehold,2026-07,507500
+Croydon,SE19,detached,existing,freehold,2026-07,870000
+Bromley,BR5,semi-detached,existing,freehold,2026-07,460000
+Hillingdon,HA4,semi-detached,existing,freehold,2026-07,647500
+Hammersmith And Fulham,SW6,terraced,existing,freehold,2026-07,1995000
+Ealing,W3,terraced,existing,freehold,2026-07,850000
+Tower Hamlets,E1W,flat,existing,leasehold,2026-07,445000
+Kensington And Chelsea,W11,flat,existing,leasehold,2026-07,400000
+City Of Westminster,W9,flat,new,leasehold,2026-07,345000
+Richmond Upon Thames,TW11,terraced,existing,freehold,2026-07,867500
+Wandsworth,SW18,terraced,existing,freehold,2026-07,1550000
+Camden,NW3,flat,existing,leasehold,2026-07,410000
+Brent,NW10,semi-detached,existing,freehold,2026-07,915000
+Barnet,EN4,terraced,existing,freehold,2026-07,637000
+Wandsworth,SW15,flat,existing,leasehold,2026-07,742500
+Islington,N16,flat,existing,leasehold,2026-07,445000
+Haringey,N10,terraced,existing,freehold,2026-07,1650000
+Richmond Upon Thames,TW9,flat,existing,leasehold,2026-07,510000
+Havering,RM5,detached,existing,freehold,2026-07,545000
+Kingston Upon Thames,KT1,flat,existing,leasehold,2026-07,320000
+Southwark,SE16,terraced,existing,freehold,2026-07,770000
+Barking And Dagenham,RM8,terraced,existing,freehold,2026-07,479000
+Hammersmith And Fulham,SW6,flat,existing,leasehold,2026-07,904000
+Waltham Forest,E17,flat,existing,leasehold,2026-07,547500
+Lambeth,SW8,terraced,existing,freehold,2026-07,920000
+Hillingdon,UB4,semi-detached,existing,freehold,2026-07,490000
+Bexley,DA14,terraced,existing,freehold,2026-07,405000
+Merton,SW19,terraced,existing,freehold,2026-07,728000
+Southwark,SE1,flat,existing,leasehold,2026-07,460000
+Bexley,DA16,flat,existing,leasehold,2026-07,250000
+Waltham Forest,E17,flat,existing,leasehold,2026-07,410000
+Hillingdon,HA4,semi-detached,existing,freehold,2026-07,645000
+Lewisham,SE12,terraced,existing,freehold,2026-07,695000
+Wandsworth,SW19,terraced,existing,freehold,2026-07,730000
+Southwark,SE16,flat,existing,leasehold,2026-07,245000
+Brent,HA3,semi-detached,existing,freehold,2026-07,745000
+Merton,SW19,semi-detached,existing,leasehold,2026-07,300000
+Harrow,HA7,flat,existing,leasehold,2026-07,333000
+Wandsworth,SW17,terraced,existing,freehold,2026-07,524500
+Southwark,SE5,flat,existing,leasehold,2026-07,397000
+Camden,NW3,flat,existing,leasehold,2026-07,750000
+Redbridge,IG3,semi-detached,existing,freehold,2026-07,551000
+Kensington And Chelsea,SW10,flat,existing,leasehold,2026-07,700000
+Enfield,N21,flat,existing,leasehold,2026-07,360000
+Sutton,SM2,semi-detached,existing,freehold,2026-07,762500
+Redbridge,RM6,terraced,existing,freehold,2026-07,485000
+City Of Westminster,NW8,flat,existing,leasehold,2026-07,3050000
+Bromley,BR4,terraced,existing,freehold,2026-07,690000
+Havering,RM3,flat,existing,leasehold,2026-07,350000
+Ealing,W3,flat,existing,leasehold,2026-07,280000
+Hounslow,TW3,flat,existing,leasehold,2026-07,235000
+Tower Hamlets,E14,flat,new,leasehold,2026-07,695000
+Tower Hamlets,E3,terraced,existing,freehold,2026-07,883388
+Richmond Upon Thames,SW13,terraced,existing,freehold,2026-07,1962500
+Wandsworth,SW18,flat,existing,leasehold,2026-07,355000
+Brent,NW2,flat,existing,leasehold,2026-07,480000
+Hackney,E9,flat,existing,leasehold,2026-07,398000
+Sutton,SM5,terraced,existing,freehold,2026-07,430000
+Wandsworth,SW19,flat,existing,leasehold,2026-07,360000
+City Of Westminster,SW1V,flat,existing,leasehold,2026-07,530000
+Bexley,DA14,flat,existing,leasehold,2026-07,240000
+Lambeth,SE27,semi-detached,existing,freehold,2026-07,1087000
+Hackney,E9,terraced,existing,freehold,2026-07,659464
+Waltham Forest,E17,flat,existing,leasehold,2026-07,475750
+Newham,E15,flat,existing,leasehold,2026-07,655000
+Bromley,BR1,semi-detached,existing,freehold,2026-07,565000
+Haringey,N22,terraced,existing,freehold,2026-07,718000
+Kingston Upon Thames,KT6,terraced,existing,freehold,2026-07,920000
+Brent,HA9,semi-detached,existing,freehold,2026-07,527000
+Bexley,DA15,terraced,existing,freehold,2026-07,560000
+Havering,RM11,detached,existing,freehold,2026-07,930000
+Greenwich,SE10,detached,existing,freehold,2026-07,3650000
+Lambeth,SW2,flat,existing,leasehold,2026-07,310000
+Islington,N19,flat,existing,leasehold,2026-07,560000
+Lambeth,SW16,flat,existing,leasehold,2026-07,335000
+City Of Westminster,W9,flat,existing,leasehold,2026-07,740000
+Barnet,EN5,flat,existing,leasehold,2026-07,320000
+Southwark,SE22,semi-detached,existing,freehold,2026-07,1750000
+Ealing,W5,flat,existing,leasehold,2026-07,465000
+Bexley,SE28,terraced,existing,freehold,2026-07,360000
+Richmond Upon Thames,TW2,flat,existing,leasehold,2026-07,450000
+Islington,N1,flat,existing,leasehold,2026-07,675000
+Greenwich,SE18,flat,existing,leasehold,2026-07,420000
+Hounslow,W4,flat,existing,leasehold,2026-07,835000
+Croydon,SE25,flat,existing,leasehold,2026-07,320000
+Kensington And Chelsea,SW10,flat,existing,leasehold,2026-07,780000
+Hillingdon,UB10,semi-detached,existing,freehold,2026-07,695000
+Sutton,SM5,terraced,existing,freehold,2026-07,395000
+Hillingdon,UB7,terraced,existing,freehold,2026-07,200000
+Bromley,BR1,semi-detached,existing,leasehold,2026-07,310000
+City Of Westminster,SW1W,flat,existing,leasehold,2026-07,460000
+Haringey,N22,terraced,existing,freehold,2026-07,632000
+Kingston Upon Thames,KT1,detached,existing,freehold,2026-07,1475000
+Enfield,N21,semi-detached,existing,freehold,2026-07,900000
+Havering,RM2,flat,existing,leasehold,2026-07,257500
+Enfield,N14,flat,existing,leasehold,2026-07,400000
+Havering,RM14,semi-detached,existing,freehold,2026-07,900000
+Hounslow,TW7,flat,existing,leasehold,2026-07,350000
+Hammersmith And Fulham,W12,flat,existing,leasehold,2026-07,345000
+Croydon,SE19,flat,existing,leasehold,2026-07,500000
+Havering,RM12,terraced,existing,freehold,2026-07,448000
+Redbridge,E18,terraced,existing,freehold,2026-07,775000
+Bexley,DA1,terraced,existing,freehold,2026-07,385000
+Brent,HA9,semi-detached,existing,freehold,2026-07,720000
+Wandsworth,SW18,terraced,existing,freehold,2026-07,1026000
+Hillingdon,HA6,detached,existing,freehold,2026-07,760000
+Enfield,EN2,flat,existing,leasehold,2026-07,315000
+Wandsworth,SW11,flat,existing,leasehold,2026-07,927550
+Islington,N1,terraced,existing,freehold,2026-07,1950000
+Lambeth,SE5,flat,existing,leasehold,2026-07,565000
+Islington,N7,flat,existing,leasehold,2026-07,575000
+Southwark,SE15,flat,existing,leasehold,2026-07,530000
+Sutton,SM6,flat,existing,leasehold,2026-07,235000
+Southwark,SE16,flat,existing,leasehold,2026-07,365000
+Bexley,SE28,terraced,existing,freehold,2026-07,482000
+Hackney,E5,flat,existing,leasehold,2026-07,819000
+Wandsworth,SW18,flat,existing,leasehold,2026-07,132500
+Hillingdon,HA4,terraced,existing,freehold,2026-07,450000
+Sutton,KT4,terraced,existing,freehold,2026-07,620000
+Richmond Upon Thames,TW9,flat,existing,leasehold,2026-07,310000
+Newham,E6,flat,existing,leasehold,2026-07,315000
+Hackney,N16,flat,existing,leasehold,2026-07,440000
+Brent,NW2,flat,existing,leasehold,2026-07,306000
+Brent,HA0,semi-detached,existing,freehold,2026-07,590000
+Hammersmith And Fulham,W6,terraced,existing,freehold,2026-07,1395000
+Wandsworth,SW17,flat,existing,leasehold,2026-07,510000
+Brent,HA9,semi-detached,existing,freehold,2026-07,545000
+Ealing,W3,flat,existing,leasehold,2026-07,293000
+Lambeth,SE27,flat,existing,leasehold,2026-07,335000
+Croydon,CR2,detached,existing,freehold,2026-07,1132000
+Sutton,KT4,terraced,existing,freehold,2026-07,925000
+Ealing,W13,flat,existing,leasehold,2026-07,200000
+Tower Hamlets,E14,flat,existing,leasehold,2026-07,390000
+Kensington And Chelsea,SW3,terraced,existing,freehold,2026-07,2750000
+Greenwich,SE3,flat,existing,leasehold,2026-07,472000
+Greenwich,SE7,flat,existing,leasehold,2026-07,450000
+Haringey,N22,terraced,existing,freehold,2026-07,540000
+Tower Hamlets,E14,terraced,existing,freehold,2026-07,675000
+Hammersmith And Fulham,W14,flat,existing,leasehold,2026-07,470000
+Greenwich,SE18,flat,existing,leasehold,2026-07,225000
+Lewisham,SE12,terraced,existing,freehold,2026-07,650000
+Newham,E15,terraced,existing,freehold,2026-07,585000
+Camden,NW3,flat,existing,leasehold,2026-07,850000
+Lewisham,SE13,flat,existing,leasehold,2026-07,360000
+Haringey,N8,flat,existing,leasehold,2026-07,640000
+Lewisham,SE23,detached,existing,freehold,2026-07,615000
+Camden,NW5,flat,existing,leasehold,2026-07,730000
+Greenwich,SE28,flat,existing,leasehold,2026-07,250000
+Haringey,N8,flat,existing,leasehold,2026-07,564000
+Islington,N1,flat,existing,leasehold,2026-07,785000
+Tower Hamlets,E3,flat,existing,leasehold,2026-07,435000
+Redbridge,IG2,terraced,existing,freehold,2026-07,745000
+Wandsworth,SW11,flat,existing,leasehold,2026-07,328000
+Barnet,EN5,flat,existing,leasehold,2026-07,360000
+Ealing,UB6,terraced,existing,freehold,2026-07,590000
+Sutton,SM5,terraced,existing,freehold,2026-07,450000
+Hounslow,W4,flat,existing,leasehold,2026-07,645000
+City Of Westminster,NW8,flat,existing,leasehold,2026-07,755000
+Croydon,CR5,detached,existing,freehold,2026-07,780000
+Southwark,SE15,flat,existing,leasehold,2026-07,250000
+Kingston Upon Thames,KT6,flat,existing,leasehold,2026-07,423000
+Wandsworth,SW11,terraced,existing,freehold,2026-07,1700000
+Greenwich,SE3,flat,existing,leasehold,2026-07,450000
+Greenwich,SE18,terraced,existing,freehold,2026-07,392500
+Bromley,BR1,flat,existing,leasehold,2026-07,125000
+Lewisham,SE23,terraced,existing,leasehold,2026-07,495000
+Greenwich,SE18,terraced,existing,freehold,2026-07,440000
+Sutton,SM3,semi-detached,existing,freehold,2026-07,625000
+Hillingdon,UB8,terraced,existing,freehold,2026-07,400000
+Croydon,CR2,terraced,existing,freehold,2026-07,447500
+Redbridge,IG8,flat,existing,leasehold,2026-07,390000
+Greenwich,SE7,flat,existing,leasehold,2026-07,450000
+Lambeth,SW16,flat,existing,leasehold,2026-07,365000
+Bexley,DA6,semi-detached,existing,freehold,2026-07,555000
+City Of Westminster,W9,flat,existing,leasehold,2026-07,560000
+Lewisham,SE14,flat,existing,leasehold,2026-07,450000
+Greenwich,SE9,flat,existing,leasehold,2026-07,195000
+Havering,RM14,semi-detached,existing,freehold,2026-07,880000
+Islington,N4,flat,existing,leasehold,2026-07,480000
+Hammersmith And Fulham,W6,flat,existing,leasehold,2026-07,650000
+Wandsworth,SW18,flat,existing,leasehold,2026-07,497500
+Wandsworth,SW17,terraced,existing,freehold,2026-07,1140000
+Greenwich,SE10,terraced,existing,freehold,2026-07,754150
+Bromley,BR2,terraced,existing,freehold,2026-07,420000
+Lambeth,SE24,terraced,existing,freehold,2026-07,808000
+Enfield,N13,terraced,existing,freehold,2026-07,525000
+City Of Westminster,SW1X,terraced,existing,freehold,2026-07,3675000
+Hammersmith And Fulham,W14,flat,existing,leasehold,2026-07,560000
+Barnet,NW11,flat,existing,leasehold,2026-07,453000
+Richmond Upon Thames,SW13,semi-detached,existing,freehold,2026-07,4800000
+Croydon,CR5,semi-detached,existing,freehold,2026-07,575000
+Bromley,BR2,flat,existing,leasehold,2026-07,415000
+Barnet,EN5,terraced,existing,freehold,2026-07,450000
+Richmond Upon Thames,TW10,flat,existing,leasehold,2026-07,675000
+Hammersmith And Fulham,SW6,terraced,existing,freehold,2026-07,1800000
+Enfield,N21,terraced,existing,freehold,2026-07,805000
+Wandsworth,SW17,flat,existing,leasehold,2026-07,315000
+Merton,CR4,semi-detached,existing,freehold,2026-07,615000
+Enfield,EN1,flat,existing,leasehold,2026-07,375000
+City Of Westminster,W9,flat,existing,leasehold,2026-07,805000
+Bromley,BR3,terraced,existing,freehold,2026-07,510000
+Greenwich,SE18,terraced,existing,freehold,2026-07,375000
+Camden,NW5,flat,existing,leasehold,2026-07,565000
+Wandsworth,SW19,flat,existing,leasehold,2026-07,667500
+Lambeth,SW2,terraced,existing,freehold,2026-07,801000
+Hammersmith And Fulham,W12,semi-detached,existing,freehold,2026-07,4000000
+Tower Hamlets,E2,terraced,existing,freehold,2026-07,1225000
+Kensington And Chelsea,W10,flat,existing,leasehold,2026-07,750000
+Wandsworth,SW16,flat,existing,leasehold,2026-07,350000
+Lambeth,SE24,terraced,existing,freehold,2026-07,1270000
+Southwark,SE22,semi-detached,existing,freehold,2026-07,963000
+Barnet,NW11,semi-detached,existing,freehold,2026-07,877000
+Richmond Upon Thames,SW14,detached,existing,freehold,2026-07,2591000
+Islington,N1,flat,existing,leasehold,2026-07,760000
+Havering,RM5,terraced,existing,freehold,2026-07,362500
+Tower Hamlets,E3,flat,existing,leasehold,2026-07,389000
+City Of Westminster,NW8,flat,existing,leasehold,2026-07,560000
+Sutton,SM5,flat,existing,leasehold,2026-07,355000
+Camden,NW6,flat,existing,leasehold,2026-07,472500
+Islington,N19,flat,existing,leasehold,2026-07,335000
+Lewisham,SE6,flat,existing,leasehold,2026-07,195000
+Sutton,SM6,flat,existing,leasehold,2026-07,235000
+Lambeth,SW2,flat,existing,leasehold,2026-07,267400
+Merton,CR4,terraced,existing,freehold,2026-07,615000
+Islington,N1,flat,existing,leasehold,2026-07,937000
+Redbridge,IG6,semi-detached,existing,freehold,2026-07,441500
+Redbridge,IG8,terraced,existing,freehold,2026-07,615000
+Merton,SW19,semi-detached,existing,leasehold,2026-07,800000
+Tower Hamlets,E1,flat,existing,leasehold,2026-07,320000
+Havering,RM1,flat,existing,leasehold,2026-07,260000
+Lewisham,SE3,flat,existing,leasehold,2026-07,288000
+Lambeth,SW12,flat,existing,leasehold,2026-07,559500
+Brent,NW10,flat,existing,leasehold,2026-07,570000
+Tower Hamlets,E2,flat,existing,leasehold,2026-07,440000
+Lambeth,SW2,flat,existing,leasehold,2026-07,425000
+Bexley,DA16,terraced,existing,freehold,2026-07,500000
+Lambeth,SW12,terraced,existing,freehold,2026-07,720000
+Havering,RM13,terraced,existing,freehold,2026-07,425000
+Lambeth,SE24,flat,existing,leasehold,2026-07,480000
+Wandsworth,SW11,flat,existing,leasehold,2026-07,1225000
+Harrow,HA5,semi-detached,existing,freehold,2026-07,815000
+Sutton,SM3,flat,existing,leasehold,2026-07,295000
+Bromley,BR1,terraced,existing,freehold,2026-07,560000
+Tower Hamlets,E1,flat,existing,leasehold,2026-07,530000
+Waltham Forest,E17,terraced,existing,freehold,2026-07,650000
+Merton,SW20,flat,existing,leasehold,2026-07,307500
+Hounslow,TW8,flat,existing,leasehold,2026-07,410000
+Havering,RM7,semi-detached,existing,freehold,2026-07,410000
+Lewisham,SE15,terraced,existing,freehold,2026-07,850000
+Enfield,N14,detached,existing,freehold,2026-07,1215000
+Lambeth,SW4,flat,existing,leasehold,2026-07,1000000
+Greenwich,SE7,flat,existing,leasehold,2026-07,300000
+City Of Westminster,SW1V,flat,existing,leasehold,2026-07,415000
+Havering,RM2,terraced,existing,freehold,2026-07,510000
+Haringey,N17,terraced,existing,freehold,2026-07,580000
+City Of Westminster,WC2R,flat,existing,leasehold,2026-07,1500000
+Ealing,W3,flat,existing,leasehold,2026-07,385000
+Hackney,N1,flat,existing,leasehold,2026-07,135000
+Wandsworth,SW11,terraced,existing,freehold,2026-07,1450000
+Wandsworth,SW12,flat,existing,leasehold,2026-07,740000
+Haringey,N15,flat,existing,leasehold,2026-07,280000
+Lewisham,SE6,flat,existing,leasehold,2026-07,350000
+Sutton,SM1,terraced,existing,freehold,2026-07,500000
+Wandsworth,SW15,terraced,existing,freehold,2026-07,1200000
+Waltham Forest,E17,flat,existing,leasehold,2026-07,485000
+Camden,NW6,flat,existing,leasehold,2026-07,675000
+Bromley,BR5,semi-detached,existing,freehold,2026-07,567000
+City Of Westminster,SW1P,flat,existing,leasehold,2026-07,925000
+Richmond Upon Thames,SW13,flat,existing,leasehold,2026-07,400000
+Southwark,SE22,flat,existing,leasehold,2026-07,765000
+Hounslow,TW7,semi-detached,existing,freehold,2026-07,530000
+City Of Westminster,W2,terraced,existing,freehold,2026-07,1100000
+Hounslow,TW7,terraced,existing,freehold,2026-07,736000
+Greenwich,SE10,terraced,existing,freehold,2026-07,690000
+Lewisham,SE13,semi-detached,existing,freehold,2026-07,793000
+Islington,N1,terraced,existing,freehold,2026-07,1585000
+Sutton,SM1,terraced,existing,freehold,2026-07,506500
+Brent,HA3,semi-detached,existing,freehold,2026-07,715000
+Wandsworth,SW17,terraced,existing,freehold,2026-07,1185000
+Wandsworth,SW12,flat,existing,leasehold,2026-07,450000
+Hillingdon,UB4,terraced,existing,freehold,2026-07,515000
+Wandsworth,SW18,flat,existing,leasehold,2026-07,345000
+Greenwich,SE7,flat,existing,leasehold,2026-07,296350
+Barnet,N3,flat,existing,leasehold,2026-07,485000
+Greenwich,SE9,semi-detached,existing,freehold,2026-07,505000
+Kensington And Chelsea,SW3,flat,existing,leasehold,2026-07,735000
+Newham,E6,terraced,existing,freehold,2026-07,428000
+Bromley,BR5,detached,existing,freehold,2026-07,840000
+Kingston Upon Thames,KT6,flat,existing,leasehold,2026-07,443000
+Hounslow,TW3,semi-detached,existing,freehold,2026-07,715000
+Merton,KT3,flat,existing,leasehold,2026-07,195000
+Havering,RM5,semi-detached,existing,freehold,2026-07,450000
+Hackney,E8,flat,existing,leasehold,2026-07,580000
+Lewisham,SE23,flat,existing,leasehold,2026-07,260000
+Wandsworth,SW17,flat,existing,leasehold,2026-07,285000
+Wandsworth,SW18,flat,existing,leasehold,2026-07,575000
+Haringey,N17,flat,existing,leasehold,2026-07,255000
+Tower Hamlets,E1,flat,existing,leasehold,2026-07,490000
+Haringey,N22,flat,existing,leasehold,2026-07,275000
+Harrow,HA3,flat,existing,leasehold,2026-07,325000
+Merton,SW20,terraced,existing,freehold,2026-07,690000
+Havering,RM3,terraced,existing,freehold,2026-07,362500
+Hackney,N1,flat,existing,leasehold,2026-07,575000
+Greenwich,SE3,terraced,existing,freehold,2026-07,485000
+Bromley,BR2,terraced,existing,freehold,2026-07,532500
+Barnet,EN5,detached,existing,freehold,2026-07,570000
+Tower Hamlets,E2,flat,existing,leasehold,2026-07,353000
+Ealing,W13,semi-detached,existing,freehold,2026-07,825000
+Havering,RM12,flat,existing,leasehold,2026-07,320000
+Tower Hamlets,E2,flat,existing,leasehold,2026-07,540000
+Brent,NW2,flat,new,leasehold,2026-07,740000
+Barnet,NW11,flat,existing,leasehold,2026-07,350000
+Brent,NW2,flat,existing,leasehold,2026-07,405000
+Waltham Forest,E11,semi-detached,existing,freehold,2026-07,910000
+City Of Westminster,W9,flat,existing,leasehold,2026-07,543500
+Newham,E15,flat,existing,leasehold,2026-07,765000
+Lambeth,SW9,flat,existing,leasehold,2026-07,430555
+Harrow,HA8,flat,existing,leasehold,2026-07,375000
+Wandsworth,SW8,flat,existing,leasehold,2026-07,492000
+Merton,CR4,flat,existing,leasehold,2026-07,535000
+Lambeth,SW4,terraced,existing,freehold,2026-07,615000
+Wandsworth,SW11,flat,existing,leasehold,2026-07,190000
+Islington,N7,flat,existing,leasehold,2026-07,620000
+Richmond Upon Thames,TW10,terraced,existing,freehold,2026-07,615000
+Ealing,W3,flat,existing,leasehold,2026-07,415000
+Merton,SM4,terraced,existing,freehold,2026-07,563000
+Enfield,EN1,terraced,existing,freehold,2026-07,360000
+Kingston Upon Thames,KT6,flat,existing,leasehold,2026-07,395000
+Hillingdon,HA4,semi-detached,existing,freehold,2026-07,300000
+Hammersmith And Fulham,W6,flat,existing,leasehold,2026-07,890000
+Enfield,N18,terraced,existing,freehold,2026-07,510000
+Kensington And Chelsea,SW3,flat,existing,leasehold,2026-07,360000
+Lambeth,SE27,flat,existing,leasehold,2026-07,575000
+Hammersmith And Fulham,W6,flat,existing,leasehold,2026-08,485000
+Lambeth,SW16,flat,existing,leasehold,2026-08,440000
+Hackney,E5,flat,existing,leasehold,2026-08,675000
+Hackney,E9,flat,existing,leasehold,2026-08,418000
+Hillingdon,HA4,detached,existing,freehold,2026-08,1210000
+Brent,HA9,detached,existing,freehold,2026-08,1000000
+Redbridge,IG8,terraced,existing,freehold,2026-08,600000
+Bexley,DA5,semi-detached,existing,freehold,2026-08,570000
+Sutton,SM1,flat,existing,leasehold,2026-08,349000
+Southwark,SE5,terraced,existing,freehold,2026-08,905000
+Lewisham,SE14,flat,existing,leasehold,2026-08,295000
+Tower Hamlets,E14,flat,existing,leasehold,2026-08,237500
+Kingston Upon Thames,KT5,terraced,existing,freehold,2026-08,885000
+Waltham Forest,E7,terraced,existing,freehold,2026-08,570000
+Redbridge,IG1,terraced,existing,freehold,2026-08,435000
+Richmond Upon Thames,TW1,flat,existing,leasehold,2026-08,490000
+Harrow,HA3,semi-detached,existing,freehold,2026-08,725000
+Bexley,DA8,terraced,existing,freehold,2026-08,345000
+Southwark,SE15,flat,existing,leasehold,2026-08,420000
+Havering,RM14,semi-detached,existing,freehold,2026-08,625000
+Greenwich,SE9,terraced,existing,freehold,2026-08,440000
+Brent,HA8,semi-detached,existing,freehold,2026-08,690000
+Hackney,E8,flat,existing,leasehold,2026-08,1000000
+Waltham Forest,E17,flat,existing,leasehold,2026-08,385000
+Lambeth,SE27,terraced,existing,freehold,2026-08,775000
+Wandsworth,SW17,terraced,existing,freehold,2026-08,940000
+Wandsworth,SW18,flat,existing,leasehold,2026-08,489950
+Wandsworth,SW17,flat,existing,leasehold,2026-08,550000
+Bromley,BR6,detached,existing,freehold,2026-08,630000
+Wandsworth,SW15,semi-detached,existing,freehold,2026-08,1760000
+Croydon,CR7,terraced,existing,freehold,2026-08,440000
+Haringey,N22,flat,existing,leasehold,2026-08,280000
+Greenwich,SE18,flat,existing,leasehold,2026-08,375000
+Brent,NW10,terraced,existing,freehold,2026-08,487500
+Greenwich,SE7,semi-detached,existing,freehold,2026-08,715000
+Wandsworth,SW11,terraced,existing,freehold,2026-08,1155000
+Lambeth,SW8,flat,existing,leasehold,2026-08,340000
+Croydon,SE25,flat,existing,leasehold,2026-08,247500
+Bromley,BR3,flat,existing,leasehold,2026-08,380000
+Lambeth,SW12,terraced,existing,freehold,2026-08,962000
+Tower Hamlets,E3,terraced,existing,freehold,2026-08,910000
+Hackney,E5,terraced,existing,freehold,2026-08,628000
+Sutton,SM5,flat,existing,leasehold,2026-08,365000
+Hillingdon,UB7,terraced,existing,freehold,2026-08,540000
+Hounslow,TW7,terraced,existing,freehold,2026-08,805000
+Lambeth,SW2,flat,existing,leasehold,2026-08,780000
+Ealing,UB6,semi-detached,existing,leasehold,2026-08,625000
+Hammersmith And Fulham,SW6,flat,existing,leasehold,2026-08,715000
+Lewisham,SE23,flat,existing,leasehold,2026-08,497500
+Richmond Upon Thames,SW14,flat,existing,leasehold,2026-08,447500
+Bromley,BR7,semi-detached,existing,freehold,2026-08,682500
+Richmond Upon Thames,SW14,flat,existing,leasehold,2026-08,820000
+Barking And Dagenham,RM9,terraced,existing,freehold,2026-08,370000
+Greenwich,SE9,semi-detached,existing,freehold,2026-08,527000
+Barnet,N3,flat,existing,leasehold,2026-08,443000
+Newham,E16,terraced,existing,freehold,2026-08,387000
+Bromley,SE20,flat,existing,leasehold,2026-08,265000
+Brent,NW6,detached,existing,freehold,2026-08,3902500
+Lambeth,SW16,flat,existing,leasehold,2026-08,375000
+Hounslow,TW7,terraced,existing,freehold,2026-08,665000
+Croydon,CR2,flat,existing,leasehold,2026-08,267000
+Wandsworth,SW18,terraced,existing,leasehold,2026-08,872500
+Barnet,NW2,flat,existing,leasehold,2026-08,410000
+Harrow,HA8,semi-detached,existing,freehold,2026-08,680000
+Lambeth,SW4,flat,existing,leasehold,2026-08,765000
+Richmond Upon Thames,TW11,flat,existing,leasehold,2026-08,498000
+Bromley,SE20,semi-detached,existing,freehold,2026-08,975000
+Redbridge,E18,flat,existing,leasehold,2026-08,340000
+Hillingdon,HA4,flat,existing,leasehold,2026-08,430000
+Hackney,E5,flat,existing,leasehold,2026-08,357500
+Ealing,UB2,detached,existing,freehold,2026-08,500000
+Merton,SW19,flat,existing,leasehold,2026-08,300000
+Haringey,N8,terraced,existing,leasehold,2026-08,1000000
+Sutton,SM5,semi-detached,existing,freehold,2026-08,750000
+Waltham Forest,E4,terraced,existing,freehold,2026-08,625000
+Southwark,SE16,flat,existing,leasehold,2026-08,425000
+Merton,SW19,flat,existing,freehold,2026-08,1325000
+Hillingdon,UB10,flat,existing,leasehold,2026-08,305000
+Barnet,NW7,flat,existing,leasehold,2026-08,343750
+Southwark,SE16,flat,existing,leasehold,2026-08,750000
+Bexley,DA8,terraced,existing,freehold,2026-08,400000
+Tower Hamlets,E3,flat,existing,leasehold,2026-08,275000
+Waltham Forest,E4,semi-detached,existing,freehold,2026-08,607500
+Lambeth,SW4,flat,existing,leasehold,2026-08,665000
+Kensington And Chelsea,SW5,flat,existing,leasehold,2026-08,512000
+Hillingdon,UB8,flat,existing,leasehold,2026-08,274000
+Ealing,W3,flat,existing,leasehold,2026-08,540000
+Lambeth,SW2,flat,existing,leasehold,2026-08,528000
+Wandsworth,SW11,terraced,existing,freehold,2026-08,950000
+Hounslow,TW7,semi-detached,existing,freehold,2026-08,665000
+Lewisham,SE26,flat,existing,leasehold,2026-08,672000
+Wandsworth,SW17,flat,existing,leasehold,2026-08,685000
+Tower Hamlets,E1W,flat,existing,leasehold,2026-08,850000
+Lambeth,SE24,semi-detached,existing,freehold,2026-08,1792000
+Tower Hamlets,E3,flat,existing,leasehold,2026-08,380000
+Haringey,N6,semi-detached,existing,freehold,2026-08,1507500
+Sutton,SM5,terraced,existing,freehold,2026-08,515000
+Bromley,BR6,semi-detached,existing,freehold,2026-08,280000
+Havering,RM12,flat,existing,leasehold,2026-08,275000
+Ealing,UB1,terraced,existing,freehold,2026-08,400000
+Bromley,BR3,flat,existing,leasehold,2026-08,307000
+Havering,RM11,detached,existing,freehold,2026-08,677500
+Kingston Upon Thames,KT1,semi-detached,existing,freehold,2026-08,1010000
+Southwark,SE5,terraced,existing,freehold,2026-08,690000
+Camden,NW1,flat,existing,leasehold,2026-08,565500
+Barnet,EN5,flat,existing,leasehold,2026-08,310000
+Lewisham,SE4,terraced,existing,freehold,2026-08,925000
+Richmond Upon Thames,TW9,terraced,existing,freehold,2026-08,925000
+Bexley,DA15,detached,existing,freehold,2026-08,1280000
+City Of Westminster,W1H,flat,existing,leasehold,2026-08,500000
+Redbridge,RM6,terraced,existing,freehold,2026-08,430000
+Bexley,DA7,semi-detached,existing,freehold,2026-08,650000
+Kingston Upon Thames,KT9,terraced,existing,freehold,2026-08,477000
+Hammersmith And Fulham,W6,flat,new,leasehold,2026-08,940000
+Hackney,E5,flat,existing,leasehold,2026-08,500000
+Barnet,EN4,detached,existing,freehold,2026-08,1020000
+Hillingdon,UB8,semi-detached,existing,freehold,2026-08,500000
+Hillingdon,UB8,flat,existing,leasehold,2026-08,277000
+Harrow,HA5,detached,existing,freehold,2026-08,1850000
+Newham,E13,terraced,existing,freehold,2026-08,615000
+Wandsworth,SW15,flat,existing,leasehold,2026-08,740000
+Lambeth,SE27,flat,existing,leasehold,2026-08,363000
+Enfield,N11,flat,existing,leasehold,2026-08,420000
+Newham,E13,terraced,existing,freehold,2026-08,405000
+Richmond Upon Thames,TW9,flat,existing,leasehold,2026-08,430000
+Southwark,SE17,terraced,existing,freehold,2026-08,780000
+Southwark,SE17,flat,existing,leasehold,2026-08,500000
+Bromley,BR6,semi-detached,existing,freehold,2026-08,525000
+Lambeth,SW16,flat,existing,leasehold,2026-08,295000
+Southwark,SE16,flat,existing,leasehold,2026-08,555000
+Bexley,SE2,terraced,existing,freehold,2026-08,475000
+Lambeth,SW2,terraced,existing,freehold,2026-08,730000
+Ealing,W5,semi-detached,existing,freehold,2026-08,795000
+Barnet,NW9,flat,existing,leasehold,2026-08,380000
+Croydon,CR2,flat,existing,leasehold,2026-08,200000
+Hounslow,TW7,flat,existing,leasehold,2026-08,290000
+Brent,NW2,flat,existing,leasehold,2026-08,685000
+Greenwich,SE10,flat,existing,leasehold,2026-08,537500
+Lambeth,SW4,flat,existing,leasehold,2026-08,405000
+Hillingdon,UB3,terraced,existing,freehold,2026-08,540000
+Wandsworth,SW18,terraced,existing,freehold,2026-08,1423000
+Barnet,EN5,flat,existing,leasehold,2026-08,250000
+Wandsworth,SW17,flat,existing,leasehold,2026-08,338800
+Hackney,E2,flat,existing,leasehold,2026-08,570000
+Richmond Upon Thames,TW10,flat,existing,leasehold,2026-08,415000
+Barnet,N12,flat,existing,leasehold,2026-08,198000
+Waltham Forest,E17,terraced,existing,freehold,2026-08,915000
+Merton,SW19,terraced,existing,freehold,2026-08,960000
+Wandsworth,SW18,semi-detached,existing,freehold,2026-08,725889
+Islington,EC1V,flat,existing,leasehold,2026-08,450000
+Merton,SW19,terraced,existing,freehold,2026-08,1060000
+City Of London,EC1A,flat,existing,leasehold,2026-08,770000
+Lambeth,SW2,flat,existing,leasehold,2026-08,315000
+Wandsworth,SW18,flat,existing,leasehold,2026-08,285000
+Hillingdon,UB4,semi-detached,existing,freehold,2026-08,418000
+Wandsworth,SW11,flat,existing,leasehold,2026-08,710000
+Haringey,N15,terraced,existing,freehold,2026-08,710000
+Merton,SW19,detached,existing,freehold,2026-08,5100000
+Bromley,BR1,semi-detached,existing,freehold,2026-08,550000
+Brent,HA9,flat,existing,leasehold,2026-08,355000
+Barking And Dagenham,RM7,terraced,existing,leasehold,2026-08,242000
+Greenwich,BR7,semi-detached,existing,freehold,2026-08,595000
+Bromley,BR1,flat,existing,leasehold,2026-08,370000
+Waltham Forest,E4,terraced,existing,freehold,2026-08,750000
+Bromley,BR6,semi-detached,existing,freehold,2026-08,675000
+Enfield,EN3,semi-detached,existing,freehold,2026-08,480000
+Greenwich,SE18,terraced,existing,leasehold,2026-08,325000
+Croydon,SW16,terraced,existing,freehold,2026-08,560000
+Bexley,DA8,flat,existing,leasehold,2026-08,225000
+Barnet,N12,flat,existing,leasehold,2026-08,473000
+Richmond Upon Thames,SW15,flat,existing,leasehold,2026-08,470000
+Southwark,SE5,flat,existing,leasehold,2026-08,465000
+Redbridge,E18,terraced,existing,freehold,2026-08,213746
+Hammersmith And Fulham,W3,flat,existing,leasehold,2026-08,495000
+Wandsworth,SW11,terraced,existing,freehold,2026-08,975000
+Ealing,W7,semi-detached,existing,freehold,2026-08,845000
+Bexley,DA7,semi-detached,existing,freehold,2026-08,556000
+Camden,NW5,flat,existing,leasehold,2026-08,365000
+Tower Hamlets,E2,flat,existing,leasehold,2026-08,235000
+Southwark,SE1,flat,existing,leasehold,2026-08,715000
+Hammersmith And Fulham,SW6,flat,existing,leasehold,2026-08,735000
+Redbridge,E18,flat,existing,leasehold,2026-08,232000
+Bromley,BR1,terraced,existing,freehold,2026-08,460000
+Ealing,W13,terraced,existing,freehold,2026-08,925000
+Waltham Forest,E17,terraced,existing,freehold,2026-08,825000
+Hillingdon,UB10,detached,existing,freehold,2026-08,1010000
+City Of Westminster,W9,flat,existing,leasehold,2026-08,635000
+Lewisham,SE23,flat,existing,leasehold,2026-08,525000
+Wandsworth,SW12,terraced,existing,freehold,2026-08,682700
+Bexley,DA16,terraced,existing,freehold,2026-08,507500
+Redbridge,E18,terraced,existing,freehold,2026-08,975000
+City Of Westminster,SW1H,flat,existing,leasehold,2026-08,860000
+Sutton,SM6,terraced,existing,freehold,2026-08,400000
+Richmond Upon Thames,SW14,semi-detached,existing,freehold,2026-08,1770000
+Bexley,DA5,terraced,existing,freehold,2026-08,350000
+Bexley,DA15,terraced,existing,freehold,2026-08,450000
+Ealing,W3,terraced,existing,freehold,2026-08,775000
+Merton,SW19,flat,existing,leasehold,2026-08,525000
+Hammersmith And Fulham,SW6,terraced,existing,freehold,2026-08,1932500
+Havering,RM7,flat,existing,leasehold,2026-08,175000
+Wandsworth,SW15,flat,existing,leasehold,2026-08,720000
+Hackney,N5,flat,existing,leasehold,2026-08,462000
+Havering,RM5,terraced,existing,freehold,2026-08,440000
+Tower Hamlets,E2,flat,existing,leasehold,2026-08,352500
+Kingston Upon Thames,KT3,terraced,existing,freehold,2026-08,764000
+Camden,NW3,flat,existing,leasehold,2026-08,530000
+Hounslow,TW13,flat,existing,leasehold,2026-08,315000
+Hillingdon,UB3,semi-detached,existing,freehold,2026-08,610000
+Wandsworth,SW12,flat,existing,leasehold,2026-08,410000
+Bromley,BR2,semi-detached,existing,freehold,2026-08,1085000
+Lambeth,SW2,flat,existing,leasehold,2026-08,320000
+Bexley,DA1,terraced,existing,freehold,2026-08,425000
+Waltham Forest,E10,flat,existing,leasehold,2026-08,333000
+Lewisham,SE13,flat,existing,leasehold,2026-08,375000
+Hounslow,W4,flat,existing,leasehold,2026-08,455000
+Hammersmith And Fulham,W6,flat,existing,leasehold,2026-08,670000
+Enfield,EN2,flat,existing,leasehold,2026-08,290000
+Waltham Forest,E10,terraced,existing,freehold,2026-08,757500
+Lewisham,SE9,terraced,existing,freehold,2026-08,376000
+Lewisham,SE23,terraced,existing,freehold,2026-08,1250000
+Waltham Forest,E17,terraced,existing,freehold,2026-08,810000
+Enfield,EN1,terraced,existing,freehold,2026-08,640000
+Waltham Forest,E17,flat,existing,leasehold,2026-08,456350
+Greenwich,SE18,terraced,existing,freehold,2026-08,580000
+Waltham Forest,E4,semi-detached,existing,freehold,2026-08,780000
+Haringey,N8,flat,existing,leasehold,2026-08,575000
+Islington,N7,terraced,existing,freehold,2026-08,852000
+Bexley,DA15,terraced,existing,freehold,2026-08,460000
+Brent,NW10,flat,existing,leasehold,2026-08,600000
+Merton,CR4,terraced,existing,freehold,2026-08,420000
+Hounslow,TW4,semi-detached,existing,freehold,2026-08,733000
+Enfield,N9,semi-detached,existing,freehold,2026-08,460000
+Croydon,CR7,terraced,existing,freehold,2026-08,336000
+Greenwich,SE10,flat,existing,leasehold,2026-08,475000
+Enfield,EN3,semi-detached,existing,freehold,2026-08,450333
+Croydon,CR0,flat,existing,leasehold,2026-08,265000
+Lewisham,SE13,semi-detached,existing,freehold,2026-08,785000
+Southwark,SE1,flat,existing,leasehold,2026-08,940000
+Bromley,BR7,semi-detached,existing,freehold,2026-08,545000
+Lambeth,SE24,flat,existing,leasehold,2026-08,587000
+Sutton,SM2,terraced,existing,freehold,2026-08,465000
+Sutton,SM5,terraced,existing,freehold,2026-08,405000
+Bexley,SE9,semi-detached,existing,freehold,2026-08,500000
+Tower Hamlets,E1,flat,existing,leasehold,2026-08,450000
+Barnet,N12,semi-detached,existing,freehold,2026-08,880000
+City Of Westminster,SW1P,terraced,existing,freehold,2026-08,2450000
+Bromley,SE26,flat,existing,leasehold,2026-08,313000
+Lewisham,SE8,flat,existing,leasehold,2026-08,268000
+Hackney,E8,flat,existing,leasehold,2026-08,522500
+City Of Westminster,SW1V,flat,existing,leasehold,2026-08,3100000
+Lewisham,SE13,terraced,existing,freehold,2026-08,700000
+Camden,NW6,terraced,existing,freehold,2026-08,1690000
+Enfield,EN2,semi-detached,existing,freehold,2026-08,1065000
+Brent,HA3,terraced,existing,freehold,2026-08,832500
+Croydon,CR8,detached,existing,freehold,2026-08,965000
+Bexley,DA1,terraced,existing,freehold,2026-08,565000
+Barnet,N12,flat,existing,leasehold,2026-08,400000
+Bromley,BR5,terraced,existing,freehold,2026-08,335000
+Hillingdon,UB10,semi-detached,existing,freehold,2026-08,350000
+Harrow,HA3,flat,existing,leasehold,2026-08,255000
+Bromley,BR5,detached,existing,freehold,2026-08,1085000
+Merton,CR4,flat,existing,leasehold,2026-08,407500
+Enfield,N18,terraced,existing,freehold,2026-08,450000
+Merton,SW19,flat,existing,leasehold,2026-08,488000
+Newham,E13,terraced,existing,freehold,2026-08,870000
+Lewisham,SE23,flat,existing,leasehold,2026-08,260000
+Waltham Forest,E10,terraced,existing,freehold,2026-08,800000
+Greenwich,SE18,terraced,existing,freehold,2026-08,500000
+Brent,NW10,terraced,existing,freehold,2026-08,850000
+Hackney,N4,flat,existing,leasehold,2026-08,436769
+Bromley,BR3,flat,existing,leasehold,2026-08,325000
+Hackney,E9,flat,existing,leasehold,2026-08,570000
+Bromley,SE20,flat,existing,leasehold,2026-08,423000
+Hackney,E9,flat,existing,leasehold,2026-08,352500
+Lambeth,SE11,flat,existing,leasehold,2026-08,750000
+Havering,RM11,flat,existing,leasehold,2026-08,257500
+Kingston Upon Thames,KT3,semi-detached,existing,freehold,2026-08,700000
+Hackney,N16,terraced,existing,freehold,2026-08,635000
+Lambeth,SE27,flat,existing,leasehold,2026-08,487000
+Enfield,EN3,terraced,existing,freehold,2026-08,495000
+Bromley,BR7,flat,existing,leasehold,2026-08,740000
+Lambeth,SW2,terraced,existing,freehold,2026-08,1080000
+Wandsworth,SW11,flat,existing,leasehold,2026-08,840000
+Waltham Forest,E4,flat,existing,leasehold,2026-08,295000
+Hackney,N4,flat,existing,leasehold,2026-08,690000
+Haringey,N6,flat,existing,leasehold,2026-08,700000
+Harrow,HA7,semi-detached,existing,freehold,2026-08,586000
+Harrow,HA1,flat,existing,leasehold,2026-08,260000
+Haringey,N6,flat,existing,leasehold,2026-08,518000
+Islington,N5,flat,existing,leasehold,2026-08,735000
+Havering,RM3,flat,existing,leasehold,2026-08,175000
+Lambeth,SW2,flat,existing,leasehold,2026-08,475000
+Ealing,W13,terraced,existing,freehold,2026-08,860000
+Camden,N6,flat,existing,leasehold,2026-08,1375000
+Barnet,NW9,flat,existing,freehold,2026-08,320000
+Ealing,W13,flat,existing,leasehold,2026-08,425000
+Islington,N1,flat,existing,leasehold,2026-08,275000
+Redbridge,E18,flat,existing,leasehold,2026-08,363000
+Enfield,N14,terraced,existing,freehold,2026-08,670000
+Waltham Forest,E10,terraced,existing,freehold,2026-08,631000
+Southwark,SE16,flat,existing,leasehold,2026-08,800000
+Kensington And Chelsea,W10,flat,existing,leasehold,2026-08,750000
+Lewisham,SE12,terraced,existing,freehold,2026-08,688000
+Bromley,BR2,flat,existing,leasehold,2026-08,430000

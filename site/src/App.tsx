@@ -1,6 +1,7 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Detail } from "src/components/Detail";
 import { Sidebar } from "src/components/Sidebar";
+import { TABLE_SAMPLES, Tables } from "src/components/Tables";
 import { TopLinks } from "src/components/TopLinks";
 import { useAsync } from "src/components/useAsync";
 import { YourDataEditor } from "src/components/YourDataEditor";
@@ -50,7 +51,11 @@ export function App() {
     return () => removeEventListener("hashchange", on);
   }, []);
 
+  // Each tab remembers its last selection, so switching back returns to the same item.
+  const lastRef = useRef<{ forecasts?: string; tables?: string }>({});
+  const tab: "forecasts" | "tables" = selected.startsWith("table:") ? "tables" : "forecasts";
   const select = (id: string) => {
+    lastRef.current[id.startsWith("table:") ? "tables" : "forecasts"] = id;
     setSelected(id);
     setView("detail");
     history.replaceState(null, "", `#${encodeURIComponent(id)}`);
@@ -60,6 +65,7 @@ export function App() {
     select(item.id);
   };
 
+  const tableSample = TABLE_SAMPLES.find((s) => s.id === selected);
   const item = items.find((i) => i.id === selected) ?? items[0];
   const onYours = useCallback((d: SeriesData | null) => setYours(d), []);
   const onSeason = useCallback((s?: number) => setYoursSeason(s), []);
@@ -72,16 +78,24 @@ export function App() {
     <div className="app" data-view={view}>
       <TopLinks />
       <Sidebar
+        tab={tab}
+        onTab={(t) => {
+          if (t === tab) return;
+          select(lastRef.current[t] ?? (t === "tables" ? TABLE_SAMPLES[0].id : (items[0]?.id ?? "stock-spy")));
+          setView("list");
+        }}
         items={items}
         data={data}
         forecastFor={forecastFor}
-        selected={item?.id ?? ""}
+        selected={tableSample?.id ?? item?.id ?? ""}
         onSelect={select}
         onAddCity={(c: City) => add(cityItem(c))}
         onAddArticle={(t: string) => add(articleItem(t))}
       />
       <main className="detail">
-        {item && (
+        {tableSample ? (
+          <Tables key={tableSample.id} sample={tableSample} onBack={() => setView("list")} />
+        ) : item && (
           <Detail
             key={item.id}
             item={item}
