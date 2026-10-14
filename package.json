@@ -1,7 +1,7 @@
 {
   "name": "forecast-web",
-  "version": "0.3.0",
-  "description": "Time series forecasting models in the browser on WebGPU or WebAssembly: Google's TimesFM 2.5 and Amazon's Chronos-Bolt. Optional React hook.",
+  "version": "0.4.0",
+  "description": "Forecasting and tabular prediction models in the browser on WebGPU or WebAssembly: TimesFM 2.5, Chronos-Bolt and TabICL. Optional React hook.",
   "license": "Apache-2.0",
   "type": "module",
   "sideEffects": false,
@@ -21,6 +21,10 @@
       "types": "./dist/react.d.ts",
       "import": "./dist/react.js"
     },
+    "./tabular": {
+      "types": "./dist/tabular.d.ts",
+      "import": "./dist/tabular.js"
+    },
     "./package.json": "./package.json"
   },
   "keywords": [
@@ -31,7 +35,9 @@
     "onnx",
     "webgpu",
     "browser",
-    "react"
+    "react",
+    "tabular",
+    "tabicl"
   ],
   "scripts": {
     "build": "tsup",

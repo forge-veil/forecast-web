@@ -1,6 +1,6 @@
 # forecast-web
 
-Time series forecasting models that run in the browser. Give it a history, get back a forecast with nine quantile bands. Everything runs on the visitor's machine, on WebGPU when available and WASM otherwise.
+Time series forecasting and tabular prediction models that run in the browser. Give it a history, get back a forecast with nine quantile bands; give it a table, get back predicted classes or values with no training. Everything runs on the visitor's machine, on WebGPU when available and WASM otherwise.
 
 **[Live demo](https://vatsalbakshi.com/forecast-web/)**: stocks, weather, Wikipedia traffic and seasonal data, forecast and backtested in your browser.
 
@@ -110,6 +110,26 @@ Past 64 steps each pass feeds its own quantiles back, so compression error compo
 | Small | 96 MB | 54 MB |
 | Base | 411 MB | 232 MB |
 
+## Tabular prediction
+
+`forecast-web/tabular` runs [TabICLv2](https://github.com/soda-inria/tabicl) (Soda team, Inria): classification and regression on a table with no training. The model reads the training rows in context and predicts the test rows in one forward pass.
+
+```ts
+import { loadTabular } from "forecast-web/tabular";
+
+const clf = await loadTabular({ task: "classification" });
+const fitted = clf.fit(trainRows, trainLabels); // rows of numbers, strings, booleans or null
+const proba = await fitted.predictProba(testRows);
+const labels = await fitted.predict(testRows);
+
+const reg = await loadTabular({ task: "regression" });
+const values = await reg.fit(trainRows, trainTargets).predict(testRows, { output: "quantiles", alphas: [0.1, 0.9] });
+```
+
+Columns holding strings or booleans are encoded as categories; missing numbers are imputed with the training mean, as upstream. Predictions match `tabicl` 2.2.0 end to end: probabilities within 2e-5 (measured worst 9.7e-6) with identical labels, and regression outputs within 2e-5 of the target's standard deviation, in fp32. The fp16-weight default (56 to 59 MB) stays within 0.2%.
+
+Limits: at most 10 classes; 5,000 training rows, 100 features and 20,000 cells (rows x features) in the browser. Cost grows with rows x features: about 5 s on a laptop CPU for 1,000 x 10 with 100 test rows and the default 8 ensemble members; WebGPU is faster, and `nEstimators: 1` is about 8 times faster. Errors use the codes `TOO_MANY_CLASSES`, `TOO_LARGE` and `INVALID_INPUT`.
+
 ## TimesFM weights and backend
 
 `"auto"` picks fp16 on WebGPU and q8 on WASM. q8 cannot run on WebGPU: onnxruntime-web's WebGPU backend only supports 2-bit and 4-bit packed weights, and 4-bit is too lossy for this model.
@@ -186,4 +206,4 @@ Then `npm test` checks all three formats against the official forecasts.
 
 ## License
 
-Apache-2.0. TimesFM is by Google Research, and its 2.5 weights are Apache-2.0. See `NOTICE`.
+Apache-2.0. TimesFM is by Google Research and Chronos by Amazon, both Apache-2.0. TabICL is by the Soda team at Inria under BSD-3-Clause. See `NOTICE`.

@@ -2,7 +2,9 @@ import { fetchBytes, resolveFiles } from "src/core/assets";
 import { hasWebGPU } from "src/core/gpu";
 import { expandHalfToFloat } from "src/core/half";
 import type { GraphSession, SessionOptions } from "src/core/session";
+import type { RunGraph } from "src/models/adapter";
 import { getAdapter } from "src/models/index";
+import { getTabularSpec, isTabularId, type GraphSpec, type TabularModelId } from "src/tabular/models";
 import {
   ForecastError,
   type Backend,
@@ -20,7 +22,7 @@ import {
 
 /** Options after the main thread has resolved defaults and the base URL. Structured-clone safe. */
 export interface CoreOptions {
-  model: ModelId;
+  model: ModelId | TabularModelId;
   base: string;
   dtype: Dtype;
   device: Device;
@@ -33,7 +35,14 @@ export interface Core {
   dtype: ResolvedDtype;
   config: ModelConfig;
   forecast(series: Series[], opts?: ForecastOptions): Promise<Forecast[]>;
+  /** Runs the raw graph on named feeds (tabular models). */
+  run: RunGraph;
   release(): Promise<void>;
+}
+
+/** The forecasting adapter or tabular graph spec for a model id; throws UNKNOWN_MODEL. */
+function specFor(id: string): GraphSpec & { forecaster?: ReturnType<typeof getAdapter>["forecaster"] } {
+  return isTabularId(id) ? getTabularSpec(id) : getAdapter(id);
 }
 
 export type SessionFactory = (bytes: Uint8Array, opts: SessionOptions) => Promise<GraphSession>;
@@ -43,7 +52,7 @@ export type SessionFactory = (bytes: Uint8Array, opts: SessionOptions) => Promis
  * onnxruntime-web's WebGPU backend, so it always lands on WASM.
  */
 export function planLoad(
-  info: ModelInfo,
+  info: Pick<ModelInfo, "name" | "dtypes" | "defaults">,
   dtype: Dtype,
   device: Device,
   gpuAvailable: boolean,
@@ -71,7 +80,7 @@ export async function loadCore(
   signal?: AbortSignal,
   gpuCheck: () => Promise<boolean> = hasWebGPU,
 ): Promise<Core> {
-  const adapter = getAdapter(opts.model);
+  const adapter = specFor(opts.model);
   const needsGpuCheck = opts.device === "auto";
   const plan = planLoad(adapter.info, opts.dtype, opts.device, needsGpuCheck ? await gpuCheck() : false);
   const files = resolveFiles(opts.base, adapter.files(plan.dtype));
@@ -150,7 +159,10 @@ export async function loadCore(
     backend: session.backend,
     dtype: plan.dtype,
     config,
-    forecast: adapter.forecaster(session.run, config),
+    forecast: adapter.forecaster
+      ? adapter.forecaster(session.run, config)
+      : () => Promise.reject(new ForecastError("LOAD_FAILED", `${adapter.info.name} is not a forecasting model`)),
+    run: session.run,
     release: () => session.release(),
   };
 }
