@@ -119,5 +119,38 @@ describe("forecast-web/tabular API", () => {
     expect(() => t.fit(rows(4, 2), [1, null, 2, 1] as never)).toThrow(expect.objectContaining({ code: "INVALID_INPUT" }));
     expect(() => t.fit(rows(4, 2), [1, NaN, 2, 1])).toThrow(expect.objectContaining({ code: "INVALID_INPUT" }));
   });
+
+  it("freezes LIMITS so callers cannot lift the caps", () => {
+    expect(Object.isFrozen(LIMITS)).toBe(true);
+  });
+
+  it("refuses to predict after dispose, and disposing twice releases once", async () => {
+    const { graph } = fakeGraph("classification");
+    const release = vi.fn(async () => {});
+    const t = createTabular({ ...graph, dispose: release }, TABULAR_MODELS["tabicl-classifier-v2"]);
+    const fitted = t.fit(rows(10, 2), Array.from({ length: 10 }, (_, i) => i % 2));
+    await t.dispose();
+    await t.dispose();
+    expect(release).toHaveBeenCalledTimes(1);
+    await expect(fitted.predictProba(rows(2, 2))).rejects.toMatchObject({ code: "DISPOSED" });
+    expect(() => t.fit(rows(10, 2), Array(10).fill(0))).toThrow(expect.objectContaining({ code: "DISPOSED" }));
+  });
+
+  it("exposes the backend and dtype of the loaded graph", () => {
+    const { graph } = fakeGraph("regression");
+    const t = createTabular({ ...graph, backend: "webgpu", dtype: "fp16" }, TABULAR_MODELS["tabicl-regressor-v2"]);
+    expect(t.backend).toBe("webgpu");
+    expect(t.dtype).toBe("fp16");
+  });
+
+  it("types fit() precisely when the task is known", () => {
+    const { graph } = fakeGraph("regression");
+    const reg = createTabular<"regression">(graph, TABULAR_MODELS["tabicl-regressor-v2"]).fit(rows(10, 2), Array.from({ length: 10 }, (_, i) => i));
+    expectTypeOf(reg.predict(rows(1, 2))).toEqualTypeOf<Promise<number[]>>();
+    expectTypeOf(reg.predict(rows(1, 2), { output: "quantiles" })).toEqualTypeOf<Promise<number[][]>>();
+    const clf = createTabular<"classification">(fakeGraph("classification").graph, TABULAR_MODELS["tabicl-classifier-v2"]).fit(rows(10, 2), Array(10).fill("a"));
+    expectTypeOf(clf.predict(rows(1, 2))).toEqualTypeOf<Promise<(number | string)[]>>();
+    expectTypeOf(clf.predictProba).toBeFunction();
+  });
 });
 

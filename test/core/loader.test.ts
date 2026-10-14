@@ -211,3 +211,33 @@ describe("loadCore", () => {
     });
   });
 });
+
+describe("loadCore with a tabular model", () => {
+  const cfg = { model_type: "tabicl", task: "classification", max_classes: 10 };
+  const files: Record<string, Uint8Array> = {
+    "https://t/config.json": new TextEncoder().encode(JSON.stringify(cfg)),
+    "https://t/onnx/model.onnx": new Uint8Array(6),
+  };
+  beforeEach(() => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async (url: string) => (files[url] ? new Response(files[url].slice().buffer) : new Response("", { status: 404 }))),
+    );
+  });
+  afterEach(() => vi.unstubAllGlobals());
+  const opts = (o: Partial<CoreOptions> = {}): CoreOptions => ({ model: "tabicl-classifier-v2", base: "https://t/", dtype: "fp32", device: "wasm", cache: false, ...o });
+  const factory: SessionFactory = async (_b, o) => ({ backend: o.device, run: vi.fn(async () => ({ logits: new Float32Array(10) })), release: vi.fn(async () => {}) });
+
+  it("loads the graph, exposes run, and rejects forecast", async () => {
+    const core = await loadCore(opts(), factory);
+    expect(Object.keys(await core.run({}))).toEqual(["logits"]);
+    await expect(core.forecast([[1, 2, 3]])).rejects.toThrow(/not a forecasting model/);
+  });
+
+  it("rejects a config for the other task", async () => {
+    files["https://t/config.json"] = new TextEncoder().encode(JSON.stringify({ ...cfg, task: "regression" }));
+    await expect(loadCore(opts(), factory)).rejects.toThrow(/expected a TabICL classification graph/);
+    files["https://t/config.json"] = new TextEncoder().encode(JSON.stringify(cfg));
+  });
+});
+
