@@ -1,0 +1,1501 @@
+borough,neighborhood,home_type,land_square_feet,gross_square_feet,year_built,sale_month,sale_price
+Staten Island,Port Richmond,one-family,2500.0,2101.0,1915.0,2026-05,865000
+Brooklyn,Sunset Park,two-family,2000.0,1960.0,1910.0,2026-05,400000
+Brooklyn,Bay Ridge,two-family,2333.0,1743.0,1940.0,2026-05,1175000
+Staten Island,Rosebank,two-family,3276.0,1760.0,1950.0,2026-05,800000
+Bronx,Wakefield,one-family,1755.0,1890.0,1960.0,2026-05,589900
+Queens,Oakland Gardens,one-family,2658.0,1152.0,1950.0,2026-05,875000
+Queens,South Jamaica,two-family,5000.0,2450.0,2002.0,2026-05,1150000
+Queens,Springfield Gardens,one-family,1928.0,1568.0,1935.0,2026-05,690000
+Staten Island,Huguenot,two-family,4100.0,2228.0,1960.0,2026-05,836000
+Queens,Woodhaven,one-family,1988.0,2926.0,1931.0,2026-05,1190000
+Staten Island,South Beach,one-family,4000.0,1485.0,1940.0,2026-05,800000
+Queens,Elmhurst,two-family,2158.0,1400.0,1925.0,2026-05,1050000
+Staten Island,Concord,one-family,2500.0,1252.0,1905.0,2026-05,752000
+Brooklyn,Marine Park,one-family,1800.0,1064.0,1925.0,2026-05,725000
+Queens,East Elmhurst,two-family,2000.0,1600.0,1920.0,2026-05,300000
+Staten Island,Mariners Harbor,one-family,2520.0,1250.0,1965.0,2026-05,540000
+Queens,Jamaica Hills,one-family,6000.0,2443.0,1925.0,2026-05,1460000
+Queens,East Elmhurst,two-family,4030.0,2322.0,2004.0,2026-05,1485000
+Brooklyn,Ocean Parkway-South,one-family,6000.0,6750.0,2004.0,2026-05,7500000
+Queens,Cambria Heights,one-family,5014.0,1030.0,1945.0,2026-05,751000
+Queens,Howard Beach,one-family,5100.0,2300.0,1950.0,2026-05,1150000
+Queens,Astoria,two-family,2117.0,2080.0,1925.0,2026-05,1350000
+Bronx,Pelham Gardens,two-family,2000.0,2270.0,1940.0,2026-05,668000
+Brooklyn,Cypress Hills,one-family,2438.0,1600.0,1905.0,2026-05,425000
+Brooklyn,Cypress Hills,two-family,3108.0,2651.0,1901.0,2026-05,600000
+Staten Island,Castleton Corners,one-family,3000.0,880.0,1940.0,2026-05,638135
+Queens,Middle Village,two-family,2900.0,2116.0,1940.0,2026-05,1465000
+Queens,Elmhurst,two-family,2934.0,1518.0,1935.0,2026-05,990000
+Staten Island,Manor Heights,one-family,5000.0,1063.0,1965.0,2026-05,825000
+Queens,College Point,two-family,1200.0,3312.0,1930.0,2026-05,1350000
+Bronx,Morrisania/Longwood,one-family,1620.0,1152.0,1993.0,2026-05,612500
+Staten Island,Dongan Hills,one-family,2400.0,1600.0,1989.0,2026-05,775000
+Bronx,Kingsbridge/Jerome Park,two-family,2500.0,2145.0,1935.0,2026-05,1293631
+Queens,Elmhurst,two-family,1800.0,2280.0,1920.0,2026-05,1350000
+Bronx,Pelham Gardens,two-family,5000.0,3536.0,1920.0,2026-05,995000
+Queens,Oakland Gardens,one-family,5000.0,1948.0,1940.0,2026-05,1370000
+Staten Island,Princes Bay,one-family,9000.0,3750.0,1975.0,2026-05,1435000
+Staten Island,Westerleigh,one-family,3895.0,2184.0,1973.0,2026-05,975000
+Staten Island,Willowbrook,one-family,4000.0,1440.0,1965.0,2026-05,800000
+Staten Island,Midland Beach,one-family,3000.0,1790.0,2014.0,2026-05,920000
+Staten Island,Mariners Harbor,one-family,2500.0,1500.0,2024.0,2026-05,730000
+Queens,St. Albans,one-family,2456.0,1631.0,1945.0,2026-05,400000
+Queens,Bayside,two-family,2500.0,2400.0,2007.0,2026-05,1580000
+Queens,Flushing-North,one-family,4752.0,1578.0,1925.0,2026-05,1350000
+Queens,Middle Village,one-family,2677.0,952.0,1940.0,2026-05,773050
+Brooklyn,Canarsie,two-family,2500.0,2912.0,1930.0,2026-05,1139500
+Brooklyn,Bedford Stuyvesant,two-family,1950.0,2700.0,1899.0,2026-05,1375000
+Queens,Ozone Park,two-family,4890.0,2392.0,1960.0,2026-05,1500000
+Queens,Laurelton,one-family,2000.0,1360.0,1950.0,2026-05,474700
+Bronx,Schuylerville/Pelham Bay,two-family,2508.0,1880.0,1925.0,2026-05,460000
+Staten Island,New Brighton,one-family,2775.0,1216.0,1940.0,2026-05,539000
+Queens,Forest Hills,one-family,5817.0,2208.0,1910.0,2026-05,3395000
+Brooklyn,Bushwick,one-family,1819.0,1440.0,1920.0,2026-05,915407
+Staten Island,Port Richmond,two-family,2000.0,1004.0,1925.0,2026-05,275000
+Queens,South Ozone Park,two-family,4000.0,1818.0,1950.0,2026-05,1150000
+Staten Island,Eltingville,one-family,6500.0,2063.0,1955.0,2026-05,1330000
+Queens,Hollis,one-family,4000.0,1340.0,1930.0,2026-05,770000
+Queens,College Point,two-family,2125.0,1360.0,1940.0,2026-05,926000
+Queens,Flushing-South,one-family,1800.0,1224.0,1945.0,2026-05,905000
+Queens,Laurelton,one-family,3142.0,1344.0,1940.0,2026-05,490000
+Queens,South Jamaica,two-family,4130.0,1231.0,1915.0,2026-05,875000
+Brooklyn,Boerum Hill,two-family,1667.0,1772.0,1899.0,2026-05,2475000
+Queens,South Ozone Park,two-family,3008.0,1152.0,1930.0,2026-05,695000
+Bronx,City Island,one-family,9650.0,1490.0,1935.0,2026-05,899000
+Brooklyn,Bay Ridge,one-family,5467.0,3370.0,1910.0,2026-05,1430000
+Brooklyn,Sunset Park,one-family,2504.0,2800.0,1899.0,2026-05,1999999
+Staten Island,Grymes Hill,one-family,5400.0,1580.0,1920.0,2026-05,1179000
+Brooklyn,Gravesend,two-family,1524.0,1720.0,1930.0,2026-05,195000
+Staten Island,Dongan Hills,one-family,5500.0,1240.0,1925.0,2026-05,925000
+Queens,Bayside,one-family,3599.0,1611.0,1915.0,2026-05,450000
+Staten Island,Willowbrook,two-family,4000.0,2275.0,1970.0,2026-05,1262000
+Brooklyn,Greenpoint,one-family,1490.0,4695.0,1960.0,2026-05,3150000
+Queens,South Ozone Park,two-family,3960.0,1848.0,1950.0,2026-05,494000
+Queens,Far Rockaway,one-family,6250.0,1734.0,1920.0,2026-05,1066345
+Queens,Howard Beach,one-family,5000.0,2512.0,1950.0,2026-05,1275000
+Queens,Fresh Meadows,one-family,4000.0,1352.0,1940.0,2026-05,1360000
+Staten Island,Huguenot,two-family,4040.0,2200.0,2006.0,2026-05,1300000
+Queens,So. Jamaica-Baisley Park,one-family,1200.0,724.0,1915.0,2026-05,350000
+Queens,Jackson Heights,two-family,2125.0,1722.0,1940.0,2026-05,1040000
+Brooklyn,Bushwick,two-family,1667.0,1334.0,1899.0,2026-05,1695000
+Staten Island,Great Kills,one-family,2991.0,1564.0,1984.0,2026-05,760000
+Bronx,Bronxdale,one-family,2025.0,1080.0,1940.0,2026-05,615000
+Queens,Jamaica,one-family,1600.0,1156.0,1920.0,2026-05,900000
+Bronx,Westchester,two-family,2429.0,2090.0,1920.0,2026-05,1215000
+Queens,Little Neck,one-family,4000.0,936.0,1940.0,2026-05,1235000
+Staten Island,New Brighton,one-family,7500.0,1472.0,1915.0,2026-05,550000
+Staten Island,Midland Beach,one-family,3000.0,756.0,1950.0,2026-05,510000
+Brooklyn,Madison,one-family,2100.0,1320.0,1940.0,2026-05,679000
+Queens,Richmond Hill,one-family,1857.0,1556.0,1925.0,2026-05,860000
+Queens,Elmhurst,two-family,1967.0,2310.0,1901.0,2026-05,1200000
+Queens,Woodhaven,one-family,1896.0,2146.0,1931.0,2026-05,1080000
+Queens,South Ozone Park,two-family,2429.0,1344.0,1920.0,2026-05,805000
+Brooklyn,Park Slope South,two-family,1583.0,1014.0,1901.0,2026-05,2225000
+Queens,South Jamaica,one-family,1082.0,1468.0,1970.0,2026-05,595000
+Staten Island,Tottenville,one-family,2500.0,1518.0,2023.0,2026-05,914389
+Staten Island,Tottenville,two-family,4725.0,2580.0,1984.0,2026-05,785085
+Queens,Elmhurst,two-family,2974.0,3696.0,1930.0,2026-05,1600000
+Staten Island,Castleton Corners,one-family,5835.0,792.0,1955.0,2026-05,855000
+Bronx,Williamsbridge,two-family,7250.0,2688.0,1935.0,2026-05,1180000
+Staten Island,Westerleigh,one-family,476.0,1515.0,1986.0,2026-05,428000
+Queens,So. Jamaica-Baisley Park,two-family,3720.0,1970.0,1950.0,2026-05,1050000
+Queens,Sunnyside,two-family,2000.0,1592.0,1940.0,2026-05,851000
+Staten Island,Grasmere,one-family,2383.0,2130.0,2002.0,2026-05,266246
+Bronx,Schuylerville/Pelham Bay,one-family,2500.0,1088.0,1920.0,2026-05,775000
+Queens,Jackson Heights,two-family,1553.0,2418.0,1931.0,2026-05,2100000
+Queens,Arverne,one-family,1825.0,525.0,1899.0,2026-05,309270
+Queens,Springfield Gardens,one-family,3000.0,944.0,1925.0,2026-05,795000
+Queens,Glen Oaks,one-family,4280.0,1118.0,1955.0,2026-05,907000
+Queens,Jackson Heights,one-family,1800.0,1431.0,1940.0,2026-05,850000
+Staten Island,Grasmere,one-family,2383.0,2130.0,2002.0,2026-05,317277
+Queens,St. Albans,one-family,4400.0,2210.0,1940.0,2026-05,600000
+Bronx,Country Club,two-family,3742.0,2200.0,1935.0,2026-05,984000
+Queens,Maspeth,two-family,960.0,1320.0,1955.0,2026-05,720000
+Bronx,Bedford Park/Norwood,two-family,2594.0,2936.0,1910.0,2026-05,992500
+Staten Island,Woodrow,two-family,10000.0,3115.0,1978.0,2026-05,1109893
+Queens,So. Jamaica-Baisley Park,two-family,3589.0,2036.0,1925.0,2026-05,930000
+Bronx,Westchester,two-family,2375.0,2812.0,1901.0,2026-05,625000
+Queens,St. Albans,one-family,3325.0,1610.0,1940.0,2026-05,720000
+Staten Island,Castleton Corners,two-family,3600.0,1786.0,1975.0,2026-05,970000
+Queens,Ozone Park,two-family,3610.0,2573.0,2024.0,2026-05,1725934
+Queens,Jamaica,one-family,2000.0,1135.0,1925.0,2026-05,705000
+Staten Island,Great Kills,two-family,4750.0,1920.0,1965.0,2026-05,995000
+Brooklyn,Canarsie,two-family,3320.0,1750.0,1925.0,2026-05,905000
+Brooklyn,Bay Ridge,two-family,4915.0,2170.0,1931.0,2026-05,1685000
+Queens,Corona,two-family,2500.0,2140.0,1920.0,2026-05,1300000
+Staten Island,Dongan Hills-Colony,one-family,4560.0,1323.0,1960.0,2026-05,928000
+Staten Island,Grant City,one-family,4200.0,756.0,1955.0,2026-05,485000
+Staten Island,Grant City,one-family,4845.0,1768.0,1970.0,2026-05,960000
+Queens,Middle Village,one-family,1800.0,1260.0,1950.0,2026-05,840000
+Bronx,Parkchester,two-family,2625.0,2300.0,1925.0,2026-05,700000
+Queens,Hammels,one-family,900.0,896.0,1920.0,2026-05,595000
+Bronx,Pelham Parkway North,one-family,2523.0,2018.0,1950.0,2026-05,530000
+Brooklyn,Bensonhurst,two-family,2650.0,2360.0,1930.0,2026-05,371700
+Staten Island,Tottenville,one-family,2650.0,996.0,1925.0,2026-05,580000
+Queens,Astoria,two-family,1600.0,1440.0,1930.0,2026-05,1040000
+Queens,Flushing-North,two-family,2604.0,1700.0,1945.0,2026-05,1180000
+Queens,Hollis,one-family,3800.0,1819.0,1930.0,2026-05,667500
+Queens,Bayside,two-family,1800.0,1152.0,1940.0,2026-05,915000
+Queens,Jamaica,one-family,2500.0,1280.0,1920.0,2026-05,820000
+Staten Island,Eltingville,one-family,2500.0,1280.0,1960.0,2026-05,750000
+Staten Island,Port Richmond,one-family,2856.0,1368.0,1925.0,2026-05,670000
+Brooklyn,Flatlands,one-family,2125.0,1036.0,1920.0,2026-05,700000
+Queens,Far Rockaway,two-family,3448.0,2340.0,1960.0,2026-05,731000
+Brooklyn,Ocean Parkway-South,two-family,4160.0,2340.0,1925.0,2026-05,7000000
+Queens,Arverne,two-family,2673.0,1869.0,1960.0,2026-05,685000
+Queens,Whitestone,two-family,5000.0,3034.0,1925.0,2026-05,2482494
+Staten Island,Huguenot,one-family,4200.0,1055.0,1970.0,2026-06,650000
+Queens,Springfield Gardens,one-family,2760.0,1504.0,1930.0,2026-06,384330
+Queens,St. Albans,one-family,2200.0,1174.0,1925.0,2026-06,482500
+Queens,Flushing-North,one-family,4000.0,1488.0,1925.0,2026-06,1220000
+Queens,Laurelton,one-family,3164.0,1316.0,1930.0,2026-06,637425
+Queens,Queens Village,one-family,3920.0,1140.0,1945.0,2026-06,361000
+Queens,Kew Gardens,two-family,2500.0,2124.0,1910.0,2026-06,1095000
+Queens,Laurelton,one-family,3142.0,1316.0,1925.0,2026-06,950000
+Brooklyn,Bushwick,two-family,2000.0,2700.0,1905.0,2026-06,1700000
+Brooklyn,Coney Island,one-family,1966.0,1356.0,1991.0,2026-06,725000
+Brooklyn,Bay Ridge,one-family,2460.0,1488.0,1930.0,2026-06,1999999
+Queens,Bayside,two-family,5000.0,3258.0,2016.0,2026-06,2270000
+Queens,Douglaston,two-family,4400.0,2524.0,1965.0,2026-06,700000
+Bronx,Pelham Parkway South,one-family,3325.0,2100.0,1940.0,2026-06,805000
+Staten Island,Grymes Hill,one-family,6696.0,2690.0,1960.0,2026-06,1240000
+Queens,Jackson Heights,two-family,2200.0,1694.0,1955.0,2026-06,1135000
+Queens,Queens Village,one-family,2800.0,1176.0,1925.0,2026-06,570000
+Bronx,Bedford Park/Norwood,two-family,3742.0,3496.0,1930.0,2026-06,1100000
+Staten Island,Westerleigh,one-family,1350.0,1060.0,1991.0,2026-06,357955
+Bronx,Kingsbridge Hts/Univ Hts,two-family,1879.0,1712.0,1901.0,2026-06,500000
+Brooklyn,Midwood,one-family,4000.0,3495.0,1925.0,2026-06,2275000
+Queens,Glendale,one-family,2812.0,1218.0,1925.0,2026-06,635000
+Brooklyn,Midwood,one-family,2000.0,1212.0,1930.0,2026-06,955000
+Queens,Springfield Gardens,two-family,1859.0,600.0,2005.0,2026-06,640000
+Bronx,Morrisania/Longwood,one-family,2632.0,1152.0,1988.0,2026-06,855330
+Queens,Far Rockaway,two-family,2977.0,2116.0,1960.0,2026-06,650000
+Queens,St. Albans,one-family,3000.0,1620.0,1925.0,2026-06,680000
+Queens,Middle Village,one-family,2000.0,1360.0,1945.0,2026-06,1058000
+Queens,Hollis,one-family,4000.0,1929.0,1915.0,2026-06,1220000
+Brooklyn,Ocean Hill,two-family,1975.0,2564.0,1997.0,2026-06,300000
+Queens,Hollis,one-family,4000.0,1325.0,1945.0,2026-06,523000
+Brooklyn,Flatbush-Central,one-family,2500.0,1728.0,1920.0,2026-06,872000
+Queens,Rosedale,one-family,4638.0,1152.0,1920.0,2026-06,799000
+Brooklyn,Bushwick,two-family,1125.0,2700.0,2004.0,2026-06,1195000
+Brooklyn,Marine Park,one-family,2000.0,1797.0,1940.0,2026-06,1025000
+Queens,Astoria,two-family,1386.0,1628.0,1945.0,2026-06,1095000
+Brooklyn,Borough Park,two-family,2705.0,1896.0,1920.0,2026-06,2167500
+Brooklyn,Flatbush-East,one-family,2000.0,1400.0,1925.0,2026-06,1340000
+Bronx,Bronxdale,one-family,2100.0,1496.0,1940.0,2026-06,720000
+Staten Island,Tottenville,one-family,2500.0,1460.0,1994.0,2026-06,732500
+Brooklyn,Flatbush-East,one-family,2000.0,2632.0,1925.0,2026-06,705000
+Brooklyn,Williamsburg-South,one-family,1250.0,4470.0,2015.0,2026-06,5695250
+Brooklyn,Bay Ridge,one-family,998.0,1330.0,1925.0,2026-06,1310000
+Brooklyn,Flatbush-East,one-family,1225.0,1080.0,1945.0,2026-06,415000
+Queens,Rosedale,two-family,3907.0,2800.0,2003.0,2026-06,999999
+Staten Island,Great Kills,one-family,2500.0,795.0,1930.0,2026-06,783000
+Queens,Glendale,two-family,2422.0,2320.0,1920.0,2026-06,1050000
+Brooklyn,Crown Heights,two-family,2000.0,3540.0,1901.0,2026-06,1100000
+Queens,Laurelton,one-family,3200.0,1368.0,1940.0,2026-06,770000
+Brooklyn,Gravesend,two-family,2400.0,2292.0,1920.0,2026-06,1460000
+Brooklyn,Bedford Stuyvesant,two-family,1558.0,2765.0,1899.0,2026-06,400000
+Brooklyn,Dyker Heights,one-family,1775.0,1170.0,1920.0,2026-06,1310000
+Brooklyn,Park Slope,one-family,1900.0,4016.0,1899.0,2026-06,9500000
+Staten Island,Princes Bay,two-family,13872.0,4560.0,1985.0,2026-06,1740000
+Queens,Springfield Gardens,two-family,3000.0,1920.0,1940.0,2026-06,905000
+Queens,Queens Village,one-family,5000.0,1089.0,1950.0,2026-06,890400
+Brooklyn,Flatbush-Central,one-family,1575.0,2132.0,1920.0,2026-06,2200000
+Staten Island,Princes Bay,two-family,2700.0,1726.0,2013.0,2026-06,905000
+Brooklyn,Flatbush-Central,two-family,5600.0,2488.0,1910.0,2026-06,1475000
+Manhattan,East Village,two-family,498.0,2560.0,1901.0,2026-06,3650000
+Staten Island,Woodrow,one-family,1900.0,1496.0,1985.0,2026-06,729999
+Queens,Glendale,two-family,1570.0,1960.0,1925.0,2026-06,825000
+Staten Island,Bulls Head,two-family,2550.0,1326.0,1981.0,2026-06,770000
+Queens,Long Island City,two-family,2500.0,4850.0,1920.0,2026-06,3950000
+Staten Island,Arden Heights,one-family,1280.0,1112.0,1970.0,2026-06,610000
+Queens,Laurelton,one-family,9000.0,1511.0,1925.0,2026-06,800000
+Queens,Ridgewood,two-family,2025.0,3300.0,1930.0,2026-06,1200000
+Staten Island,Dongan Hills-Colony,one-family,5040.0,1434.0,1965.0,2026-06,905000
+Brooklyn,Bath Beach,one-family,1648.0,928.0,1945.0,2026-06,960000
+Queens,Middle Village,one-family,1800.0,1224.0,1935.0,2026-06,775000
+Queens,St. Albans,one-family,4325.0,1230.0,1945.0,2026-06,800000
+Brooklyn,Bay Ridge,two-family,2017.0,2216.0,1940.0,2026-06,900000
+Bronx,Parkchester,two-family,2367.0,2905.0,1930.0,2026-06,1251000
+Staten Island,New Springville,two-family,3100.0,2206.0,1983.0,2026-06,853294
+Bronx,City Island,two-family,7601.0,1174.0,1900.0,2026-06,650000
+Bronx,Morris Park/Van Nest,one-family,2500.0,1122.0,1920.0,2026-06,775000
+Brooklyn,Ocean Parkway-North,two-family,2410.0,2360.0,1901.0,2026-06,1655000
+Staten Island,Westerleigh,two-family,4400.0,2160.0,1965.0,2026-06,970000
+Brooklyn,Park Slope South,two-family,1056.0,1776.0,1901.0,2026-06,2198967
+Staten Island,Great Kills,one-family,2810.0,1732.0,2022.0,2026-06,600000
+Queens,College Point,two-family,2500.0,2300.0,1920.0,2026-06,1117000
+Brooklyn,Flatbush-Central,one-family,6500.0,4228.0,1910.0,2026-06,2450000
+Queens,Flushing-North,one-family,3850.0,2097.0,1950.0,2026-06,1373000
+Brooklyn,Flatbush-East,two-family,6000.0,3110.0,1930.0,2026-06,1025000
+Queens,Jackson Heights,two-family,2142.0,1756.0,1950.0,2026-06,389500
+Brooklyn,Williamsburg-East,two-family,2000.0,1920.0,1910.0,2026-06,2150000
+Brooklyn,Crown Heights,two-family,1560.0,3135.0,1915.0,2026-06,1300000
+Queens,Richmond Hill,one-family,2300.0,1680.0,1920.0,2026-06,565000
+Staten Island,Eltingville,one-family,4000.0,1848.0,1975.0,2026-06,845000
+Queens,Middle Village,two-family,2073.0,1944.0,1960.0,2026-06,1058000
+Queens,South Ozone Park,one-family,2300.0,990.0,1920.0,2026-06,635000
+Brooklyn,Brooklyn Heights,one-family,2108.0,4000.0,1910.0,2026-06,8450000
+Queens,Floral Park,one-family,4000.0,1020.0,1950.0,2026-06,150000
+Queens,South Ozone Park,two-family,3000.0,2200.0,1950.0,2026-06,1170000
+Staten Island,Huguenot,one-family,4576.0,1820.0,1965.0,2026-06,850000
+Brooklyn,Ocean Parkway-North,one-family,2567.0,1716.0,1925.0,2026-06,1800000
+Manhattan,Harlem-Central,one-family,1998.0,4401.0,1905.0,2026-06,2225000
+Bronx,Schuylerville/Pelham Bay,two-family,2375.0,1368.0,1920.0,2026-06,805000
+Queens,Flushing-North,one-family,2100.0,1178.0,1945.0,2026-06,1145000
+Queens,Woodside,two-family,1411.0,2002.0,1930.0,2026-06,1390000
+Queens,Whitestone,one-family,7350.0,3560.0,1945.0,2026-06,600000
+Staten Island,Westerleigh,one-family,8300.0,1776.0,1970.0,2026-06,925000
+Queens,Hammels,one-family,2500.0,795.0,1915.0,2026-06,715000
+Queens,Flushing-North,one-family,3600.0,1840.0,1950.0,2026-06,1380000
+Bronx,Crotona Park,one-family,7438.0,2700.0,1985.0,2026-06,875000
+Brooklyn,Boerum Hill,two-family,1347.0,1728.0,1899.0,2026-06,2125000
+Queens,Maspeth,two-family,2500.0,2904.0,1930.0,2026-06,880000
+Bronx,City Island,two-family,2429.0,836.0,1940.0,2026-06,740000
+Brooklyn,Bay Ridge,one-family,867.0,840.0,1925.0,2026-06,900000
+Queens,Astoria,two-family,2505.0,2250.0,1930.0,2026-06,1600000
+Bronx,Pelham Parkway South,two-family,3742.0,2614.0,1950.0,2026-06,1078500
+Brooklyn,Midwood,one-family,2500.0,1580.0,1920.0,2026-06,1650000
+Staten Island,West New Brighton,two-family,3337.0,2300.0,2006.0,2026-06,810000
+Staten Island,Willowbrook,one-family,4986.0,1029.0,1962.0,2026-06,750000
+Staten Island,Westerleigh,two-family,4700.0,2396.0,1975.0,2026-06,999900
+Queens,Cambria Heights,one-family,4000.0,1106.0,1955.0,2026-06,416000
+Queens,Holliswood,one-family,6650.0,1893.0,1955.0,2026-06,1575000
+Brooklyn,Bay Ridge,one-family,2000.0,1673.0,1940.0,2026-06,950000
+Staten Island,Great Kills,one-family,500.0,1240.0,1996.0,2026-06,550000
+Queens,Richmond Hill,two-family,1690.0,2910.0,1931.0,2026-06,985000
+Staten Island,Great Kills,two-family,4760.0,1496.0,1930.0,2026-06,720000
+Queens,So. Jamaica-Baisley Park,two-family,3015.0,1593.0,2004.0,2026-06,981750
+Queens,Jackson Heights,two-family,1800.0,1866.0,1945.0,2026-06,800000
+Staten Island,Richmondtown,one-family,4292.0,1036.0,1960.0,2026-06,740000
+Bronx,Morris Park/Van Nest,two-family,5000.0,2420.0,1920.0,2026-06,1170000
+Queens,Howard Beach,two-family,2500.0,1806.0,1925.0,2026-06,340000
+Staten Island,Arden Heights,one-family,880.0,1232.0,1986.0,2026-06,580000
+Staten Island,Port Richmond,one-family,3300.0,1504.0,1915.0,2026-06,473131
+Brooklyn,Mill Basin,one-family,4567.0,1857.0,1960.0,2026-06,999999
+Brooklyn,East New York,two-family,2250.0,1384.0,1910.0,2026-06,950000
+Queens,Glendale,one-family,2300.0,1360.0,1920.0,2026-06,845000
+Queens,Queens Village,one-family,2900.0,1136.0,1925.0,2026-06,800000
+Queens,Rosedale,one-family,4000.0,728.0,1930.0,2026-06,650000
+Staten Island,Great Kills,two-family,19674.0,3191.0,2024.0,2026-06,1950000
+Bronx,Morris Park/Van Nest,one-family,2500.0,1854.0,1930.0,2026-06,810000
+Queens,Whitestone,one-family,3895.0,1050.0,1950.0,2026-06,850000
+Staten Island,Great Kills,one-family,6750.0,1200.0,1930.0,2026-06,688000
+Staten Island,Rosebank,one-family,1600.0,1000.0,1995.0,2026-06,600000
+Brooklyn,Flatbush-Central,two-family,3333.0,1875.0,1915.0,2026-06,1650000
+Bronx,Bedford Park/Norwood,two-family,2381.0,2412.0,1901.0,2026-06,1460000
+Queens,Bellerose,one-family,2156.0,1224.0,1950.0,2026-06,790000
+Brooklyn,Bath Beach,two-family,1933.0,2048.0,1935.0,2026-06,1100000
+Bronx,Country Club,one-family,2500.0,1022.0,1930.0,2026-06,600000
+Queens,St. Albans,one-family,6000.0,1754.0,1915.0,2026-06,978000
+Brooklyn,Kensington,two-family,2262.0,2320.0,1920.0,2026-06,190000
+Queens,Flushing-South,one-family,3800.0,1764.0,1945.0,2026-06,1700000
+Queens,Hammels,two-family,1306.0,624.0,1920.0,2026-06,640000
+Brooklyn,Canarsie,one-family,1950.0,1216.0,1925.0,2026-06,350000
+Staten Island,Sunnyside,two-family,5225.0,1824.0,1965.0,2026-06,1050000
+Queens,Jackson Heights,one-family,2000.0,1600.0,1935.0,2026-06,1550000
+Staten Island,Annadale,one-family,21480.0,9375.0,1988.0,2026-06,1400000
+Staten Island,Arrochar-Shore Acres,one-family,2500.0,1040.0,1910.0,2026-06,590000
+Brooklyn,Flatbush-East,two-family,1800.0,1782.0,1920.0,2026-06,780000
+Queens,Springfield Gardens,one-family,3800.0,990.0,1930.0,2026-06,600000
+Queens,Flushing-North,one-family,2525.0,1140.0,1925.0,2026-06,999888
+Brooklyn,Gravesend,one-family,2200.0,1424.0,1915.0,2026-06,650000
+Queens,Flushing-North,one-family,4000.0,1114.0,1955.0,2026-06,1150000
+Queens,Bayside,two-family,3000.0,1640.0,1920.0,2026-06,970000
+Manhattan,Greenwich Village-West,two-family,1900.0,3640.0,1899.0,2026-06,7550000
+Brooklyn,East New York,two-family,2000.0,1224.0,1899.0,2026-06,659263
+Queens,Beechhurst,one-family,4000.0,1025.0,1960.0,2026-06,1340000
+Bronx,Riverdale,one-family,4257.0,3184.0,1935.0,2026-06,617500
+Queens,So. Jamaica-Baisley Park,one-family,1900.0,1040.0,1940.0,2026-06,760000
+Brooklyn,Bensonhurst,two-family,2500.0,2440.0,1920.0,2026-06,1539800
+Queens,Bayside,two-family,6950.0,3248.0,1901.0,2026-06,1830000
+Brooklyn,Crown Heights,two-family,2000.0,3280.0,1901.0,2026-06,1377000
+Staten Island,West New Brighton,two-family,2772.0,1956.0,1925.0,2026-06,218500
+Brooklyn,Flatbush-East,two-family,1573.0,1356.0,1910.0,2026-06,750000
+Queens,Arverne,two-family,2658.0,2037.0,2025.0,2026-06,987703
+Staten Island,Bulls Head,two-family,4278.0,2544.0,1970.0,2026-06,830000
+Queens,Belle Harbor,two-family,3000.0,1598.0,1930.0,2026-06,1450000
+Queens,Flushing-North,two-family,2375.0,1648.0,1955.0,2026-06,290000
+Queens,Maspeth,two-family,2500.0,1740.0,1915.0,2026-06,675000
+Staten Island,New Brighton,two-family,4182.0,2216.0,1901.0,2026-06,750000
+Brooklyn,East New York,one-family,2000.0,1248.0,1910.0,2026-06,520000
+Brooklyn,East New York,two-family,2000.0,2112.0,1901.0,2026-06,880000
+Brooklyn,Bensonhurst,two-family,1000.0,1248.0,1920.0,2026-06,870000
+Staten Island,Rossville,two-family,3400.0,2496.0,1987.0,2026-06,938000
+Queens,Woodhaven,one-family,1815.0,1540.0,1920.0,2026-06,234000
+Staten Island,Oakwood-Beach,two-family,4200.0,1680.0,1960.0,2026-06,885000
+Queens,Ozone Park,two-family,6000.0,1664.0,1930.0,2026-06,577199
+Brooklyn,Sunset Park,two-family,2020.0,1980.0,1920.0,2026-06,1895000
+Brooklyn,Sheepshead Bay,two-family,1500.0,1600.0,1930.0,2026-06,1180000
+Queens,Flushing-South,one-family,4000.0,2763.0,1945.0,2026-06,1598000
+Queens,Far Rockaway,two-family,5525.0,2680.0,1915.0,2026-06,490000
+Queens,Glendale,two-family,1900.0,3135.0,1931.0,2026-06,1375000
+Queens,Jamaica Estates,one-family,5000.0,1909.0,1940.0,2026-06,1350000
+Queens,South Jamaica,two-family,2400.0,1836.0,1910.0,2026-06,295000
+Brooklyn,Flatbush-Lefferts Garden,two-family,2000.0,2128.0,1901.0,2026-06,1670000
+Staten Island,New Springville,two-family,6480.0,2278.0,1970.0,2026-06,870000
+Bronx,Country Club,two-family,5020.0,5291.0,1960.0,2026-06,1200000
+Brooklyn,Borough Park,two-family,2346.0,2200.0,1915.0,2026-06,999000
+Bronx,Bronxdale,one-family,2500.0,960.0,1910.0,2026-06,530000
+Queens,Flushing-South,two-family,1775.0,1224.0,1955.0,2026-06,975000
+Brooklyn,Borough Park,two-family,1903.0,1664.0,1920.0,2026-06,750000
+Queens,So. Jamaica-Baisley Park,two-family,2000.0,1413.0,1920.0,2026-06,537000
+Brooklyn,Gravesend,one-family,1700.0,1534.0,1910.0,2026-06,1080000
+Queens,Woodside,two-family,2000.0,1856.0,1925.0,2026-06,1200000
+Staten Island,Great Kills,one-family,2500.0,1676.0,2012.0,2026-06,875000
+Brooklyn,Crown Heights,two-family,2212.0,3300.0,2002.0,2026-06,1710000
+Queens,Rosedale,one-family,2800.0,1296.0,1960.0,2026-06,745000
+Brooklyn,Greenpoint,two-family,1667.0,1824.0,1901.0,2026-06,1430000
+Bronx,Bronxdale,two-family,4150.0,2548.0,2024.0,2026-06,1550000
+Brooklyn,Mill Basin,one-family,4200.0,2506.0,1960.0,2026-06,1080000
+Queens,Springfield Gardens,one-family,2450.0,1024.0,1930.0,2026-06,700000
+Staten Island,Eltingville,two-family,4000.0,2192.0,1972.0,2026-06,965000
+Queens,Middle Village,one-family,2600.0,1974.0,1931.0,2026-06,900000
+Queens,Flushing-North,one-family,1980.0,968.0,1950.0,2026-06,865000
+Queens,Douglaston,one-family,13000.0,2851.0,1901.0,2026-06,3850000
+Queens,Glendale,two-family,2000.0,1920.0,1910.0,2026-06,1273000
+Queens,Queens Village,one-family,3500.0,1616.0,1925.0,2026-06,573051
+Queens,South Jamaica,two-family,2200.0,2200.0,1954.0,2026-06,499999
+Staten Island,West New Brighton,one-family,5000.0,1575.0,1940.0,2026-06,800000
+Brooklyn,Canarsie,one-family,3640.0,1072.0,1910.0,2026-06,678400
+Queens,Bayside,one-family,2394.0,896.0,1960.0,2026-06,830000
+Bronx,Pelham Parkway North,two-family,2717.0,2452.0,2025.0,2026-06,1425550
+Queens,Flushing-North,two-family,2600.0,1720.0,1950.0,2026-06,1285000
+Brooklyn,Flatbush-East,two-family,2088.0,1600.0,1910.0,2026-06,915000
+Queens,Fresh Meadows,one-family,4000.0,1229.0,1940.0,2026-06,989000
+Queens,Ridgewood,two-family,2500.0,1650.0,1920.0,2026-06,860000
+Queens,Springfield Gardens,two-family,3000.0,1584.0,1930.0,2026-06,750000
+Bronx,Williamsbridge,one-family,2810.0,1440.0,1901.0,2026-06,621500
+Staten Island,Princes Bay,one-family,4350.0,1011.0,1920.0,2026-06,535000
+Staten Island,Grant City,one-family,2625.0,1200.0,1960.0,2026-06,625000
+Queens,Astoria,two-family,2200.0,1232.0,1935.0,2026-06,1106000
+Brooklyn,Bedford Stuyvesant,two-family,2000.0,3200.0,1899.0,2026-06,2950000
+Queens,Broad Channel,one-family,7706.0,1144.0,1930.0,2026-06,525000
+Queens,Springfield Gardens,one-family,3960.0,2250.0,1965.0,2026-06,770000
+Queens,Astoria,two-family,1440.0,1728.0,1930.0,2026-06,1377500
+Bronx,Soundview,two-family,2475.0,1680.0,1935.0,2026-06,300000
+Brooklyn,Marine Park,one-family,1800.0,1036.0,1925.0,2026-06,750000
+Queens,Holliswood,two-family,8235.0,3291.0,1965.0,2026-06,1550000
+Brooklyn,Ocean Hill,two-family,2000.0,2700.0,1899.0,2026-06,2600000
+Bronx,Bathgate,one-family,995.0,1566.0,1899.0,2026-06,670000
+Queens,Flushing-North,one-family,2200.0,880.0,1930.0,2026-06,998000
+Queens,Richmond Hill,one-family,2521.0,1024.0,1920.0,2026-06,750000
+Queens,South Ozone Park,one-family,2270.0,1264.0,1925.0,2026-06,889000
+Brooklyn,Flatbush-East,two-family,4000.0,2700.0,1960.0,2026-06,1150000
+Brooklyn,Canarsie,two-family,1992.0,2564.0,1965.0,2026-06,935000
+Bronx,Wakefield,one-family,2500.0,1216.0,1930.0,2026-06,790000
+Brooklyn,Dyker Heights,one-family,1850.0,1344.0,1925.0,2026-06,1293000
+Brooklyn,Manhattan Beach,one-family,10000.0,3511.0,1920.0,2026-06,2550000
+Staten Island,West New Brighton,two-family,7950.0,1360.0,1935.0,2026-06,270750
+Brooklyn,Ocean Hill,two-family,1667.0,1948.0,1901.0,2026-06,987000
+Queens,Far Rockaway,two-family,1530.0,2204.0,2007.0,2026-06,700000
+Queens,Springfield Gardens,one-family,4446.0,1086.0,1930.0,2026-06,560000
+Brooklyn,Brownsville,one-family,1800.0,1116.0,1990.0,2026-06,602000
+Brooklyn,Bedford Stuyvesant,two-family,2000.0,3360.0,1899.0,2026-06,2630000
+Queens,South Ozone Park,one-family,2400.0,1328.0,1925.0,2026-06,680000
+Brooklyn,Borough Park,two-family,2346.0,2200.0,1915.0,2026-06,2500000
+Brooklyn,Gravesend,one-family,2700.0,1486.0,1920.0,2026-06,1220000
+Brooklyn,Flatbush-Central,two-family,2000.0,2080.0,1901.0,2026-06,995000
+Queens,Richmond Hill,two-family,2500.0,1344.0,1925.0,2026-06,550000
+Queens,South Jamaica,one-family,2700.0,963.0,1920.0,2026-06,498750
+Queens,Hollis Hills,one-family,4336.0,2244.0,2005.0,2026-06,1400000
+Queens,Little Neck,one-family,4000.0,1245.0,1915.0,2026-06,1366000
+Queens,Maspeth,one-family,5000.0,1036.0,1940.0,2026-06,990000
+Staten Island,Eltingville,one-family,8000.0,1196.0,1965.0,2026-06,375000
+Bronx,Wakefield,two-family,1935.0,1932.0,1955.0,2026-06,681250
+Queens,Bayside,one-family,1800.0,1152.0,1955.0,2026-06,800000
+Queens,Cambria Heights,one-family,2542.0,1280.0,1940.0,2026-06,261250
+Queens,College Point,two-family,2500.0,3936.0,1910.0,2026-06,983850
+Brooklyn,Borough Park,two-family,2003.0,2224.0,1910.0,2026-06,1400000
+Brooklyn,Canarsie,two-family,3803.0,3400.0,2003.0,2026-06,1100000
+Brooklyn,Gravesend,two-family,1820.0,2400.0,1920.0,2026-06,980000
+Queens,Forest Hills,two-family,2500.0,1700.0,1945.0,2026-06,1225000
+Brooklyn,Bath Beach,one-family,1764.0,992.0,1950.0,2026-06,980000
+Queens,Glendale,two-family,2025.0,1330.0,1925.0,2026-06,855000
+Queens,Maspeth,two-family,2060.0,1990.0,1940.0,2026-06,998500
+Queens,Glendale,one-family,2500.0,1640.0,1920.0,2026-06,770000
+Bronx,Soundview,two-family,2500.0,2720.0,1930.0,2026-06,1265000
+Bronx,Wakefield,one-family,2050.0,1597.0,1930.0,2026-06,742000
+Staten Island,Clove Lakes,two-family,6650.0,3164.0,1983.0,2026-06,250000
+Staten Island,Oakwood,one-family,6000.0,1000.0,1935.0,2026-06,300000
+Queens,Bellerose,one-family,3000.0,1456.0,1925.0,2026-06,760000
+Staten Island,Huguenot,two-family,4000.0,2000.0,1965.0,2026-06,1175000
+Queens,Richmond Hill,one-family,4037.0,1755.0,1910.0,2026-06,895000
+Queens,Forest Hills,one-family,1380.0,1200.0,1940.0,2026-06,848000
+Staten Island,West New Brighton,one-family,2110.0,1200.0,2001.0,2026-06,421200
+Staten Island,Arden Heights,one-family,2500.0,1232.0,2000.0,2026-06,863000
+Bronx,Soundview,two-family,1250.0,4860.0,1920.0,2026-06,835000
+Brooklyn,Madison,two-family,2000.0,1472.0,1930.0,2026-06,995000
+Queens,South Jamaica,two-family,2850.0,2040.0,1925.0,2026-06,990000
+Queens,Hollis Hills,one-family,4500.0,1870.0,1940.0,2026-06,1375000
+Queens,Whitestone,one-family,7607.0,2660.0,1925.0,2026-06,1649000
+Brooklyn,East New York,one-family,1620.0,1132.0,1991.0,2026-06,448100
+Brooklyn,Crown Heights,two-family,2555.0,1845.0,1910.0,2026-06,1145000
+Bronx,Baychester,two-family,2100.0,2876.0,1965.0,2026-06,415000
+Brooklyn,Sunset Park,two-family,2003.0,1968.0,1905.0,2026-06,1600000
+Brooklyn,East New York,two-family,2000.0,1530.0,1920.0,2026-06,775000
+Bronx,East Tremont,two-family,3241.0,2078.0,1901.0,2026-06,591000
+Staten Island,Rossville-Charleston,one-family,1860.0,2365.0,2007.0,2026-06,875000
+Staten Island,Pleasant Plains,one-family,1633.0,1220.0,2003.0,2026-06,725000
+Brooklyn,Marine Park,one-family,4000.0,768.0,1925.0,2026-06,880000
+Bronx,Morris Park/Van Nest,two-family,2600.0,1552.0,1925.0,2026-06,1080000
+Queens,Hollis,two-family,1664.0,2160.0,1945.0,2026-06,582439
+Bronx,Pelham Parkway North,two-family,2790.0,2288.0,2025.0,2026-06,1425550
+Queens,St. Albans,one-family,3000.0,1188.0,1920.0,2026-06,836000
+Staten Island,Rosebank,two-family,5000.0,1601.0,1925.0,2026-06,1100000
+Brooklyn,Sheepshead Bay,two-family,2450.0,2160.0,1935.0,2026-06,300000
+Queens,Ridgewood,two-family,2250.0,1700.0,1920.0,2026-06,900000
+Staten Island,Annadale,two-family,16800.0,7242.0,1986.0,2026-06,1925000
+Queens,Cambria Heights,one-family,3842.0,1268.0,1945.0,2026-06,800000
+Staten Island,Silver Lake,one-family,4700.0,1568.0,1960.0,2026-06,894342
+Bronx,Throgs Neck,one-family,2331.0,1224.0,1960.0,2026-06,725000
+Queens,Astoria,two-family,2521.0,2116.0,1930.0,2026-06,1400000
+Queens,Astoria,two-family,2000.0,2052.0,1930.0,2026-06,1220000
+Brooklyn,Flatbush-Lefferts Garden,two-family,2000.0,2176.0,1910.0,2026-06,1620000
+Queens,Flushing-North,one-family,3232.0,1404.0,1925.0,2026-06,1180000
+Brooklyn,East New York,two-family,3000.0,1936.0,1960.0,2026-06,760000
+Brooklyn,Canarsie,two-family,2000.0,1560.0,1960.0,2026-06,860000
+Queens,Astoria,two-family,2000.0,1634.0,1925.0,2026-06,1510000
+Brooklyn,Carroll Gardens,one-family,950.0,2040.0,1901.0,2026-06,3800000
+Queens,St. Albans,one-family,5130.0,2239.0,1930.0,2026-06,955000
+Staten Island,West New Brighton,one-family,2220.0,1310.0,2003.0,2026-06,475000
+Staten Island,Castleton Corners,two-family,4275.0,2280.0,1920.0,2026-06,675000
+Queens,Flushing-North,one-family,6000.0,2375.0,1935.0,2026-06,1360000
+Bronx,Baychester,one-family,2500.0,1512.0,1931.0,2026-06,830000
+Staten Island,Midland Beach,one-family,1934.0,1838.0,2024.0,2026-06,801463
+Queens,Beechhurst,one-family,2847.0,2224.0,1975.0,2026-06,1350000
+Queens,Middle Village,one-family,1800.0,1440.0,1940.0,2026-06,400000
+Bronx,Pelham Parkway North,two-family,2125.0,1622.0,1950.0,2026-06,500000
+Queens,Bayside,two-family,5385.0,3198.0,1930.0,2026-06,1830000
+Brooklyn,Gravesend,two-family,1900.0,1980.0,1955.0,2026-06,1350000
+Brooklyn,Kensington,one-family,2100.0,1436.0,1920.0,2026-06,1773000
+Brooklyn,Clinton Hill,one-family,2500.0,2736.0,1899.0,2026-06,3800000
+Queens,So. Jamaica-Baisley Park,two-family,4000.0,1596.0,1950.0,2026-06,765106
+Brooklyn,Bensonhurst,two-family,2600.0,1925.0,1920.0,2026-06,1410000
+Queens,Bellerose,one-family,1800.0,1188.0,1950.0,2026-06,300000
+Brooklyn,Madison,one-family,1850.0,1152.0,1945.0,2026-06,735000
+Queens,Richmond Hill,two-family,1243.0,2466.0,2005.0,2026-06,923000
+Queens,St. Albans,one-family,4000.0,1790.0,1920.0,2026-06,830000
+Manhattan,Upper East Side (59-79),one-family,586.0,6312.0,1910.0,2026-06,3995000
+Brooklyn,Borough Park,two-family,2500.0,2640.0,1930.0,2026-06,1930000
+Queens,Flushing-North,two-family,4000.0,2700.0,1965.0,2026-06,2190000
+Bronx,Pelham Parkway North,one-family,1800.0,1692.0,1965.0,2026-06,660000
+Staten Island,Richmondtown,one-family,2975.0,1360.0,1965.0,2026-06,680000
+Queens,St. Albans,one-family,4253.0,2263.0,1925.0,2026-06,697000
+Staten Island,Annadale,one-family,10000.0,968.0,1955.0,2026-06,200000
+Brooklyn,Park Slope,one-family,1900.0,2610.0,1899.0,2026-06,5950000
+Brooklyn,Sunset Park,two-family,1953.0,2637.0,1901.0,2026-06,1710000
+Queens,Richmond Hill,one-family,2521.0,1617.0,1920.0,2026-06,915000
+Bronx,Schuylerville/Pelham Bay,two-family,2375.0,1960.0,1925.0,2026-06,638500
+Queens,Glendale,one-family,3000.0,1400.0,1925.0,2026-06,1169000
+Staten Island,Great Kills,two-family,2583.0,2408.0,1985.0,2026-06,920000
+Brooklyn,Canarsie,one-family,2000.0,1000.0,1930.0,2026-06,775000
+Bronx,Woodlawn,two-family,1792.0,1589.0,1955.0,2026-06,590000
+Queens,Queens Village,one-family,3200.0,1240.0,1925.0,2026-06,780000
+Staten Island,New Dorp,one-family,6000.0,1360.0,1945.0,2026-06,860000
+Brooklyn,Borough Park,two-family,2604.0,2360.0,1925.0,2026-06,2584000
+Queens,Woodside,one-family,3135.0,1080.0,1930.0,2026-06,853000
+Queens,Springfield Gardens,one-family,1900.0,1135.0,2025.0,2026-06,740000
+Bronx,Throgs Neck,two-family,2443.0,1600.0,1920.0,2026-06,833000
+Brooklyn,Marine Park,one-family,2150.0,1700.0,1935.0,2026-06,1136800
+Queens,Springfield Gardens,one-family,4256.0,864.0,1930.0,2026-06,865000
+Staten Island,Eltingville,one-family,3650.0,1632.0,1980.0,2026-06,825000
+Staten Island,Rossville,one-family,871.0,1000.0,1992.0,2026-06,571500
+Queens,Cambria Heights,one-family,4000.0,1584.0,1940.0,2026-06,780000
+Queens,Sunnyside,one-family,1189.0,952.0,1930.0,2026-06,1085000
+Queens,Flushing-South,one-family,5800.0,949.0,1945.0,2026-06,930000
+Brooklyn,Bay Ridge,two-family,2483.0,2280.0,1925.0,2026-06,1560000
+Brooklyn,Brownsville,one-family,1960.0,1116.0,1986.0,2026-06,725000
+Queens,Belle Harbor,two-family,3000.0,1989.0,1940.0,2026-06,900000
+Bronx,Throgs Neck,two-family,2500.0,2040.0,1928.0,2026-06,930000
+Staten Island,Huguenot,one-family,4000.0,1975.0,1973.0,2026-06,920000
+Queens,Arverne,two-family,2658.0,2037.0,2025.0,2026-06,956137
+Bronx,Williamsbridge,two-family,3154.0,2425.0,1935.0,2026-06,850000
+Brooklyn,Flatbush-Central,two-family,2500.0,2072.0,1920.0,2026-06,900000
+Staten Island,Westerleigh,two-family,4000.0,2994.0,2025.0,2026-06,1506909
+Queens,Middle Village,one-family,2698.0,1188.0,1925.0,2026-06,988000
+Brooklyn,Wyckoff Heights,two-family,2000.0,3300.0,1901.0,2026-06,2156000
+Queens,Ozone Park,two-family,2500.0,1926.0,1920.0,2026-06,945000
+Bronx,Schuylerville/Pelham Bay,two-family,2700.0,1840.0,1920.0,2026-06,475000
+Brooklyn,Park Slope South,one-family,1500.0,936.0,1899.0,2026-06,3395000
+Staten Island,Bulls Head,one-family,3990.0,2760.0,1970.0,2026-06,500000
+Brooklyn,Bedford Stuyvesant,two-family,1933.0,2088.0,1910.0,2026-06,1600000
+Bronx,Baychester,two-family,1810.0,1920.0,1955.0,2026-06,550000
+Brooklyn,Dyker Heights,two-family,2425.0,1600.0,1925.0,2026-06,1200000
+Queens,Woodhaven,two-family,4000.0,2002.0,1901.0,2026-06,1568105
+Queens,Queens Village,one-family,5160.0,1450.0,1930.0,2026-06,880000
+Queens,Floral Park,one-family,4000.0,1728.0,1955.0,2026-06,765000
+Queens,Glendale,one-family,2500.0,1548.0,1925.0,2026-06,1050000
+Queens,Rego Park,one-family,1584.0,1152.0,1945.0,2026-06,802500
+Staten Island,Great Kills,one-family,2121.0,1092.0,1979.0,2026-06,722150
+Staten Island,Manor Heights,two-family,5000.0,2280.0,1970.0,2026-06,1100000
+Queens,Middle Village,two-family,2520.0,2475.0,1940.0,2026-06,1450000
+Queens,Flushing-North,two-family,3700.0,3872.0,2006.0,2026-06,1750000
+Queens,Rosedale,two-family,4000.0,2399.0,1940.0,2026-06,1364000
+Brooklyn,Marine Park,one-family,1800.0,1064.0,1925.0,2026-06,760000
+Queens,College Point,one-family,3990.0,2200.0,2022.0,2026-06,1781938
+Bronx,Castle Hill/Unionport,two-family,2575.0,2891.0,1930.0,2026-06,700000
+Queens,Howard Beach,one-family,3000.0,1480.0,1930.0,2026-06,765000
+Brooklyn,Dyker Heights,two-family,2000.0,2400.0,1931.0,2026-06,8000000
+Queens,Flushing-North,two-family,3897.0,1728.0,1940.0,2026-06,1305000
+Queens,Maspeth,one-family,2201.0,1152.0,1930.0,2026-06,785000
+Queens,Jamaica Estates,one-family,5590.0,2428.0,1940.0,2026-06,1430000
+Staten Island,Bulls Head,two-family,3250.0,1624.0,1983.0,2026-06,805000
+Brooklyn,Canarsie,one-family,1600.0,1120.0,1955.0,2026-06,685000
+Queens,Fresh Meadows,one-family,4000.0,1269.0,1945.0,2026-06,990000
+Bronx,Baychester,two-family,1900.0,1615.0,1940.0,2026-06,619940
+Queens,Flushing-North,one-family,4000.0,945.0,1950.0,2026-06,1030000
+Queens,Broad Channel,one-family,6496.0,2800.0,1930.0,2026-06,990000
+Queens,Richmond Hill,two-family,1700.0,1944.0,1920.0,2026-06,1100000
+Brooklyn,Bay Ridge,one-family,2000.0,1828.0,1925.0,2026-06,1499000
+Staten Island,Bulls Head,two-family,2550.0,1656.0,1975.0,2026-06,815000
+Brooklyn,Ocean Hill,two-family,1700.0,2040.0,1910.0,2026-06,2175000
+Queens,Middle Village,two-family,1602.0,1944.0,1960.0,2026-06,1050000
+Staten Island,Midland Beach,one-family,1980.0,1860.0,2024.0,2026-06,804418
+Brooklyn,Ocean Parkway-North,one-family,2340.0,1710.0,1925.0,2026-06,2437500
+Queens,Flushing-North,one-family,2100.0,1662.0,1945.0,2026-06,1260000
+Queens,Far Rockaway,one-family,9038.0,1303.0,1950.0,2026-06,486444
+Bronx,Morrisania/Longwood,one-family,2000.0,1266.0,1992.0,2026-06,490000
+Queens,South Jamaica,two-family,2870.0,1750.0,1970.0,2026-06,1200000
+Staten Island,Woodrow,two-family,5035.0,2402.0,2018.0,2026-06,980000
+Brooklyn,Bath Beach,one-family,1760.0,992.0,1950.0,2026-06,995000
+Staten Island,Great Kills,one-family,4085.0,2472.0,1970.0,2026-06,785000
+Bronx,Bathgate,one-family,2943.0,2128.0,1920.0,2026-06,1200000
+Staten Island,Huguenot,one-family,4475.0,2042.0,1970.0,2026-06,785000
+Queens,Flushing-South,one-family,4085.0,1372.0,1950.0,2026-06,1200000
+Queens,So. Jamaica-Baisley Park,one-family,1358.0,934.0,1920.0,2026-06,691600
+Queens,South Ozone Park,two-family,2390.0,1316.0,1935.0,2026-06,335500
+Queens,Far Rockaway,one-family,13630.0,2420.0,1930.0,2026-06,3300000
+Brooklyn,Brooklyn Heights,one-family,2492.0,6625.0,1856.0,2026-06,24500000
+Brooklyn,Park Slope,one-family,1700.0,2559.0,1899.0,2026-06,4400000
+Queens,Middle Village,two-family,1850.0,1694.0,1945.0,2026-06,625000
+Queens,Rego Park,two-family,3788.0,2072.0,1951.0,2026-06,1420000
+Staten Island,Dongan Hills-Colony,one-family,12133.0,3494.0,1999.0,2026-06,2000000
+Queens,Flushing-South,two-family,4000.0,2004.0,1995.0,2026-06,1310000
+Queens,East Elmhurst,one-family,1754.0,1890.0,1930.0,2026-06,990000
+Bronx,Woodlawn,one-family,2700.0,1278.0,1925.0,2026-06,500000
+Bronx,Bronxdale,two-family,4176.0,1805.0,1925.0,2026-06,332000
+Brooklyn,Borough Park,two-family,4000.0,2038.0,1910.0,2026-06,2200000
+Brooklyn,Midwood,one-family,6000.0,2796.0,1930.0,2026-06,2250000
+Queens,Hollis,one-family,2470.0,1622.0,1925.0,2026-06,970000
+Staten Island,Todt Hill,one-family,6256.0,1914.0,1970.0,2026-06,1268000
+Staten Island,Todt Hill,one-family,10000.0,2616.0,1970.0,2026-06,1200000
+Queens,Jamaica Estates,one-family,5057.0,1276.0,1940.0,2026-06,1330000
+Brooklyn,Dyker Heights,two-family,2350.0,3135.0,1925.0,2026-06,1600000
+Queens,Elmhurst,one-family,2506.0,2035.0,1930.0,2026-06,1110000
+Staten Island,Willowbrook,two-family,3633.0,1568.0,1970.0,2026-06,755000
+Queens,Flushing-North,one-family,2760.0,1125.0,1945.0,2026-06,1200000
+Queens,Ozone Park,two-family,2325.0,1264.0,1925.0,2026-06,820000
+Bronx,Melrose/Concourse,one-family,1718.0,2250.0,1901.0,2026-06,830000
+Staten Island,Annadale,two-family,4950.0,2288.0,1965.0,2026-06,980000
+Queens,South Ozone Park,one-family,2500.0,1264.0,1930.0,2026-06,900000
+Queens,Laurelton,two-family,2500.0,1530.0,2004.0,2026-06,830000
+Queens,Richmond Hill,one-family,2375.0,1312.0,1920.0,2026-06,789000
+Queens,St. Albans,one-family,6773.0,3670.0,1920.0,2026-06,1645000
+Brooklyn,Flatbush-North,two-family,2500.0,2560.0,1935.0,2026-06,850000
+Brooklyn,Ocean Parkway-North,two-family,2000.0,1976.0,1910.0,2026-06,1725000
+Staten Island,New Springville,one-family,3040.0,1760.0,1970.0,2026-06,795000
+Brooklyn,Borough Park,two-family,2705.0,2856.0,1920.0,2026-06,2420000
+Queens,Hollis,two-family,3700.0,1379.0,1940.0,2026-06,905000
+Brooklyn,Windsor Terrace,two-family,2074.0,2783.0,1901.0,2026-06,3350000
+Queens,Arverne,two-family,3470.0,2080.0,1965.0,2026-06,713000
+Queens,Oakland Gardens,one-family,5000.0,1675.0,1960.0,2026-06,1300000
+Staten Island,Rosebank,two-family,2700.0,2016.0,2025.0,2026-06,992794
+Queens,Middle Village,one-family,2571.0,1152.0,1930.0,2026-06,850000
+Brooklyn,Ocean Parkway-North,one-family,3000.0,1724.0,1925.0,2026-06,2400000
+Staten Island,Midland Beach,one-family,1050.0,1480.0,1989.0,2026-06,575000
+Queens,Flushing-North,one-family,3994.0,1306.0,1940.0,2026-06,1200000
+Staten Island,Oakwood,one-family,5820.0,1340.0,1925.0,2026-06,740000
+Brooklyn,Canarsie,one-family,2500.0,1848.0,1945.0,2026-06,735000
+Bronx,Bronxdale,one-family,5000.0,1653.0,1910.0,2026-06,530000
+Brooklyn,Park Slope,two-family,1900.0,4120.0,1899.0,2026-06,6500000
+Brooklyn,Flatbush-East,two-family,1900.0,1216.0,1930.0,2026-06,785000
+Queens,Astoria,two-family,1602.0,1572.0,1945.0,2026-06,1125000
+Queens,St. Albans,two-family,3000.0,1580.0,1930.0,2026-06,305130
+Staten Island,Castleton Corners,one-family,5283.0,2525.0,2015.0,2026-06,1420000
+Staten Island,Westerleigh,one-family,4000.0,2140.0,1965.0,2026-06,905000
+Bronx,Bedford Park/Norwood,one-family,1650.0,1040.0,1901.0,2026-06,699370
+Brooklyn,Ocean Parkway-North,two-family,4400.0,3151.0,1920.0,2026-06,2700000
+Queens,East Elmhurst,two-family,2070.0,2556.0,1926.0,2026-06,1200000
+Brooklyn,Marine Park,one-family,2000.0,1805.0,1930.0,2026-06,700000
+Bronx,Throgs Neck,one-family,2300.0,1636.0,1955.0,2026-06,525000
+Brooklyn,Cypress Hills,one-family,900.0,1522.0,1905.0,2026-06,455000
+Brooklyn,Ocean Parkway-North,one-family,2150.0,2207.0,1930.0,2026-06,2325000
+Brooklyn,Dyker Heights,two-family,2000.0,3210.0,1899.0,2026-06,865000
+Brooklyn,Madison,one-family,2600.0,1256.0,1915.0,2026-06,840000
+Staten Island,Rossville-Charleston,one-family,1600.0,1789.0,2001.0,2026-06,720000
+Queens,Belle Harbor,two-family,3200.0,3036.0,1960.0,2026-06,850000
+Queens,Long Island City,two-family,2521.0,1540.0,1920.0,2026-06,800000
+Queens,South Jamaica,two-family,2248.0,2124.0,1931.0,2026-06,1825002
+Queens,Flushing-North,one-family,1925.0,1224.0,1945.0,2026-06,880000
+Bronx,Baychester,one-family,1600.0,960.0,1950.0,2026-06,545000
+Staten Island,Tottenville,two-family,9576.0,4512.0,1940.0,2026-06,1599999
+Manhattan,Harlem-Central,one-family,1898.0,2964.0,1920.0,2026-06,2800000
+Queens,Flushing-North,one-family,4000.0,836.0,1940.0,2026-06,999000
+Queens,Rosedale,two-family,4003.0,3036.0,1940.0,2026-06,1550000
+Staten Island,Great Kills,two-family,3710.0,2215.0,2024.0,2026-06,1293178
+Brooklyn,Madison,two-family,4000.0,2856.0,1920.0,2026-06,2420000
+Staten Island,Port Richmond,one-family,6400.0,1196.0,1935.0,2026-06,615000
+Staten Island,Grymes Hill,one-family,4490.0,1040.0,1915.0,2026-06,275000
+Brooklyn,Ocean Parkway-North,one-family,2210.0,1120.0,1920.0,2026-06,1500000
+Queens,Howard Beach,two-family,6000.0,1623.0,1945.0,2026-06,975000
+Brooklyn,Ocean Parkway-North,two-family,5000.0,3144.0,1930.0,2026-06,2300000
+Queens,Bayside,one-family,4000.0,1180.0,1955.0,2026-06,1045000
+Brooklyn,Manhattan Beach,two-family,4000.0,2553.0,1930.0,2026-06,2105000
+Queens,Astoria,one-family,2826.0,1168.0,1940.0,2026-06,1150000
+Queens,Astoria,two-family,4000.0,2300.0,1925.0,2026-06,700000
+Bronx,Bronxdale,two-family,1425.0,1350.0,1915.0,2026-06,575000
+Staten Island,Livingston,one-family,5600.0,1925.0,1960.0,2026-06,880000
+Bronx,Williamsbridge,two-family,3375.0,1953.0,1945.0,2026-06,521000
+Queens,Bellerose,two-family,1900.0,1280.0,1930.0,2026-06,750000
+Staten Island,Woodrow,one-family,3500.0,2166.0,1985.0,2026-06,999000
+Bronx,Morrisania/Longwood,two-family,2220.0,2340.0,1990.0,2026-06,339388
+Queens,Flushing-North,one-family,4200.0,1092.0,1950.0,2026-06,875000
+Queens,Flushing-South,one-family,2000.0,1440.0,1950.0,2026-06,960000
+Bronx,Williamsbridge,one-family,1800.0,1485.0,1955.0,2026-06,510000
+Bronx,City Island,one-family,2513.0,1782.0,1965.0,2026-06,727000
+Staten Island,Richmondtown,one-family,3822.0,1248.0,1970.0,2026-06,575000
+Bronx,Bronxdale,two-family,1273.0,1885.0,1950.0,2026-06,725000
+Queens,Laurelton,one-family,2500.0,1152.0,1930.0,2026-06,410000
+Queens,Ridgewood,two-family,1858.0,2160.0,1910.0,2026-06,2225000
+Queens,Corona,one-family,2070.0,1756.0,1950.0,2026-07,945000
+Queens,Elmhurst,two-family,2500.0,2541.0,1920.0,2026-07,800000
+Brooklyn,Sheepshead Bay,one-family,2200.0,1692.0,1930.0,2026-07,868000
+Queens,Bayside,one-family,5983.0,1980.0,1965.0,2026-07,1438800
+Staten Island,Westerleigh,one-family,1500.0,1200.0,1992.0,2026-07,575000
+Staten Island,Tottenville,two-family,3600.0,2811.0,2005.0,2026-07,1140000
+Staten Island,Willowbrook,one-family,1380.0,2200.0,1999.0,2026-07,716000
+Brooklyn,Bay Ridge,two-family,2085.0,4543.0,1929.0,2026-07,4000000
+Bronx,Baychester,two-family,3063.0,2200.0,1996.0,2026-07,840000
+Staten Island,Tottenville,two-family,9790.0,2160.0,1988.0,2026-07,1325000
+Staten Island,Port Richmond,one-family,2727.0,1248.0,1899.0,2026-07,540000
+Queens,Jackson Heights,two-family,2500.0,2352.0,1930.0,2026-07,1680000
+Bronx,Morris Park/Van Nest,two-family,2450.0,1782.0,1920.0,2026-07,910000
+Brooklyn,East New York,two-family,3400.0,1716.0,1970.0,2026-07,650000
+Brooklyn,Borough Park,two-family,2037.0,2280.0,1910.0,2026-07,1950000
+Brooklyn,Midwood,two-family,3750.0,2471.0,1910.0,2026-07,1330000
+Queens,Flushing-North,one-family,3483.0,1272.0,1950.0,2026-07,1130000
+Brooklyn,Bergen Beach,one-family,1800.0,1584.0,1960.0,2026-07,775000
+Queens,St. Albans,two-family,3000.0,1840.0,1920.0,2026-07,970000
+Queens,Little Neck,one-family,4000.0,1340.0,1935.0,2026-07,998000
+Queens,Maspeth,one-family,2000.0,1408.0,1920.0,2026-07,839000
+Queens,South Ozone Park,two-family,3000.0,1652.0,1925.0,2026-07,999999
+Bronx,Pelham Parkway South,two-family,5000.0,1794.0,1940.0,2026-07,995000
+Brooklyn,Sheepshead Bay,one-family,1800.0,1863.0,1950.0,2026-07,800000
+Brooklyn,Gerritsen Beach,one-family,1800.0,676.0,1930.0,2026-07,272700
+Brooklyn,Canarsie,one-family,2808.0,1320.0,1955.0,2026-07,750000
+Brooklyn,Bedford Stuyvesant,two-family,1825.0,2920.0,1899.0,2026-07,1615000
+Brooklyn,Downtown-Fulton Mall,one-family,1590.0,3836.0,2005.0,2026-07,4700000
+Queens,Kew Gardens,one-family,2500.0,1816.0,1930.0,2026-07,1099000
+Staten Island,Richmondtown,one-family,3865.0,1352.0,1970.0,2026-07,1075000
+Queens,Ozone Park,two-family,3500.0,2440.0,1930.0,2026-07,1125000
+Queens,Flushing-South,one-family,1800.0,1224.0,1950.0,2026-07,875000
+Bronx,Throgs Neck,two-family,2142.0,1646.0,1950.0,2026-07,795000
+Brooklyn,Williamsburg-North,two-family,1080.0,2700.0,1920.0,2026-07,550000
+Bronx,Schuylerville/Pelham Bay,two-family,5000.0,1880.0,1920.0,2026-07,1100000
+Brooklyn,East New York,one-family,3400.0,1400.0,1950.0,2026-07,930000
+Brooklyn,Old Mill Basin,two-family,2000.0,1410.0,1940.0,2026-07,765000
+Brooklyn,Old Mill Basin,one-family,1800.0,952.0,1925.0,2026-07,710000
+Staten Island,Great Kills,two-family,3633.0,1528.0,1970.0,2026-07,820000
+Queens,Elmhurst,one-family,2000.0,1008.0,1920.0,2026-07,980000
+Bronx,Parkchester,two-family,2550.0,1616.0,2018.0,2026-07,240000
+Queens,College Point,one-family,1610.0,1078.0,1925.0,2026-07,720000
+Queens,Corona,two-family,5000.0,2888.0,1920.0,2026-07,1560000
+Queens,Floral Park,one-family,4000.0,1519.0,1950.0,2026-07,980000
+Queens,So. Jamaica-Baisley Park,one-family,1358.0,736.0,1920.0,2026-07,510000
+Queens,Hollis,one-family,2200.0,1476.0,1940.0,2026-07,830000
+Queens,College Point,one-family,3108.0,1300.0,1950.0,2026-07,980000
+Brooklyn,Bensonhurst,two-family,2400.0,1678.0,1925.0,2026-07,1400000
+Queens,Rosedale,one-family,4000.0,1150.0,1955.0,2026-07,790000
+Brooklyn,Flatbush-East,two-family,2000.0,2625.0,1960.0,2026-07,740000
+Queens,Hollis,two-family,1540.0,2320.0,1920.0,2026-07,930000
+Staten Island,Rossville,two-family,4230.0,2500.0,1986.0,2026-07,985000
+Bronx,Williamsbridge,two-family,2885.0,2412.0,1925.0,2026-07,600000
+Queens,South Ozone Park,one-family,4000.0,813.0,1925.0,2026-07,890000
+Brooklyn,Flatbush-East,one-family,2000.0,1261.0,1935.0,2026-07,999000
+Queens,Flushing-South,two-family,2227.0,2541.0,1950.0,2026-07,1180000
+Brooklyn,Brownsville,two-family,2500.0,2160.0,1930.0,2026-07,629939
+Queens,Queens Village,one-family,3456.0,1480.0,1920.0,2026-07,910000
+Staten Island,Castleton Corners,one-family,5700.0,1664.0,1950.0,2026-07,865000
+Manhattan,Gramercy,one-family,1500.0,4200.0,1940.0,2026-07,8875000
+Bronx,Woodlawn,two-family,5100.0,3026.0,1910.0,2026-07,1400000
+Queens,Rosedale,two-family,3279.0,2000.0,1999.0,2026-07,700000
+Staten Island,Richmondtown,one-family,4239.0,2425.0,1975.0,2026-07,1105000
+Brooklyn,Bensonhurst,two-family,2700.0,2898.0,1930.0,2026-07,1485000
+Bronx,Morrisania/Longwood,two-family,1615.0,1712.0,1901.0,2026-07,700000
+Queens,Hillcrest,one-family,2300.0,1252.0,1940.0,2026-07,880000
+Brooklyn,Borough Park,one-family,1750.0,1589.0,1930.0,2026-07,1360000
+Brooklyn,Ocean Parkway-South,one-family,4000.0,5290.0,1999.0,2026-07,6800000
+Queens,Springfield Gardens,one-family,2000.0,1600.0,1940.0,2026-07,730000
+Queens,So. Jamaica-Baisley Park,one-family,2500.0,1216.0,1925.0,2026-07,745000
+Brooklyn,Bay Ridge,one-family,3500.0,3420.0,1940.0,2026-07,3675000
+Brooklyn,Sunset Park,two-family,2003.0,1840.0,1920.0,2026-07,637000
+Queens,Ozone Park,one-family,3100.0,1464.0,1930.0,2026-07,750000
+Brooklyn,Midwood,two-family,1600.0,3800.0,1931.0,2026-07,2200000
+Brooklyn,Flatlands,one-family,1800.0,2008.0,1930.0,2026-07,889000
+Queens,Douglaston,one-family,8805.0,1379.0,1950.0,2026-07,1300000
+Brooklyn,Sheepshead Bay,two-family,2500.0,2000.0,1935.0,2026-07,1200000
+Queens,Richmond Hill,two-family,4360.0,2413.0,1950.0,2026-07,850000
+Bronx,Soundview,two-family,1725.0,2400.0,2014.0,2026-07,860000
+Queens,Little Neck,one-family,4100.0,1144.0,1955.0,2026-07,1280000
+Brooklyn,Borough Park,one-family,2504.0,1394.0,1920.0,2026-07,2500000
+Queens,Richmond Hill,two-family,2667.0,2224.0,1910.0,2026-07,1250000
+Bronx,Throgs Neck,one-family,1476.0,1728.0,1950.0,2026-07,630000
+Manhattan,Harlem-Central,two-family,1600.0,3700.0,1899.0,2026-07,1750000
+Queens,Springfield Gardens,one-family,3828.0,1338.0,1930.0,2026-07,565000
+Queens,Middle Village,two-family,2000.0,1840.0,1960.0,2026-07,1065000
+Staten Island,Grant City,one-family,5440.0,968.0,1945.0,2026-07,700000
+Queens,College Point,two-family,2000.0,2700.0,1920.0,2026-07,316118
+Brooklyn,Flatlands,two-family,2500.0,2400.0,1935.0,2026-07,856800
+Queens,Queens Village,one-family,4000.0,1481.0,1930.0,2026-07,300000
+Staten Island,Westerleigh,one-family,6250.0,2544.0,1965.0,2026-07,600000
+Queens,St. Albans,two-family,2000.0,1200.0,1945.0,2026-07,935000
+Staten Island,Great Kills,one-family,2850.0,1152.0,1970.0,2026-07,772650
+Queens,Bayside,one-family,4100.0,1856.0,1960.0,2026-07,1360000
+Brooklyn,Flatbush-East,one-family,2250.0,2516.0,1925.0,2026-07,1160000
+Queens,South Ozone Park,two-family,2100.0,1392.0,1920.0,2026-07,700000
+Queens,Bellerose,one-family,4000.0,1182.0,1945.0,2026-07,899000
+Bronx,Baychester,two-family,1805.0,2474.0,1950.0,2026-07,745000
+Queens,Queens Village,one-family,3442.0,1144.0,1935.0,2026-07,675000
+Bronx,Throgs Neck,one-family,2440.0,1398.0,1927.0,2026-07,450000
+Staten Island,New Brighton,one-family,2500.0,1096.0,1901.0,2026-07,303000
+Brooklyn,Bensonhurst,two-family,2500.0,2520.0,1920.0,2026-07,988000
+Queens,Richmond Hill,one-family,3000.0,1854.0,1925.0,2026-07,505876
+Queens,Laurelton,one-family,4000.0,1230.0,1950.0,2026-07,899000
+Queens,Flushing-North,one-family,4000.0,1526.0,1930.0,2026-07,1088000
+Queens,Bayside,one-family,5300.0,2658.0,1940.0,2026-07,2180000
+Queens,Howard Beach,one-family,4000.0,2300.0,1960.0,2026-07,990000
+Bronx,Williamsbridge,one-family,3258.0,1620.0,1915.0,2026-07,675000
+Queens,Jackson Heights,two-family,5100.0,3650.0,1988.0,2026-07,712500
+Brooklyn,Flatbush-Lefferts Garden,one-family,2000.0,1680.0,1910.0,2026-07,1875000
+Bronx,Pelham Parkway North,one-family,2000.0,1810.0,1955.0,2026-07,520000
+Brooklyn,Gerritsen Beach,one-family,3570.0,1424.0,1930.0,2026-07,975000
+Queens,Rosedale,two-family,4000.0,2444.0,1960.0,2026-07,814600
+Queens,Kew Gardens,two-family,3300.0,3125.0,1950.0,2026-07,1385000
+Bronx,Woodlawn,two-family,2500.0,2126.0,1920.0,2026-07,248699
+Queens,So. Jamaica-Baisley Park,one-family,2600.0,1488.0,1930.0,2026-07,799000
+Queens,Bayside,one-family,2450.0,1290.0,1920.0,2026-07,1155000
+Queens,Richmond Hill,two-family,2000.0,1584.0,1925.0,2026-07,775000
+Manhattan,Greenwich Village-Central,two-family,1500.0,3776.0,1899.0,2026-07,6200000
+Queens,Flushing-North,one-family,1800.0,1944.0,1950.0,2026-07,985000
+Queens,Maspeth,two-family,2000.0,2480.0,1929.0,2026-07,1720000
+Staten Island,Tottenville,one-family,3840.0,2200.0,1910.0,2026-07,960000
+Brooklyn,Gerritsen Beach,one-family,2025.0,880.0,1920.0,2026-07,860000
+Staten Island,Westerleigh,one-family,3180.0,1432.0,1920.0,2026-07,709000
+Queens,Arverne,one-family,4200.0,1020.0,1950.0,2026-07,735000
+Queens,Arverne,two-family,3000.0,1728.0,1920.0,2026-07,492804
+Brooklyn,Bath Beach,two-family,4008.0,3649.0,2009.0,2026-07,2450000
+Brooklyn,Gowanus,two-family,1363.0,1668.0,1901.0,2026-07,2899000
+Manhattan,Upper East Side (59-79),two-family,2008.0,4960.0,1899.0,2026-07,18000000
+Brooklyn,Ocean Hill,two-family,1280.0,1600.0,1901.0,2026-07,1035000
+Bronx,Soundview,one-family,2500.0,2256.0,1950.0,2026-07,748000
+Queens,Flushing-North,two-family,2527.0,1808.0,1950.0,2026-07,1700000
+Brooklyn,Canarsie,one-family,2430.0,1824.0,1960.0,2026-07,630000
+Staten Island,West New Brighton,one-family,4125.0,1886.0,1920.0,2026-07,725000
+Queens,Springfield Gardens,one-family,2000.0,1472.0,1935.0,2026-07,709000
+Bronx,Throgs Neck,two-family,2521.0,1600.0,1925.0,2026-07,925000
+Staten Island,New Dorp-Heights,two-family,4000.0,2200.0,1970.0,2026-07,1160000
+Queens,St. Albans,two-family,2917.0,1462.0,1925.0,2026-07,815000
+Queens,St. Albans,one-family,3000.0,2005.0,1930.0,2026-07,405600
+Bronx,Pelham Gardens,one-family,3742.0,1321.0,1945.0,2026-07,819000
+Brooklyn,Williamsburg-South,one-family,1264.0,2939.0,2019.0,2026-07,4995000
+Queens,Richmond Hill,one-family,4400.0,1830.0,1930.0,2026-07,1050000
+Staten Island,Midland Beach,one-family,2500.0,684.0,1950.0,2026-07,527500
+Brooklyn,Gowanus,two-family,1800.0,1748.0,1899.0,2026-07,1670000
+Queens,Floral Park,one-family,3000.0,950.0,1950.0,2026-07,780000
+Queens,College Point,two-family,2500.0,1868.0,1930.0,2026-07,935000
+Staten Island,Arden Heights,one-family,1215.0,1319.0,1991.0,2026-07,680000
+Brooklyn,Williamsburg-South,two-family,1296.0,1440.0,1925.0,2026-07,4225000
+Queens,Bellerose,one-family,1890.0,1224.0,1945.0,2026-07,308750
+Queens,So. Jamaica-Baisley Park,two-family,4000.0,1648.0,1920.0,2026-07,815000
+Staten Island,Richmondtown-Lighths Hill,one-family,8000.0,2006.0,1915.0,2026-07,815000
+Queens,Floral Park,one-family,4000.0,1020.0,1945.0,2026-07,775000
+Queens,Laurelton,one-family,3200.0,1500.0,1940.0,2026-07,845000
+Bronx,Morris Park/Van Nest,one-family,1620.0,1152.0,1965.0,2026-07,615000
+Staten Island,Eltingville,two-family,3800.0,1584.0,2003.0,2026-07,1150000
+Queens,Woodhaven,one-family,1642.0,1161.0,1925.0,2026-07,660000
+Queens,Springfield Gardens,two-family,1908.0,1600.0,1950.0,2026-07,880000
+Staten Island,Tottenville,two-family,4458.0,2223.0,2004.0,2026-07,1265000
+Queens,Ozone Park,two-family,2523.0,1224.0,1920.0,2026-07,965000
+Brooklyn,Park Slope South,one-family,1667.0,1308.0,1899.0,2026-07,3162500
+Queens,Flushing-South,one-family,4000.0,1728.0,1950.0,2026-07,1200000
+Brooklyn,Gowanus,one-family,1333.0,1020.0,1901.0,2026-07,1725000
+Queens,Corona,two-family,2500.0,2208.0,1930.0,2026-07,1220000
+Queens,South Ozone Park,one-family,2000.0,992.0,1920.0,2026-07,790000
+Brooklyn,Borough Park,one-family,2003.0,1595.0,1910.0,2026-07,3300000
+Bronx,Wakefield,one-family,1574.0,1732.0,1960.0,2026-07,701000
+Queens,Woodhaven,two-family,2315.0,2160.0,1910.0,2026-07,1200000
+Staten Island,Great Kills,one-family,3100.0,1096.0,1965.0,2026-07,595000
+Queens,South Jamaica,two-family,2508.0,1328.0,1920.0,2026-07,580000
+Staten Island,Arden Heights,one-family,1694.0,1496.0,1975.0,2026-07,612000
+Staten Island,Sunnyside,one-family,4000.0,2400.0,2004.0,2026-07,1200000
+Brooklyn,Crown Heights,one-family,1674.0,2670.0,1901.0,2026-07,2200000
+Staten Island,Castleton Corners,two-family,3094.0,1728.0,1950.0,2026-07,650000
+Queens,Middle Village,one-family,1600.0,960.0,1945.0,2026-07,883500
+Brooklyn,Clinton Hill,two-family,2025.0,3040.0,1899.0,2026-07,1999000
+Staten Island,Dongan Hills-Old Town,one-family,2070.0,1080.0,1986.0,2026-07,610000
+Brooklyn,Ocean Hill,two-family,1800.0,2430.0,1901.0,2026-07,652051
+Manhattan,Upper West Side (59-79),one-family,4167.0,13767.0,1910.0,2026-07,45000000
+Brooklyn,Gravesend,two-family,2900.0,2420.0,1925.0,2026-07,1333000
+Brooklyn,Gerritsen Beach,one-family,1785.0,1440.0,1925.0,2026-07,612000
+Brooklyn,Marine Park,one-family,3500.0,1140.0,1925.0,2026-07,600000
+Bronx,Bronxdale,two-family,2458.0,2448.0,1925.0,2026-07,250000
+Queens,Maspeth,one-family,2900.0,840.0,1940.0,2026-07,681413
+Brooklyn,Dyker Heights,two-family,2000.0,2080.0,1905.0,2026-07,1513000
+Bronx,Mott Haven/Port Morris,two-family,1860.0,2340.0,2000.0,2026-07,848000
+Queens,Elmhurst,one-family,1842.0,1152.0,1945.0,2026-07,905000
+Queens,Howard Beach,one-family,4000.0,1976.0,1960.0,2026-07,850000
+Manhattan,Greenwich Village-West,two-family,667.0,2464.0,1910.0,2026-07,3200000
+Staten Island,Rosebank,one-family,3125.0,1376.0,1965.0,2026-07,615000
+Queens,St. Albans,one-family,3000.0,1710.0,1935.0,2026-07,875000
+Queens,Woodhaven,two-family,2000.0,1328.0,1920.0,2026-07,639461
+Staten Island,Great Kills,one-family,3042.0,600.0,1920.0,2026-07,620000
+Manhattan,Little Italy,one-family,2562.0,8440.0,2017.0,2026-07,7575000
+Brooklyn,Bath Beach,two-family,1740.0,1683.0,1950.0,2026-07,1338000
+Brooklyn,Park Slope,two-family,2000.0,3896.0,1901.0,2026-07,7150000
+Bronx,Williamsbridge,one-family,1751.0,1392.0,1935.0,2026-07,430950
+Staten Island,Manor Heights,one-family,5000.0,864.0,1955.0,2026-07,530000
+Brooklyn,Crown Heights,two-family,2172.0,2719.0,1901.0,2026-07,2975000
+Bronx,Schuylerville/Pelham Bay,two-family,1670.0,2295.0,1930.0,2026-07,860000
+Queens,Rockaway Park,two-family,2700.0,3100.0,1910.0,2026-07,425000
+Queens,Howard Beach,one-family,4000.0,1591.0,1940.0,2026-07,800000
+Brooklyn,Crown Heights,two-family,2412.0,2084.0,1901.0,2026-07,2400000
+Bronx,Pelham Parkway North,two-family,2500.0,2052.0,1955.0,2026-07,580000
+Brooklyn,Flatbush-East,two-family,4000.0,2704.0,1960.0,2026-07,1230000
+Bronx,Mount Hope/Mount Eden,two-family,2850.0,3066.0,1910.0,2026-07,1600000
+Brooklyn,Park Slope,one-family,1615.0,2712.0,1899.0,2026-07,4957000
+Brooklyn,Bath Beach,two-family,2417.0,3278.0,1950.0,2026-07,380000
+Queens,Hollis,one-family,3200.0,1452.0,1925.0,2026-07,760000
+Queens,Elmhurst,one-family,2005.0,864.0,1940.0,2026-07,300000
+Staten Island,Great Kills,one-family,2300.0,1566.0,1976.0,2026-07,690000
+Queens,Beechhurst,one-family,5566.0,1050.0,1955.0,2026-07,1249888
+Queens,East Elmhurst,one-family,2530.0,1012.0,1950.0,2026-07,880000
+Queens,South Jamaica,one-family,1890.0,1092.0,1930.0,2026-07,475000
+Brooklyn,Park Slope,two-family,2000.0,2700.0,1901.0,2026-07,6200000
+Brooklyn,Bath Beach,two-family,1933.0,2048.0,1935.0,2026-07,1475000
+Staten Island,New Dorp,one-family,4000.0,1091.0,1945.0,2026-07,938000
+Brooklyn,Flatbush-North,one-family,2000.0,1888.0,1920.0,2026-07,880000
+Queens,South Jamaica,one-family,1710.0,1600.0,1960.0,2026-07,710000
+Bronx,Kingsbridge Hts/Univ Hts,one-family,5000.0,3096.0,1901.0,2026-07,1150000
+Queens,Queens Village,two-family,4000.0,1369.0,1925.0,2026-07,999000
+Queens,Forest Hills,one-family,1751.0,1765.0,1925.0,2026-07,1675000
+Queens,Springfield Gardens,one-family,4000.0,1148.0,1930.0,2026-07,710000
+Brooklyn,Sheepshead Bay,two-family,1645.0,800.0,1920.0,2026-07,600000
+Queens,Bellerose,one-family,4000.0,2000.0,1950.0,2026-07,1200000
+Queens,Bayside,one-family,1958.0,1180.0,1920.0,2026-07,765000
+Queens,Laurelton,one-family,3006.0,1400.0,1991.0,2026-07,730000
+Queens,Bayside,two-family,3500.0,3983.0,1975.0,2026-07,1600000
+Queens,Forest Hills,one-family,5000.0,2258.0,1920.0,2026-07,2200000
+Staten Island,Tottenville,one-family,7500.0,1892.0,1899.0,2026-07,980000
+Brooklyn,Park Slope,one-family,1615.0,2712.0,1899.0,2026-07,4850000
+Queens,Astoria,two-family,2133.0,1080.0,1890.0,2026-07,1200000
+Queens,College Point,one-family,4000.0,1040.0,1955.0,2026-07,790000
+Brooklyn,Clinton Hill,one-family,1448.0,1820.0,1900.0,2026-07,2810000
+Queens,Laurelton,one-family,2000.0,2080.0,1935.0,2026-07,605000
+Queens,Jackson Heights,two-family,3540.0,1700.0,1950.0,2026-07,995000
+Brooklyn,Park Slope South,one-family,1468.0,1890.0,1899.0,2026-07,3450000
+Queens,Middle Village,one-family,1800.0,1152.0,1940.0,2026-07,925000
+Brooklyn,Ocean Parkway-North,one-family,3000.0,996.0,1930.0,2026-07,1800000
+Queens,Woodside,two-family,2500.0,1520.0,1901.0,2026-07,1565000
+Queens,College Point,one-family,2400.0,1072.0,1925.0,2026-07,920000
+Brooklyn,Cypress Hills,two-family,1800.0,1720.0,1901.0,2026-07,975000
+Staten Island,New Dorp-Heights,one-family,3399.0,1176.0,1965.0,2026-07,630000
+Queens,Middle Village,one-family,1800.0,1384.0,1950.0,2026-07,955000
+Queens,Elmhurst,two-family,1908.0,1362.0,1920.0,2026-07,129820
+Queens,Maspeth,two-family,2450.0,1520.0,1920.0,2026-07,1050000
+Queens,So. Jamaica-Baisley Park,one-family,2600.0,1056.0,1960.0,2026-07,739000
+Bronx,Castle Hill/Unionport,one-family,2510.0,1630.0,1965.0,2026-07,700000
+Queens,Flushing-North,one-family,2525.0,1616.0,1940.0,2026-07,1250000
+Staten Island,Woodrow,one-family,1442.0,1672.0,1992.0,2026-07,660000
+Brooklyn,Cypress Hills,one-family,1583.0,2812.0,1905.0,2026-07,990000
+Bronx,Baychester,two-family,2375.0,1870.0,2010.0,2026-07,750000
+Queens,Corona,two-family,2500.0,1830.0,1901.0,2026-07,850000
+Queens,South Jamaica,one-family,2500.0,1820.0,1910.0,2026-07,397500
+Staten Island,West New Brighton,two-family,6250.0,2690.0,1910.0,2026-07,677000
+Brooklyn,Flatbush-East,two-family,2200.0,2144.0,1955.0,2026-07,930000
+Queens,Howard Beach,one-family,4000.0,2192.0,1965.0,2026-07,1125000
+Staten Island,Bulls Head,one-family,2400.0,1444.0,1995.0,2026-07,758000
+Queens,Arverne,two-family,4000.0,2546.0,1940.0,2026-07,774888
+Queens,Rosedale,two-family,2680.0,2100.0,1960.0,2026-07,1225000
+Queens,Maspeth,one-family,1760.0,1408.0,1920.0,2026-07,690100
+Bronx,Belmont,two-family,1645.0,1928.0,1901.0,2026-07,400000
+Staten Island,Willowbrook,one-family,4000.0,1640.0,1955.0,2026-07,985000
+Queens,Ozone Park,one-family,3000.0,1409.0,1925.0,2026-07,765000
+Brooklyn,Borough Park,two-family,2504.0,5632.0,1990.0,2026-07,3700000
+Queens,Bayside,two-family,4000.0,2596.0,1910.0,2026-07,2003916
+Queens,Ridgewood,two-family,1802.0,1224.0,1945.0,2026-07,1735000
+Queens,Springfield Gardens,two-family,4817.0,2360.0,2021.0,2026-07,1323725
+Queens,Woodside,one-family,2000.0,1440.0,1935.0,2026-07,1090000
+Queens,South Jamaica,two-family,2500.0,1828.0,1920.0,2026-07,835000
+Brooklyn,Crown Heights,two-family,3773.0,2576.0,1920.0,2026-07,1750000
+Queens,Bayside,one-family,4000.0,1741.0,1920.0,2026-07,1140000
+Brooklyn,Canarsie,two-family,2000.0,1560.0,1960.0,2026-07,747000
+Queens,Flushing-South,one-family,1710.0,1296.0,1960.0,2026-07,780000
+Queens,Woodhaven,two-family,3897.0,2080.0,2005.0,2026-07,1175000
+Queens,Howard Beach,two-family,4000.0,2288.0,1950.0,2026-07,1294000
+Queens,Rockaway Park,one-family,4000.0,2308.0,1910.0,2026-07,1300000
+Brooklyn,Flatbush-East,one-family,1740.0,1472.0,1925.0,2026-07,938000
+Brooklyn,Gowanus,one-family,1338.0,1020.0,1901.0,2026-07,1625000
+Manhattan,Washington Heights Lower,one-family,1911.0,4005.0,1899.0,2026-07,2400000
+Bronx,Pelham Parkway South,one-family,2500.0,1629.0,1960.0,2026-07,675000
+Bronx,Castle Hill/Unionport,two-family,1767.0,1908.0,1960.0,2026-07,678375
+Queens,Flushing-South,two-family,2600.0,1808.0,1950.0,2026-07,1450000
+Bronx,Soundview,two-family,2442.0,2400.0,1930.0,2026-07,691000
+Brooklyn,Park Slope,two-family,1850.0,1920.0,1901.0,2026-07,2950000
+Queens,Jackson Heights,two-family,2500.0,2340.0,1930.0,2026-07,1600000
+Queens,Hollis,two-family,5033.0,1936.0,1920.0,2026-07,880000
+Brooklyn,Gravesend,two-family,2000.0,1400.0,1925.0,2026-07,1300000
+Bronx,Kingsbridge/Jerome Park,one-family,1800.0,1782.0,1940.0,2026-07,925000
+Staten Island,Port Richmond,one-family,960.0,1080.0,2003.0,2026-07,495000
+Brooklyn,Windsor Terrace,one-family,2000.0,1845.0,1899.0,2026-07,2180000
+Queens,Queens Village,one-family,4000.0,1600.0,1950.0,2026-07,900000
+Staten Island,Rosebank,one-family,4070.0,1830.0,2004.0,2026-07,788000
+Brooklyn,Bay Ridge,two-family,2458.0,2640.0,1925.0,2026-07,1797000
+Queens,Queens Village,one-family,5000.0,1116.0,1930.0,2026-07,610000
+Queens,St. Albans,one-family,4000.0,1386.0,1965.0,2026-07,830000
+Queens,Richmond Hill,one-family,2521.0,1092.0,1920.0,2026-07,740000
+Brooklyn,Clinton Hill,two-family,1550.0,2400.0,1930.0,2026-07,3850000
+Queens,Hollis,one-family,1600.0,1360.0,1940.0,2026-07,555000
+Brooklyn,Sheepshead Bay,two-family,2000.0,2251.0,1960.0,2026-07,1250000
+Manhattan,Washington Heights Lower,two-family,1665.0,3248.0,1899.0,2026-07,780000
+Queens,Oakland Gardens,two-family,4000.0,2208.0,1950.0,2026-07,1698000
+Brooklyn,Flatbush-East,one-family,2000.0,1376.0,1925.0,2026-07,975000
+Brooklyn,Bensonhurst,two-family,1886.0,2400.0,1931.0,2026-07,1261000
+Brooklyn,Madison,one-family,3000.0,1482.0,1925.0,2026-07,1400000
+Brooklyn,Marine Park,two-family,1800.0,1890.0,1935.0,2026-07,925650
+Queens,St. Albans,one-family,3100.0,1660.0,1925.0,2026-07,915000
+Brooklyn,Dyker Heights,one-family,2000.0,1380.0,1920.0,2026-07,1280000
+Brooklyn,Bedford Stuyvesant,two-family,1875.0,2139.0,1899.0,2026-07,1300000
+Queens,Douglaston,one-family,2012.0,1368.0,1970.0,2026-07,992000
+Queens,Glendale,two-family,2000.0,4160.0,1910.0,2026-07,1240200
+Brooklyn,Ocean Parkway-South,one-family,2450.0,1152.0,1925.0,2026-07,3500000
+Queens,Bayside,one-family,3600.0,1118.0,1955.0,2026-07,988000
+Queens,Bayside,one-family,3800.0,1054.0,1945.0,2026-07,562851
+Queens,Middle Village,one-family,1800.0,1188.0,1930.0,2026-07,935000
+Queens,Hammels,one-family,3897.0,1000.0,1930.0,2026-07,680000
+Brooklyn,Cypress Hills,two-family,2500.0,1218.0,1910.0,2026-07,605000
+Queens,Flushing-North,one-family,3060.0,1374.0,1950.0,2026-07,998000
+Brooklyn,East New York,two-family,1800.0,2100.0,2003.0,2026-07,915000
+Queens,College Point,two-family,2653.0,1920.0,1925.0,2026-07,1180000
+Queens,Maspeth,two-family,2000.0,2400.0,1925.0,2026-07,1190000
+Queens,St. Albans,one-family,4062.0,1268.0,1950.0,2026-07,355000
+Brooklyn,Madison,two-family,1890.0,1890.0,1940.0,2026-07,985000
+Staten Island,New Brighton,two-family,3580.0,2048.0,1901.0,2026-07,456000
+Queens,South Ozone Park,one-family,2320.0,1120.0,1920.0,2026-07,765000
+Queens,Maspeth,one-family,2500.0,740.0,1920.0,2026-07,729000
+Brooklyn,Bensonhurst,one-family,1341.0,1218.0,1930.0,2026-07,925000
+Brooklyn,Canarsie,one-family,4000.0,1232.0,1955.0,2026-07,850000
+Queens,St. Albans,one-family,2000.0,1360.0,1935.0,2026-07,465000
+Queens,Richmond Hill,two-family,2449.0,1568.0,1925.0,2026-07,500000
+Queens,Rosedale,two-family,4000.0,2232.0,1960.0,2026-07,720000
+Queens,Ozone Park,two-family,2400.0,1344.0,1930.0,2026-07,875000
+Bronx,Morris Park/Van Nest,two-family,2500.0,3213.0,1970.0,2026-07,1200000
+Queens,Fresh Meadows,one-family,4000.0,1816.0,1940.0,2026-07,1300000
+Bronx,Castle Hill/Unionport,two-family,2543.0,2130.0,1960.0,2026-07,260000
+Staten Island,South Beach,one-family,2300.0,1600.0,1994.0,2026-07,755000
+Brooklyn,Bedford Stuyvesant,two-family,1725.0,3624.0,1899.0,2026-07,2215000
+Brooklyn,Ocean Parkway-South,two-family,3100.0,2165.0,1940.0,2026-07,1200000
+Staten Island,Midland Beach,one-family,2160.0,2050.0,2003.0,2026-07,880000
+Manhattan,Upper East Side (59-79),two-family,1643.0,5920.0,1910.0,2026-07,8500000
+Staten Island,Pleasant Plains,one-family,2600.0,1230.0,1960.0,2026-07,705000
+Staten Island,Rosebank,two-family,4600.0,2245.0,1965.0,2026-07,1200000
+Brooklyn,Sunset Park,two-family,1669.0,1736.0,1910.0,2026-07,955000
+Queens,Middle Village,one-family,2072.0,1188.0,1945.0,2026-07,840000
+Bronx,Baychester,two-family,2500.0,2582.0,1935.0,2026-07,651000
+Queens,Richmond Hill,one-family,2944.0,1591.0,1920.0,2026-07,228500
+Staten Island,Eltingville,one-family,3000.0,2392.0,1975.0,2026-07,770000
+Brooklyn,Park Slope,two-family,1875.0,3420.0,1899.0,2026-07,5300000
+Queens,Flushing-North,one-family,6000.0,1092.0,1950.0,2026-07,1370000
+Brooklyn,Canarsie,two-family,2200.0,2156.0,1955.0,2026-07,835000
+Queens,Beechhurst,one-family,4500.0,2230.0,1955.0,2026-07,2375000
+Brooklyn,Gravesend,one-family,3510.0,816.0,1960.0,2026-07,1125000
+Brooklyn,Sheepshead Bay,one-family,2608.0,2202.0,1945.0,2026-07,1195000
+Staten Island,South Beach,two-family,1980.0,1512.0,2017.0,2026-07,999999
+Brooklyn,Sheepshead Bay,one-family,2065.0,1606.0,1940.0,2026-07,280000
+Brooklyn,Bedford Stuyvesant,two-family,1667.0,2668.0,1899.0,2026-07,1765000
+Queens,Ozone Park,two-family,3610.0,2573.0,2024.0,2026-07,1731025
+Bronx,Morris Park/Van Nest,one-family,2500.0,1134.0,1931.0,2026-07,610000
+Staten Island,Silver Lake,one-family,4000.0,2258.0,1940.0,2026-07,965000
+Bronx,Pelham Parkway South,two-family,2500.0,2992.0,1915.0,2026-07,1625000
+Queens,Richmond Hill,one-family,1888.0,1292.0,1930.0,2026-07,715000
+Brooklyn,Flatbush-Central,two-family,2050.0,4000.0,1899.0,2026-07,500000
+Queens,South Jamaica,two-family,2500.0,1552.0,1925.0,2026-07,916000
+Queens,Flushing-South,one-family,4085.0,2052.0,1945.0,2026-07,1510000
+Queens,Bellerose,one-family,3000.0,1440.0,1920.0,2026-07,680000
+Queens,Richmond Hill,two-family,3227.0,2244.0,1950.0,2026-07,1090000
+Brooklyn,Dyker Heights,one-family,2000.0,1248.0,1920.0,2026-07,990000
+Queens,Astoria,two-family,3300.0,2772.0,1945.0,2026-07,1300000
+Brooklyn,Marine Park,one-family,1800.0,1128.0,1925.0,2026-07,765000
+Brooklyn,Bensonhurst,two-family,3600.0,3360.0,1930.0,2026-07,2198000
+Queens,Middle Village,one-family,1600.0,1416.0,1940.0,2026-07,800000
+Queens,Briarwood,two-family,6300.0,2900.0,1960.0,2026-07,975000
+Bronx,Westchester,two-family,2800.0,1578.0,1901.0,2026-07,645000
+Queens,Springfield Gardens,two-family,3600.0,2330.0,1988.0,2026-07,960000
+Bronx,Castle Hill/Unionport,one-family,1854.0,1714.0,1955.0,2026-07,772000
+Brooklyn,Dyker Heights,one-family,1300.0,975.0,1920.0,2026-07,990000
+Queens,College Point,two-family,3065.0,2388.0,1925.0,2026-07,411611
+Brooklyn,Borough Park,two-family,1800.0,1376.0,1930.0,2026-07,600000
+Brooklyn,Flatbush-Lefferts Garden,two-family,2000.0,2176.0,1910.0,2026-07,554760
+Brooklyn,Ocean Hill,two-family,1600.0,1920.0,1910.0,2026-07,800000
+Staten Island,Willowbrook,one-family,2080.0,832.0,1989.0,2026-07,630000
+Queens,College Point,one-family,2144.0,960.0,1945.0,2026-07,655000
+Queens,Jackson Heights,two-family,2200.0,1736.0,1960.0,2026-07,998000
+Queens,College Point,two-family,2500.0,1590.0,1950.0,2026-07,888000
+Queens,Maspeth,two-family,2478.0,1652.0,1930.0,2026-07,1350000
+Brooklyn,Dyker Heights,one-family,3200.0,1504.0,1910.0,2026-07,950000
+Bronx,Country Club,two-family,3742.0,1872.0,1960.0,2026-07,750000
+Queens,Flushing-North,one-family,2280.0,1980.0,1950.0,2026-07,1130000
+Brooklyn,Bedford Stuyvesant,two-family,1550.0,2480.0,1905.0,2026-07,1180000
+Brooklyn,Crown Heights,two-family,1440.0,1720.0,1899.0,2026-07,999000
+Queens,St. Albans,one-family,6100.0,2723.0,1940.0,2026-07,632000
+Brooklyn,Bedford Stuyvesant,one-family,5000.0,2205.0,1899.0,2026-07,3000000
+Bronx,Williamsbridge,two-family,2375.0,1688.0,1899.0,2026-07,865000
+Staten Island,Westerleigh,two-family,4000.0,1850.0,1955.0,2026-07,975000
+Brooklyn,Bedford Stuyvesant,two-family,1667.0,2001.0,1899.0,2026-07,2600000
+Brooklyn,Borough Park,two-family,3005.0,2930.0,1980.0,2026-07,3384756
+Queens,Flushing-South,one-family,2995.0,1575.0,1935.0,2026-07,1150000
+Queens,Flushing-North,one-family,4000.0,1045.0,1945.0,2026-07,985000
+Queens,Douglaston,one-family,4710.0,2330.0,2008.0,2026-07,1550000
+Bronx,Baychester,two-family,5000.0,2632.0,1963.0,2026-07,1200000
+Staten Island,Manor Heights,one-family,6200.0,1196.0,1955.0,2026-07,870000
+Queens,Hollis,one-family,2200.0,1476.0,1940.0,2026-07,531000
+Queens,Astoria,two-family,2000.0,2160.0,1920.0,2026-07,1640000
+Bronx,Bronxdale,one-family,2500.0,1719.0,1950.0,2026-07,670000
+Queens,Bayside,one-family,4000.0,1134.0,1950.0,2026-07,1090000
+Brooklyn,Williamsburg-South,two-family,1900.0,2400.0,1899.0,2026-07,1950000
+Brooklyn,Sunset Park,two-family,1711.0,2040.0,1940.0,2026-07,1550000
+Queens,Hollis,one-family,2400.0,1280.0,1920.0,2026-07,795000
+Queens,Bayside,two-family,2700.0,3036.0,1965.0,2026-07,1400000
+Queens,Neponsit,one-family,9120.0,4545.0,1920.0,2026-07,3900000
+Brooklyn,Kensington,two-family,1695.0,2541.0,1920.0,2026-07,1800000
+Bronx,Baychester,one-family,1900.0,1254.0,1940.0,2026-07,575000
+Queens,South Jamaica,two-family,1833.0,2686.0,2007.0,2026-07,1115000
+Queens,St. Albans,one-family,6000.0,1608.0,1965.0,2026-07,880000
+Bronx,Soundview,two-family,2500.0,2648.0,1935.0,2026-07,285000
+Brooklyn,Borough Park,one-family,1800.0,1575.0,1940.0,2026-07,1230000
+Staten Island,Arden Heights,one-family,500.0,1300.0,2003.0,2026-07,530000
+Staten Island,Travis,one-family,2530.0,1480.0,1990.0,2026-07,540000
+Queens,Rego Park,one-family,3440.0,1344.0,1925.0,2026-07,500000
+Queens,St. Albans,one-family,2000.0,1200.0,1945.0,2026-07,720000
+Staten Island,Port Richmond,two-family,2500.0,1882.0,1899.0,2026-07,680000
+Queens,Bayside,two-family,4300.0,2496.0,1950.0,2026-07,1818000
+Queens,Elmhurst,two-family,1529.0,1701.0,1925.0,2026-07,913000
+Bronx,Pelham Parkway North,two-family,2500.0,2580.0,1950.0,2026-07,1110000
+Brooklyn,Marine Park,one-family,2433.0,1176.0,1930.0,2026-07,635000
+Queens,Cambria Heights,one-family,4000.0,1150.0,1930.0,2026-07,860000
+Queens,Richmond Hill,one-family,2400.0,1216.0,1915.0,2026-07,110000
+Queens,Floral Park,one-family,4000.0,1050.0,1950.0,2026-07,900000
+Brooklyn,Bushwick,two-family,2000.0,2200.0,1905.0,2026-07,848000
+Brooklyn,Borough Park,two-family,2003.0,2280.0,1901.0,2026-07,2330000
+Brooklyn,Bedford Stuyvesant,two-family,1800.0,2364.0,1899.0,2026-07,1420000
+Staten Island,Arden Heights,one-family,2658.0,1656.0,2003.0,2026-07,700000
+Brooklyn,Sheepshead Bay,two-family,2000.0,2251.0,1960.0,2026-07,1240000
+Queens,Woodhaven,two-family,2500.0,2332.0,1920.0,2026-07,750000
+Queens,Neponsit,one-family,4000.0,1940.0,1955.0,2026-07,1575000
+Bronx,Morris Park/Van Nest,one-family,2500.0,1442.0,1915.0,2026-07,800000
+Queens,Bayside,one-family,4066.0,1056.0,1950.0,2026-07,1235000
+Queens,Glendale,two-family,2000.0,1800.0,1910.0,2026-07,940000
+Queens,South Ozone Park,two-family,4177.0,1008.0,1930.0,2026-07,665000
+Bronx,Country Club,two-family,4700.0,3036.0,1960.0,2026-07,1200000
+Brooklyn,Boerum Hill,one-family,1375.0,5826.0,2008.0,2026-07,6000000
+Queens,Hollis,one-family,4000.0,1476.0,1925.0,2026-07,710000
+Queens,Rosedale,one-family,5000.0,1634.0,1930.0,2026-07,705000
+Brooklyn,Madison,one-family,3150.0,1392.0,1925.0,2026-07,1280000
+Brooklyn,Park Slope South,two-family,1667.0,1448.0,1901.0,2026-07,3600000
+Queens,Fresh Meadows,one-family,2236.0,896.0,1949.0,2026-07,880000
+Staten Island,Tottenville,one-family,8319.0,3343.0,2017.0,2026-07,1950000
+Bronx,Williamsbridge,one-family,2860.0,1439.0,1925.0,2026-07,795000
+Queens,Whitestone,one-family,4904.0,1296.0,1950.0,2026-07,1160000
+Staten Island,Eltingville,one-family,5200.0,1430.0,1977.0,2026-07,915000
+Queens,Flushing-South,one-family,3000.0,1081.0,1930.0,2026-07,1138000
+Bronx,Riverdale,one-family,8816.0,4784.0,1940.0,2026-07,2300000
+Queens,Bayside,one-family,4300.0,1600.0,1935.0,2026-07,1255000
+Staten Island,Arden Heights,one-family,500.0,1354.0,1999.0,2026-07,490000
+Brooklyn,Cobble Hill-West,one-family,502.0,1447.0,1931.0,2026-07,2563000
+Queens,Ozone Park,two-family,3040.0,2293.0,1955.0,2026-07,825000
+Queens,Richmond Hill,two-family,1875.0,902.0,1945.0,2026-07,710000
+Queens,Woodhaven,one-family,1980.0,1419.0,1925.0,2026-07,660000
+Queens,Springfield Gardens,two-family,5390.0,3240.0,1920.0,2026-07,140000
+Queens,Flushing-North,two-family,6000.0,1249.0,1945.0,2026-07,2880000
+Queens,Middle Village,one-family,1936.0,1184.0,1940.0,2026-07,995000
+Staten Island,New Dorp-Heights,one-family,2090.0,1600.0,1993.0,2026-07,689000
+Queens,Bellerose,one-family,3200.0,960.0,1940.0,2026-07,660000
+Queens,Rockaway Park,one-family,2392.0,1332.0,2002.0,2026-07,750000
+Queens,Bayside,one-family,4300.0,850.0,1945.0,2026-07,1180000
+Queens,Springfield Gardens,one-family,2200.0,880.0,1940.0,2026-07,843000
+Bronx,Throgs Neck,one-family,2500.0,942.0,1950.0,2026-07,600000
+Queens,Richmond Hill,two-family,3760.0,2752.0,1925.0,2026-07,1650000
+Brooklyn,East New York,one-family,1800.0,1134.0,1990.0,2026-07,750000
+Queens,Bayside,two-family,4000.0,3240.0,2002.0,2026-07,1830000
+Bronx,Schuylerville/Pelham Bay,two-family,2100.0,1496.0,1930.0,2026-07,840000
+Staten Island,West New Brighton,one-family,4600.0,1056.0,1955.0,2026-07,670000
+Bronx,Country Club,one-family,2258.0,1564.0,1955.0,2026-07,760000
+Queens,Rosedale,one-family,3000.0,1396.0,1925.0,2026-07,615000
+Brooklyn,Madison,two-family,2850.0,2622.0,1920.0,2026-07,2300000
+Brooklyn,Sheepshead Bay,one-family,3333.0,1946.0,1930.0,2026-07,850000
+Queens,South Ozone Park,one-family,2000.0,1304.0,1955.0,2026-07,770000
+Staten Island,Princes Bay,two-family,5968.0,3485.0,2025.0,2026-07,1322707
+Brooklyn,Sunset Park,two-family,1928.0,3027.0,1901.0,2026-07,1505000
+Queens,Woodhaven,one-family,1664.0,1344.0,1925.0,2026-07,690000
+Bronx,Woodlawn,two-family,5000.0,1876.0,1910.0,2026-07,825000
+Bronx,Morrisania/Longwood,two-family,1473.0,1634.0,1920.0,2026-07,710000
+Queens,Forest Hills,one-family,2860.0,2250.0,1940.0,2026-07,1605000
+Queens,Middle Village,one-family,1800.0,1224.0,1935.0,2026-07,870000
+Bronx,Pelham Parkway North,two-family,5000.0,1862.0,1965.0,2026-07,1050000
+Queens,So. Jamaica-Baisley Park,two-family,4000.0,1434.0,1930.0,2026-07,1325000
+Queens,Flushing-North,two-family,1872.0,1998.0,1955.0,2026-07,1330000
+Queens,Bayside,one-family,4387.0,1440.0,1935.0,2026-07,1288000
+Queens,St. Albans,one-family,3100.0,1520.0,1930.0,2026-07,635000
+Bronx,Throgs Neck,one-family,3184.0,1365.0,1940.0,2026-07,555000
+Queens,Hollis,one-family,4800.0,1736.0,1925.0,2026-07,999999
+Queens,Jamaica Hills,two-family,3000.0,2048.0,1945.0,2026-07,950000
+Queens,South Ozone Park,one-family,2000.0,840.0,1920.0,2026-07,524429
+Brooklyn,Bushwick,two-family,1600.0,2254.0,1901.0,2026-07,1420000
+Queens,Bayside,one-family,4171.0,1248.0,1950.0,2026-07,999999
+Staten Island,Woodrow,one-family,3990.0,2200.0,2000.0,2026-07,748000
+Brooklyn,Gravesend,two-family,1763.0,1536.0,1930.0,2026-07,246899
+Queens,Forest Hills,one-family,5682.0,2190.0,1935.0,2026-07,1850000
+Queens,Bellerose,one-family,3000.0,1500.0,1925.0,2026-07,992880
+Brooklyn,Brownsville,one-family,1800.0,1116.0,1985.0,2026-07,590000
+Queens,Jamaica,one-family,1200.0,1500.0,1920.0,2026-07,900000
+Queens,Astoria,one-family,2500.0,1899.0,1910.0,2026-07,1025000
+Bronx,Fordham,two-family,1451.0,2466.0,1910.0,2026-07,500000
+Brooklyn,Gravesend,two-family,1730.0,2470.0,1931.0,2026-07,1300000
+Manhattan,Harlem-Central,two-family,1444.0,3572.0,1980.0,2026-07,2450000
+Brooklyn,Bushwick,two-family,2000.0,2700.0,1905.0,2026-07,2160000
+Brooklyn,Ocean Parkway-South,two-family,1692.0,2268.0,1930.0,2026-07,1110000
+Queens,Flushing-North,two-family,3500.0,2483.0,1970.0,2026-08,1300000
+Staten Island,Arden Heights,two-family,2520.0,1924.0,1980.0,2026-08,773850
+Queens,Whitestone,one-family,4344.0,1508.0,1950.0,2026-08,1125000
+Queens,Sunnyside,two-family,2000.0,1305.0,1950.0,2026-08,1150000
+Brooklyn,Crown Heights,one-family,1072.0,1520.0,1899.0,2026-08,1390000
+Brooklyn,Flatbush-East,two-family,1575.0,1845.0,1930.0,2026-08,965000
+Queens,Bayside,one-family,5690.0,2065.0,1960.0,2026-08,1200000
+Bronx,Baychester,two-family,2656.0,2160.0,1970.0,2026-08,671027
+Brooklyn,Sunset Park,two-family,2003.0,2280.0,1910.0,2026-08,1450000
+Bronx,Bronxdale,one-family,1767.0,2008.0,1955.0,2026-08,725000
+Queens,Flushing-South,one-family,3000.0,1092.0,1920.0,2026-08,840000
+Bronx,Throgs Neck,one-family,3700.0,1820.0,1950.0,2026-08,550000
+Queens,Far Rockaway,one-family,4050.0,2275.0,1950.0,2026-08,634000
+Staten Island,Port Richmond,one-family,2500.0,1500.0,2017.0,2026-08,775000
+Queens,Ridgewood,one-family,2000.0,744.0,1920.0,2026-08,775000
+Queens,Oakland Gardens,one-family,5400.0,2304.0,1950.0,2026-08,1550000
+Queens,South Jamaica,one-family,2000.0,1528.0,1920.0,2026-08,471510
+Queens,Maspeth,one-family,4172.0,1600.0,1920.0,2026-08,1020000
+Queens,Bayside,one-family,3742.0,1304.0,1930.0,2026-08,999000
+Queens,Howard Beach,two-family,4012.0,3120.0,1960.0,2026-08,1315000
+Brooklyn,Park Slope,two-family,1900.0,3660.0,1901.0,2026-08,3900000
+Queens,Laurelton,one-family,3660.0,1351.0,1945.0,2026-08,780000
+Brooklyn,Bedford Stuyvesant,two-family,2000.0,1800.0,1910.0,2026-08,1650000
+Queens,So. Jamaica-Baisley Park,one-family,1767.0,1156.0,1950.0,2026-08,620000
+Queens,Springfield Gardens,two-family,5300.0,2488.0,1945.0,2026-08,1845000
+Bronx,Bedford Park/Norwood,two-family,2500.0,2426.0,1915.0,2026-08,575000
+Queens,Queens Village,one-family,2400.0,1408.0,1930.0,2026-08,750000
+Brooklyn,Midwood,one-family,3542.0,1810.0,1920.0,2026-08,1702256
+Queens,Hammels,one-family,2349.0,1050.0,1960.0,2026-08,600000
+Queens,Howard Beach,two-family,4400.0,2526.0,1950.0,2026-08,1300000
+Brooklyn,Crown Heights,one-family,1600.0,1200.0,1899.0,2026-08,758000
+Brooklyn,Ocean Parkway-North,one-family,2260.0,1152.0,1920.0,2026-08,1600000
+Queens,Glendale,one-family,2880.0,1408.0,1920.0,2026-08,170000
+Queens,So. Jamaica-Baisley Park,one-family,2375.0,882.0,1915.0,2026-08,700000
+Queens,Flushing-North,one-family,1440.0,1188.0,1960.0,2026-08,898000
+Brooklyn,Ocean Hill,one-family,1700.0,2040.0,1910.0,2026-08,2300000
+Queens,Astoria,two-family,3900.0,1440.0,1940.0,2026-08,2875000
+Queens,Richmond Hill,one-family,2680.0,1980.0,1935.0,2026-08,950000
+Brooklyn,Flatbush-Central,one-family,4000.0,2614.0,1920.0,2026-08,1625000
+Queens,Springfield Gardens,two-family,4000.0,1544.0,1950.0,2026-08,900000
+Brooklyn,Bensonhurst,two-family,2500.0,2480.0,1930.0,2026-08,1700000
+Brooklyn,Gerritsen Beach,one-family,3570.0,1360.0,1930.0,2026-08,699000
+Staten Island,Castleton Corners,one-family,5700.0,1164.0,1950.0,2026-08,1085000
+Brooklyn,Flatbush-East,one-family,2150.0,1680.0,1945.0,2026-08,620000
+Brooklyn,East New York,two-family,2050.0,2270.0,2001.0,2026-08,885000
+Brooklyn,Flatlands,one-family,2000.0,1344.0,1925.0,2026-08,740000
+Queens,So. Jamaica-Baisley Park,two-family,4030.0,2000.0,1990.0,2026-08,995000
+Bronx,Morrisania/Longwood,two-family,1951.0,2790.0,1920.0,2026-08,865000
+Brooklyn,Bay Ridge,one-family,1940.0,1336.0,1915.0,2026-08,1060000
+Brooklyn,Ocean Parkway-North,one-family,2450.0,1344.0,1930.0,2026-08,2750000
+Brooklyn,East New York,one-family,2000.0,1595.0,1920.0,2026-08,755000
+Bronx,Country Club,one-family,2600.0,970.0,1920.0,2026-08,390000
+Brooklyn,Midwood,one-family,3750.0,1950.0,1920.0,2026-08,1718468
+Queens,Bayside,two-family,3217.0,3090.0,1980.0,2026-08,1660000
+Queens,Ozone Park,one-family,2300.0,1216.0,1940.0,2026-08,760000
+Queens,Springfield Gardens,one-family,2200.0,1148.0,1920.0,2026-08,710000
+Queens,Bellerose,one-family,4040.0,1260.0,1945.0,2026-08,805000
+Bronx,Riverdale,one-family,4000.0,1560.0,1970.0,2026-08,980000
+Queens,Flushing-North,one-family,1975.0,1629.0,1955.0,2026-08,920000
+Staten Island,Bulls Head,two-family,4600.0,1978.0,1970.0,2026-08,970000
+Brooklyn,Gravesend,two-family,1800.0,2313.0,1945.0,2026-08,1060000
+Brooklyn,Gravesend,one-family,2000.0,1400.0,1920.0,2026-08,995000
+Brooklyn,Clinton Hill,two-family,1310.0,2776.0,2023.0,2026-08,3850000
+Queens,Hollis,two-family,2400.0,2144.0,1920.0,2026-08,999900
+Brooklyn,Flatbush-North,two-family,2183.0,1781.0,1940.0,2026-08,755000
+Queens,College Point,two-family,3000.0,1680.0,1920.0,2026-08,800000
+Brooklyn,Bay Ridge,one-family,1913.0,1816.0,1920.0,2026-08,1850000
+Bronx,Throgs Neck,two-family,2742.0,2717.0,1970.0,2026-08,1040000
+Bronx,Throgs Neck,one-family,2108.0,1536.0,1950.0,2026-08,390000
+Bronx,Riverdale,one-family,8850.0,1643.0,1955.0,2026-08,1350000
+Staten Island,Annadale,one-family,5000.0,2050.0,1984.0,2026-08,910000
+Queens,Richmond Hill,two-family,2000.0,2170.0,1920.0,2026-08,870000
+Queens,Bayside,two-family,1927.0,2300.0,1930.0,2026-08,980000
+Brooklyn,Sunset Park,one-family,1327.0,978.0,1925.0,2026-08,990000
+Brooklyn,East New York,two-family,1876.0,1444.0,1920.0,2026-08,390000
+Staten Island,New Dorp,two-family,2525.0,1720.0,1989.0,2026-08,910000
+Brooklyn,Park Slope,two-family,2033.0,4336.0,1905.0,2026-08,6200000
+Bronx,Castle Hill/Unionport,one-family,3617.0,1200.0,1965.0,2026-08,567000
+Queens,Little Neck,one-family,4750.0,2412.0,2012.0,2026-08,1620000
+Brooklyn,Midwood,two-family,3600.0,2912.0,1910.0,2026-08,900000
+Brooklyn,Greenpoint,one-family,1500.0,1144.0,1901.0,2026-08,1640000
+Queens,Whitestone,one-family,4000.0,2025.0,1960.0,2026-08,1450000
+Queens,Whitestone,one-family,4040.0,1150.0,1950.0,2026-08,1050000
+Queens,So. Jamaica-Baisley Park,two-family,4000.0,1020.0,1955.0,2026-08,740000
+Queens,Flushing-North,one-family,4000.0,1248.0,1950.0,2026-08,1135000
+Brooklyn,Flatbush-East,two-family,1700.0,2400.0,1965.0,2026-08,990000
+Queens,Cambria Heights,one-family,3900.0,1704.0,1940.0,2026-08,630000
+Queens,Douglaston,one-family,6055.0,2400.0,1989.0,2026-08,1350000
+Queens,Douglaston,one-family,4709.0,1665.0,1950.0,2026-08,1150000
+Bronx,Throgs Neck,one-family,2108.0,1728.0,1950.0,2026-08,675000
+Brooklyn,Flatbush-Central,one-family,1650.0,1900.0,1930.0,2026-08,1560000
+Queens,Broad Channel,one-family,2500.0,1701.0,1930.0,2026-08,815000
+Brooklyn,Flatbush-East,two-family,2000.0,2240.0,1910.0,2026-08,800000
+Queens,Oakland Gardens,one-family,6000.0,1840.0,1955.0,2026-08,1300000
+Queens,Middle Village,one-family,2600.0,1552.0,1930.0,2026-08,475000
+Queens,Queens Village,two-family,2600.0,1616.0,1930.0,2026-08,725000
+Queens,So. Jamaica-Baisley Park,one-family,2000.0,995.0,1925.0,2026-08,605000
+Bronx,Highbridge/Morris Heights,two-family,3898.0,2192.0,1930.0,2026-08,1350000
+Queens,Elmhurst,two-family,5000.0,2326.0,1935.0,2026-08,1690000
+Queens,So. Jamaica-Baisley Park,one-family,1350.0,786.0,1925.0,2026-08,360000
+Brooklyn,Crown Heights,two-family,1785.0,1920.0,1899.0,2026-08,1999999
+Brooklyn,Canarsie,two-family,2000.0,1760.0,1960.0,2026-08,780000
+Queens,Flushing-South,one-family,1800.0,1224.0,1950.0,2026-08,975000
+Brooklyn,Flatbush-Central,two-family,2000.0,2120.0,1910.0,2026-08,890000
+Queens,Astoria,two-family,1256.0,2262.0,1996.0,2026-08,1350000
+Staten Island,Sunnyside,two-family,2900.0,1670.0,1980.0,2026-08,835000
+Queens,Ozone Park,two-family,2017.0,2000.0,1920.0,2026-08,940000
+Queens,Far Rockaway,two-family,2263.0,2380.0,1920.0,2026-08,835000
+Queens,Flushing-South,one-family,3525.0,1048.0,1950.0,2026-08,600000
+Staten Island,Tottenville,one-family,11345.0,1937.0,1935.0,2026-08,820000
+Bronx,Baychester,one-family,1600.0,960.0,1955.0,2026-08,660000
+Brooklyn,Old Mill Basin,one-family,2000.0,1286.0,1920.0,2026-08,815000
+Brooklyn,Downtown-Fulton Mall,one-family,1590.0,4288.0,2005.0,2026-08,5225000
+Queens,Hollis,one-family,5596.0,1944.0,1950.0,2026-08,650000
+Queens,Beechhurst,one-family,4000.0,3445.0,1965.0,2026-08,1399999
+Brooklyn,Bedford Stuyvesant,two-family,2000.0,2820.0,2002.0,2026-08,1650000
+Queens,Glendale,two-family,2816.0,1635.0,1920.0,2026-08,995000
+Bronx,Schuylerville/Pelham Bay,one-family,2500.0,1496.0,1925.0,2026-08,535000
+Queens,Rego Park,one-family,2400.0,1344.0,1925.0,2026-08,1250000
+Bronx,Bedford Park/Norwood,two-family,2506.0,2244.0,1910.0,2026-08,1700000
+Queens,Howard Beach,one-family,2400.0,714.0,1920.0,2026-08,681000
+Staten Island,Great Kills,one-family,753.0,1195.0,1991.0,2026-08,580000
+Brooklyn,Gerritsen Beach,one-family,1470.0,1008.0,1925.0,2026-08,575000
+Queens,Beechhurst,one-family,4431.0,2305.0,2021.0,2026-08,1832850
+Queens,South Jamaica,one-family,3100.0,1300.0,1901.0,2026-08,400000
+Brooklyn,Ocean Parkway-North,two-family,3254.0,2472.0,1930.0,2026-08,815000
+Brooklyn,Dyker Heights,one-family,1850.0,1344.0,1925.0,2026-08,1100000
+Staten Island,Annadale,two-family,4000.0,2990.0,2025.0,2026-08,1390930
+Brooklyn,Sunset Park,two-family,1594.0,1208.0,1905.0,2026-08,2970000
+Brooklyn,Bedford Stuyvesant,two-family,1925.0,3845.0,2025.0,2026-08,3350000
+Staten Island,Huguenot,two-family,4953.0,2954.0,1945.0,2026-08,1232000
+Brooklyn,Madison,two-family,1890.0,1890.0,1920.0,2026-08,842000
+Bronx,Soundview,one-family,2500.0,1035.0,1925.0,2026-08,345000
+Brooklyn,Bedford Stuyvesant,two-family,1600.0,2150.0,2001.0,2026-08,1460000
+Brooklyn,Mill Basin,one-family,1800.0,1188.0,1960.0,2026-08,220000
+Manhattan,Harlem-Central,two-family,1699.0,3544.0,1899.0,2026-08,2550000
+Staten Island,Rossville,one-family,1290.0,1270.0,1992.0,2026-08,585000
+Queens,Cambria Heights,one-family,4500.0,1392.0,1955.0,2026-08,900000
+Queens,Little Neck,one-family,2000.0,1080.0,1925.0,2026-08,910000
+Brooklyn,Madison,one-family,2375.0,1244.0,1920.0,2026-08,1500000
+Brooklyn,Canarsie,two-family,4167.0,2368.0,1960.0,2026-08,950000
+Brooklyn,East New York,two-family,2083.0,2270.0,2001.0,2026-08,830000
+Queens,Richmond Hill,two-family,10925.0,3635.0,1910.0,2026-08,2250000
+Brooklyn,Bushwick,two-family,1883.0,2541.0,1920.0,2026-08,2095000
+Brooklyn,Ocean Hill,two-family,1280.0,1440.0,1901.0,2026-08,800000
+Brooklyn,Boerum Hill,two-family,1600.0,2360.0,1915.0,2026-08,3750000
+Queens,Cambria Heights,one-family,2400.0,1288.0,1940.0,2026-08,762000
+Queens,Woodhaven,one-family,1800.0,1232.0,1901.0,2026-08,760000
+Queens,Flushing-South,one-family,2510.0,1600.0,1960.0,2026-08,995000
+Staten Island,Silver Lake,one-family,3870.0,1215.0,1960.0,2026-08,650000
+Queens,Flushing-South,one-family,3897.0,1118.0,1950.0,2026-08,1100000
+Queens,Whitestone,one-family,4002.0,1977.0,2017.0,2026-08,1975000
+Queens,Springfield Gardens,two-family,4000.0,2382.0,2022.0,2026-08,1370000
+Queens,Arverne,two-family,2987.0,2068.0,2003.0,2026-08,840000
+Brooklyn,Sunset Park,two-family,2003.0,1968.0,1905.0,2026-08,1730000
+Brooklyn,Park Slope South,one-family,1600.0,3600.0,1920.0,2026-08,3150000
+Queens,So. Jamaica-Baisley Park,one-family,1350.0,732.0,1930.0,2026-08,280000
+Brooklyn,Dyker Heights,one-family,1800.0,1196.0,1920.0,2026-08,995000
+Queens,St. Albans,one-family,3340.0,1860.0,1930.0,2026-08,1130000
+Brooklyn,Flatbush-North,two-family,2312.0,2038.0,1940.0,2026-08,999000
+Brooklyn,Gravesend,two-family,1438.0,1280.0,1930.0,2026-08,960000
+Brooklyn,East New York,two-family,1793.0,2300.0,1930.0,2026-08,920000
+Brooklyn,Bedford Stuyvesant,one-family,1391.0,1308.0,1901.0,2026-08,1500000
+Queens,Bayside,one-family,7725.0,2000.0,2003.0,2026-08,1865000
+Bronx,Bronxdale,two-family,4176.0,1805.0,1925.0,2026-08,675000
+Brooklyn,Sunset Park,two-family,2504.0,1650.0,1910.0,2026-08,1836000
+Queens,Middle Village,two-family,3400.0,1485.0,1940.0,2026-08,1200000
+Brooklyn,Boerum Hill,two-family,1515.0,2692.0,1915.0,2026-08,4205000
+Queens,Flushing-North,two-family,4000.0,2800.0,1915.0,2026-08,1600000
+Queens,Elmhurst,one-family,2715.0,886.0,1945.0,2026-08,810000
+Queens,Laurelton,two-family,3000.0,2070.0,2004.0,2026-08,771750
+Brooklyn,Borough Park,one-family,1867.0,1732.0,1945.0,2026-08,990000
+Brooklyn,Bath Beach,one-family,2079.0,1557.0,1945.0,2026-08,1188000
+Queens,Queens Village,one-family,4000.0,1322.0,1955.0,2026-08,775000
+Queens,Richmond Hill,two-family,2134.0,2355.0,2006.0,2026-08,995000
+Brooklyn,Madison,one-family,1890.0,2106.0,1940.0,2026-08,830000
+Brooklyn,Bedford Stuyvesant,two-family,2000.0,2520.0,1920.0,2026-08,1400000
+Brooklyn,Dyker Heights,two-family,2000.0,4000.0,1930.0,2026-08,1500000
+Queens,St. Albans,one-family,3000.0,1400.0,1920.0,2026-08,920000
+Queens,Flushing-South,one-family,2938.0,1440.0,1940.0,2026-08,1150000
+Queens,Glendale,two-family,3400.0,1634.0,1945.0,2026-08,1440000
+Bronx,Castle Hill/Unionport,one-family,1854.0,1224.0,1960.0,2026-08,707500
+Manhattan,Soho,one-family,1937.0,4607.0,2015.0,2026-08,14900000
+Brooklyn,Park Slope,two-family,1667.0,1576.0,1899.0,2026-08,5750000
+Brooklyn,Boerum Hill,one-family,2250.0,4148.0,1899.0,2026-08,6180000
+Brooklyn,Bedford Stuyvesant,two-family,1717.0,2300.0,1899.0,2026-08,2625000
+Queens,Briarwood,one-family,2200.0,1328.0,1920.0,2026-08,950000
+Bronx,Pelham Parkway North,two-family,3000.0,2320.0,1945.0,2026-08,999950
+Manhattan,Upper East Side (59-79),one-family,1255.0,3068.0,1920.0,2026-08,6200000
+Brooklyn,Flatbush-Lefferts Garden,two-family,2000.0,2096.0,1899.0,2026-08,2250000
+Bronx,Soundview,one-family,5500.0,1550.0,1940.0,2026-08,620000
+Queens,Glendale,one-family,2000.0,1305.0,1925.0,2026-08,855000
+Brooklyn,Flatbush-North,two-family,2288.0,1655.0,1945.0,2026-08,925425
+Queens,Middle Village,two-family,2000.0,1410.0,1935.0,2026-08,980000
+Queens,Queens Village,one-family,4650.0,1336.0,1930.0,2026-08,886000
+Brooklyn,Old Mill Basin,two-family,2000.0,1505.0,1955.0,2026-08,870000
+Brooklyn,Bay Ridge,one-family,2001.0,1792.0,1920.0,2026-08,1599000
+Queens,St. Albans,one-family,2000.0,1200.0,1955.0,2026-08,420000
+Brooklyn,Ocean Hill,two-family,1800.0,2268.0,1910.0,2026-08,1850000
+Queens,Sunnyside,one-family,2000.0,1305.0,1950.0,2026-08,824783
+Brooklyn,Madison,one-family,2667.0,1490.0,1930.0,2026-08,1700000
+Queens,So. Jamaica-Baisley Park,one-family,2400.0,1152.0,1930.0,2026-08,685000
+Brooklyn,Ocean Parkway-North,one-family,3000.0,2502.0,1925.0,2026-08,3475000
+Brooklyn,Bush Terminal,two-family,1736.0,1672.0,1910.0,2026-08,1250000
+Queens,Astoria,two-family,3418.0,1600.0,1925.0,2026-08,1398000
+Queens,Howard Beach,one-family,4000.0,2192.0,1955.0,2026-08,950000
+Brooklyn,Park Slope,two-family,2108.0,3888.0,1899.0,2026-08,6000000
+Queens,Astoria,two-family,4246.0,2034.0,1901.0,2026-08,2875000
+Queens,Far Rockaway,one-family,1827.0,1056.0,1935.0,2026-08,550000
+Brooklyn,Flatbush-East,two-family,3750.0,2512.0,1925.0,2026-08,1815000
+Staten Island,Dongan Hills,one-family,2200.0,1220.0,1970.0,2026-08,730000
+Queens,Jackson Heights,one-family,2000.0,2035.0,1955.0,2026-08,1075000
+Brooklyn,East New York,two-family,2260.0,2162.0,1920.0,2026-08,1140000
+Queens,Floral Park,one-family,4000.0,1230.0,1945.0,2026-08,882000
+Queens,Forest Hills,one-family,2250.0,1568.0,1935.0,2026-08,1610000
+Brooklyn,Bergen Beach,one-family,2455.0,2166.0,1998.0,2026-08,850000
+Queens,Bayside,one-family,5000.0,2052.0,1950.0,2026-08,1580000
+Brooklyn,Bensonhurst,two-family,2500.0,2680.0,1920.0,2026-08,1480000
+Queens,Ridgewood,two-family,1883.0,2200.0,1920.0,2026-08,1360000
+Brooklyn,Flatbush-North,one-family,2000.0,1430.0,1920.0,2026-08,300000
+Staten Island,Westerleigh,two-family,4694.0,2400.0,1930.0,2026-08,925000
+Bronx,Baychester,two-family,7125.0,2852.0,1920.0,2026-08,1050000
+Queens,Bayside,one-family,2240.0,1224.0,1960.0,2026-08,946000
+Staten Island,Willowbrook,two-family,3920.0,2110.0,1970.0,2026-08,1184000
+Queens,Queens Village,one-family,4200.0,1560.0,1930.0,2026-08,513000
+Brooklyn,Canarsie,two-family,7000.0,1740.0,1920.0,2026-08,875000
+Brooklyn,Borough Park,two-family,2500.0,2720.0,1930.0,2026-08,2550000
+Queens,Ozone Park,two-family,4000.0,1618.0,1930.0,2026-08,1220000
+Brooklyn,Flatbush-East,two-family,4000.0,2570.0,1920.0,2026-08,1200000
+Staten Island,Oakwood-Beach,two-family,4120.0,2184.0,1960.0,2026-08,1110000
+Queens,Kew Gardens,one-family,3000.0,2002.0,1930.0,2026-08,1150000
+Bronx,Pelham Parkway North,two-family,2000.0,2280.0,1945.0,2026-08,860000
+Staten Island,Rosebank,one-family,3082.0,1056.0,1994.0,2026-08,739888
+Queens,Bayside,one-family,2500.0,1428.0,1971.0,2026-08,999000
+Brooklyn,Brooklyn Heights,one-family,1017.0,2400.0,1853.0,2026-08,6175000
+Queens,St. Albans,two-family,4000.0,2128.0,1950.0,2026-08,1300000
+Queens,Laurelton,one-family,4600.0,1356.0,1930.0,2026-08,580000
+Queens,Bayside,two-family,3433.0,3374.0,1970.0,2026-08,700000
+Brooklyn,Old Mill Basin,one-family,1800.0,996.0,1925.0,2026-08,615000
+Brooklyn,Greenpoint,two-family,1800.0,2538.0,1910.0,2026-08,2000000
+Queens,Springfield Gardens,two-family,3395.0,1568.0,1915.0,2026-08,885000
+Queens,Ozone Park,one-family,2543.0,861.0,1935.0,2026-08,640000
+Queens,St. Albans,one-family,4000.0,859.0,1950.0,2026-08,575311
+Queens,Glen Oaks,one-family,2500.0,896.0,1950.0,2026-08,760000
+Queens,South Ozone Park,one-family,2000.0,896.0,1925.0,2026-08,565000
+Queens,Astoria,two-family,1800.0,1998.0,1930.0,2026-08,1900000
+Queens,Arverne,one-family,11452.0,2208.0,1920.0,2026-08,999990
+Brooklyn,Sunset Park,two-family,2003.0,3564.0,1901.0,2026-08,1900000
+Queens,Flushing-North,one-family,4000.0,1150.0,1940.0,2026-08,1255000
+Queens,Springfield Gardens,two-family,1600.0,2200.0,1930.0,2026-08,932800
+Brooklyn,Bay Ridge,one-family,2250.0,1332.0,1925.0,2026-08,1661000
+Queens,Floral Park,one-family,4000.0,1362.0,1950.0,2026-08,760000
+Brooklyn,Bath Beach,one-family,1619.0,928.0,1940.0,2026-08,928000
+Brooklyn,Bath Beach,two-family,2600.0,1914.0,1955.0,2026-08,1300000
+Brooklyn,Midwood,one-family,2168.0,1472.0,1935.0,2026-08,999000
+Staten Island,Rosebank,two-family,3542.0,1656.0,1998.0,2026-08,865000
+Queens,Richmond Hill,two-family,2558.0,1972.0,1925.0,2026-08,1100000
+Queens,Bayside,one-family,6000.0,3032.0,1930.0,2026-08,1420000
+Bronx,Wakefield,one-family,2614.0,1280.0,1920.0,2026-08,799000
+Brooklyn,Greenpoint,two-family,1658.0,2090.0,1899.0,2026-08,2300000
+Queens,Rego Park,one-family,1861.0,1620.0,1938.0,2026-08,1050000
+Bronx,Throgs Neck,one-family,5000.0,1760.0,1935.0,2026-08,820000
+Queens,College Point,one-family,3000.0,1698.0,1920.0,2026-08,880000
+Queens,Middle Village,two-family,1765.0,1944.0,1960.0,2026-08,1060000
+Queens,Beechhurst,one-family,4000.0,1320.0,1940.0,2026-08,1335000
+Brooklyn,Clinton Hill,two-family,2030.0,4039.0,1900.0,2026-08,5250000
+Queens,Flushing-South,one-family,1900.0,1536.0,1940.0,2026-08,950000
+Queens,Queens Village,one-family,2820.0,1334.0,1925.0,2026-08,855000
+Brooklyn,Bedford Stuyvesant,one-family,2500.0,1200.0,1899.0,2026-08,975000
+Bronx,Bronxdale,two-family,1752.0,2760.0,1930.0,2026-08,700000
+Queens,Queens Village,one-family,3000.0,1088.0,1930.0,2026-08,755000
+Brooklyn,Canarsie,two-family,2000.0,2275.0,1960.0,2026-08,600000
+Queens,Jamaica,one-family,2910.0,1302.0,1920.0,2026-08,830000
+Brooklyn,Midwood,one-family,4000.0,1950.0,1920.0,2026-08,1729276
+Brooklyn,Ocean Parkway-North,one-family,2000.0,1125.0,1905.0,2026-08,1274000
+Brooklyn,East New York,two-family,2050.0,2255.0,1910.0,2026-08,1030000
+Queens,Ridgewood,two-family,2520.0,2004.0,1960.0,2026-08,980000
+Queens,Sunnyside,two-family,2442.0,2125.0,1925.0,2026-08,1600000
+Queens,Douglaston,one-family,3663.0,1110.0,1950.0,2026-08,990000
+Bronx,Baychester,one-family,1600.0,960.0,1955.0,2026-08,540000
+Queens,South Ozone Park,two-family,5559.0,2360.0,1955.0,2026-08,1300000
+Brooklyn,Canarsie,two-family,2000.0,1540.0,1955.0,2026-08,832000
+Bronx,Kingsbridge/Jerome Park,one-family,3449.0,1516.0,1901.0,2026-08,870000
+Bronx,Pelham Parkway South,two-family,4800.0,3288.0,1950.0,2026-08,1485000
+Staten Island,Rossville,two-family,3800.0,2280.0,1986.0,2026-08,1065000
+Queens,Floral Park,one-family,4000.0,1236.0,1950.0,2026-08,975000
+Queens,Springfield Gardens,one-family,4000.0,1385.0,1940.0,2026-08,670000
+Queens,South Ozone Park,two-family,2500.0,1682.0,1925.0,2026-08,910000
+Queens,Flushing-South,one-family,1800.0,1224.0,1950.0,2026-08,800000
+Bronx,Riverdale,one-family,22094.0,1820.0,1965.0,2026-08,2650000
+Queens,Jamaica Hills,two-family,4100.0,1939.0,1925.0,2026-08,730000
+Brooklyn,Dyker Heights,one-family,2000.0,1760.0,1925.0,2026-08,1510000
+Queens,Little Neck,one-family,5000.0,2171.0,1930.0,2026-08,1380000
+Brooklyn,Flatbush-East,one-family,2000.0,1414.0,1930.0,2026-08,715000
+Brooklyn,Bath Beach,two-family,3867.0,928.0,1899.0,2026-08,1350000
+Queens,South Jamaica,two-family,3000.0,1312.0,1930.0,2026-08,238000
+Bronx,Baychester,one-family,2000.0,2070.0,1950.0,2026-08,888000
+Brooklyn,Coney Island,one-family,2380.0,1280.0,1985.0,2026-08,730000
+Brooklyn,East New York,one-family,2642.0,1338.0,2002.0,2026-08,745000
+Queens,South Ozone Park,one-family,4000.0,1339.0,1950.0,2026-08,131820
+Brooklyn,Flatbush-Lefferts Garden,one-family,2000.0,2764.0,1901.0,2026-08,1120000
+Staten Island,New Dorp,two-family,4000.0,1700.0,1965.0,2026-08,990000
+Queens,Flushing-North,one-family,4000.0,2392.0,1945.0,2026-08,454900
+Queens,Queens Village,one-family,4000.0,1864.0,1935.0,2026-08,999800
+Bronx,Wakefield,one-family,2435.0,1152.0,1925.0,2026-08,540000
+Brooklyn,Marine Park,one-family,3000.0,1122.0,1925.0,2026-08,870000
+Queens,Fresh Meadows,one-family,1700.0,1760.0,1950.0,2026-08,710000
+Bronx,Morrisania/Longwood,two-family,802.0,1198.0,1901.0,2026-08,512000
+Brooklyn,Marine Park,two-family,2000.0,2480.0,1926.0,2026-08,900000
+Brooklyn,Flatbush-Central,one-family,4000.0,2058.0,1910.0,2026-08,2025000
+Queens,St. Albans,two-family,6000.0,2574.0,1915.0,2026-08,1090000
+Brooklyn,Bath Beach,two-family,2280.0,2160.0,1930.0,2026-08,1699900
+Queens,Forest Hills,one-family,2500.0,1950.0,1940.0,2026-08,550000
+Queens,So. Jamaica-Baisley Park,one-family,2418.0,708.0,1920.0,2026-08,380000
+Bronx,Morris Park/Van Nest,one-family,2500.0,2744.0,1920.0,2026-08,868000
+Brooklyn,Ocean Parkway-South,one-family,3000.0,3938.0,1925.0,2026-08,6000000
+Queens,College Point,one-family,4000.0,1940.0,1935.0,2026-08,950000
+Bronx,Westchester,two-family,2269.0,1440.0,1901.0,2026-08,795000
+Queens,Arverne,two-family,2725.0,1644.0,1960.0,2026-08,495000
+Brooklyn,Sheepshead Bay,one-family,2160.0,1440.0,1920.0,2026-08,1460000
+Brooklyn,Bushwick,two-family,2100.0,2112.0,2001.0,2026-08,1400000
+Brooklyn,Flatlands,two-family,2000.0,2180.0,1960.0,2026-08,900000
+Queens,Oakland Gardens,one-family,6236.0,1755.0,1955.0,2026-08,1320000
+Queens,South Ozone Park,one-family,3000.0,1064.0,1920.0,2026-08,760000
+Manhattan,Chelsea,one-family,1547.0,3666.0,1900.0,2026-08,12000000
+Brooklyn,Madison,two-family,2000.0,2120.0,1901.0,2026-08,1600000
+Bronx,Bronxdale,two-family,2500.0,2274.0,1910.0,2026-08,700000
+Queens,Ozone Park,one-family,2193.0,1280.0,1940.0,2026-08,800000
+Brooklyn,Flatbush-Central,one-family,8814.0,3749.0,1901.0,2026-08,3830000
+Staten Island,Woodrow,one-family,10000.0,2185.0,1970.0,2026-08,1300000
+Brooklyn,Midwood,one-family,4000.0,4400.0,1915.0,2026-08,2531250
+Queens,Glendale,two-family,2500.0,1736.0,1930.0,2026-08,970000
+Queens,Glendale,one-family,1900.0,1316.0,1930.0,2026-08,920000
+Queens,Queens Village,one-family,3600.0,1344.0,1925.0,2026-08,820000

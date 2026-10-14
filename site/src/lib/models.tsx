@@ -46,7 +46,7 @@ export function rankByError<T extends { id: ModelId; mae?: number }>(rows: T[]):
 }
 
 /** The model that draws the band: the selected one, or the first loaded model while it is not ready. */
-export function resolvePrimary(choice: ModelId, loaded: ModelId[]): ModelId {
+export function resolvePrimary<T extends string>(choice: T, loaded: T[]): T {
   return loaded.length === 0 || loaded.includes(choice) ? choice : loaded[0];
 }
 
