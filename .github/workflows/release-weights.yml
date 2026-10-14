@@ -8,7 +8,7 @@ on:
       model:
         description: Model to rebuild
         type: choice
-        options: [timesfm, chronos-bolt-tiny, chronos-bolt-mini, chronos-bolt-small, chronos-bolt-base]
+        options: [timesfm, chronos-bolt-tiny, chronos-bolt-mini, chronos-bolt-small, chronos-bolt-base, tabicl-classifier-v2, tabicl-regressor-v2]
         default: timesfm
       repo_id:
         description: Hugging Face repo override (defaults to tools/models/<model>/model.json)

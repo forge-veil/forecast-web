@@ -11,7 +11,7 @@ on:
       model:
         description: Model whose card to upload
         type: choice
-        options: [timesfm, chronos-bolt-tiny, chronos-bolt-mini, chronos-bolt-small, chronos-bolt-base]
+        options: [timesfm, chronos-bolt-tiny, chronos-bolt-mini, chronos-bolt-small, chronos-bolt-base, tabicl-classifier-v2, tabicl-regressor-v2]
         default: timesfm
 
 permissions:

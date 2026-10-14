@@ -11,6 +11,7 @@ dependencies = [
   "numpy",
   "huggingface_hub",
   "chronos-forecasting>=2.3,<2.4",
+  "tabicl==2.2.0",
 ]
 
 [tool.uv]
