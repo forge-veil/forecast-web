@@ -87,7 +87,7 @@ Every model is checked against its official Python library, and weights are down
 - [Versioning](https://vatsalbakshi.com/forecast-web/docs/documents/Versioning.html): what may change in minor and major releases.
 - [API reference](https://vatsalbakshi.com/forecast-web/docs/modules.html), and [every published version](https://www.jsdocs.io/package/forecast-web) on jsDocs.io.
 
-Runs in desktop Chrome, Edge and Safari: CI tests every change in Chromium and WebKit, and Firefox and phones are not tested yet. Node support is planned for a minor release.
+Runs in desktop Chrome, Edge and Safari: CI tests every change in Chromium and WebKit, and Firefox is not tested yet. On phones, use Chronos-Bolt Tiny; larger models run out of memory. Node support is planned for a minor release.
 
 ## License
 

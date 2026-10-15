@@ -260,6 +260,9 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
   .controls .seg button { flex: 1; }
   .d-unavail { font-size: 21px; }
   .unavailable { gap: 8px 12px; }
+  /* The tabs take the full width; the project links sit beside the title and scroll with the page. */
+  .toplinks { position: absolute; top: 72px; }
+  .app[data-view="detail"] .toplinks { display: none; }
 }
 @media (max-width: 420px) {
   .stats { grid-template-columns: 1fr; }
@@ -284,6 +287,10 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
 .menu button:hover, .menu button:focus-visible { background: var(--selected); outline: none; }
 .menu-name { flex: 1; }
 .menu-size { color: var(--ink-2); font-size: 13px; }
+.menu-label { display: grid; flex: 1; gap: 1px; }
+.menu-note { font-size: 12px; color: var(--ink-2); }
+.menu-note.ok { color: var(--green-text); }
+.menu-note.warn { color: var(--ink-2); }
 
 /* Tables view */
 .gicon.g-tables-real-estate { background: #34c759; }

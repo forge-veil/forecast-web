@@ -1,5 +1,5 @@
 import { MODELS } from "forecast-web";
-import { compareVerdict, downloadBytes, forecastKey, modelColor, rankByError, readChoice, resolvePrimary } from "src/lib/models";
+import { compareVerdict, downloadBytes, forecastKey, isMobile, menuOrder, mobileNote, modelColor, rankByError, readChoice, resolvePrimary } from "src/lib/models";
 
 describe("readChoice", () => {
   it("accepts a known model id and falls back to TimesFM otherwise", () => {
@@ -7,6 +7,42 @@ describe("readChoice", () => {
     expect(readChoice("nope")).toBe("timesfm-2.5");
     expect(readChoice(null)).toBe("timesfm-2.5");
     expect(readChoice("toString")).toBe("timesfm-2.5");
+  });
+
+  it("defaults to Chronos-Bolt Tiny on mobile, but keeps a stored choice", () => {
+    expect(readChoice(null, true)).toBe("chronos-bolt-tiny");
+    expect(readChoice("nope", true)).toBe("chronos-bolt-tiny");
+    expect(readChoice("timesfm-2.5", true)).toBe("timesfm-2.5");
+  });
+});
+
+describe("isMobile", () => {
+  const nav = (o: Record<string, unknown>) => o as unknown as Navigator;
+  it("counts a device as mobile if either the hint or the user agent says so", () => {
+    expect(isMobile(nav({ userAgentData: { mobile: true }, userAgent: "" }))).toBe(true);
+    expect(isMobile(nav({ userAgentData: { mobile: false }, userAgent: "Mozilla/5.0 (Linux; Android 15)" }))).toBe(true);
+    expect(isMobile(nav({ userAgentData: { mobile: false }, userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64)" }))).toBe(false);
+  });
+  it("falls back to the user agent, counting iPads that report a Mac", () => {
+    expect(isMobile(nav({ userAgent: "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X)" }))).toBe(true);
+    expect(isMobile(nav({ userAgent: "Mozilla/5.0 (Linux; Android 15; Pixel 9) Mobile" }))).toBe(true);
+    expect(isMobile(nav({ userAgent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)", maxTouchPoints: 5 }))).toBe(true);
+    expect(isMobile(nav({ userAgent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)", maxTouchPoints: 0 }))).toBe(false);
+    expect(isMobile(undefined)).toBe(false);
+  });
+});
+
+describe("mobile labels", () => {
+  it("recommends Tiny and warns about larger models, only on mobile", () => {
+    expect(mobileNote("chronos-bolt-tiny", true)).toEqual({ text: "Recommended on phones", warn: false });
+    expect(mobileNote("chronos-bolt-small", true)).toEqual({ text: "May crash on phones", warn: true });
+    expect(mobileNote("timesfm-2.5", true)).toEqual({ text: "May crash on phones", warn: true });
+    expect(mobileNote("timesfm-2.5", false)).toBeNull();
+  });
+  it("lists Tiny first on mobile and keeps registry order otherwise", () => {
+    const ids = ["timesfm-2.5", "chronos-bolt-tiny", "chronos-bolt-mini"] as const;
+    expect(menuOrder([...ids], true)).toEqual(["chronos-bolt-tiny", "timesfm-2.5", "chronos-bolt-mini"]);
+    expect(menuOrder([...ids], false)).toEqual([...ids]);
   });
 });
 

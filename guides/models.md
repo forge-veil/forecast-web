@@ -9,7 +9,8 @@ group: Guides
 
 | If you need | Use |
 |---|---|
-| A small download, phones, or many quick forecasts | Chronos-Bolt Tiny (18 MB) or Mini (43 MB) |
+| Phones and tablets | Chronos-Bolt Tiny (18 MB); larger models crashed mobile browsers in testing |
+| A small download or many quick forecasts | Chronos-Bolt Tiny (18 MB) or Mini (43 MB) |
 | A balance of download size and quality | Chronos-Bolt Small (96 MB) |
 | The most capable forecasts, with room for a larger download | TimesFM 2.5 (default; 261 to 463 MB) or Chronos-Bolt Base (411 MB) |
 | More than 512 points of history to matter | Chronos-Bolt, which reads up to 2048 |
