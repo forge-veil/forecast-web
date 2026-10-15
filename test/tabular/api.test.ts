@@ -8,6 +8,8 @@ type Call = { X: Feed; y_train: Feed };
 function fakeGraph(kind: "classification" | "regression") {
   const calls: Call[] = [];
   const graph = {
+    backend: "wasm" as const,
+    dtype: "fp16" as const,
     async run(feeds: Record<string, Feed>): Promise<Record<string, Float32Array>> {
       const { X, y_train } = feeds as unknown as Call;
       calls.push({ X: { data: Float32Array.from(X.data), dims: X.dims }, y_train: { data: Float32Array.from(y_train.data), dims: y_train.dims } });

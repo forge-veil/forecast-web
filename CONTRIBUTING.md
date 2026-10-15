@@ -31,6 +31,8 @@ uv run python models/chronos-bolt/make_reference.py chronos-bolt-small
 uv run python package_hub.py chronos-bolt-small
 cd ..
 npm test                                                 # parity for every built model and format, and anomaly tuning
+npm run build && npm run test:browser                    # the built package in Chromium and WebKit (npx playwright install first)
+npm run docs                                             # guides (guides/*.md) and API reference into site/dist/docs
 ```
 
 ## Layout

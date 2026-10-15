@@ -7,3 +7,6 @@ tools/.venv
 .DS_Store
 __pycache__
 docs/
+browser/.out
+test-results
+playwright-report

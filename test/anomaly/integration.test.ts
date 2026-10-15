@@ -100,7 +100,7 @@ async function localModel(id: ModelId, dir: string): Promise<{ model: Forecaster
   };
   const adapter = getAdapter(id);
   const forecast = adapter.forecaster(run, { model_type: id.startsWith("chronos") ? "chronos-bolt" : "timesfm" });
-  const model = withAnalysis({ model: id, info: adapter.info, backend: "wasm", dtype: "fp16", config: { model_type: "test" }, forecast, dispose: async () => {} });
+  const model = withAnalysis({ model: id, info: adapter.info, backend: "wasm", dtype: "fp16", forecast, dispose: async () => {} });
   return { model, release: async () => (await session.release(), rmSync(tmp, { recursive: true, force: true })) };
 }
 

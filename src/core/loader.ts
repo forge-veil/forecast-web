@@ -28,6 +28,8 @@ export interface CoreOptions {
   device: Device;
   cache: boolean;
   wasmPaths?: string;
+  /** Size and SHA-256 per weight file, built into the package for pinned weights; replaces config.json's list. */
+  hashes?: Record<string, { bytes: number; sha256: string }>;
 }
 
 export interface Core {
@@ -96,7 +98,14 @@ export async function loadCore(
   adapter.checkConfig(config);
 
   const urls = [files.model, ...(files.halfData ? [files.halfData.url] : [])];
-  const meta = urls.map((u) => config.files?.[u.slice(opts.base.length)]);
+  const meta = urls.map((u) => {
+    const path = u.slice(opts.base.length);
+    if (!opts.hashes) return config.files?.[path];
+    // Pinned weights trust only the hashes built into the package, and fail closed without one.
+    const pinned = opts.hashes[path];
+    if (!pinned) throw new ForecastError("LOAD_FAILED", `no pinned SHA-256 for ${path}`);
+    return pinned;
+  });
 
   // Progress is the sum over every weight file. Totals come from config.json when listed;
   // otherwise nothing is reported until every file has announced its size, so it never jumps back.
@@ -119,7 +128,9 @@ export async function loadCore(
       urls.map((url, i) =>
         fetchBytes(url, {
           cache: opts.cache,
-          cacheKey: meta[i] ? `${url}?sha256=${meta[i]!.sha256}` : undefined,
+          // Keyed by content alone, so a new revision with the same bytes reuses the cached copy.
+          cacheKey: meta[i] ? `https://forecast-web.invalid/sha256/${meta[i]!.sha256}` : undefined,
+          sha256: meta[i]?.sha256,
           signal: inner.signal,
           onProgress: (loaded, total, cached) => {
             const s = state[i];

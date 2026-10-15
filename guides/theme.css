@@ -1,0 +1,136 @@
+/* forecast-web docs: TypeDoc's default theme in a muted, Apple-like palette.
+   Ink instead of blue, hairline borders, Geist throughout and Geist Mono for code. */
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap");
+
+:root {
+  --light-color-background: #ffffff;
+  --light-color-background-secondary: #f5f5f7;
+  --light-color-background-active: rgba(120, 120, 128, 0.12);
+  --light-color-text: #1c1c1e;
+  --light-color-text-aside: rgba(60, 60, 67, 0.62);
+  --light-color-link: #1c1c1e;
+  --light-color-accent: rgba(60, 60, 67, 0.16);
+  --light-color-active-menu-item: rgba(120, 120, 128, 0.12);
+  --light-color-focus-outline: #1c1c1e;
+  --light-color-icon-background: #f5f5f7;
+  --light-color-icon-text: rgba(60, 60, 67, 0.72);
+  --light-color-document: #1c1c1e;
+
+  --dark-color-background: #000000;
+  --dark-color-background-secondary: #1c1c1e;
+  --dark-color-background-active: rgba(118, 118, 128, 0.24);
+  --dark-color-text: #f2f2f7;
+  --dark-color-text-aside: rgba(235, 235, 245, 0.6);
+  --dark-color-link: #f2f2f7;
+  --dark-color-accent: rgba(84, 84, 88, 0.6);
+  --dark-color-active-menu-item: rgba(118, 118, 128, 0.24);
+  --dark-color-focus-outline: #f2f2f7;
+  --dark-color-icon-background: #1c1c1e;
+  --dark-color-icon-text: rgba(235, 235, 245, 0.72);
+  --dark-color-document: #f2f2f7;
+}
+
+/* Kind icons in one quiet tone instead of a color per kind. */
+:root {
+  --light-color-ts-function: rgba(60, 60, 67, 0.72);
+  --light-color-ts-interface: rgba(60, 60, 67, 0.72);
+  --light-color-ts-type-alias: rgba(60, 60, 67, 0.72);
+  --light-color-ts-variable: rgba(60, 60, 67, 0.72);
+  --light-color-ts-class: rgba(60, 60, 67, 0.72);
+  --light-color-ts-module: rgba(60, 60, 67, 0.72);
+  --light-color-ts-property: rgba(60, 60, 67, 0.72);
+  --light-color-ts-method: rgba(60, 60, 67, 0.72);
+  --dark-color-ts-function: rgba(235, 235, 245, 0.72);
+  --dark-color-ts-interface: rgba(235, 235, 245, 0.72);
+  --dark-color-ts-type-alias: rgba(235, 235, 245, 0.72);
+  --dark-color-ts-variable: rgba(235, 235, 245, 0.72);
+  --dark-color-ts-class: rgba(235, 235, 245, 0.72);
+  --dark-color-ts-module: rgba(235, 235, 245, 0.72);
+  --dark-color-ts-property: rgba(235, 235, 245, 0.72);
+  --dark-color-ts-method: rgba(235, 235, 245, 0.72);
+}
+
+body {
+  font-family: "Geist", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+code, pre, .tsd-signature, .tsd-signature-type, .tsd-kind-parameter {
+  font-family: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+/* Prose */
+.tsd-typography, .tsd-panel .tsd-comment { font-size: 17px; line-height: 1.65; }
+.tsd-typography p, .tsd-typography li { line-height: 1.65; }
+h1, h2, h3, h4, .tsd-page-title h1, .tsd-typography h1, .tsd-typography h2 {
+  font-family: inherit;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.tsd-page-title h1 { font-size: 2rem; margin-bottom: 0.4em; }
+.tsd-typography h2 { font-size: 1.4rem; margin-top: 2em; }
+.tsd-typography h3 { font-size: 1.1rem; letter-spacing: -0.01em; }
+
+/* Links: ink with a soft underline, never blue. */
+.tsd-typography a, .tsd-comment a, .tsd-signature a, .tsd-panel a {
+  color: var(--color-text);
+  text-decoration: underline;
+  text-decoration-color: var(--color-accent);
+  text-underline-offset: 3px;
+}
+.tsd-typography a:hover, .tsd-comment a:hover, .tsd-panel a:hover { text-decoration-color: currentColor; }
+
+/* Header: hairline, no shadow. */
+.tsd-page-toolbar { border-bottom: 1px solid var(--color-accent); box-shadow: none; background: var(--color-background); }
+.tsd-page-toolbar .title { font-size: 1.05rem; font-weight: 600; letter-spacing: -0.01em; }
+#tsd-toolbar-links a { color: var(--color-text-aside); font-size: 14px; }
+#tsd-toolbar-links a:hover { color: var(--color-text); }
+
+/* Sidebar */
+.tsd-navigation a, .tsd-navigation summary > span, .tsd-page-navigation a { color: var(--color-text-aside); font-size: 14px; }
+.tsd-navigation a.current, .tsd-page-navigation a.current { color: var(--color-text); background: var(--color-active-menu-item); border-radius: 6px; }
+.tsd-navigation a:hover { color: var(--color-text); text-decoration: none; }
+/* Sentence case, quiet group labels; no folder or kind icons in the sidebar. */
+.tsd-navigation summary, .tsd-navigation summary span, .tsd-accordion-summary h3, .tsd-page-navigation summary {
+  text-transform: none; letter-spacing: 0; font-size: 13px; font-weight: 500; color: var(--color-text-aside);
+}
+.tsd-page-navigation svg.tsd-kind-icon { display: none; }
+/* Kind icons stay (they keep the tree aligned) but read as quiet outlines. */
+.site-menu .tsd-kind-icon { opacity: 0.55; }
+#tsd-sidebar-links + nav > a:first-child { font-weight: 600; color: var(--color-text); }
+
+/* Code and tables */
+pre { border: 1px solid var(--color-accent); border-radius: 10px; background: var(--color-background-secondary); }
+pre code, pre code * { background: transparent !important; }
+:not(pre) > code { background: var(--color-background-active); border-radius: 5px; padding: 0.1em 0.35em; font-size: 0.88em; }
+.tsd-typography table { border-collapse: collapse; font-size: 15px; }
+.tsd-typography th, .tsd-typography td { border: 0; border-bottom: 1px solid var(--color-accent); padding: 8px 12px 8px 0; text-align: left; }
+.tsd-typography tr:nth-child(2n) { background: transparent; }
+
+/* Panels: hairlines instead of filled boxes. */
+.tsd-panel, .tsd-member-group .tsd-member { background: transparent; }
+.tsd-signature { border: 1px solid var(--color-accent); border-radius: 10px; background: var(--color-background-secondary); }
+.tsd-generator { display: none; }
+
+/* Less chrome: no settings panel or member index (the page outline covers it). */
+.tsd-navigation.settings, .tsd-index-group, .tsd-index-section { display: none; }
+
+/* Breadcrumbs and kind labels stay quiet. */
+.tsd-breadcrumb, .tsd-breadcrumb a { font-size: 13px; color: var(--color-text-aside); text-decoration: none; }
+.tsd-page-title h1 { font-size: 1.9rem; }
+
+/* Signatures: upright mono, types in the text color. */
+.tsd-signature, .tsd-signature * { font-style: normal; }
+.tsd-signature { font-size: 14px; padding: 10px 14px; }
+.tsd-signature-type { color: var(--color-text); }
+.tsd-signature-symbol { color: var(--color-text-aside); }
+
+/* Tags such as Optional and Experimental: small pills. */
+.tsd-tag {
+  font-family: inherit; font-size: 11px; font-weight: 500; letter-spacing: 0.01em;
+  color: var(--color-text-aside); background: var(--color-background-active);
+  border: 0; border-radius: 999px; padding: 2px 8px; vertical-align: middle;
+}
+.tsd-anchor-link h3, h3.tsd-anchor-link { font-size: 1.05rem; font-weight: 600; }
+
+.tsd-parameters li, .tsd-parameter-list li { margin-bottom: 6px; }

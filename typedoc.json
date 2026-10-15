@@ -1,0 +1,51 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "name": "forecast-web",
+  "entryPoints": [
+    "src/index.ts",
+    "src/react.tsx",
+    "src/tabular/index.ts"
+  ],
+  "out": "site/dist/docs",
+  "readme": "guides/getting-started.md",
+  "excludePrivate": true,
+  "excludeInternal": true,
+  "treatWarningsAsErrors": true,
+  "disableSources": true,
+  "groupOrder": [
+    "Guides",
+    "Modules",
+    "Functions",
+    "Variables",
+    "Classes",
+    "Interfaces",
+    "Type Aliases",
+    "*"
+  ],
+  "projectDocuments": [
+    "guides/models.md",
+    "guides/forecasting.md",
+    "guides/anomalies.md",
+    "guides/tabular.md",
+    "guides/react.md",
+    "guides/deployment.md",
+    "guides/troubleshooting.md",
+    "guides/versioning.md",
+    "CHANGELOG.md"
+  ],
+  "navigation": {
+    "includeGroups": true,
+    "includeCategories": false,
+    "includeFolders": false
+  },
+  "customCss": "guides/theme.css",
+  "navigationLinks": {
+    "Demo": "https://vatsalbakshi.com/forecast-web/",
+    "Versions": "https://www.jsdocs.io/package/forecast-web",
+    "GitHub": "https://github.com/forge-veil/forecast-web"
+  },
+  "hostedBaseUrl": "https://vatsalbakshi.com/forecast-web/docs/",
+  "searchInComments": true,
+  "searchInDocuments": true,
+  "favicon": "guides/favicon.svg"
+}

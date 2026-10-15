@@ -19,11 +19,13 @@ const NORMS: Norm[] = ["none", "power"];
 const SEED = 42;
 const f32 = Math.fround;
 
+/** Options shared by every tabular model. */
 export interface TabularOptions {
   /** Ensemble members. Defaults to 8, as upstream; 1 is fastest. */
   nEstimators?: number;
 }
 
+/** What a regressor's `predict` returns: the mean, the median, or quantiles at `alphas`. */
 export interface RegressionOptions {
   output?: "mean" | "median" | "quantiles";
   /** Quantile levels for output "quantiles". Defaults to 0.1 through 0.9. */
@@ -58,12 +60,13 @@ export interface FittedTabular {
 /** fit() result: precise when the task is known at compile time, the combined shape otherwise. */
 export type FittedFor<T extends TabularTask> = TabularTask extends T ? FittedTabular : T extends "classification" ? FittedClassifier : FittedRegressor;
 
+/** A loaded tabular model, returned by `loadTabular`. Call `fit` with a table to predict. */
 export interface Tabular<T extends TabularTask = TabularTask> {
   readonly info: TabularInfo;
-  /** Where inference runs, when known ("webgpu" or "wasm"). */
-  readonly backend?: Backend;
-  /** Weight format in use, when known. */
-  readonly dtype?: ResolvedDtype;
+  /** Where inference runs. */
+  readonly backend: Backend;
+  /** Weight format in use. */
+  readonly dtype: ResolvedDtype;
   fit(X: Cell[][], y: (number | string)[]): FittedFor<T>;
   dispose(): Promise<void>;
 }
@@ -107,7 +110,7 @@ function scaleTarget(y: number[]) {
 
 /** Builds the tabular API around a loaded graph. Exported for tests; use loadTabular. */
 export function createTabular<T extends TabularTask = TabularTask>(
-  graph: { run: RunGraph; dispose(): Promise<void>; backend?: Backend; dtype?: ResolvedDtype },
+  graph: { run: RunGraph; dispose(): Promise<void>; backend: Backend; dtype: ResolvedDtype },
   info: TabularInfo,
   opts: TabularOptions = {},
 ): Tabular<T> {

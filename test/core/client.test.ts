@@ -64,13 +64,12 @@ describe("toFloat64", () => {
 });
 
 describe("connectWorker", () => {
-  it("loads, reports progress, and exposes backend and config", async () => {
+  it("loads, reports progress, and exposes the backend", async () => {
     const { worker } = setup();
     const seen: Progress[] = [];
     const m = await connectWorker(worker, opts, (p) => seen.push(p));
     expect(m.backend).toBe("wasm");
     expect(m.dtype).toBe("q8");
-    expect(m.config.context).toBe(512);
     expect(seen.map((p) => p.loaded)).toEqual([5, 10]);
   });
 
@@ -198,3 +197,18 @@ describe("worker message failures", () => {
   });
 });
 
+
+describe("anomaly detection over the worker", () => {
+  it("runs the backtest through the worker and rejects after dispose", async () => {
+    const { withAnalysis } = await import("src/anomaly/index");
+    const { worker } = setup();
+    const m = withAnalysis(await connectWorker(worker, opts));
+    const series = Array<number>(100).fill(5);
+    series[90] = 50;
+    const res = await m.detectAnomalies(series);
+    expect(res.points.length).toBeGreaterThan(50);
+    expect(res.anomalies.map((a) => a.index)).toContain(90);
+    await m.dispose();
+    await expect(m.detectAnomalies(series)).rejects.toMatchObject({ code: "DISPOSED" });
+  });
+});

@@ -27,11 +27,19 @@ Run "Release weights" from the Actions tab and pick the `model` to rebuild (each
 4. Runs the full test suite, including parity for every format. Nothing uploads if it fails.
 5. Uploads `build/<model>` to the Hub in one commit, removing weight files that are no longer built, and prints the new revision in the run summary.
 
+The package downloads each model's weights at a pinned commit, not `main`, and verifies them against hashes built into the package, so a weights upload reaches users only through a package release. After uploading, pin the new commit and release the package:
+
+```sh
+node scripts/pin-weights.mjs bakshinghampalace/<repo>@<revision printed by the workflow>
+```
+
+This rewrites the repo's entry in `src/pins.json` (commit, and size and SHA-256 per file from that commit's `config.json`). If the sizes changed, update the model's `sizes` in the registry too; `test/pins.test.ts` fails until they match. Model card updates add commits as well, but the pinned commit keeps working, so they need no change.
+
 Run it once per model; Chronos-Bolt sizes are separate models. Tick "dry run" to build and verify without uploading. The run takes roughly 15 to 30 minutes, mostly the checkpoint download and the parity suite.
 
 ## Releasing the package
 
-1. Bump `version` in `package.json` and commit.
-2. Tag and push: `git tag v0.2.0 && git push origin main v0.2.0`.
+1. Bump `version` in `package.json`, add the release to `CHANGELOG.md`, and commit.
+2. Tag and push: `git tag v1.0.0 && git push origin main v1.0.0`.
 
 The workflow refuses to publish if the tag and `package.json` version differ, and it reruns typecheck, tests and build first.

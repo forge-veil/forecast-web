@@ -3,6 +3,7 @@ import { chronosBolt } from "src/models/chronos-bolt/index";
 import { timesfm } from "src/models/timesfm/index";
 import { ForecastError, type ModelId, type ModelInfo } from "src/types";
 
+/** The model `loadForecaster` uses when none is given. */
 export const DEFAULT_MODEL_ID: ModelId = "timesfm-2.5";
 
 // Download sizes in bytes, from each weights repo's config.json.

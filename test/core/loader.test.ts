@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import { loadCore, planLoad, type CoreOptions, type SessionFactory } from "src/core/loader";
 import type { SessionOptions } from "src/core/session";
 import { MODELS } from "src/models/index";
@@ -34,6 +35,9 @@ describe("planLoad", () => {
     expect(planLoad(custom, "auto", "auto", false).dtype).toBe("fp16");
   });
 });
+
+/** Hex SHA-256, as config.json lists it. */
+const sha = (b: Uint8Array) => createHash("sha256").update(b).digest("hex");
 
 describe("loadCore", () => {
   const config = { model_type: "timesfm", context: 512, horizon: 128, patch: 32, quantiles: [] };
@@ -108,8 +112,8 @@ describe("loadCore", () => {
     const sized = {
       ...config,
       files: {
-        "onnx/model_fp16w.onnx": { bytes: 4, sha256: "aa" },
-        "onnx/model_fp16w.f16": { bytes: 4, sha256: "bb" },
+        "onnx/model_fp16w.onnx": { bytes: 4, sha256: sha(files["https://m/onnx/model_fp16w.onnx"]) },
+        "onnx/model_fp16w.f16": { bytes: 4, sha256: sha(files["https://m/onnx/model_fp16w.f16"]) },
       },
     };
     files["https://m/config.json"] = new TextEncoder().encode(JSON.stringify(sized));
@@ -120,6 +124,35 @@ describe("loadCore", () => {
     for (const p of seen) expect(p.total).toBe(8);
     for (let i = 1; i < seen.length; i++) expect(seen[i].loaded).toBeGreaterThanOrEqual(seen[i - 1].loaded);
     files["https://m/config.json"] = new TextEncoder().encode(JSON.stringify(config));
+  });
+
+  it("fails with LOAD_FAILED when a weight file does not match its listed SHA-256", async () => {
+    const listed = { ...config, files: { "onnx/model_quantized.onnx": { bytes: 10, sha256: sha(new Uint8Array(10).fill(1)) } } };
+    files["https://m/config.json"] = new TextEncoder().encode(JSON.stringify(listed));
+    const { factory } = fakeSession();
+    try {
+      await expect(loadCore(opts({ device: "wasm" }), factory)).rejects.toMatchObject({ code: "LOAD_FAILED", message: expect.stringMatching(/SHA-256/) });
+    } finally {
+      files["https://m/config.json"] = new TextEncoder().encode(JSON.stringify(config));
+    }
+  });
+
+    it("verifies against built-in hashes instead of config.json when given", async () => {
+    const good = sha(files["https://m/onnx/model_quantized.onnx"]);
+    const bad = sha(new Uint8Array(10).fill(1));
+    const { factory } = fakeSession();
+    try {
+      // config.json lies, the built-in hash is right: loads.
+      files["https://m/config.json"] = new TextEncoder().encode(JSON.stringify({ ...config, files: { "onnx/model_quantized.onnx": { bytes: 10, sha256: bad } } }));
+      await expect(loadCore({ ...opts({ device: "wasm" }), hashes: { "onnx/model_quantized.onnx": { bytes: 10, sha256: good } } }, factory)).resolves.toBeTruthy();
+      // config.json agrees with a tampered file, the built-in hash does not: fails.
+      files["https://m/config.json"] = new TextEncoder().encode(JSON.stringify({ ...config, files: { "onnx/model_quantized.onnx": { bytes: 10, sha256: good } } }));
+      await expect(loadCore({ ...opts({ device: "wasm" }), hashes: { "onnx/model_quantized.onnx": { bytes: 10, sha256: bad } } }, factory)).rejects.toMatchObject({ code: "LOAD_FAILED" });
+      // A built-in list without the file fails closed.
+      await expect(loadCore({ ...opts({ device: "wasm" }), hashes: {} }, factory)).rejects.toMatchObject({ code: "LOAD_FAILED", message: expect.stringMatching(/no pinned/) });
+    } finally {
+      files["https://m/config.json"] = new TextEncoder().encode(JSON.stringify(config));
+    }
   });
 
   it("does not report progress until every file's size is known", async () => {
@@ -137,11 +170,13 @@ describe("loadCore", () => {
         put: async (k: string, r: Response) => void store.set(k, r),
       }),
     });
-    const sized = { ...config, files: { "onnx/model_quantized.onnx": { bytes: 10, sha256: "deadbeef" } } };
+    const hash = sha(files["https://m/onnx/model_quantized.onnx"]);
+    const sized = { ...config, files: { "onnx/model_quantized.onnx": { bytes: 10, sha256: hash } } };
     files["https://m/config.json"] = new TextEncoder().encode(JSON.stringify(sized));
     const { factory } = fakeSession();
     await loadCore(opts({ device: "wasm", cache: true }), factory);
-    expect([...store.keys()]).toContain("https://m/onnx/model_quantized.onnx?sha256=deadbeef");
+    // Keyed by content alone, so a new revision with the same bytes reuses the cached copy.
+    expect([...store.keys()]).toContain(`https://forecast-web.invalid/sha256/${hash}`);
     files["https://m/config.json"] = new TextEncoder().encode(JSON.stringify(config));
   });
 

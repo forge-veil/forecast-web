@@ -1,27 +1,34 @@
+/**
+ * React bindings: {@link ForecastProvider} owns a model for its subtree and
+ * {@link useForecaster} reads it. Also re-exports everything from `forecast-web`.
+ *
+ * ```ts
+ * import { ForecastProvider, useForecaster } from "forecast-web/react";
+ * ```
+ *
+ * @module forecast-web/react
+ */
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { loadForecaster } from "src/index";
 import {
   ForecastError,
   type AnomalyOptions,
-  type AnomalyPoint,
   type AnomalyResult,
-  type AnomalyThresholds,
-  type Calibration,
   type Backend,
   type Forecast,
   type ForecastOptions,
   type LoadOptions,
-  type ModelId,
   type Progress,
-  type Sensitivity,
   type Series,
   type Forecaster,
 } from "src/types";
 
-export type Status = "idle" | "loading" | "ready" | "error";
+/** Where the provider's model is in its lifecycle. */
+export type ForecasterStatus = "idle" | "loading" | "ready" | "error";
 
+/** What `useForecaster` returns: load state and the model's actions. */
 export interface ForecasterState {
-  status: Status;
+  status: ForecasterStatus;
   progress: Progress | null;
   backend: Backend | null;
   error: Error | null;
@@ -35,6 +42,7 @@ export interface ForecasterState {
 
 const Ctx = createContext<ForecasterState | null>(null);
 
+/** The same options as `loadForecaster`, plus `eager`. */
 export interface ForecastProviderProps extends Omit<LoadOptions, "onProgress" | "signal"> {
   children?: ReactNode;
   /** Load on mount instead of on first use. Defaults to false. */
@@ -45,9 +53,16 @@ export interface ForecastProviderProps extends Omit<LoadOptions, "onProgress" | 
  * Owns one model instance for its subtree. Load options are read when the load
  * starts; changing them later does not reload. To switch models, remount with
  * key={model}.
+ *
+ * @example
+ * ```tsx
+ * <ForecastProvider model="timesfm-2.5">
+ *   <Chart />
+ * </ForecastProvider>
+ * ```
  */
 export function ForecastProvider({ children, eager = false, ...options }: ForecastProviderProps) {
-  const [status, setStatus] = useState<Status>("idle");
+  const [status, setStatus] = useState<ForecasterStatus>("idle");
   const [progress, setProgress] = useState<Progress | null>(null);
   const [backend, setBackend] = useState<Backend | null>(null);
   const [error, setError] = useState<Error | null>(null);
@@ -128,12 +143,21 @@ export function ForecastProvider({ children, eager = false, ...options }: Foreca
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }
 
+/**
+ * The nearest {@link ForecastProvider}'s model state and actions. `forecast` and
+ * `detectAnomalies` load the model first if needed.
+ *
+ * @example
+ * ```tsx
+ * const { status, forecast } = useForecaster();
+ * ```
+ */
 export function useForecaster(): ForecasterState {
   const v = useContext(Ctx);
   if (!v) throw new Error("useForecaster must be used inside <ForecastProvider>");
   return v;
 }
 
-export { MODELS } from "src/models/index";
-export { ForecastError };
-export type { AnomalyOptions, AnomalyPoint, AnomalyResult, AnomalyThresholds, Calibration, Forecast, ForecastOptions, Forecaster, LoadOptions, ModelId, Progress, Sensitivity, Series };
+// The React entry re-exports the whole main API, so one import path covers both.
+export { clearCache, DEFAULT_MODEL_ID, ForecastError, loadForecaster, MODELS } from "src/index";
+export type * from "src/index";

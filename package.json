@@ -1,6 +1,6 @@
 {
   "name": "forecast-web",
-  "version": "0.5.0",
+  "version": "1.0.0",
   "description": "Forecasting and tabular prediction models in the browser on WebGPU or WebAssembly: TimesFM 2.5, Chronos-Bolt and TabICL. Optional React hook.",
   "license": "Apache-2.0",
   "type": "module",
@@ -42,7 +42,9 @@
   "scripts": {
     "build": "tsup",
     "test": "vitest run",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test:browser": "playwright test",
+    "docs": "typedoc"
   },
   "peerDependencies": {
     "react": ">=18"
@@ -56,6 +58,7 @@
     "onnxruntime-web": "^1.30.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.64.1",
     "@testing-library/react": "^16.3.3",
     "@types/node": "^26.6.5",
     "@types/react": "^19.3.0",
@@ -65,7 +68,9 @@
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
     "tsup": "^8.5.1",
+    "typedoc": "^0.28.20",
     "typescript": "~5.9.3",
+    "vite": "^8.3.4",
     "vitest": "^5.0.3"
   },
   "repository": {
