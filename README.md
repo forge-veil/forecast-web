@@ -6,6 +6,8 @@ Time series forecasting, anomaly detection and tabular prediction that run entir
 
 **[Documentation](https://vatsalbakshi.com/forecast-web/docs/)** · **[Live demo](https://vatsalbakshi.com/forecast-web/)** · **[Changelog](CHANGELOG.md)**
 
+[![US retail sales forecast with TimesFM 2.5, with flagged anomalies](https://raw.githubusercontent.com/forge-veil/forecast-web/main/.github/assets/hero.gif)](https://vatsalbakshi.com/forecast-web/)
+
 ```sh
 npm install forecast-web
 ```
