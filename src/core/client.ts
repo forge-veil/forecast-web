@@ -73,7 +73,12 @@ function open(worker: WorkerLike, opts: CoreOptions, onProgress?: (p: Progress) 
     new Promise((resolve, reject) => {
       const id = nextId++;
       pending.set(id, { resolve: resolve as (r: Response) => void, reject });
-      worker.postMessage({ ...req, id } as Request, transfer);
+      try {
+        worker.postMessage({ ...req, id } as Request, transfer);
+      } catch (e) {
+        pending.delete(id); // e.g. DataCloneError: no reply will ever come for this id
+        reject(e);
+      }
     });
 
   const onAbort = () => {

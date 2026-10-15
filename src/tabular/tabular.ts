@@ -2,10 +2,10 @@ import type { Feed, RunGraph } from "src/models/adapter";
 import { combineClassification } from "src/tabular/combine";
 import { encodeLabels, fitEncoder, type Cell } from "src/tabular/encode";
 import { ensembleConfigs, type MemberConfig, type Norm } from "src/tabular/ensemble";
-import type { TabularInfo } from "src/tabular/models";
+import type { TabularInfo, TabularTask } from "src/tabular/models";
 import { fitPipeline, fitUniqueFilter, type Pipeline } from "src/tabular/preprocess";
 import { quantileStats } from "src/tabular/quantiles";
-import { ForecastError } from "src/types";
+import { ForecastError, type Backend, type ResolvedDtype } from "src/types";
 
 /**
  * Largest tables the browser handles comfortably; above these, fit throws TOO_LARGE.
@@ -13,7 +13,7 @@ import { ForecastError } from "src/types";
  * members and 100 test rows, 500x10 took 2.5 s, 1000x10 5.4 s, 2000x20 67 s, 1000x50 91 s.
  * WebGPU is faster; fewer ensemble members (nEstimators) cut time proportionally.
  */
-export const LIMITS = { maxRows: 5000, maxFeatures: 100, maxCells: 20_000 };
+export const LIMITS = Object.freeze({ maxRows: 5000, maxFeatures: 100, maxCells: 20_000 });
 
 const NORMS: Norm[] = ["none", "power"];
 const SEED = 42;
@@ -30,16 +30,41 @@ export interface RegressionOptions {
   alphas?: number[];
 }
 
+/** A classifier fitted to a table. */
+export interface FittedClassifier {
+  /** Class labels in output order. */
+  readonly classes: (number | string)[];
+  /** One row of class probabilities (in `classes` order) per test row. */
+  predictProba(X: Cell[][]): Promise<number[][]>;
+  /** The most likely label per test row. */
+  predict(X: Cell[][]): Promise<(number | string)[]>;
+}
+
+/** A regressor fitted to a table. */
+export interface FittedRegressor {
+  /** Point predictions: the mean (default) or median per test row. */
+  predict(X: Cell[][], opts?: { output?: "mean" | "median" }): Promise<number[]>;
+  /** Quantiles per test row, one value per alpha (default 0.1 to 0.9). */
+  predict(X: Cell[][], opts: { output: "quantiles"; alphas?: number[] }): Promise<number[][]>;
+}
+
+/** Either fitted model, for code that only knows the task at runtime (the 0.4.0 shape). */
 export interface FittedTabular {
-  /** Class labels in output order (classification). */
   readonly classes: (number | string)[];
   predictProba(X: Cell[][]): Promise<number[][]>;
   predict(X: Cell[][], opts?: RegressionOptions): Promise<(number | string)[] | number[] | number[][]>;
 }
 
-export interface Tabular {
+/** fit() result: precise when the task is known at compile time, the combined shape otherwise. */
+export type FittedFor<T extends TabularTask> = TabularTask extends T ? FittedTabular : T extends "classification" ? FittedClassifier : FittedRegressor;
+
+export interface Tabular<T extends TabularTask = TabularTask> {
   readonly info: TabularInfo;
-  fit(X: Cell[][], y: (number | string)[]): FittedTabular;
+  /** Where inference runs, when known ("webgpu" or "wasm"). */
+  readonly backend?: Backend;
+  /** Weight format in use, when known. */
+  readonly dtype?: ResolvedDtype;
+  fit(X: Cell[][], y: (number | string)[]): FittedFor<T>;
   dispose(): Promise<void>;
 }
 
@@ -81,16 +106,31 @@ function scaleTarget(y: number[]) {
 }
 
 /** Builds the tabular API around a loaded graph. Exported for tests; use loadTabular. */
-export function createTabular(graph: { run: RunGraph; dispose(): Promise<void> }, info: TabularInfo, opts: TabularOptions = {}): Tabular {
+export function createTabular<T extends TabularTask = TabularTask>(
+  graph: { run: RunGraph; dispose(): Promise<void>; backend?: Backend; dtype?: ResolvedDtype },
+  info: TabularInfo,
+  opts: TabularOptions = {},
+): Tabular<T> {
   const nEstimators = opts.nEstimators ?? 8;
   if (!Number.isInteger(nEstimators) || nEstimators < 1)
     throw new ForecastError("INVALID_INPUT", `nEstimators must be a positive integer, got ${nEstimators}`);
   const classification = info.task === "classification";
+  let disposed = false;
+  const live = () => {
+    if (disposed) throw new ForecastError("DISPOSED", "this model has been disposed");
+  };
 
   return {
     info,
-    dispose: () => graph.dispose(),
+    backend: graph.backend,
+    dtype: graph.dtype,
+    async dispose() {
+      if (disposed) return;
+      disposed = true;
+      await graph.dispose();
+    },
     fit(X, y) {
+      live();
       validate(X, y);
       let codes: number[] = [];
       let classes: (number | string)[] = [];
@@ -124,9 +164,10 @@ export function createTabular(graph: { run: RunGraph; dispose(): Promise<void> }
       // Test rows never influence each other, so predicting in chunks gives identical results
       // while keeping each graph call within twice the training cell budget.
       const chunkRows = Math.max(1, Math.floor((2 * LIMITS.maxCells) / h) - n);
-      async function chunked<T>(Xtest: Cell[][], fn: (part: Cell[][]) => Promise<T[]>): Promise<T[]> {
+      async function chunked<R>(Xtest: Cell[][], fn: (part: Cell[][]) => Promise<R[]>): Promise<R[]> {
+        live();
         validateTest(Xtest, width);
-        const out: T[] = [];
+        const out: R[] = [];
         for (let i = 0; i < Xtest.length; i += chunkRows) out.push(...(await fn(Xtest.slice(i, i + chunkRows))));
         return out;
       }
@@ -168,10 +209,10 @@ export function createTabular(graph: { run: RunGraph; dispose(): Promise<void> }
           return combineClassification(logits, m, classes.length);
         });
 
-      return {
+      const fitted: FittedTabular = {
         classes,
         predictProba,
-        async predict(Xtest, popts = {}) {
+        async predict(Xtest: Cell[][], popts: RegressionOptions = {}) {
           if (classification) {
             const proba = await predictProba(Xtest);
             return proba.map((p) => classes[p.indexOf(Math.max(...p))]);
@@ -199,6 +240,7 @@ export function createTabular(graph: { run: RunGraph; dispose(): Promise<void> }
           return values as number[] | number[][];
         },
       };
+      return fitted as FittedFor<T>;
     },
   };
 }

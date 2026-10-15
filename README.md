@@ -128,7 +128,7 @@ const values = await reg.fit(trainRows, trainTargets).predict(testRows, { output
 
 Columns holding strings or booleans are encoded as categories; missing numbers are imputed with the training mean, as upstream. Predictions match `tabicl` 2.2.0 end to end: probabilities within 2e-5 (measured worst 9.7e-6) with identical labels, and regression outputs within 2e-5 of the target's standard deviation, in fp32. The fp16-weight default (56 to 59 MB) stays within 0.2%.
 
-Limits: at most 10 classes; 5,000 training rows, 100 features and 20,000 cells (rows x features) in the browser. Cost grows with rows x features: about 5 s on a laptop CPU for 1,000 x 10 with 100 test rows and the default 8 ensemble members; WebGPU is faster, and `nEstimators: 1` is about 8 times faster. Errors use the codes `TOO_MANY_CLASSES`, `TOO_LARGE` and `INVALID_INPUT`.
+Limits: at most 10 classes; 5,000 training rows, 100 features and 20,000 cells (rows x features) in the browser. Cost grows with rows x features: about 5 s on a laptop CPU for 1,000 x 10 with 100 test rows and the default 8 ensemble members; WebGPU is faster, and `nEstimators: 1` is about 8 times faster. Errors use the codes `TOO_MANY_CLASSES`, `TOO_LARGE` and `INVALID_INPUT`. With a literal `task`, results are typed precisely (`predict` returns `number[]`, or `number[][]` for quantiles); `tabular.backend` and `tabular.dtype` show where it runs, and `LIMITS` exposes the caps for pre-checking a table before downloading.
 
 ## TimesFM weights and backend
 

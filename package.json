@@ -1,6 +1,6 @@
 {
   "name": "forecast-web",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Forecasting and tabular prediction models in the browser on WebGPU or WebAssembly: TimesFM 2.5, Chronos-Bolt and TabICL. Optional React hook.",
   "license": "Apache-2.0",
   "type": "module",

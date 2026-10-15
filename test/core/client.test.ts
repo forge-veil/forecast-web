@@ -163,3 +163,38 @@ describe("connectGraph", () => {
   });
 });
 
+describe("protocol run", () => {
+  it("transfers output buffers back to the caller", async () => {
+    const out = new Float32Array([1, 2]);
+    const handle = createHandler(async () => ({
+      backend: "wasm",
+      dtype: "fp32",
+      config: { model_type: "tabicl" },
+      forecast: async () => [],
+      run: async () => ({ out }),
+      release: async () => {},
+    }));
+    const posted: [Response, Transferable[] | undefined][] = [];
+    await handle({ type: "load", id: 0, opts }, (r, t) => posted.push([r, t]));
+    await handle({ type: "run", id: 1, feeds: {} }, (r, t) => posted.push([r, t]));
+    const [res, transfer] = posted.at(-1)!;
+    expect(res.type).toBe("outputs");
+    expect(transfer).toEqual([out.buffer]);
+  });
+});
+
+describe("worker message failures", () => {
+  it("rejects and forgets a request whose postMessage throws", async () => {
+    const { worker } = setup();
+    const g = await connectGraph(worker, opts);
+    const original = worker.postMessage.bind(worker);
+    worker.postMessage = () => {
+      throw new DOMException("could not clone", "DataCloneError");
+    };
+    await expect(g.run({ X: { data: new Float32Array([1]), dims: [1] } })).rejects.toThrow(/could not clone/);
+    worker.postMessage = original;
+    const out = await g.run({ X: { data: new Float32Array([1]), dims: [1] } });
+    expect(Array.from(out.out)).toEqual([1, 2]);
+  });
+});
+
