@@ -14,9 +14,31 @@ import {
 export const DEFAULT_MODEL: ModelId = "timesfm-2.5";
 const KEY = "forecast-web-demo:model";
 
-export function readChoice(stored: string | null): ModelId {
-  return stored && Object.hasOwn(MODELS, stored) ? (stored as ModelId) : DEFAULT_MODEL;
+/** The only model that reliably fits in a phone's memory; larger ones crashed mobile browsers in testing. */
+export const MOBILE_MODEL: ModelId = "chronos-bolt-tiny";
+
+export function readChoice(stored: string | null, mobile = false): ModelId {
+  if (stored && Object.hasOwn(MODELS, stored)) return stored as ModelId;
+  return mobile ? MOBILE_MODEL : DEFAULT_MODEL;
 }
+
+/** Phones and tablets, if either the browser's mobile hint or the user agent says so (iPads can report a Mac). */
+export function isMobile(nav: Navigator | undefined = typeof navigator !== "undefined" ? navigator : undefined): boolean {
+  if (!nav) return false;
+  if ((nav as Navigator & { userAgentData?: { mobile?: boolean } }).userAgentData?.mobile === true) return true;
+  const ua = nav.userAgent ?? "";
+  return /Android|iPhone|iPad|iPod|Mobile/i.test(ua) || (/Macintosh/.test(ua) && (nav.maxTouchPoints ?? 0) > 1);
+}
+
+/** Label for a model in the picker on mobile: Tiny is recommended, anything larger may crash. */
+export function mobileNote(id: ModelId, mobile: boolean): { text: string; warn: boolean } | null {
+  if (!mobile) return null;
+  return id === MOBILE_MODEL ? { text: "Recommended on phones", warn: false } : { text: "May crash on phones", warn: true };
+}
+
+/** Picker order: the mobile model first on mobile, registry order otherwise. */
+export const menuOrder = (ids: ModelId[], mobile: boolean): ModelId[] =>
+  mobile ? [...ids.filter((id) => id === MOBILE_MODEL), ...ids.filter((id) => id !== MOBILE_MODEL)] : ids;
 
 /** Bytes "auto" downloads on this machine. */
 export function downloadBytes(info: ModelInfo, gpu: boolean): number | undefined {
@@ -73,9 +95,9 @@ const Ctx = createContext<Models | null>(null);
 
 const readStored = () => {
   try {
-    return readChoice(localStorage.getItem(KEY));
+    return readChoice(localStorage.getItem(KEY), isMobile());
   } catch {
-    return DEFAULT_MODEL;
+    return readChoice(null, isMobile());
   }
 };
 

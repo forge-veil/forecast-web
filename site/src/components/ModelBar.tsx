@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { MODELS, type ModelId } from "forecast-web";
 import { formatMB } from "src/lib/format";
-import { downloadBytes, hasGpu, MODEL_IDS, modelColor, resolvePrimary, useModels } from "src/lib/models";
+import { downloadBytes, hasGpu, isMobile, menuOrder, MODEL_IDS, mobileNote, modelColor, resolvePrimary, useModels } from "src/lib/models";
 
 /** "+ Load a model" / "+ Add model" button with a menu of the models not loaded yet. */
 export function AddModel() {
@@ -10,7 +10,8 @@ export function AddModel() {
   const wrap = useRef<HTMLDivElement>(null);
   const gpu = hasGpu();
   const first = MODEL_IDS.every((id) => slot(id).status === "idle");
-  const available = MODEL_IDS.filter((id) => slot(id).status === "idle");
+  const mobile = isMobile();
+  const available = menuOrder(MODEL_IDS.filter((id) => slot(id).status === "idle"), mobile);
 
   useEffect(() => {
     if (!open) return;
@@ -40,13 +41,19 @@ export function AddModel() {
       </button>
       {open && (
         <div className="menu" role="menu">
-          {available.map((id) => (
-            <button key={id} role="menuitem" onClick={() => add(id)}>
-              <i className="chip-dot" style={{ borderColor: modelColor(id) }} />
-              <span className="menu-name">{MODELS[id].name}</span>
-              <span className="menu-size num">{formatMB(downloadBytes(MODELS[id], gpu))}</span>
-            </button>
-          ))}
+          {available.map((id) => {
+            const note = mobileNote(id, mobile);
+            return (
+              <button key={id} role="menuitem" onClick={() => add(id)}>
+                <i className="chip-dot" style={{ borderColor: modelColor(id) }} />
+                <span className="menu-label">
+                  <span className="menu-name">{MODELS[id].name}</span>
+                  {note && <span className={`menu-note ${note.warn ? "warn" : "ok"}`}>{note.text}</span>}
+                </span>
+                <span className="menu-size num">{formatMB(downloadBytes(MODELS[id], gpu))}</span>
+              </button>
+            );
+          })}
         </div>
       )}
     </div>

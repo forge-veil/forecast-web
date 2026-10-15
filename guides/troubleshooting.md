@@ -49,7 +49,7 @@ Without them WASM runs on one thread. Smaller models help more than anything: Ch
 
 ## The tab runs out of memory
 
-Loading briefly needs a few times the file size in memory. Use the default formats rather than `fp32`, pick a smaller model on phones, and call `dispose()` on models you no longer need.
+Loading briefly needs a few times the file size in memory. Use the default formats rather than `fp32`, use Chronos-Bolt Tiny on phones (larger models crashed mobile browsers in testing), and call `dispose()` on models you no longer need.
 
 ## Self-hosted weights fail to load (CORS)
 

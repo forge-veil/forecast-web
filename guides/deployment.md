@@ -58,6 +58,6 @@ Then `npm test` checks all three formats against the official forecasts.
 | Chrome and Edge, desktop | WebGPU and WASM. Measured in Chrome on macOS; WASM checked in CI. |
 | Safari, desktop | WASM checked in CI on WebKit. WebGPU depends on the Safari version. |
 | Firefox | Not tested. WASM is expected to work. |
-| Phones | Not tested. Large models may exceed a phone's memory; prefer Chronos-Bolt Tiny or Mini. |
+| Phones | Use Chronos-Bolt Tiny. In manual testing, every larger model crashed mobile browsers by running out of memory. |
 
 CI runs the built package in Chromium and WebKit on every change: it loads Chronos-Bolt Tiny from the Hub, forecasts and checks for anomalies. Node is not supported yet; support is planned for a minor release.

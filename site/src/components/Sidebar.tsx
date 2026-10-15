@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { MODELS, type Forecast } from "forecast-web";
+import { AddModel } from "src/components/ModelBar";
 import { Sparkline } from "src/components/Sparkline";
 import { formatNumber } from "src/lib/format";
 import { changeText, GROUPS, type GroupId, type Item } from "src/lib/items";
@@ -143,11 +144,18 @@ function GroupIcon({ id }: { id: GroupId }) {
   );
 }
 
-/** Which model fills the watchlist; models are loaded from the detail view's model bar. */
+/** Which model fills the watchlist, or a menu to load one when none is loaded yet. */
 function ModelStatus() {
   const { choice, slot } = useModels();
   const { status, backend, progress } = slot(choice);
   const pct = progress?.total ? Math.round((100 * progress.loaded) / progress.total) : 0;
+  if (status === "idle" || status === "error")
+    return (
+      <div className="model">
+        {status === "error" && <span>Could not load {MODELS[choice].name}.</span>}
+        <AddModel />
+      </div>
+    );
   return (
     <div className="model">
       {status === "ready" ? <i className="dot" /> : null}
