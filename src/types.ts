@@ -156,6 +156,8 @@ export interface Forecaster {
   readonly dtype: ResolvedDtype;
   readonly config: ModelConfig;
   forecast(series: Series[], opts?: ForecastOptions): Promise<Forecast[]>;
+  /** Flags points the model could not have predicted from the history before them. One batched forecast call. */
+  detectAnomalies(series: Series, opts?: AnomalyOptions): Promise<AnomalyResult>;
   dispose(): Promise<void>;
 }
 
