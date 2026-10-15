@@ -8,7 +8,7 @@ export const DEFAULT_MODEL_ID: ModelId = "timesfm-2.5";
 // Download sizes in bytes, from each weights repo's config.json.
 const ADAPTERS: Record<ModelId, ModelAdapter> = {
   "timesfm-2.5": timesfm,
-  "chronos-bolt-tiny": chronosBolt("tiny", { fp16: 17_547_869, q8: 9_995_263, fp32: 34_832_138 }),
+  "chronos-bolt-tiny": chronosBolt("tiny", { fp16: 17_547_869, q8: 9_995_263, fp32: 34_832_138 }, { low: 4.25, medium: 3.25, high: 2.75 }),
   "chronos-bolt-mini": chronosBolt("mini", { fp16: 42_721_898, q8: 24_164_959, fp32: 85_165_870 }),
   "chronos-bolt-small": chronosBolt("small", { fp16: 95_791_245, q8: 54_075_457, fp32: 191_179_838 }),
   "chronos-bolt-base": chronosBolt("base", { fp16: 411_272_972, q8: 231_721_216, fp32: 821_739_850 }),

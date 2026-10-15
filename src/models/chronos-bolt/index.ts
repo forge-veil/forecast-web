@@ -9,6 +9,8 @@ export type ChronosSize = "tiny" | "mini" | "small" | "base";
 export function chronosBolt(
   size: ChronosSize,
   sizes: ModelInfo["sizes"],
+  /** Tuned per size by test/anomaly/integration.test.ts. */
+  anomalyThresholds: ModelInfo["anomalyThresholds"] = { low: 4, medium: 3, high: 2.5 },
   dtypes: ResolvedDtype[] = ["fp16", "q8", "fp32"],
 ): ModelAdapter {
   const id = `chronos-bolt-${size}` as ModelId;
@@ -26,7 +28,7 @@ export function chronosBolt(
       // feeds its own quantiles back and the drift compounds (up to ~14% of std at 200 steps).
       defaults: { webgpu: "fp16", wasm: "fp16" },
       sizes,
-      anomalyThresholds: { low: 4, medium: 3, high: 2.5 },
+      anomalyThresholds,
     },
     weights: `bakshinghampalace/chronos-bolt-${size}-onnx`,
     files: (dtype) => STANDARD_FILES[dtype],
