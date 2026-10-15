@@ -16,7 +16,6 @@ function fakeModel(): Forecaster & { dispose: ReturnType<typeof vi.fn> } {
     info: MODELS["timesfm-2.5"],
     backend: "wasm",
     dtype: "q8",
-    config: { model_type: "timesfm", context: 512, horizon: 128, patch: 32, quantiles: [] },
     forecast: vi.fn(async () => []),
     detectAnomalies: vi.fn(async () => ({ points: [], anomalies: [], scale: 1, threshold: 3 })),
     dispose: vi.fn(async () => {}),

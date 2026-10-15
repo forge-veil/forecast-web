@@ -1,4 +1,15 @@
+/**
+ * Tabular classification and regression with TabICLv2, no training step. Load a
+ * model with {@link loadTabular}, `fit` it to a table, then predict.
+ *
+ * ```ts
+ * import { loadTabular } from "forecast-web/tabular";
+ * ```
+ *
+ * @module forecast-web/tabular
+ */
 import { resolveBase } from "src/core/assets";
+import { resolvePin } from "src/pins";
 import { connectGraph } from "src/core/client";
 import { loadCore, type CoreOptions } from "src/core/loader";
 import { createTabular, type Tabular, type TabularOptions } from "src/tabular/tabular";
@@ -10,12 +21,19 @@ export type { FittedClassifier, FittedFor, FittedRegressor, FittedTabular, Regre
 export type { Cell } from "src/tabular/encode";
 export { TABULAR_MODELS } from "src/tabular/models";
 export type { TabularInfo, TabularModelId, TabularTask } from "src/tabular/models";
+export { clearCache } from "src/cache";
 export { ForecastError } from "src/types";
+export type { Backend, Device, Dtype, ErrorCode, Progress, ResolvedDtype } from "src/types";
 
+/** Options for `loadTabular`. */
 export interface LoadTabularOptions<T extends TabularTask = TabularTask> extends TabularOptions {
   task: T;
   /** Hugging Face repo id or base URL. Defaults to the published TabICL weights for the task. */
   weights?: string;
+  /**
+   * Hugging Face revision. Ignored for base URLs. Defaults to the commit this release was verified
+   * against, or "main" for a custom `weights` repo.
+   */
   revision?: string;
   dtype?: Dtype;
   device?: Device;
@@ -31,14 +49,22 @@ export interface LoadTabularOptions<T extends TabularTask = TabularTask> extends
  * Downloads TabICL for a task and returns a model you can fit to a table and
  * predict with. Fitting is instant (in-context learning); prediction runs the
  * network, by default in a Web Worker on WebGPU with a WASM fallback.
+ *
+ * @example
+ * ```ts
+ * const clf = await loadTabular({ task: "classification" });
+ * const labels = await clf.fit(trainRows, trainLabels).predict(testRows);
+ * ```
  */
 export async function loadTabular<T extends TabularTask>(options: LoadTabularOptions<T>): Promise<Tabular<T>> {
   const id = tabularModelFor(options.task);
   const spec = getTabularSpec(id);
   const page = typeof location !== "undefined" ? location.href : undefined;
+  const pin = resolvePin(spec.weights, options.weights, options.revision);
   const opts: CoreOptions = {
     model: id,
-    base: resolveBase(options.weights ?? spec.weights, options.revision, page),
+    base: resolveBase(options.weights ?? spec.weights, pin.revision, page),
+    hashes: pin.hashes,
     dtype: options.dtype ?? "auto",
     device: options.device ?? "auto",
     cache: options.cache ?? true,

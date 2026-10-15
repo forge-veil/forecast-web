@@ -37,6 +37,20 @@ export function resolveFiles(base: string, spec: FileSpec): ModelFiles {
   };
 }
 
+/** Throws LOAD_FAILED unless `bytes` hash to `expected`. Skipped where Web Crypto is unavailable (insecure pages). */
+async function verify(bytes: Uint8Array<ArrayBuffer>, expected: string, url: string): Promise<void> {
+  const subtle = globalThis.crypto?.subtle;
+  if (!subtle) return;
+  let digest: Uint8Array;
+  try {
+    digest = new Uint8Array(await subtle.digest("SHA-256", bytes));
+  } catch (e) {
+    throw new ForecastError("LOAD_FAILED", `could not check the SHA-256 of ${url}`, { cause: e });
+  }
+  const hex = Array.from(digest, (b) => b.toString(16).padStart(2, "0")).join("");
+  if (hex !== expected.toLowerCase()) throw new ForecastError("LOAD_FAILED", `${url} does not match its expected SHA-256`);
+}
+
 const aborted = () => new ForecastError("ABORTED", "load was aborted");
 
 async function openCache(enabled: boolean): Promise<Cache | null> {
@@ -53,6 +67,7 @@ async function openCache(enabled: boolean): Promise<Cache | null> {
  * the Cache API when available; a full or unavailable cache never fails the load.
  * `cacheKey` stores the entry under a different URL (for content-hash keys).
  * `networkFirst` always tries the network and uses the cache only as an offline fallback.
+ * `sha256` (hex) is checked on every network download before it is cached or returned.
  */
 export async function fetchBytes(
   url: string,
@@ -60,6 +75,7 @@ export async function fetchBytes(
     cache?: boolean;
     cacheKey?: string;
     networkFirst?: boolean;
+    sha256?: string;
     signal?: AbortSignal;
     onProgress?: (loaded: number, total: number, cached: boolean) => void;
   } = {},
@@ -134,6 +150,9 @@ export async function fetchBytes(
     bytes.set(c, o);
     o += c.length;
   }
+  // Free the chunks before hashing: digest() takes its own copy, and fp32 weights approach 1 GB.
+  chunks.length = 0;
+  if (opts.sha256) await verify(bytes, opts.sha256, url);
   if (cache) {
     try {
       await cache.put(key, new Response(bytes, { headers: { "content-length": String(loaded) } }));

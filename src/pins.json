@@ -1,0 +1,141 @@
+{
+  "bakshinghampalace/chronos-bolt-base-onnx": {
+    "revision": "f2ea86ccf9492d0eb576dd814649b1d26ee38f97",
+    "files": {
+      "onnx/model_fp16w.f16": {
+        "bytes": 410480640,
+        "sha256": "085f910b3e1e9f8ed0fcfdcc19754b59653ef6991a7a9b80ea9c114e03bba1ac"
+      },
+      "onnx/model_fp16w.onnx": {
+        "bytes": 792332,
+        "sha256": "3e96400a251e9ca12f044f9c1cc52a6d53838f9e58fc0b8b3f70d6e681a0c183"
+      },
+      "onnx/model_quantized.onnx": {
+        "bytes": 231721216,
+        "sha256": "b3c7985bcfb80ee9dcbd6956ca3ea7c018fa52ed1ab555480bb103361b68785a"
+      },
+      "onnx/model.onnx": {
+        "bytes": 821739850,
+        "sha256": "7b9b4c4118e26c59996fa250d31236eac80f256b89b287a3c9246dbe71793152"
+      }
+    }
+  },
+  "bakshinghampalace/chronos-bolt-mini-onnx": {
+    "revision": "2854b42d85573c2d4e56f5e8e8fc9b1fd89515d1",
+    "files": {
+      "onnx/model_fp16w.f16": {
+        "bytes": 42448896,
+        "sha256": "7c72123819f2e2b10f24d554a7bb546553dcb4d431c343173bf220171e86c8f6"
+      },
+      "onnx/model_fp16w.onnx": {
+        "bytes": 273002,
+        "sha256": "647047e3d3bcce5643bc97208b113883ef7a0122ddae71b89f3c46b97b37fd74"
+      },
+      "onnx/model_quantized.onnx": {
+        "bytes": 24164959,
+        "sha256": "7978170de945e51940892d34a600c629cd581f6f3a1420f1753738210b96c515"
+      },
+      "onnx/model.onnx": {
+        "bytes": 85165870,
+        "sha256": "91d2cb5d8dcbd3b9d19f0e207dca36175a035ce85d52aeafed2a45b11eb7e3a8"
+      }
+    }
+  },
+  "bakshinghampalace/chronos-bolt-small-onnx": {
+    "revision": "b0239c09f35fe4cac94fada5ea207b692c30d3af",
+    "files": {
+      "onnx/model_fp16w.f16": {
+        "bytes": 95395840,
+        "sha256": "a7643ba50cc79164d1726e6a5da8d5271e65a89e70d652804ae534102180dee5"
+      },
+      "onnx/model_fp16w.onnx": {
+        "bytes": 395405,
+        "sha256": "c58d048824d9341d801d781314dc4c77780964138d2cfbc6a1a41de8933d4447"
+      },
+      "onnx/model_quantized.onnx": {
+        "bytes": 54075457,
+        "sha256": "f09c607536dd72646d7f775779d194855897e2ece4435e372a0bbed4c3cefd9f"
+      },
+      "onnx/model.onnx": {
+        "bytes": 191179838,
+        "sha256": "5be3070ad23770790622383310879736b360750d4e9f626fc7ce1d3a6c68984f"
+      }
+    }
+  },
+  "bakshinghampalace/chronos-bolt-tiny-onnx": {
+    "revision": "19060f64e0195f77d7c7416535087239f1f69e7b",
+    "files": {
+      "onnx/model_fp16w.f16": {
+        "bytes": 17289216,
+        "sha256": "099882c876b116e8252ea30378d8150d9140443955b9f62e1623b34391f54f8e"
+      },
+      "onnx/model_fp16w.onnx": {
+        "bytes": 258653,
+        "sha256": "299f2a04cc31a2064eb45e094f4ca5c0a9d138c082869d29a103f43b3b95b31d"
+      },
+      "onnx/model_quantized.onnx": {
+        "bytes": 9995263,
+        "sha256": "1cc3e12d9df10bdbf09dc8d341c958fd204a8c64700eaad2312367e5eda366d7"
+      },
+      "onnx/model.onnx": {
+        "bytes": 34832138,
+        "sha256": "55541cf123d69f3e5778b93a0c5b4aa746687cff2d4435d1400d8d1038d78bc2"
+      }
+    }
+  },
+  "bakshinghampalace/tabicl-classifier-v2-onnx": {
+    "revision": "098fb7be8df8a853a9d7f54a344ee9c6734a53d1",
+    "files": {
+      "onnx/model_fp16w.f16": {
+        "bytes": 54979072,
+        "sha256": "3378b112ed579a28c2b7d40991c7bfb5fecfab2e126e7c2edfe47799863173c4"
+      },
+      "onnx/model_fp16w.onnx": {
+        "bytes": 1503255,
+        "sha256": "8bf7d1a8c5859c596a3056afb637e2a5c2529b8a6e6bf538ac61792773ff8baa"
+      },
+      "onnx/model.onnx": {
+        "bytes": 111449927,
+        "sha256": "bbe7e2d3023f94fd4546545e57dac77bc2853b38de4f87638fc3d040d7833be0"
+      }
+    }
+  },
+  "bakshinghampalace/tabicl-regressor-v2-onnx": {
+    "revision": "f7d19314f03770294c4fa3e019b28335dfa86986",
+    "files": {
+      "onnx/model_fp16w.f16": {
+        "bytes": 56991744,
+        "sha256": "02649ca4136d212aa622790c781bfcee30984d57f1bc41b816aa03e7b879cce7"
+      },
+      "onnx/model_fp16w.onnx": {
+        "bytes": 1517415,
+        "sha256": "3298980ec03c2b6185a5cba4dab617609ce3c0ac12b45e9df22c0a8218ce0da6"
+      },
+      "onnx/model.onnx": {
+        "bytes": 115489568,
+        "sha256": "bc9d6480bccfdb2dd8d36562a427f42d5e88cf47c5ce4a374fc7dd81ea07c45a"
+      }
+    }
+  },
+  "bakshinghampalace/timesfm-2.5-200m-onnx": {
+    "revision": "0ee24a65f124d76ce21af21c0fc228f94b71140a",
+    "files": {
+      "onnx/model_fp16w.f16": {
+        "bytes": 462568960,
+        "sha256": "e12278229468b00e3c8ca78e2852d9e726fd1d0da7198b982aac8a734ffbaa7c"
+      },
+      "onnx/model_fp16w.onnx": {
+        "bytes": 799539,
+        "sha256": "bafff1066fb191d505817e80e62ddc1d9050ff2bf796570e7085f4296a7a14a4"
+      },
+      "onnx/model_quantized.onnx": {
+        "bytes": 261301673,
+        "sha256": "03c0de47701fab96bca31c9e4004f6977572e1d399d8cf4e8b2cf88651f783bb"
+      },
+      "onnx/model.onnx": {
+        "bytes": 925925778,
+        "sha256": "2ab71c9c6e877c2639590b473461461a391a881db19449b26357ce32910fe4ad"
+      }
+    }
+  }
+}

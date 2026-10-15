@@ -59,5 +59,15 @@ describe("loadForecaster analysis", () => {
     const m = await loadForecaster({ worker: false });
     await m.dispose();
     await expect(m.detectAnomalies(series(100))).rejects.toMatchObject({ code: "DISPOSED" });
+    await expect(m.detectAnomalies([1, 2])).rejects.toMatchObject({ code: "DISPOSED" });
+    await expect(m.forecast([series(100)], { calibrate: true })).rejects.toMatchObject({ code: "DISPOSED" });
   });
 });
+
+// Forecaster keeps the weights repo's config internal.
+const _typeCheck = (m: import("src/types").Forecaster) => {
+  // @ts-expect-error config is not public
+  void m.config;
+};
+void _typeCheck;
+

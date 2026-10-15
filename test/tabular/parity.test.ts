@@ -77,7 +77,7 @@ for (const id of ["tabicl-classifier-v2", "tabicl-regressor-v2"] as TabularModel
 
       for (const t of ref?.tables ?? []) {
         it(`${t.name}`, async () => {
-          const model = createTabular({ run, dispose: async () => {} }, info);
+          const model = createTabular({ run, dispose: async () => {}, backend: "wasm", dtype }, info);
           const fitted = model.fit(t.X_train, t.y_train);
           if (info.task === "classification") {
             const proba = await fitted.predictProba(t.X_test);

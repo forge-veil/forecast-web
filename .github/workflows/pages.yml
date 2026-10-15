@@ -38,6 +38,10 @@ jobs:
       - name: Fetch datasets
         run: npm run data
       - run: npm run build
+      # Guides and API reference from main at /forecast-web/docs/; jsDocs.io serves every published version.
+      - name: Docs
+        working-directory: .
+        run: npm ci && npm run docs
       - uses: actions/configure-pages@v6
       - uses: actions/upload-pages-artifact@v5
         with:

@@ -24,7 +24,8 @@
       "src/*": [
         "./src/*"
       ]
-    }
+    },
+    "resolveJsonModule": true
   },
   "include": [
     "src",

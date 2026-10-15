@@ -122,7 +122,6 @@ export function connectWorker(worker: WorkerLike, opts: CoreOptions, onProgress?
       info,
       backend: c.backend,
       dtype: c.dtype,
-      config: c.config,
       async forecast(series: Series[], fopts: ForecastOptions = {}): Promise<Forecast[]> {
         if (c.disposed()) throw new ForecastError("DISPOSED", "this model has been disposed");
         if (fopts.horizon !== undefined) validateHorizon(fopts.horizon, info.maxHorizon);

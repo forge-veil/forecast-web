@@ -2,22 +2,24 @@ import type { FileSpec } from "src/models/adapter";
 import { STANDARD_FILES } from "src/models/files";
 import { ForecastError, type Backend, type ModelConfig, type ResolvedDtype } from "src/types";
 
+/** Registry key of a tabular model. See `TABULAR_MODELS`. */
 export type TabularModelId = "tabicl-classifier-v2" | "tabicl-regressor-v2";
+/** What a tabular model predicts: a class or a number. */
 export type TabularTask = "classification" | "regression";
 
 /** What a tabular model supports, available without loading it. */
 export interface TabularInfo {
-  id: TabularModelId;
-  name: string;
-  task: TabularTask;
-  source: string;
-  license: string;
+  readonly id: TabularModelId;
+  readonly name: string;
+  readonly task: TabularTask;
+  readonly source: string;
+  readonly license: string;
   /** Most classes supported (classification). */
-  maxClasses: number;
-  dtypes: ResolvedDtype[];
-  defaults: Record<Backend, ResolvedDtype>;
+  readonly maxClasses: number;
+  readonly dtypes: readonly ResolvedDtype[];
+  readonly defaults: Readonly<Record<Backend, ResolvedDtype>>;
   /** Download size in bytes per dtype. */
-  sizes: Partial<Record<ResolvedDtype, number>>;
+  readonly sizes: Readonly<Partial<Record<ResolvedDtype, number>>>;
 }
 
 /** Everything the core needs to load a graph that is not a forecaster. */
@@ -71,6 +73,7 @@ const TABULAR: Record<TabularModelId, GraphSpec & { info: TabularInfo }> = {
   ),
 };
 
+/** Every tabular model's info, without loading it. Read-only. */
 export const TABULAR_MODELS = Object.freeze(
   Object.fromEntries(Object.entries(TABULAR).map(([id, s]) => [id, s.info])),
 ) as Readonly<Record<TabularModelId, TabularInfo>>;

@@ -26,6 +26,35 @@ jobs:
       - run: npm test
       - run: npm run build
       - run: npm pack --dry-run
+      # The Pages deploy builds the docs with warnings as errors (including broken guide links); catch them here first.
+      - run: npx typedoc --out /tmp/docs
+
+  # Loads Chronos-Bolt Tiny from the Hub in real Chromium and WebKit and runs the built package.
+  browser:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm install -g npm@11
+      - run: npm ci
+      - name: Playwright version
+        id: pw
+        run: echo "version=$(npx playwright --version | awk '{print $2}')" >> "$GITHUB_OUTPUT"
+      # Browsers are cached per Playwright version; a hit only needs the system libraries.
+      - uses: actions/cache@v4
+        id: pw-cache
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ steps.pw.outputs.version }}
+      - if: steps.pw-cache.outputs.cache-hit != 'true'
+        run: npx playwright install --with-deps chromium webkit
+      - if: steps.pw-cache.outputs.cache-hit == 'true'
+        run: npx playwright install-deps chromium webkit
+      - run: npm run build
+      - run: npm run test:browser
 
   site:
     runs-on: ubuntu-latest

@@ -89,6 +89,28 @@ describe("fetchBytes", () => {
     expect(seen).toEqual([true]);
   });
 
+  // sha256("abc")
+  const ABC = "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad";
+
+  it("accepts a download whose SHA-256 matches", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () => new Response(body([[97, 98], [99]]))));
+    const bytes = await fetchBytes("https://x/m", { sha256: ABC });
+    expect([...bytes]).toEqual([97, 98, 99]);
+    expect(cache.store.has("https://x/m")).toBe(true);
+  });
+
+  it("rejects and never caches a download whose SHA-256 differs", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () => new Response(body([[97, 98, 100]]))));
+    await expect(fetchBytes("https://x/m", { sha256: ABC })).rejects.toMatchObject({ code: "LOAD_FAILED", message: expect.stringMatching(/SHA-256/) });
+    expect(cache.store.size).toBe(0);
+  });
+
+  it("reports a hashing failure as LOAD_FAILED", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () => new Response(body([[97, 98, 99]]))));
+    vi.stubGlobal("crypto", { subtle: { digest: async () => { throw new RangeError("out of memory"); } } });
+    await expect(fetchBytes("https://x/m", { sha256: ABC })).rejects.toMatchObject({ code: "LOAD_FAILED" });
+  });
+
   it("stores downloads in the cache", async () => {
     vi.stubGlobal("fetch", vi.fn(async () => new Response(body([[7]]))));
     await fetchBytes("https://x/m");

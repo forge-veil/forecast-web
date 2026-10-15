@@ -1,234 +1,92 @@
 # forecast-web
 
-Time series forecasting and tabular prediction models that run in the browser. Give it a history, get back a forecast with nine quantile bands; give it a table, get back predicted classes or values with no training. Everything runs on the visitor's machine, on WebGPU when available and WASM otherwise.
+[![npm](https://img.shields.io/npm/v/forecast-web?color=1c1c1e&label=npm)](https://www.npmjs.com/package/forecast-web) [![CI](https://github.com/forge-veil/forecast-web/actions/workflows/ci.yml/badge.svg)](https://github.com/forge-veil/forecast-web/actions/workflows/ci.yml) [![License](https://img.shields.io/npm/l/forecast-web?color=1c1c1e)](LICENSE)
 
-**[Live demo](https://vatsalbakshi.com/forecast-web/)**: stocks, weather, Wikipedia traffic and seasonal data, forecast and backtested in your browser.
+Time series forecasting, anomaly detection and tabular prediction that run entirely in the browser. Give it a history, get back a forecast with uncertainty bands; give it a table, get back predictions with no training. Inference runs on the visitor's machine, on WebGPU when available and WASM otherwise. No server, and no data leaves the page.
 
-| Model | id | Context | Horizon | Weights |
-|---|---|---|---|---|
-| [TimesFM 2.5](https://github.com/google-research/timesfm) by Google Research | `"timesfm-2.5"` (default) | 512 | 128 | [bakshinghampalace/timesfm-2.5-200m-onnx](https://huggingface.co/bakshinghampalace/timesfm-2.5-200m-onnx) |
-| [Chronos-Bolt](https://github.com/amazon-science/chronos-forecasting) Tiny (9M) by Amazon | `"chronos-bolt-tiny"` | 2048 | 64 per pass, up to 512 | [bakshinghampalace/chronos-bolt-tiny-onnx](https://huggingface.co/bakshinghampalace/chronos-bolt-tiny-onnx) |
-| [Chronos-Bolt](https://github.com/amazon-science/chronos-forecasting) Mini (21M) by Amazon | `"chronos-bolt-mini"` | 2048 | 64 per pass, up to 512 | [bakshinghampalace/chronos-bolt-mini-onnx](https://huggingface.co/bakshinghampalace/chronos-bolt-mini-onnx) |
-| [Chronos-Bolt](https://github.com/amazon-science/chronos-forecasting) Small (48M) by Amazon | `"chronos-bolt-small"` | 2048 | 64 per pass, up to 512 | [bakshinghampalace/chronos-bolt-small-onnx](https://huggingface.co/bakshinghampalace/chronos-bolt-small-onnx) |
-| [Chronos-Bolt](https://github.com/amazon-science/chronos-forecasting) Base (205M) by Amazon | `"chronos-bolt-base"` | 2048 | 64 per pass, up to 512 | [bakshinghampalace/chronos-bolt-base-onnx](https://huggingface.co/bakshinghampalace/chronos-bolt-base-onnx) |
-
-Every model's forecasts are checked against its official Python library. For TimesFM, the fp32 model agrees with `TimesFM_2p5_200M_torch.forecast()` to within 0.002% of each series' standard deviation, and an automated parity test enforces agreement within 0.1%. Every Chronos-Bolt size matches `ChronosBoltPipeline.predict_quantiles()`; each model card publishes the measured error per format at 64 and 200 steps.
+**[Documentation](https://vatsalbakshi.com/forecast-web/docs/)** · **[Live demo](https://vatsalbakshi.com/forecast-web/)** · **[Changelog](CHANGELOG.md)**
 
 ```sh
 npm install forecast-web
 ```
 
-## Quick start
+## Forecast
 
 ```ts
 import { loadForecaster } from "forecast-web";
 
-const model = await loadForecaster({
-  model: "timesfm-2.5",
-  onProgress: ({ loaded, total }) => console.log(`${Math.round((100 * loaded) / total)}%`),
-});
+const model = await loadForecaster({ model: "timesfm-2.5" });
 
+const dailySignups = [412, 398, 455, 470, 433, 390, 401 /* ... oldest first */];
 const [forecast] = await model.forecast([dailySignups], { horizon: 30 });
 
-forecast.median; // the point forecast, 30 numbers
-forecast.q10;    // lower band
-forecast.q90;    // upper band
+forecast.median; // 30 numbers: the point forecast
+forecast.q10;    // lower edge of the 80% range
+forecast.q90;    // upper edge
 ```
 
-The first load downloads the weights (for TimesFM, 249 to 441 MB, see below) and stores them with the browser Cache API, so later visits skip the download.
+A series is any array of numbers, oldest first, one value per evenly spaced step; use `null` for gaps. [Shaping your data](https://vatsalbakshi.com/forecast-web/docs/#shaping-your-data) shows CSV files, API records, raw events and typed arrays.
 
-`MODELS` describes every model without loading it, which is enough to build a picker:
+## Find anomalies
 
 ```ts
-import { MODELS } from "forecast-web";
+const { anomalies } = await model.detectAnomalies(hourlyRequests);
 
-MODELS["timesfm-2.5"].maxHorizon; // 128
-MODELS["timesfm-2.5"].sizes.q8;   // 261301673 bytes
+for (const a of anomalies) console.log(`point ${a.index}: ${a.value}, expected about ${a.expected}`);
 ```
 
-Series are plain arrays, oldest first. `null`, `undefined` and `NaN` mark missing values. For TimesFM they are handled like the Python library: leading gaps are dropped, interior gaps are filled by linear interpolation, and trailing gaps hold the last value. Two edge cases differ on purpose. An empty or all-missing series gives a forecast of zeros, where Python raises an error. `Infinity` counts as missing, where Python keeps it and returns non-finite output. Chronos-Bolt masks missing values instead, exactly as upstream; an all-missing series gives the model's bands around 0, and `Infinity` also counts as missing. Pass several series to forecast them in one batch.
+Each point is compared with what the model expected from the history before it, using thresholds tuned per model. [Anomalies guide](https://vatsalbakshi.com/forecast-web/docs/documents/Anomalies.html)
 
-## React
-
-```tsx
-import { useEffect, useState } from "react";
-import { ForecastProvider, useForecaster } from "forecast-web/react";
-
-function App() {
-  return (
-    <ForecastProvider model="timesfm-2.5">
-      <Forecast series={data} />
-    </ForecastProvider>
-  );
-}
-
-function Forecast({ series }: { series: number[] }) {
-  const { status, progress, forecast } = useForecaster();
-  const [result, setResult] = useState<number[] | null>(null);
-
-  useEffect(() => {
-    forecast([series], { horizon: 24 }).then(([f]) => setResult(f.median));
-  }, [series, forecast]);
-
-  if (status === "loading" && progress) return <p>Loading {Math.round((100 * progress.loaded) / progress.total)}%</p>;
-  if (status === "error") return <p>Could not load the model.</p>;
-  return <Chart history={series} forecast={result} />;
-}
-```
-
-The provider loads lazily, on the first `forecast()` or `load()` call. Pass `eager` to start the download on mount. It accepts the same options as `loadForecaster`, reads them when the load starts, and disposes the model on unmount. To switch models, remount it: `<ForecastProvider key={model} model={model}>`. `useForecaster()` returns `status` (`"idle" | "loading" | "ready" | "error"`), `progress`, `backend`, `error`, `load()`, `forecast()` and `detectAnomalies()`.
-
-## Options
-
-| Option | Default | Meaning |
-|---|---|---|
-| `model` | `"timesfm-2.5"` | Which model to run. See `MODELS`. |
-| `weights` | the model's published repo | Hugging Face repo id, or a URL to a folder with the same layout for self-hosting. |
-| `revision` | `"main"` | Hugging Face revision. |
-| `dtype` | `"auto"` | Weight format: `"auto"`, `"q8"`, `"fp16"` or `"fp32"`. |
-| `device` | `"auto"` | `"auto"`, `"webgpu"` or `"wasm"`. |
-| `worker` | `true` | Run inference in a Web Worker so the page stays responsive. |
-| `cache` | `true` | Keep downloads in the Cache API. |
-| `wasmPaths` | jsDelivr | Where onnxruntime-web fetches its `.wasm` files. |
-| `onProgress` | none | Called with `{ loaded, total, cached }` during the download. |
-| `signal` | none | An `AbortSignal` that cancels the load. |
-
-`forecast(series, { horizon, calibrate })` accepts a horizon from 1 to the model's `maxHorizon`, defaults to the model's `horizon` (128 for TimesFM, 64 for Chronos-Bolt), and returns, per series, `median` and `q10` through `q90`. The median is the point forecast. TimesFM also returns `mean`, its separate mean head. `calibrate: true` rescales the bands from a backtest; see [Anomalies and calibrated bands](#anomalies-and-calibrated-bands).
-
-Errors are `ForecastError` instances with a `code`: `HORIZON_TOO_LONG`, `INVALID_HORIZON`, `EMPTY_INPUT`, `UNKNOWN_MODEL`, `INVALID_INPUT`, `LOAD_FAILED`, `ABORTED` or `DISPOSED`.
-
-## Chronos-Bolt
-
-Chronos-Bolt reads up to 2048 points and predicts 64 steps per pass, which is its default horizon. Longer horizons, up to 512, use the official heuristic: each of the nine quantile paths is fed back and forecast again, and the 81 results per step are reduced to nine quantiles. Every pass after the first runs nine times the batch, so a 512-step forecast costs 8 sequential passes. Missing values are masked, not interpolated, exactly as upstream. Chronos-Bolt has no mean head, so `mean` is absent.
-
-Past 64 steps each pass feeds its own quantiles back, so compression error compounds: at 200 steps fp32 still matches Python within 0.004% of the series' standard deviation and fp16 (the default on both backends) within 2%, while q8 can differ by up to about 15%. q8 is opt-in (`dtype: "q8"`): it saves download size and matches Python closely for horizons up to 64.
-
-| Size | fp16 download (default) | q8 download (opt-in) |
-|---|---|---|
-| Tiny | 18 MB | 10 MB |
-| Mini | 43 MB | 24 MB |
-| Small | 96 MB | 54 MB |
-| Base | 411 MB | 232 MB |
-
-## Anomalies and calibrated bands
-
-Every forecaster can check a series against its own history. `detectAnomalies` backtests the model over the series: it cuts the history at regular points, forecasts the next steps from each cut in one batched call, and scores every point by how far it landed from the model's median, in standard deviations implied by the 80% band. The bands are first rescaled for this series (see `scale`), so a score of 3 means three of this series' typical forecast misses.
-
-```ts
-const result = await model.detectAnomalies(dailySignups, { sensitivity: "medium" });
-
-result.anomalies; // [{ index: 212, value: 680, expected: 410, lower: 352, upper: 468, score: 6.0, direction: "high", anomaly: true }, ...]
-result.points;    // every checked point, oldest first, for plotting the expected range
-result.threshold; // the score above which a point is flagged
-```
-
-`sensitivity` is `"low"`, `"medium"` (default) or `"high"`, or a score threshold such as `3.5`. Each model has its own presets in `MODELS[id].anomalyThresholds`, tuned so that about 1% or fewer clean points are flagged at medium:
-
-| Model | low | medium | high |
-|---|---|---|---|
-| TimesFM 2.5, Chronos-Bolt Mini, Small, Base | 4 | 3 | 2.5 |
-| Chronos-Bolt Tiny | 4.25 | 3.25 | 2.75 |
-
-On the tuning suite (seasonal, trend, random walk, count and heavy-tailed series with planted spikes and level shifts), TimesFM and Chronos-Bolt Small caught every planted anomaly at medium; Tiny, Mini and Base missed one to three on random walks. Checking starts after the first quarter of the series (16 to 64 points, counted from the first observed value), which is context only. At most the latest 8,192 points (Chronos-Bolt) or 16,384 points (TimesFM) after that are checked; `points[0].index` shows where checking started. A series needs at least 20 observed points from its first value (`INVALID_INPUT` otherwise).
-
-`forecast(series, { calibrate: true })` uses the same backtest, one model pass ahead, to check the bands. If the model's 80% band held less than 70% or more than 90% of this series' past values, every quantile's distance from the median is rescaled so it would have held 80%; otherwise the bands are left alone. The median and mean are unchanged, and `forecast.calibration` reports `{ scale, coverage, points }`, where coverage is the raw band's share of past values (`null`, with `scale: 1`, when the history is too short to backtest). The dead band is deliberate: on heavy-tailed test series the models' raw bands already held 80 to 87% of new values, and rescaling them anyway brought that down to 72 to 76%.
-
-Each costs one extra batched forecast call per series, runs on top of `forecast()` and works with the worker. In React, `useForecaster()` also returns `detectAnomalies`.
-
-## Tabular prediction
-
-`forecast-web/tabular` runs [TabICLv2](https://github.com/soda-inria/tabicl) (Soda team, Inria): classification and regression on a table with no training. The model reads the training rows in context and predicts the test rows in one forward pass.
+## Predict from a table
 
 ```ts
 import { loadTabular } from "forecast-web/tabular";
 
 const clf = await loadTabular({ task: "classification" });
-const fitted = clf.fit(trainRows, trainLabels); // rows of numbers, strings, booleans or null
-const proba = await fitted.predictProba(testRows);
-const labels = await fitted.predict(testRows);
-
-const reg = await loadTabular({ task: "regression" });
-const values = await reg.fit(trainRows, trainTargets).predict(testRows, { output: "quantiles", alphas: [0.1, 0.9] });
+const fitted = clf.fit(trainRows, trainLabels); // rows of numbers, text, booleans or null
+const labels = await fitted.predict(newRows);
 ```
 
-Columns holding strings or booleans are encoded as categories; missing numbers are imputed with the training mean, as upstream. Predictions match `tabicl` 2.2.0 end to end: probabilities within 2e-5 (measured worst 9.7e-6) with identical labels, and regression outputs within 2e-5 of the target's standard deviation, in fp32. The fp16-weight default (56 to 59 MB) stays within 0.2%.
+[TabICLv2](https://github.com/soda-inria/tabicl) reads the training rows in context, so `fit` is instant. Regression works the same way with `task: "regression"`. [Tabular guide](https://vatsalbakshi.com/forecast-web/docs/documents/Tabular_prediction.html)
 
-Limits: at most 10 classes; 5,000 training rows, 100 features and 20,000 cells (rows x features) in the browser. Cost grows with rows x features: about 5 s on a laptop CPU for 1,000 x 10 with 100 test rows and the default 8 ensemble members; WebGPU is faster, and `nEstimators: 1` is about 8 times faster. Errors use the codes `TOO_MANY_CLASSES`, `TOO_LARGE` and `INVALID_INPUT`. With a literal `task`, results are typed precisely (`predict` returns `number[]`, or `number[][]` for quantiles); `tabular.backend` and `tabular.dtype` show where it runs, and `LIMITS` exposes the caps for pre-checking a table before downloading.
+## React
 
-## TimesFM weights and backend
+```tsx
+import { ForecastProvider, useForecaster } from "forecast-web/react";
 
-`"auto"` picks fp16 on WebGPU and q8 on WASM. q8 cannot run on WebGPU: onnxruntime-web's WebGPU backend only supports 2-bit and 4-bit packed weights, and 4-bit is too lossy for this model.
+<ForecastProvider model="chronos-bolt-small">
+  <SignupsChart />
+</ForecastProvider>;
 
-| dtype | Download | Runs on | Accuracy vs Python (mean error / std) |
+function SignupsChart() {
+  const { status, forecast } = useForecaster(); // loads the model on first use
+  // ...
+}
+```
+
+[React guide](https://vatsalbakshi.com/forecast-web/docs/documents/React.html)
+
+## Models
+
+| Model | id | Download (default) | Notes |
 |---|---|---|---|
-| `fp16` | 441 MB | WebGPU, WASM | under 0.05% |
-| `q8` | 249 MB | WASM | under 0.8% |
-| `fp32` | 883 MB | WebGPU, WASM | under 0.0005% |
+| [TimesFM 2.5](https://github.com/google-research/timesfm), Google Research | `"timesfm-2.5"` | 463 MB WebGPU, 261 MB WASM | Default. Reads 512 points, forecasts up to 128 steps |
+| [Chronos-Bolt](https://github.com/amazon-science/chronos-forecasting) Tiny, Mini, Small, Base, Amazon | `"chronos-bolt-tiny"` ... `"chronos-bolt-base"` | 18, 43, 96, 411 MB | Reads 2048 points, forecasts up to 512 steps |
+| [TabICLv2](https://github.com/soda-inria/tabicl), Inria | `forecast-web/tabular` | 56 to 59 MB | Up to 10 classes, 5,000 rows, 100 features |
 
-Measured median forecast times for one series on an Apple M2 with 8 GB of memory in Chrome 154:
+Every model is checked against its official Python library, and weights are downloaded once, verified against hashes in the package, and cached. [Models guide](https://vatsalbakshi.com/forecast-web/docs/documents/Models.html)
 
-| Mode | Median forecast |
-|---|---|
-| WebGPU, fp16 | 55 to 86 ms |
-| WASM, fp16 | 351 ms |
-| WASM, q8 | 864 ms |
+## Learn more
 
-The first forecast on WebGPU also compiles shaders, which took between 1 and 15 seconds on that machine depending on load. Treat all of these numbers as rough. They varied several-fold with other work on the machine.
+- [Getting started](https://vatsalbakshi.com/forecast-web/docs/): install, a first forecast, and shaping real data.
+- [Forecasting](https://vatsalbakshi.com/forecast-web/docs/documents/Forecasting.html): options, horizons, caching and errors.
+- [Deployment](https://vatsalbakshi.com/forecast-web/docs/documents/Deployment.html): bundlers, self-hosting the weights, browser support.
+- [Troubleshooting](https://vatsalbakshi.com/forecast-web/docs/documents/Troubleshooting.html): backends, slow loads, memory, CORS and common errors.
+- [Versioning](https://vatsalbakshi.com/forecast-web/docs/documents/Versioning.html): what may change in minor and major releases.
+- [API reference](https://vatsalbakshi.com/forecast-web/docs/modules.html), and [every published version](https://www.jsdocs.io/package/forecast-web) on jsDocs.io.
 
-## Bundlers
-
-The package spawns its worker with `new Worker(new URL("./worker.js", import.meta.url), { type: "module" })`, which Vite and webpack 5 detect and bundle. A fresh Vite 8 app works with no configuration, in dev and in production builds.
-
-Vite also copies onnxruntime-web's WASM binary (28 MB) into the build output. With the default `wasmPaths` that local copy is never requested, because the runtime loads from jsDelivr. To self-host it, point `wasmPaths` at the folder that serves those files.
-
-onnxruntime-web only uses multiple WASM threads when the page is cross-origin isolated, which requires the `Cross-Origin-Opener-Policy` and `Cross-Origin-Embedder-Policy` headers. Without them, WASM runs on one thread. WebGPU is unaffected. The timings above were measured without isolation.
-
-## Self-hosting the weights
-
-Put these files in a folder on any static host and pass its URL as `weights`:
-
-```
-config.json
-onnx/model_quantized.onnx     q8
-onnx/model_fp16w.onnx         fp16 graph (under 1 MB)
-onnx/model_fp16w.f16          fp16 weights
-onnx/model.onnx               fp32
-```
-
-You only need the formats you plan to load. The fp32 and q8 files use Transformers.js file names. The fp16 pair is a compact format specific to this package: an fp32 graph whose weights ship as fp16 and are expanded in the browser. A standard fp16 conversion gives wrong results on WebGPU, which accumulates in half precision.
-
-The `tools/` folder rebuilds every weights file from its upstream checkpoint. TimesFM:
-
-```sh
-cd tools
-uv sync --python 3.12
-uv run python models/timesfm/export_onnx.py timesfm      # fp32 graph
-uv run python quantize.py timesfm                        # q8 and fp16 variants
-uv run python models/timesfm/make_reference.py timesfm   # parity fixtures from the official library
-uv run python package_hub.py timesfm                     # config.json with file sizes and hashes, model card
-```
-
-Chronos-Bolt sizes share one set of scripts; pass the size's model name:
-
-```sh
-uv run python models/chronos-bolt/export_onnx.py chronos-bolt-small      # fp32 graph
-uv run python quantize.py chronos-bolt-small                             # q8 and fp16 variants
-uv run python models/chronos-bolt/make_reference.py chronos-bolt-small   # parity fixtures from chronos-forecasting
-uv run python package_hub.py chronos-bolt-small                          # config.json and model card
-```
-
-The loader always fetches `config.json` fresh and keys cached weights by the SHA-256 listed there, so uploading new weights with a regenerated config invalidates old cached copies.
-
-Then `npm test` checks all three formats against the official forecasts.
-
-## Limits
-
-- Context is the most recent 512 points. Longer series are truncated, as in the Python library with `max_context=512`.
-- Horizon is at most 128 steps.
-- TimesFM 3.0 is not supported. Its weights are licensed for non-commercial use only.
-- No covariates. TimesFM 2.5 supports them in Python through a separate regression step, which this package does not port.
-- No multivariate input. That is a TimesFM 3.0 feature.
+Runs in desktop Chrome, Edge and Safari: CI tests every change in Chromium and WebKit, and Firefox and phones are not tested yet. Node support is planned for a minor release.
 
 ## License
 
-Apache-2.0. TimesFM is by Google Research and Chronos by Amazon, both Apache-2.0. TabICL is by the Soda team at Inria under BSD-3-Clause. See `NOTICE`.
+Apache-2.0. TimesFM is by Google Research and Chronos by Amazon, both Apache-2.0. TabICL is by the Soda team at Inria under BSD-3-Clause. See [NOTICE](NOTICE). Contributions welcome; see [CONTRIBUTING.md](CONTRIBUTING.md).
