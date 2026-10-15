@@ -251,10 +251,16 @@ export function Detail(props: {
               </button>
             ))}
             {!backtest && (
-              <label className="toggle" title="Rescale the 80% range when it held too few or too many past values">
-                <input type="checkbox" checked={calibrated} onChange={(e) => setCalibrated(e.target.checked)} />
-                Calibrated
-              </label>
+              <span className="tip-wrap">
+                <label className="toggle">
+                  <input type="checkbox" checked={calibrated} onChange={(e) => setCalibrated(e.target.checked)} aria-describedby="cal-tip" />
+                  Calibrated
+                </label>
+                <span className="tip-icon" tabIndex={0} aria-label="What Calibrated does">?</span>
+                <span className="tip" role="tooltip" id="cal-tip">
+                  Checks the shaded 80% range against this series' past values. If it held under 70% or over 90% of them, the range is widened or narrowed to fit. The forecast line stays the same.
+                </span>
+              </span>
             )}
           </div>
         )}
@@ -297,7 +303,9 @@ export function Detail(props: {
         ariaLabel={`${item.phrase}, ${visible} observations${f ? ` and a ${steps}-step forecast` : ""}`}
       />
       )}
-      {mode === "forecast" && calibrated && f?.calibration && <p className="cal-note">{calibrationSentence(f.calibration)}.</p>}
+      {mode === "forecast" && calibrated && (
+        <p className="cal-note">{f?.calibration ? `${calibrationSentence(f.calibration)}.` : "Checking the range against past values…"}</p>
+      )}
       {runError && <p className="status error">{runError}</p>}
 
       <div className="stats">
