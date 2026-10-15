@@ -2,6 +2,7 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useRef, use
 import {
   loadForecaster,
   MODELS,
+  type AnomalyResult,
   type Backend,
   type Forecast,
   type Forecaster,
@@ -64,7 +65,8 @@ interface Models {
   setChoice(id: ModelId): void;
   slot(id: ModelId): Slot;
   load(id: ModelId): Promise<Forecaster>;
-  forecast(id: ModelId, series: number[][], opts: { horizon: number }): Promise<Forecast[]>;
+  forecast(id: ModelId, series: number[][], opts: { horizon: number; calibrate?: boolean }): Promise<Forecast[]>;
+  detectAnomalies(id: ModelId, series: number[]): Promise<AnomalyResult>;
 }
 
 const Ctx = createContext<Models | null>(null);
@@ -126,6 +128,7 @@ export function ModelsProvider({ weights, children }: { weights?: string; childr
       slot: (id) => slots[id] ?? IDLE,
       load,
       forecast: async (id, series, opts) => (await load(id)).forecast(series, opts),
+      detectAnomalies: async (id, series) => (await load(id)).detectAnomalies(series),
     }),
     [choice, slots, load],
   );

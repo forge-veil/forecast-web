@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
-import { MODELS, type Forecast, type ModelId } from "forecast-web";
+import { MODELS, type AnomalyResult, type Forecast, type ModelId, type SensitivityLevel } from "forecast-web";
 import { Chart } from "src/components/Chart";
 import { AddModel, ModelBar } from "src/components/ModelBar";
+import { anomalySentence, calibrationSentence, flagged } from "src/lib/anomaly";
 import { formatNumber, formatPercent, shortLabel } from "src/lib/format";
 import { changeText, type Item } from "src/lib/items";
 import { scoreBacktest } from "src/lib/metrics";
@@ -39,7 +40,10 @@ export function Detail(props: {
 }) {
   const { item, entry } = props;
   const models = useModels();
-  const [mode, setMode] = useState<"forecast" | "backtest">("forecast");
+  const [mode, setMode] = useState<"forecast" | "backtest" | "anomalies">("forecast");
+  const [level, setLevel] = useState<SensitivityLevel>("medium");
+  const [calibrated, setCalibrated] = useState(false);
+  const [checks, setChecks] = useState<Record<string, AnomalyResult>>({});
   const [rangeIdx, setRangeIdx] = useState(item.defaultRange);
   const [runs, setRuns] = useState<Record<string, Forecast>>({});
   const [runError, setRunError] = useState<string | null>(null);
@@ -49,13 +53,14 @@ export function Detail(props: {
   const values = data?.values ?? [];
   const range = item.ranges[rangeIdx];
   const backtest = mode === "backtest";
+  const anomalies = mode === "anomalies";
   const steps = Math.min(range.steps, backtest ? Math.max(1, values.length - 2) : 128);
   const statuses = MODEL_IDS.map((m) => models.slot(m).status).join();
   const loaded = MODEL_IDS.filter((m) => models.slot(m).status === "ready");
   const primary = resolvePrimary(models.choice, loaded);
   const { status, backend, progress } = models.slot(primary);
   // The watchlist batch already holds the selected model's forecast; every other run happens here.
-  const fromWatchlist = !backtest && primary === models.choice && !!props.full;
+  const fromWatchlist = mode === "forecast" && !calibrated && primary === models.choice && !!props.full;
 
   const split = useMemo(() => {
     if (!data) return null;
@@ -67,22 +72,38 @@ export function Detail(props: {
   }, [data, backtest, steps]);
 
   const runKey = `${mode}|${item.id}|${values.length}|${values[values.length - 1]}|${steps}`;
+  // Only the banded model's forecast is calibrated; the other models' lines stay raw.
+  const calOf = (m: ModelId) => mode === "forecast" && calibrated && m === primary;
+  const keyOf = (m: ModelId) => `${m}|${runKey}${calOf(m) ? "|cal" : ""}`;
   useEffect(() => {
-    if (!split || split.context.length < 2) return;
-    const ids = loaded.filter((m) => !runs[`${m}|${runKey}`] && !(m === primary && fromWatchlist));
+    if (!split || split.context.length < 2 || anomalies) return;
+    const ids = loaded.filter((m) => !runs[keyOf(m)] && !(m === primary && fromWatchlist));
     if (ids.length === 0) return;
     const id = ++req.current;
     setRunError(null);
     const t = setTimeout(() => {
       for (const m of ids)
-        models.forecast(m, [split.context], { horizon: backtest ? split.test!.length : steps }).then(
-          ([f]) => id === req.current && setRuns((r) => ({ ...r, [`${m}|${runKey}`]: f })),
+        models.forecast(m, [split.context], { horizon: backtest ? split.test!.length : steps, calibrate: calOf(m) }).then(
+          ([f]) => id === req.current && setRuns((r) => ({ ...r, [keyOf(m)]: f })),
           (e: Error) => id === req.current && setRunError(e.message),
         );
     }, 120);
     return () => clearTimeout(t);
     // Keyed on the statuses string rather than models.slot, whose identity changes with every slot update.
-  }, [statuses, split, runKey, primary, fromWatchlist, models.forecast]);
+  }, [statuses, split, runKey, primary, fromWatchlist, calibrated, models.forecast]);
+
+  // Scores do not depend on the sensitivity, so one check per model and series serves all three levels.
+  const checkKey = `${primary}|${item.id}|${values.length}|${values[values.length - 1]}`;
+  const check = checks[checkKey];
+  useEffect(() => {
+    if (!anomalies || !data || !loaded.includes(primary) || checks[checkKey]) return;
+    const id = ++req.current;
+    setRunError(null);
+    models.detectAnomalies(primary, data.values).then(
+      (r) => setChecks((c) => ({ ...c, [checkKey]: r })),
+      (e: Error) => id === req.current && setRunError(e.message),
+    );
+  }, [anomalies, statuses, checkKey, primary, data, models.detectAnomalies]);
 
   if (!data) {
     return (
@@ -96,7 +117,7 @@ export function Detail(props: {
     );
   }
 
-  const forecastOf = (m: ModelId) => (m === primary && fromWatchlist ? slice(props.full!, steps) : runs[`${m}|${runKey}`]);
+  const forecastOf = (m: ModelId) => (m === primary && fromWatchlist ? slice(props.full!, steps) : runs[keyOf(m)]);
   const f = loaded.includes(primary) ? forecastOf(primary) : undefined;
   const others = loaded.filter((m) => m !== primary).map((id) => ({ id, f: forecastOf(id) }));
   const multi = others.length > 0;
@@ -129,7 +150,29 @@ export function Detail(props: {
   const stepWord = (k: number) => `${k} ${k === 1 ? singular(item.stepName) : item.stepName}`;
   const who = multi ? "each loaded model" : primaryName;
 
-  const explain = backtest
+  const threshold = MODELS[primary].anomalyThresholds[level];
+  const unusual = check ? flagged(check.points, threshold) : [];
+  const checkedFrom = check?.points[0]?.index ?? 0;
+  const anomalyView = (() => {
+    if (!anomalies || !check) return null;
+    const n = values.length;
+    const shown = Math.min(n, Math.max(120, n - checkedFrom + 16), 720);
+    const start = n - shown;
+    const band = { expected: Array<number>(shown).fill(NaN), lower: Array<number>(shown).fill(NaN), upper: Array<number>(shown).fill(NaN), score: Array<number>(shown).fill(NaN) };
+    for (const p of check.points) {
+      if (p.index < start) continue;
+      const i = p.index - start;
+      band.expected[i] = p.expected;
+      band.lower[i] = p.lower;
+      band.upper[i] = p.upper;
+      band.score[i] = p.score;
+    }
+    return { start, shown, band, markers: unusual.map((p) => p.index - start).filter((i) => i >= 0) };
+  })();
+
+  const explain = anomalies
+    ? `${primaryName} forecast each point${check ? ` from ${shortLabel(data.labels[checkedFrom] ?? "")} on` : ""} using only the history before it. Shaded: the range it expected. A point is unusual when it lands far outside that range, which is first rescaled to fit this series' typical misses. Higher sensitivity flags smaller surprises.`
+    : backtest
     ? `The last ${stepWord(steps)}${split!.future?.length ? ` (${period(split!.future)})` : ""} were hidden and forecast by ${who} from the history before. Baseline: ${baseLabel.toLowerCase()}.`
     : `Next ${stepWord(steps)} of ${item.phrase}, forecast by ${who} from the last ${stepWord(ctxUsed)}. Shaded: ${primaryName}'s 80% range.`;
 
@@ -149,7 +192,13 @@ export function Detail(props: {
         </div>
       </div>
     );
-  if (f && !backtest) {
+  if (anomalies && status === "ready") {
+    headline = (
+      <div className={`d-change ${unusual.length ? "down" : "flat"}`}>
+        {!check ? "Checking…" : unusual.length ? `${unusual.length} unusual ${unusual.length === 1 ? "point" : "points"} at ${level} sensitivity` : `Nothing unusual at ${level} sensitivity`}
+      </div>
+    );
+  } else if (f && !backtest && !anomalies) {
     headline = (
       <div className={`d-change ${dir}`}>
         {changeText(last, end!, item)} to {u(end)} {endLabel ? `by ${shortLabel(endLabel)}` : `in ${stepWord(steps)}`}
@@ -184,20 +233,57 @@ export function Detail(props: {
       <ModelBar />
 
       <div className="controls">
-        <div className="ranges" role="group" aria-label={backtest ? "How much to hide" : "Forecast horizon"}>
-          <span className="lead">{backtest ? "Hide last" : "Forecast"}</span>
-          {item.ranges.map((r, i) => (
-            <button key={r.label} aria-pressed={i === rangeIdx} onClick={() => setRangeIdx(i)} disabled={backtest && r.steps > values.length - 2}>
-              {r.label}
-            </button>
-          ))}
-        </div>
+        {anomalies ? (
+          <div className="ranges" role="group" aria-label="Sensitivity">
+            <span className="lead">Sensitivity</span>
+            {(["low", "medium", "high"] as const).map((l) => (
+              <button key={l} aria-pressed={l === level} onClick={() => setLevel(l)} title={`Flag scores above ${MODELS[primary].anomalyThresholds[l]}`}>
+                {l[0].toUpperCase() + l.slice(1)}
+              </button>
+            ))}
+          </div>
+        ) : (
+          <div className="ranges" role="group" aria-label={backtest ? "How much to hide" : "Forecast horizon"}>
+            <span className="lead">{backtest ? "Hide last" : "Forecast"}</span>
+            {item.ranges.map((r, i) => (
+              <button key={r.label} aria-pressed={i === rangeIdx} onClick={() => setRangeIdx(i)} disabled={backtest && r.steps > values.length - 2}>
+                {r.label}
+              </button>
+            ))}
+            {!backtest && (
+              <span className="tip-wrap">
+                <label className="toggle">
+                  <input type="checkbox" checked={calibrated} onChange={(e) => setCalibrated(e.target.checked)} aria-describedby="cal-tip" />
+                  Calibrated
+                </label>
+                <span className="tip-icon" tabIndex={0} aria-label="What Calibrated does">?</span>
+                <span className="tip" role="tooltip" id="cal-tip">
+                  Checks the shaded 80% range against this series' past values. If it held under 70% or over 90% of them, the range is widened or narrowed to fit. The forecast line stays the same.
+                </span>
+              </span>
+            )}
+          </div>
+        )}
         <div className="seg" role="group" aria-label="Mode">
-          <button aria-pressed={!backtest} onClick={() => setMode("forecast")}>Forecast</button>
+          <button aria-pressed={mode === "forecast"} onClick={() => setMode("forecast")}>Forecast</button>
           <button aria-pressed={backtest} onClick={() => setMode("backtest")}>Backtest</button>
+          <button aria-pressed={anomalies} onClick={() => setMode("anomalies")}>Anomalies</button>
         </div>
       </div>
 
+      {anomalies ? (
+        <Chart
+          history={values.slice(anomalyView ? anomalyView.start : -visible)}
+          historyLabels={data.labels.slice(anomalyView ? anomalyView.start : -visible)}
+          historyBand={anomalyView?.band}
+          markers={anomalyView?.markers}
+          mode="forecast"
+          forecastLabel={primaryName}
+          color="var(--ink-2)"
+          unit={unit}
+          ariaLabel={`${item.phrase}, ${anomalyView?.shown ?? visible} observations${check ? `, ${unusual.length} flagged as unusual` : ""}`}
+        />
+      ) : (
       <Chart
         history={split!.context.slice(-visible)}
         historyLabels={split!.labels.slice(-visible)}
@@ -216,10 +302,22 @@ export function Detail(props: {
         unit={unit}
         ariaLabel={`${item.phrase}, ${visible} observations${f ? ` and a ${steps}-step forecast` : ""}`}
       />
+      )}
+      {mode === "forecast" && calibrated && (
+        <p className="cal-note">{f?.calibration ? `${calibrationSentence(f.calibration)}.` : "Checking the range against past values…"}</p>
+      )}
       {runError && <p className="status error">{runError}</p>}
 
       <div className="stats">
-        {backtest ? (
+        {anomalies ? (
+          <>
+            <Stat k="Unusual" v={check ? String(unusual.length) : "–"} tone={unusual.length ? "down" : undefined} />
+            <Stat k="Checked" v={check ? stepWord(check.points.length) : "–"} />
+            <Stat k="Flag above" v={`score ${threshold}`} />
+            <Stat k="Range scale" v={check ? `${check.scale.toFixed(2)}x` : "–"} />
+            <Stat k="Model" v={primaryName} />
+          </>
+        ) : backtest ? (
           <>
             <Stat k={`${primaryName} error`} v={score ? u(score.mae) : "–"} />
             <Stat k="Baseline error" v={score ? u(score.baselineMae) : "–"} />
@@ -277,8 +375,23 @@ export function Detail(props: {
         </section>
       )}
 
+      {anomalies && check && (
+        <section className="values">
+          <h3>Unusual points</h3>
+          <ul className="flags">
+            {unusual.length === 0 && <li className="none">Nothing scored above {threshold}. Try High sensitivity to flag smaller surprises.</li>}
+            {unusual.map((p) => (
+              <li key={p.index}>
+                <i className="sw pt" style={{ background: "var(--red)" }} />
+                {anomalySentence(p, data.labels[p.index] ?? `#${p.index + 1}`, unit)}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
       <section className="about">
-        <h3>{backtest ? "Backtest" : "Forecast"}</h3>
+        <h3>{anomalies ? "Anomalies" : backtest ? "Backtest" : "Forecast"}</h3>
         <p>{explain}</p>
         {item.note && <p>{item.note}</p>}
         {item.source && (
@@ -289,7 +402,7 @@ export function Detail(props: {
         )}
       </section>
 
-      {f && (
+      {f && !anomalies && (
         <section className="values">
           <h3>Values</h3>
           <div className="scroll">
