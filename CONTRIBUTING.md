@@ -30,13 +30,14 @@ uv run python quantize.py chronos-bolt-small
 uv run python models/chronos-bolt/make_reference.py chronos-bolt-small
 uv run python package_hub.py chronos-bolt-small
 cd ..
-npm test                                                 # parity for every built model and format
+npm test                                                 # parity for every built model and format, and anomaly tuning
 ```
 
 ## Layout
 
 | Path | What lives there |
 |---|---|
+| `src/anomaly/` | Rolling backtest, `detectAnomalies` and calibration, model-agnostic on top of any forecast function. |
 | `src/core/` | Model-agnostic download, cache, fp16 expansion, onnxruntime session, worker, protocol and loader. |
 | `src/tabular/` | `forecast-web/tabular`: TabICL fit/predict, and pure ports of upstream preprocessing (CPython random, Latin squares, scipy Yeo-Johnson, quantile tails). |
 | `src/models/` | One folder per model: its info, files, config check, pre- and post-processing. `src/models/index.ts` is the registry and `adapter.ts` the interface. |
@@ -46,6 +47,8 @@ npm test                                                 # parity for every buil
 | `site/` | The public demo at vatsalbakshi.com/forecast-web, a Vite and React app. |
 
 ## Conventions
+
+- **New forecasting models need anomaly thresholds.** Build the model locally, run `npx vitest run test/anomaly/integration.test.ts -t <id> --silent=false`, and copy the tuned `low/medium/high` it prints into the model's `anomalyThresholds`. The test fails until the registry matches.
 
 - **Imports are root-relative.** Write `import { prepareBatch } from "src/models/timesfm/preprocess"`, not `"./preprocess"`. tsconfig paths and the Vitest alias resolve them, and the build inlines them. The one exception is the worker URL in `src/index.ts`, which the browser resolves at runtime and must stay `./worker.js`.
 - **Keep the pure modules pure.** Model code under `src/models/` must not import onnxruntime, so it stays testable in Node.
