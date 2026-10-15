@@ -7,7 +7,7 @@ group: Guides
 
 ## 1.0.0
 
-The API is now stable; see Versioning in the README.
+The API is now stable; see [Versioning](https://vatsalbakshi.com/forecast-web/docs/documents/Versioning.html) for what may change in minor and major releases.
 
 - **Breaking:** each model's weights, forecasting and tabular, download at the commit this release was verified against instead of `main`. Pass `revision: "main"` for the old behavior. Custom `weights` repos still default to `main`.
 - **Breaking:** `Forecaster.config`, the `ModelConfig` type and `cleanSeries` are no longer exported.
