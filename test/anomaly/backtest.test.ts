@@ -3,16 +3,18 @@ import type { Forecast } from "src/types";
 
 /** Fake model: median = last observed value of the context, band = median ± Z80 (sigma 1). */
 function fake(width = Z80) {
-  const calls: { contexts: number[][]; horizon: number }[] = [];
+  const calls: { contexts: (number | null)[][]; horizon: number }[] = [];
   const fn: ForecastFn = async (contexts, { horizon }) => {
     calls.push({ contexts, horizon });
     return contexts.map((c) => {
       let last = 0;
-      for (let i = c.length - 1; i >= 0; i--)
-        if (c[i] !== null && Number.isFinite(c[i])) {
-          last = c[i];
+      for (let i = c.length - 1; i >= 0; i--) {
+        const v = c[i];
+        if (v !== null && Number.isFinite(v)) {
+          last = v;
           break;
         }
+      }
       const med = Array(horizon).fill(last);
       const f = { horizon, median: med, q50: med, q10: med.map((v) => v - width), q90: med.map((v) => v + width) } as unknown as Forecast;
       return f;

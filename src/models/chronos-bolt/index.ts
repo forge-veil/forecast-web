@@ -26,6 +26,7 @@ export function chronosBolt(
       // feeds its own quantiles back and the drift compounds (up to ~14% of std at 200 steps).
       defaults: { webgpu: "fp16", wasm: "fp16" },
       sizes,
+      anomalyThresholds: { low: 4, medium: 3, high: 2.5 },
     },
     weights: `bakshinghampalace/chronos-bolt-${size}-onnx`,
     files: (dtype) => STANDARD_FILES[dtype],
