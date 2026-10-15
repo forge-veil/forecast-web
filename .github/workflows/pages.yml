@@ -19,6 +19,10 @@ concurrency:
   group: pages
   cancel-in-progress: false
 
+# onnxruntime-node fetches CUDA binaries from Microsoft on Linux installs; tests run on CPU, so skip that download.
+env:
+  ONNXRUNTIME_NODE_INSTALL: skip
+
 jobs:
   build:
     runs-on: ubuntu-latest

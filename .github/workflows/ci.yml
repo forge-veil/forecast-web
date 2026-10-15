@@ -8,6 +8,10 @@ on:
 permissions:
   contents: read
 
+# onnxruntime-node fetches CUDA binaries from Microsoft on Linux installs; tests run on CPU, so skip that download.
+env:
+  ONNXRUNTIME_NODE_INSTALL: skip
+
 jobs:
   test:
     runs-on: ubuntu-latest

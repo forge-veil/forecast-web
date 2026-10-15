@@ -9,6 +9,10 @@ permissions:
   contents: read
   id-token: write # npm trusted publishing and provenance
 
+# onnxruntime-node fetches CUDA binaries from Microsoft on Linux installs; tests run on CPU, so skip that download.
+env:
+  ONNXRUNTIME_NODE_INSTALL: skip
+
 jobs:
   publish:
     runs-on: ubuntu-latest
