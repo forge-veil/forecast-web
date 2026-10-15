@@ -30,6 +30,8 @@ export interface ModelInfo {
   defaults: Record<Backend, ResolvedDtype>;
   /** Download size in bytes per dtype. */
   sizes: Partial<Record<ResolvedDtype, number>>;
+  /** Anomaly score thresholds per sensitivity, tuned for this model. */
+  anomalyThresholds: AnomalyThresholds;
 }
 
 export interface Forecast {
@@ -47,11 +49,70 @@ export interface Forecast {
   q70: number[];
   q80: number[];
   q90: number[];
+  /** Present when the forecast was made with `calibrate: true`. */
+  calibration?: Calibration;
+}
+
+/** How a forecast's bands were rescaled from a backtest over the series' own history. */
+export interface Calibration {
+  /** Factor applied to every quantile's distance from the median (>1 widened, <1 narrowed). */
+  scale: number;
+  /** Share of backtested values inside the raw 80% band (q10 to q90); null when too few were scored. */
+  coverage: number | null;
+  /** Backtested values the scale was computed from. */
+  points: number;
 }
 
 export interface ForecastOptions {
   /** Steps to forecast, 1 to the model's maxHorizon. Defaults to the model's horizon. */
   horizon?: number;
+  /**
+   * Rescale the bands when, over a backtest of the series, the raw 80% range held less than 70% or more
+   * than 90% of past values. Costs one extra batched forecast call per series.
+   */
+  calibrate?: boolean;
+}
+
+export type SensitivityLevel = "low" | "medium" | "high";
+
+/** Score above which a point is flagged, keyed by sensitivity level: higher sensitivity uses a lower threshold. */
+export interface AnomalyThresholds {
+  low: number;
+  medium: number;
+  high: number;
+}
+
+/** A preset level from the model's `anomalyThresholds` (default "medium"), or a score threshold. */
+export type Sensitivity = SensitivityLevel | number;
+
+export interface AnomalyOptions {
+  sensitivity?: Sensitivity;
+}
+
+/** One history point, compared with what the model expected from the points before it. */
+export interface AnomalyPoint {
+  index: number;
+  value: number;
+  /** The model's median forecast for this point. */
+  expected: number;
+  /** Calibrated 80% range around `expected`. */
+  lower: number;
+  upper: number;
+  /** Distance from `expected` in calibrated standard deviations. */
+  score: number;
+  direction: "high" | "low";
+  anomaly: boolean;
+}
+
+export interface AnomalyResult {
+  /** Every point that was checked, oldest first. */
+  points: AnomalyPoint[];
+  /** The flagged points, oldest first. */
+  anomalies: AnomalyPoint[];
+  /** Calibration scale applied to the model's bands for this series. */
+  scale: number;
+  /** Score threshold used. */
+  threshold: number;
 }
 
 /** The weights repo's config.json. Fields beyond these are model-specific. */
@@ -95,6 +156,8 @@ export interface Forecaster {
   readonly dtype: ResolvedDtype;
   readonly config: ModelConfig;
   forecast(series: Series[], opts?: ForecastOptions): Promise<Forecast[]>;
+  /** Flags points the model could not have predicted from the history before them. One batched forecast call. */
+  detectAnomalies(series: Series, opts?: AnomalyOptions): Promise<AnomalyResult>;
   dispose(): Promise<void>;
 }
 

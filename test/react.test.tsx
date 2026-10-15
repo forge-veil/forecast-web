@@ -18,6 +18,7 @@ function fakeModel(): Forecaster & { dispose: ReturnType<typeof vi.fn> } {
     dtype: "q8",
     config: { model_type: "timesfm", context: 512, horizon: 128, patch: 32, quantiles: [] },
     forecast: vi.fn(async () => []),
+    detectAnomalies: vi.fn(async () => ({ points: [], anomalies: [], scale: 1, threshold: 3 })),
     dispose: vi.fn(async () => {}),
   };
 }
@@ -54,6 +55,19 @@ describe("ForecastProvider + useForecaster", () => {
     expect(result.current.status).toBe("ready");
     expect(result.current.backend).toBe("wasm");
     expect(result.current.progress).toEqual({ loaded: 1, total: 2, cached: false });
+  });
+
+  it("detectAnomalies loads the model first and forwards options", async () => {
+    const m = fakeModel();
+    loadMock.mockResolvedValue(m);
+    const { result } = renderHook(() => useForecaster(), { wrapper: wrap() });
+    let res: unknown;
+    await act(async () => {
+      res = await result.current.detectAnomalies([1, 2, 3], { sensitivity: "high" });
+    });
+    expect(loadMock).toHaveBeenCalledTimes(1);
+    expect(m.detectAnomalies).toHaveBeenCalledWith([1, 2, 3], { sensitivity: "high" });
+    expect(res).toMatchObject({ threshold: 3 });
   });
 
   it("loads on mount when eager", async () => {

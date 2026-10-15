@@ -2,12 +2,18 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useRef, use
 import { loadForecaster } from "src/index";
 import {
   ForecastError,
+  type AnomalyOptions,
+  type AnomalyPoint,
+  type AnomalyResult,
+  type AnomalyThresholds,
+  type Calibration,
   type Backend,
   type Forecast,
   type ForecastOptions,
   type LoadOptions,
   type ModelId,
   type Progress,
+  type Sensitivity,
   type Series,
   type Forecaster,
 } from "src/types";
@@ -23,6 +29,8 @@ export interface ForecasterState {
   load(): Promise<Forecaster>;
   /** Forecasts, loading the model first if it is not loaded yet. */
   forecast(series: Series[], opts?: ForecastOptions): Promise<Forecast[]>;
+  /** Checks a series for anomalies, loading the model first if it is not loaded yet. */
+  detectAnomalies(series: Series, opts?: AnomalyOptions): Promise<AnomalyResult>;
 }
 
 const Ctx = createContext<ForecasterState | null>(null);
@@ -84,6 +92,11 @@ export function ForecastProvider({ children, eager = false, ...options }: Foreca
     [load],
   );
 
+  const detectAnomalies = useCallback(
+    async (series: Series, opts?: AnomalyOptions) => (await load()).detectAnomalies(series, opts),
+    [load],
+  );
+
   useEffect(() => {
     if (eager) void load().catch(() => {});
   }, [eager, load]);
@@ -109,8 +122,8 @@ export function ForecastProvider({ children, eager = false, ...options }: Foreca
   }, []);
 
   const value = useMemo<ForecasterState>(
-    () => ({ status, progress, backend, error, load, forecast }),
-    [status, progress, backend, error, load, forecast],
+    () => ({ status, progress, backend, error, load, forecast, detectAnomalies }),
+    [status, progress, backend, error, load, forecast, detectAnomalies],
   );
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }
@@ -123,4 +136,4 @@ export function useForecaster(): ForecasterState {
 
 export { MODELS } from "src/models/index";
 export { ForecastError };
-export type { Forecast, ForecastOptions, Forecaster, LoadOptions, ModelId, Progress, Series };
+export type { AnomalyOptions, AnomalyPoint, AnomalyResult, AnomalyThresholds, Calibration, Forecast, ForecastOptions, Forecaster, LoadOptions, ModelId, Progress, Sensitivity, Series };

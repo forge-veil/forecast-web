@@ -113,11 +113,11 @@ function open(worker: WorkerLike, opts: CoreOptions, onProgress?: (p: Progress) 
     }));
 }
 
-/** Loads the model inside `worker` and returns a Forecaster that proxies to it. */
-export function connectWorker(worker: WorkerLike, opts: CoreOptions, onProgress?: (p: Progress) => void, signal?: AbortSignal): Promise<Forecaster> {
+/** Loads the model inside `worker` and returns a Forecaster that proxies to it (analysis is added by the caller). */
+export function connectWorker(worker: WorkerLike, opts: CoreOptions, onProgress?: (p: Progress) => void, signal?: AbortSignal): Promise<Omit<Forecaster, "detectAnomalies">> {
   return open(worker, opts, onProgress, signal).then((c) => {
     const info = getAdapter(opts.model).info;
-    const api: Forecaster = {
+    const api: Omit<Forecaster, "detectAnomalies"> = {
       model: info.id,
       info,
       backend: c.backend,

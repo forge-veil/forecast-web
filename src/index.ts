@@ -1,3 +1,4 @@
+import { withAnalysis } from "src/anomaly/index";
 import { resolveBase } from "src/core/assets";
 import { connectWorker } from "src/core/client";
 import { loadCore, type CoreOptions } from "src/core/loader";
@@ -28,13 +29,13 @@ export async function loadForecaster(options: LoadOptions = {}): Promise<Forecas
   if (useWorker) {
     // Keep this expression literal: bundlers (Vite, webpack 5) detect it and emit the worker file.
     const worker = new Worker(new URL("./worker.js", import.meta.url), { type: "module" });
-    return connectWorker(worker, opts, options.onProgress, options.signal);
+    return withAnalysis(await connectWorker(worker, opts, options.onProgress, options.signal));
   }
 
   const { createSession } = await import("src/core/session");
   const core = await loadCore(opts, createSession, options.onProgress, options.signal);
   let disposed = false;
-  return {
+  return withAnalysis({
     model: adapter.info.id,
     info: adapter.info,
     backend: core.backend,
@@ -49,5 +50,5 @@ export async function loadForecaster(options: LoadOptions = {}): Promise<Forecas
       disposed = true;
       await core.release();
     },
-  };
+  });
 }

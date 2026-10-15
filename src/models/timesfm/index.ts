@@ -16,6 +16,8 @@ export const timesfm: ModelAdapter = {
     dtypes: ["fp16", "q8", "fp32"],
     defaults: { webgpu: "fp16", wasm: "q8" },
     sizes: { fp16: 463_368_499, q8: 261_301_673, fp32: 925_925_778 },
+    // Tuned by test/anomaly/integration.test.ts.
+    anomalyThresholds: { low: 4, medium: 3, high: 2.5 },
   },
   weights: "bakshinghampalace/timesfm-2.5-200m-onnx",
   files: (dtype) => STANDARD_FILES[dtype],

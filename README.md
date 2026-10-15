@@ -76,7 +76,7 @@ function Forecast({ series }: { series: number[] }) {
 }
 ```
 
-The provider loads lazily, on the first `forecast()` or `load()` call. Pass `eager` to start the download on mount. It accepts the same options as `loadForecaster`, reads them when the load starts, and disposes the model on unmount. To switch models, remount it: `<ForecastProvider key={model} model={model}>`. `useForecaster()` returns `status` (`"idle" | "loading" | "ready" | "error"`), `progress`, `backend`, `error`, `load()` and `forecast()`.
+The provider loads lazily, on the first `forecast()` or `load()` call. Pass `eager` to start the download on mount. It accepts the same options as `loadForecaster`, reads them when the load starts, and disposes the model on unmount. To switch models, remount it: `<ForecastProvider key={model} model={model}>`. `useForecaster()` returns `status` (`"idle" | "loading" | "ready" | "error"`), `progress`, `backend`, `error`, `load()`, `forecast()` and `detectAnomalies()`.
 
 ## Options
 
@@ -93,9 +93,9 @@ The provider loads lazily, on the first `forecast()` or `load()` call. Pass `eag
 | `onProgress` | none | Called with `{ loaded, total, cached }` during the download. |
 | `signal` | none | An `AbortSignal` that cancels the load. |
 
-`forecast(series, { horizon })` accepts a horizon from 1 to the model's `maxHorizon`, defaults to the model's `horizon` (128 for TimesFM, 64 for Chronos-Bolt), and returns, per series, `median` and `q10` through `q90`. The median is the point forecast. TimesFM also returns `mean`, its separate mean head.
+`forecast(series, { horizon, calibrate })` accepts a horizon from 1 to the model's `maxHorizon`, defaults to the model's `horizon` (128 for TimesFM, 64 for Chronos-Bolt), and returns, per series, `median` and `q10` through `q90`. The median is the point forecast. TimesFM also returns `mean`, its separate mean head. `calibrate: true` rescales the bands from a backtest; see [Anomalies and calibrated bands](#anomalies-and-calibrated-bands).
 
-Errors are `ForecastError` instances with a `code`: `HORIZON_TOO_LONG`, `INVALID_HORIZON`, `EMPTY_INPUT`, `UNKNOWN_MODEL`, `LOAD_FAILED`, `ABORTED` or `DISPOSED`.
+Errors are `ForecastError` instances with a `code`: `HORIZON_TOO_LONG`, `INVALID_HORIZON`, `EMPTY_INPUT`, `UNKNOWN_MODEL`, `INVALID_INPUT`, `LOAD_FAILED`, `ABORTED` or `DISPOSED`.
 
 ## Chronos-Bolt
 
@@ -109,6 +109,31 @@ Past 64 steps each pass feeds its own quantiles back, so compression error compo
 | Mini | 43 MB | 24 MB |
 | Small | 96 MB | 54 MB |
 | Base | 411 MB | 232 MB |
+
+## Anomalies and calibrated bands
+
+Every forecaster can check a series against its own history. `detectAnomalies` backtests the model over the series: it cuts the history at regular points, forecasts the next steps from each cut in one batched call, and scores every point by how far it landed from the model's median, in standard deviations implied by the 80% band. The bands are first rescaled for this series (see `scale`), so a score of 3 means three of this series' typical forecast misses.
+
+```ts
+const result = await model.detectAnomalies(dailySignups, { sensitivity: "medium" });
+
+result.anomalies; // [{ index: 212, value: 680, expected: 410, lower: 352, upper: 468, score: 6.0, direction: "high", anomaly: true }, ...]
+result.points;    // every checked point, oldest first, for plotting the expected range
+result.threshold; // the score above which a point is flagged
+```
+
+`sensitivity` is `"low"`, `"medium"` (default) or `"high"`, or a score threshold such as `3.5`. Each model has its own presets in `MODELS[id].anomalyThresholds`, tuned so that about 1% or fewer clean points are flagged at medium:
+
+| Model | low | medium | high |
+|---|---|---|---|
+| TimesFM 2.5, Chronos-Bolt Mini, Small, Base | 4 | 3 | 2.5 |
+| Chronos-Bolt Tiny | 4.25 | 3.25 | 2.75 |
+
+On the tuning suite (seasonal, trend, random walk, count and heavy-tailed series with planted spikes and level shifts), TimesFM and Chronos-Bolt Small caught every planted anomaly at medium; Tiny, Mini and Base missed one to three on random walks. Checking starts after the first quarter of the series (16 to 64 points, counted from the first observed value), which is context only. At most the latest 8,192 points (Chronos-Bolt) or 16,384 points (TimesFM) after that are checked; `points[0].index` shows where checking started. A series needs at least 20 observed points from its first value (`INVALID_INPUT` otherwise).
+
+`forecast(series, { calibrate: true })` uses the same backtest, one model pass ahead, to check the bands. If the model's 80% band held less than 70% or more than 90% of this series' past values, every quantile's distance from the median is rescaled so it would have held 80%; otherwise the bands are left alone. The median and mean are unchanged, and `forecast.calibration` reports `{ scale, coverage, points }`, where coverage is the raw band's share of past values (`null`, with `scale: 1`, when the history is too short to backtest). The dead band is deliberate: on heavy-tailed test series the models' raw bands already held 80 to 87% of new values, and rescaling them anyway brought that down to 72 to 76%.
+
+Each costs one extra batched forecast call per series, runs on top of `forecast()` and works with the worker. In React, `useForecaster()` also returns `detectAnomalies`.
 
 ## Tabular prediction
 
