@@ -57,8 +57,8 @@ export interface Forecast {
 export interface Calibration {
   /** Factor applied to every quantile's distance from the median (>1 widened, <1 narrowed). */
   scale: number;
-  /** Share of backtested values inside the raw 80% band (q10 to q90); NaN when too few were scored. */
-  coverage: number;
+  /** Share of backtested values inside the raw 80% band (q10 to q90); null when too few were scored. */
+  coverage: number | null;
   /** Backtested values the scale was computed from. */
   points: number;
 }
@@ -66,24 +66,24 @@ export interface Calibration {
 export interface ForecastOptions {
   /** Steps to forecast, 1 to the model's maxHorizon. Defaults to the model's horizon. */
   horizon?: number;
-  /** Rescale the bands so the 80% range held about 80% of past values. Costs one extra batched call. */
+  /**
+   * Rescale the bands when, over a backtest of the series, the raw 80% range held less than 70% or more
+   * than 90% of past values. Costs one extra batched forecast call per series.
+   */
   calibrate?: boolean;
 }
 
 export type SensitivityLevel = "low" | "medium" | "high";
 
-/** Score above which a point is flagged, per sensitivity level. Higher is stricter. */
+/** Score above which a point is flagged, keyed by sensitivity level: higher sensitivity uses a lower threshold. */
 export interface AnomalyThresholds {
   low: number;
   medium: number;
   high: number;
 }
 
-/**
- * A preset level (default "medium"), a score threshold, or per-call overrides of the
- * model's presets.
- */
-export type Sensitivity = SensitivityLevel | number | { thresholds?: Partial<AnomalyThresholds>; level?: SensitivityLevel };
+/** A preset level from the model's `anomalyThresholds` (default "medium"), or a score threshold. */
+export type Sensitivity = SensitivityLevel | number;
 
 export interface AnomalyOptions {
   sensitivity?: Sensitivity;
@@ -96,8 +96,8 @@ export interface AnomalyPoint {
   /** The model's median forecast for this point. */
   expected: number;
   /** Calibrated 80% range around `expected`. */
-  low: number;
-  high: number;
+  lower: number;
+  upper: number;
   /** Distance from `expected` in calibrated standard deviations. */
   score: number;
   direction: "high" | "low";

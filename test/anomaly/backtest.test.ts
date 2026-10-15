@@ -80,3 +80,13 @@ describe("calibrationScale", () => {
     expect(calibrationScale(pts)).toBeCloseTo(8 / Z80);
   });
 });
+
+describe("backtest with leading gaps", () => {
+  it("starts cuts minContext observed points in", async () => {
+    const { fn } = fake();
+    const v: (number | null)[] = [...Array(50).fill(null), ...Array.from({ length: 60 }, (_, i) => i)];
+    const pts = await backtest(v, fn, { h: 5, windows: 100, minContext: 20, maxContext: 512 });
+    expect(Math.min(...pts.map((p) => p.index))).toBe(70);
+  });
+});
+

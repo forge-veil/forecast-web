@@ -3,13 +3,17 @@ import { loadForecaster } from "src/index";
 import {
   ForecastError,
   type AnomalyOptions,
+  type AnomalyPoint,
   type AnomalyResult,
+  type AnomalyThresholds,
+  type Calibration,
   type Backend,
   type Forecast,
   type ForecastOptions,
   type LoadOptions,
   type ModelId,
   type Progress,
+  type Sensitivity,
   type Series,
   type Forecaster,
 } from "src/types";
@@ -132,4 +136,4 @@ export function useForecaster(): ForecasterState {
 
 export { MODELS } from "src/models/index";
 export { ForecastError };
-export type { AnomalyOptions, AnomalyResult, Forecast, ForecastOptions, Forecaster, LoadOptions, ModelId, Progress, Series };
+export type { AnomalyOptions, AnomalyPoint, AnomalyResult, AnomalyThresholds, Calibration, Forecast, ForecastOptions, Forecaster, LoadOptions, ModelId, Progress, Sensitivity, Series };

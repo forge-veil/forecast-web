@@ -117,23 +117,23 @@ Every forecaster can check a series against its own history. `detectAnomalies` b
 ```ts
 const result = await model.detectAnomalies(dailySignups, { sensitivity: "medium" });
 
-result.anomalies; // [{ index: 212, value: 940, expected: 410, low: 352, high: 468, score: 5.8, direction: "high", anomaly: true }, ...]
+result.anomalies; // [{ index: 212, value: 680, expected: 410, lower: 352, upper: 468, score: 6.0, direction: "high", anomaly: true }, ...]
 result.points;    // every checked point, oldest first, for plotting the expected range
 result.threshold; // the score above which a point is flagged
 ```
 
-`sensitivity` is `"low"`, `"medium"` (default) or `"high"`, a score threshold such as `3.5`, or `{ thresholds: { medium: 3.5 }, level: "medium" }` to override a preset. Each model has its own presets in `MODELS[id].anomalyThresholds`, tuned so that about 1% or fewer clean points are flagged at medium:
+`sensitivity` is `"low"`, `"medium"` (default) or `"high"`, or a score threshold such as `3.5`. Each model has its own presets in `MODELS[id].anomalyThresholds`, tuned so that about 1% or fewer clean points are flagged at medium:
 
 | Model | low | medium | high |
 |---|---|---|---|
 | TimesFM 2.5, Chronos-Bolt Mini, Small, Base | 4 | 3 | 2.5 |
 | Chronos-Bolt Tiny | 4.25 | 3.25 | 2.75 |
 
-On the tuning suite (seasonal, trend, random walk, count and heavy-tailed series with planted spikes and level shifts), TimesFM and Chronos-Bolt Small caught every planted anomaly at medium; Tiny, Mini and Base missed one to three on random walks. The first quarter of a series (16 to 64 points) is context only and is not checked, and a series needs at least 20 points (`INVALID_INPUT` otherwise).
+On the tuning suite (seasonal, trend, random walk, count and heavy-tailed series with planted spikes and level shifts), TimesFM and Chronos-Bolt Small caught every planted anomaly at medium; Tiny, Mini and Base missed one to three on random walks. Checking starts after the first quarter of the series (16 to 64 points, counted from the first observed value), which is context only. At most the latest 8,192 points (Chronos-Bolt) or 16,384 points (TimesFM) after that are checked; `points[0].index` shows where checking started. A series needs at least 20 observed points from its first value (`INVALID_INPUT` otherwise).
 
-`forecast(series, { calibrate: true })` uses the same backtest to rescale the bands: if the model's 80% band held only 60% of this series' past values, every quantile's distance from the median is widened until it would have held 80%, and narrowed in the opposite case. The median and mean are unchanged, and `forecast.calibration` reports `{ scale, coverage, points }` (coverage is the raw band's share of past values). Use it when a model's bands are clearly off for your data. On stationary heavy-tailed test series the raw bands already held 80 to 85% of new values, and calibrated ones held 72 to 75%. Series too short to backtest come back unchanged with `scale: 1`.
+`forecast(series, { calibrate: true })` uses the same backtest, one model pass ahead, to check the bands. If the model's 80% band held less than 70% or more than 90% of this series' past values, every quantile's distance from the median is rescaled so it would have held 80%; otherwise the bands are left alone. The median and mean are unchanged, and `forecast.calibration` reports `{ scale, coverage, points }`, where coverage is the raw band's share of past values (`null`, with `scale: 1`, when the history is too short to backtest). The dead band is deliberate: on heavy-tailed test series the models' raw bands already held 80 to 87% of new values, and rescaling them anyway brought that down to 72 to 76%.
 
-Both cost one extra batched forecast call per series, run on top of `forecast()` and work with the worker. In React, `useForecaster()` also returns `detectAnomalies`.
+Each costs one extra batched forecast call per series, runs on top of `forecast()` and works with the worker. In React, `useForecaster()` also returns `detectAnomalies`.
 
 ## Tabular prediction
 

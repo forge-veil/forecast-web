@@ -13,12 +13,10 @@ const positive = (t: unknown): number => {
 };
 
 /** The score threshold a sensitivity resolves to for this model. */
-export function resolveThreshold(info: Pick<ModelInfo, "anomalyThresholds">, sensitivity: Sensitivity | undefined): number {
+export function resolveThreshold(info: Pick<ModelInfo, "anomalyThresholds">, sensitivity: Sensitivity = "medium"): number {
   if (typeof sensitivity === "number") return positive(sensitivity);
-  const presets = typeof sensitivity === "object" && sensitivity !== null ? { ...info.anomalyThresholds, ...sensitivity.thresholds } : info.anomalyThresholds;
-  const level = typeof sensitivity === "string" ? sensitivity : (sensitivity?.level ?? "medium");
-  if (level !== "low" && level !== "medium" && level !== "high") throw new ForecastError("INVALID_INPUT", `unknown sensitivity "${String(level)}"`);
-  return positive(presets[level]);
+  if (sensitivity !== "low" && sensitivity !== "medium" && sensitivity !== "high") throw new ForecastError("INVALID_INPUT", `unknown sensitivity "${String(sensitivity)}"`);
+  return positive(info.anomalyThresholds[sensitivity]);
 }
 
 /**
@@ -29,16 +27,18 @@ export function resolveThreshold(info: Pick<ModelInfo, "anomalyThresholds">, sen
 export async function detectAnomalies(series: Series, forecast: ForecastFn, info: ModelInfo, opts: AnomalyOptions = {}): Promise<AnomalyResult> {
   const threshold = resolveThreshold(info, opts.sensitivity);
   const values = Array.from(series, (v) => (v == null ? null : v));
-  const n = values.length;
-  const m = minContextFor(n);
-  if (n < m + 4) throw new ForecastError("INVALID_INPUT", `series too short to check: ${n} points, need at least ${m + 4}`);
-  const h = Math.min(info.horizon, Math.max(1, Math.ceil((n - m) / DETECT_WINDOWS)));
+  const first = values.findIndex((v) => v !== null && Number.isFinite(v));
+  if (first < 0) throw new ForecastError("INVALID_INPUT", "series has no observed values to check");
+  const span = values.length - first;
+  const m = minContextFor(span);
+  if (span < m + 4) throw new ForecastError("INVALID_INPUT", `series too short to check: ${span} points from the first observed value, need at least ${m + 4}`);
+  const h = Math.min(info.horizon, Math.max(1, Math.ceil((span - m) / DETECT_WINDOWS)));
   const scored = await backtest(values, forecast, { h, windows: DETECT_WINDOWS, minContext: m, maxContext: info.maxContext });
   const scale = calibrationScale(scored);
   const points: AnomalyPoint[] = scored.map((p) => {
     const half = Z80 * scale * p.sigma;
     const score = Math.abs(p.r) / scale;
-    return { index: p.index, value: p.value, expected: p.median, low: p.median - half, high: p.median + half, score, direction: p.r >= 0 ? "high" : "low", anomaly: score > threshold };
+    return { index: p.index, value: p.value, expected: p.median, lower: p.median - half, upper: p.median + half, score, direction: p.r >= 0 ? "high" : "low", anomaly: score > threshold };
   });
   return { points, anomalies: points.filter((p) => p.anomaly), scale, threshold };
 }

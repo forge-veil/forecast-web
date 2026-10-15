@@ -34,8 +34,11 @@ export async function backtest(
   opts: { h: number; windows: number; minContext: number; maxContext: number },
 ): Promise<ScoredPoint[]> {
   const n = values.length;
+  // Count context from the first observed value: windows over leading gaps would forecast from nothing.
+  const first = values.findIndex(isNum);
+  if (first < 0) return [];
   const cuts: number[] = [];
-  for (let c = n - opts.h; c >= opts.minContext && cuts.length < opts.windows; c -= opts.h) cuts.push(c);
+  for (let c = n - opts.h; c >= first + opts.minContext && cuts.length < opts.windows; c -= opts.h) cuts.push(c);
   if (cuts.length === 0) return [];
   const contexts = cuts.map((c) => values.slice(Math.max(0, c - opts.maxContext), c));
   const forecasts = await forecast(contexts, { horizon: opts.h });
@@ -43,7 +46,10 @@ export async function backtest(
   let absSum = 0;
   let count = 0;
   for (const v of values) if (isNum(v)) (absSum += Math.abs(v)), count++;
-  const floor = 1e-9 * (1 + (count ? absSum / count : 0));
+  const level = 1 + (count ? absSum / count : 0);
+  const floor = 1e-9 * level;
+  // Misses within float32 precision count as exact, so a constant series scores 0 instead of noise.
+  const exact = 1e-6 * level;
 
   const points: ScoredPoint[] = [];
   cuts.forEach((c, k) => {
@@ -53,7 +59,8 @@ export async function backtest(
       if (!isNum(value)) continue;
       const median = f.median[s];
       const sigma = Math.max((f.q90[s] - f.q10[s]) / (2 * Z80), floor);
-      points.push({ index: c + s, value, median, q10: f.q10[s], q90: f.q90[s], step: s + 1, sigma, r: (value - median) / sigma });
+      const r = Math.abs(value - median) <= exact ? 0 : (value - median) / sigma;
+      points.push({ index: c + s, value, median, q10: f.q10[s], q90: f.q90[s], step: s + 1, sigma, r });
     }
   });
   return points.sort((a, b) => a.index - b.index);
